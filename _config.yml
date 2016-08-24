@@ -3,7 +3,7 @@
 title: "Timur Safin - Making No Sense"
 description: "Try to be public. Again"
 logo: "tsafin_twitter_small_logo.jpg"
-#teaser: # 400x250 px default teaser image used in image archive grid
+teaser: 400x250.gif # 400x250 px default teaser image used in image archive grid
 locale: en
 url:
 feed:
@@ -33,7 +33,7 @@ owner:
     ad-client:
     ad-slot:
   bio:
-  avatar: bio-photo.jpg # 160x160 px image for author byline
+  avatar: tsafin_twitter_small_logo.jpg # 160x160 px image for author byline
   disqus-shortname:
 
 

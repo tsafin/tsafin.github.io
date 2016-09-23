@@ -3,6 +3,7 @@ layout: article
 title:  "Еще раз про MapReduce. Часть 2 – базовые интерфейсы реализации"
 date:   2016-09-21 00:00:00 +0300
 categories: blog mapreduce
+comments: true
 ---
 
 _В [предыдущей части серии][mapreduce-russian-part-i] мы (еще раз) попытались рассказать про Google MapReduce подход, но не показали ни строчки того, как это всё мы собираемся реализовывать в Caché ObjectScript. Время пришло – начнём рассказ сегодня._

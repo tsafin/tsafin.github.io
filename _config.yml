@@ -35,7 +35,7 @@ owner:
     ad-slot: 
   bio: 
   avatar: tsafin_twitter_small_logo.jpg
-  disqus-shortname: tsafin.net
+  disqus-shortname: tsafin-net
 include:
 - ".htaccess"
 exclude:

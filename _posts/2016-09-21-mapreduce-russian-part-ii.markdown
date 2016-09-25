@@ -1,7 +1,7 @@
 ---
 layout: article
 title:  "Еще раз про MapReduce. Часть 2 – базовые интерфейсы реализации"
-date:   2016-09-21 00:00:00 +0300
+date:   2016-10-02 00:00:00 +0300
 categories: blog mapreduce
 comments: true
 ---

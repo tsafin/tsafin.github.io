@@ -1,7 +1,7 @@
 ---
 layout: article
 title:  "Какая-такая Data? или Еще раз про MapReduce"
-date:   2016-09-21 00:00:00 +0300
+date:   2016-09-30 00:00:00 +0300
 categories: blog mapreduce
 comments: true
 ---

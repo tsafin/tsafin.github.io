@@ -8,9 +8,466 @@ tags:
 - Intersystems
 - Caché
 modified_time: '2014-11-25T17:29:32.777+03:00'
+categories: blog blogger
 thumbnail: http://4.bp.blogspot.com/-c7mRsvva_ko/VHRyY4wI7VI/AAAAAAAAbL0/2cxELKiyLaM/s72-c/timeline.png
 blogger_id: tag:blogger.com,1999:blog-1111089994103028505.post-2325275840240469991
 blogger_orig_url: http://tsafin.blogspot.com/2014/11/community-package-manager-part-i.html
 ---
 
-<blockquote>​ Here is the problem as I see in the Cach&eacute; developers community - if you are newbie COS/Ensemble/DeepSee developer then it's very hard to find any suitable 3<sup>rd</sup> party component, library or utility. They are spread over the Internet, some of them are in the GitHub, some of them in SourceForce, rare ones are on their own sites, etc. Yes,there are many useful components or tools (there are even standalone debugger or VCS) but it takes <em>some time</em> to discover all the useful location, and get to used to this situation.</br> <strong>There is no single location and there is no convenient way to find and install extension or utility.</strong></br> Which is not very competitive comparing to other languages and development environment. In these articles I will try to investigate this problem further (this part I), and will propose some simple decision (<a href="community-package-manageer-ii.html">part II</a>) </blockquote> <p>​What do you think about "package manager" and its importance for the community success? For me, package manager is absolutely a must, and most important ingredient for the language success and maturity of eco-system. You could not find any single language community where there would be no convenient package manager with huge collection of available 3<sup>rd</sup> party packages. After all these years spent hacking in Perl, Python, JavaScript, Ruby, Haskell, Java, (you name other) you pretty much used to expect that when you start a new project you have a plenty of external components which may help you to cook the project fast and seamless. `PM install this`, `PM install that` and quite easy and fast you get something working and useable. Community works for you.</p> <p>These words about <a href="http://en.wikipedia.org/wiki/CPAN">CPAN</a> and its experience are pretty much characterizing the importance of the precedent of CPAN and it's later impact toother languages and environments:</p> <blockquote>"Experienced Perl programmers often comment that half of Perl's power is in the CPAN. It has been called Perl's killer app.Though the <a href="http://en.wikipedia.org/wiki/TeX"><em>TeX</em></a>  typesetting language has an equivalent, the <a href="http://en.wikipedia.org/wiki/CTAN">CTAN</a> (and in fact the CPAN's name is based on the CTAN), few languages have an exhaustive central repository for libraries. The <a href="http://en.wikipedia.org/wiki/PHP">PHP</a> language has <a href="http://en.wikipedia.org/wiki/PHP_Extension_Community_Library">PECL</a> and <a href="http://en.wikipedia.org/wiki/PHP_Extension_and_Application_Repository">PEAR</a>  <a href="http://en.wikipedia.org/wiki/Python_(programming_language)">Python</a> has a <a href="http://en.wikipedia.org/wiki/PyPI">PyPI</a> (Python Package Index) repository, <a href="http://en.wikipedia.org/wiki/Ruby_(programming_language)">Ruby</a> has <a href="http://en.wikipedia.org/wiki/RubyGems">RubyGems</a> <a href="http://en.wikipedia.org/wiki/R_(programming_language)">R</a> has <a href="http://en.wikipedia.org/wiki/CRAN_(R_programming_language)">CRAN</a> <a href="http://en.wikipedia.org/wiki/Node.js">Node.js</a> has <a href="http://en.wikipedia.org/wiki/Npm_(software)">npm</a> <a href="http://en.wikipedia.org/wiki/Lua_(programming_language)">Lua</a> has <a href="http://en.wikipedia.org/wiki/LuaRocks">LuaRocks</a> <a href="http://en.wikipedia.org/wiki/Haskell_(programming_language)">Haskell</a> has <a href="http://en.wikipedia.org/wiki/Hackage">Hackage</a> and an associated installer/make clone <a href="http://en.wikipedia.org/wiki/Cabal_(software)">cabal</a> but none of these are as large as the CPAN. Recently, <a href="http://en.wikipedia.org/wiki/Common_Lisp">Common Lisp</a>  has a de facto CPAN-like system - the Quicklisp repositories. Other major languages, such as <a href="http://en.wikipedia.org/wiki/Java_(programming_language)">Java</a> and <a href="http://en.wikipedia.org/wiki/C++">C++</a>, have nothing similar to the CPAN (though for Java there is central <a href="http://en.wikipedia.org/wiki/Apache_Maven">Maven</a>). </blockquote> <blockquote>The CPAN has grown so large and comprehensive over the years that Perl users are known to express surprise when they start to encounter topics for which a CPAN module doesn't exist already." </blockquote> <table border="1">  <colgroup>    <col />    <col />  </colgroup>  <tbody>    <tr>      <td>        <div>          <p><a>Package management systems</a>          </p>        </div>      </td>    </tr>    <tr>      <td>        <div>          <p><a><strong>Binary installation</strong></a><strong>&nbsp;/</strong>          </p>        </div>        <div>          <p><a><strong>Precompiled packages</strong></a>          </p>        </div>      </td>      <td>        <table border="1">          <colgroup>            <col />            <col />          </colgroup>          <tbody>            <tr>              <td>                <div>                  <p><a><strong>Linux</strong></a>                  </p>                </div>              </td>              <td>                <table>                  <colgroup>                    <col />                    <col />                  </colgroup>                  <tbody>                    <tr>                      <td>                        <div>                          <p><a><strong>dpkg</strong></a>                          </p>                        </div>                      </td>                      <td>                        <div>                          <p><a>APT</a>&nbsp;<a>aptitude</a>&nbsp;<a>dselect</a>&nbsp;<a>Ubuntu Software Center</a>                          </p>                        </div>                      </td>                    </tr>                    <tr>                      <td>                        <div>                          <p><a><strong>RPM</strong></a>                          </p>                        </div>                      </td>                      <td>                        <div>                          <p><a>YUM</a>&nbsp;<a>APT-RPM</a>&nbsp;<a>poldek</a>&nbsp;<a>up2date</a>&nbsp;<a>urpmi</a>&nbsp;<a>ZYpp</a>&nbsp;<a>dnf</a>                          </p>                        </div>                      </td>                    </tr>                    <tr>                      <td>                        <div>                          <p><a><strong>tar-ball</strong></a>                          </p>                        </div>                      </td>                      <td>                        <div>                          <p><a>slapt-get</a>&nbsp;<a>slackpkg</a>&nbsp;<a>zendo</a>&nbsp;<a>netpkg</a>&nbsp;<a>swaret</a>                          </p>                        </div>                      </td>                    </tr>                    <tr>                      <td>                        <div>                          <p><strong>Other</strong>                          </p>                        </div>                      </td>                      <td>                        <div>                          <p><a>appbrowser</a>&nbsp;<a>Conary</a>&nbsp;<a>Equo</a>&nbsp;<a>pkgutils</a>&nbsp;<a>pacman</a>&nbsp;<a>PETget</a><a>PISI</a>&nbsp;<a>Portage</a>&nbsp;<a>Smart Package Manager</a>&nbsp;<a>Steam</a>&nbsp;<a>Tazpkg</a><a>Upkg</a>                          </p>                        </div>                      </td>                    </tr>                  </tbody>                </table>              </td>            </tr>            <tr>              <td>                <div>                  <p><a><strong>OS X</strong></a><strong>&nbsp;(<a>pkg</a>)</strong>                  </p>                </div>              </td>              <td>                <div>                  <p><a>Mac App Store</a>&nbsp;<a>rudix</a>&nbsp;<a>Steam</a>                  </p>                </div>              </td>            </tr>            <tr>              <td>                <div>                  <p><a><strong>Microsoft Windows</strong></a>                  </p>                </div>              </td>              <td>                <div>                  <p><a>Windows installer</a>&nbsp;<a>Windows Store</a>&nbsp;<a>Allmyapps</a>&nbsp;<a>Cygwin</a>&nbsp;<a>Npackd</a>&nbsp;(<a>Windows Package Manager</a>)&nbsp;<a>Steam</a>&nbsp;<a>NuGet</a>&nbsp;<a>Chocolatey</a>&nbsp;<a>NSIS</a>&nbsp;<a>wpkg</a>                  </p>                </div>              </td>            </tr>            <tr>              <td>                <div>                  <p><a><strong>Solaris</strong></a>                  </p>                </div>              </td>              <td>                <div>                  <p><a>SysV</a>&nbsp;(<a>pkgadd</a>)&nbsp;<a>Image Packaging System</a>&nbsp;<a>OpenCSW</a>                  </p>                </div>              </td>            </tr>            <tr>              <td>                <div>                  <p><a><strong>Embedded system</strong></a>                  </p>                </div>              </td>              <td>                <div>                  <table>                    <colgroup>                      <col />                      <col />                    </colgroup>                    <tbody>                      <tr>                        <td>                          <div>                            <p><a><strong>Mobile OS</strong></a>                            </p>                          </div>                        </td>                        <td>                          <table>                            <colgroup>                              <col />                              <col />                            </colgroup>                            <tbody>                              <tr>                                <td>                                  <div>                                    <p><a><strong>iOS</strong></a>                                    </p>                                  </div>                                </td>                                <td>                                  <div>                                    <p><a>App Store</a>                                    </p>                                  </div>                                </td>                              </tr>                              <tr>                                <td>                                  <div>                                    <p><a><strong>Android</strong></a><strong>&nbsp;(<a>APK</a>)</strong>                                    </p>                                  </div>                                </td>                                <td>                                  <div>                                    <p><a>Google Play</a>&nbsp;<a>GetJar</a>&nbsp;<a>Amazon Appstore</a>&nbsp;<a>SlideME</a>&nbsp;<a>F-Droid</a>                                    </p>                                  </div>                                </td>                              </tr>                              <tr>                                <td>                                  <div>                                    <p><a><strong>Windows Phone</strong></a>                                    </p>                                  </div>                                </td>                                <td>                                  <div>                                    <p><a>Windows Phone Store</a>                                    </p>                                  </div>                                </td>                              </tr>                              <tr>                                <td>                                  <div>                                    <p><a><strong>Windows 8.x</strong></a>                                    </p>                                  </div>                                  <div>                                    <p><a><strong>Windows RT</strong></a>                                    </p>                                  </div>                                </td>                                <td>                                  <div>                                    <p><a>Windows Store</a>                                    </p>                                  </div>                                </td>                              </tr>                            </tbody>                          </table>                        </td>                      </tr>                    </tbody>                  </table>                </div>              </td>            </tr>            <tr>              <td>                <div>                  <p><a><strong>Digital distribution</strong></a>                  </p>                </div>                <div>                  <p><strong>and</strong>                  </p>                </div>                <div>                  <p><strong>Application Extensions</strong>                  </p>                </div>              </td>              <td>                <table>                  <colgroup>                    <col />                    <col />                  </colgroup>                  <tbody>                    <tr>                      <td>                        <div>                          <p><strong>Application extensions</strong>                          </p>                        </div>                      </td>                      <td>                        <table>                          <colgroup>                            <col />                            <col />                          </colgroup>                          <tbody>                            <tr>                              <td>                                <div>                                  <p><a><strong>Google Chrome</strong></a><strong>&nbsp;(<a>crx</a>)</strong>                                  </p>                                </div>                              </td>                              <td>                                <div>                                  <p><a>Chrome Web Store</a>                                  </p>                                </div>                              </td>                            </tr>                            <tr>                              <td>                                <div>                                  <p><a><strong>Mozilla Firefox</strong></a>                                  </p>                                </div>                              </td>                              <td>                                <div>                                  <p><a>Mozilla Add-ons</a>                                  </p>                                </div>                              </td>                            </tr>                          </tbody>                        </table>                      </td>                    </tr>                  </tbody>                </table>              </td>            </tr>            <tr>              <td>                <div>                  <p><strong>Cross-platform</strong>                  </p>                </div>              </td>              <td>                <div>                  <p><a>dpkg</a>&nbsp;<a>Image Packaging System</a>&nbsp;<a>OpenPKG</a>&nbsp;<a>pkgsrc</a>&nbsp;<a>Zero Install</a>&nbsp;(<a>0install</a>)&nbsp;<a>TWW Tools</a>&nbsp;<a>IBM SmartCloud Enterprise</a>&nbsp;<a>Nix package manager</a>&nbsp;<a>wpkg</a>                  </p>                </div>              </td>            </tr>          </tbody>        </table>      </td>    </tr>    <tr>      <td>        <div>          <p><a><strong>Sourcecode-based installation</strong></a><strong>&nbsp;/</strong>          </p>        </div>        <div>          <p><a><strong>Installing using compile scripts</strong></a>          </p>        </div>      </td>      <td>        <table>          <colgroup>            <col />            <col />          </colgroup>          <tbody>            <tr>              <td>                <div>                  <p><a><strong>Linux</strong></a>                  </p>                </div>              </td>              <td>                <div>                  <p><a>Portage</a>&nbsp;<a>emerge</a>&nbsp;<a>Compile</a>&nbsp;<a>apt-build</a>&nbsp;<a>Sorcery</a>&nbsp;<a>Spike</a>&nbsp;<a>ABS</a>                  </p>                </div>              </td>            </tr>            <tr>              <td>                <div>                  <p><a><strong>Apple OS X</strong></a>                  </p>                </div>              </td>              <td>                <div>                  <p><a>fink</a>&nbsp;<a>MacPorts</a>&nbsp;<a>Homebrew</a>&nbsp;<a>pkgsrc</a>                  </p>                </div>              </td>            </tr>            <tr>              <td>                <div>                  <p><a><strong>Hybrid systems</strong></a>                  </p>                </div>              </td>              <td>                <div>                  <p><a>FreeBSD Ports</a>&nbsp;<a>MacPorts</a>&nbsp;<a>pkgsrc</a>&nbsp;<a>ports collection</a>                  </p>                </div>              </td>            </tr>          </tbody>        </table>      </td>    </tr>  </tbody></table> <p><em>Source redacted - <a>https://en.wikipedia.org/wiki/Package_manager</a></em></p> <p>Here you see the redacted (significantly simplified) picture of WikiPedia article about package managers. They are a lot, be them source-based, or binary-based ones, particular architecture specific, OS-specific or cross-platform. I will try to cover them to some degree below. I will mix to the picture some language-specific package-management facilities, because without them picture would be of no much usefulness. And we are talking about language-/development-platform specific package managers in any case...</p> <blockquote>One important observation you could get from the table above &ndash; the more popular particular operating system and API ecosystem is, the more chances you have to receive <strong>multiple</strong> concurrent package managers for this platform. See situation in the Linux, Windows or Mac OS X as good examples. The more package managers used out there, the faster ecosystem is evolving. Having multiple package managers is not a requisite for fast ecosystems development pace, but rather side-effect of one.</br> Simply putting - if we eventually would get the situation where we would have several package managers with different repositories, than that would be rather indication about good ecosystem state, not bad.</blockquote> <h2>Simplified timeline</h2> <p>Here is the approach I will use: get most important operating systems and language package managers, put them to the timeline, explain their specifics and interest for us, then do some generalizations and conclusions for Cach&eacute; as a platform.</p> <p>As we all know "picture worth a thousand word" so trying to simplify explanation I have drawn this silly timeline, which references all "important" (from my personal point of view) package managers which were used till the moment. Upper part is about language-specific package managers, and lower part is about operating system/distribution specific ones. X-axis steps is by 2 years (from January 1992 until today).</p> <p style="clear: both; text-align: center;"><a href="http://4.bp.blogspot.com/-c7mRsvva_ko/VHRyY4wI7VI/AAAAAAAAbL0/2cxELKiyLaM/s1600/timeline.png" imageanchor="1" style="clear: left; float: left; margin-bottom: 1em; margin-right: 1em;"><img border="0" src="http://4.bp.blogspot.com/-c7mRsvva_ko/VHRyY4wI7VI/AAAAAAAAbL0/2cxELKiyLaM/s640/timeline.png" /></a></p> <p>Package managers: Timeline from 1992 till 2014</p> <h3>CTAN, CPAN &amp; CRAN</h3> <p>90ties were years of source-based package managers. We already had internet working as a distribution manager, but all package managers were operating on the same scenario:</p> <ul><li>Given the requested package name PM has downloaded the resolved tar-file;</li><li>Extracted it locally to the user/site specific area;</li><li>And invoked some predefined script for "building" and installing those sources to the locally installed distribution.</li></ul> <p>CTAN was the 1<sup>st</sup>&nbsp;language distribution which established such handy practice to install contributed content (Tex packages and extensions) from central repository. However, real explosion to this model happened when Perl community started to employ this model &ndash; since the moment of CPAN inception in the 1995 it collected "<a>140,712 Perl modules</a>&nbsp;in 30,670 distributions, written by 11,811 authors,&nbsp;<a>mirrored</a>&nbsp;on 251 servers."</p> <p>This is very comfortable to work with language and within environment where for each next task you have the 1<sup>st</sup>&nbsp;question you ask: "Whether there is already module created for XXX?" and only in a couple of seconds (well minutes, taking into consideration the internet speed in middle-late nineties) after the single command executed, say:</p> <pre class="brush: bash"><br />&gt;cpan install HTTP::Proxy<br /></pre> <p>You have this module downloaded, source extracted, makefile generated, module recompiled using this generated makefile, all tests ran, sources, binaries and documentation installed into the local distribution and all is ready to use in your Perl environment via simple "use HTTP::Proxy;"!</p> <p>Worth to mention that most of CPAN modules are Perl-only packages (i.e. beyond Perl Makefile.pl there are only source files written in Perl, thus not extra processing is necessary, which is simplifying deployment). But also worth to note that Perl Makefile.pl is flexible enough to easily handle combination of Perl sources with some binary modules (e.g. program, which is usually written in C, which in turn to be downloaded and compiled locally, using target specific compiler and its <a href="https://en.wikipedia.org/wiki/Application_binary_interface">ABI</a>).</p> <p>The same model used by Tex in CTAN, and Perl in CPAN, developers of statistical language R tried to use in CRAN. The similar repository (archive) of all available sources, and similar infrastructure for easy download and install. The problem with CRAN was the language (R) which was not very famous and so widespread as Tex or Perl. But regardless this fact even "relatively rarely used R" accumulated 6000+ packages of extensions.</p> <h3>BSD world: FreeBSD Ports, NetBSD pkgsrc, and Darwin Ports</h3> <p>At the same period in the middle of 90-ies, FreeBSD introduced their own way to distribute open-source software via their own "ports collection". Various BSD-derivatives (like OpenBSD and NetBSD) maintained their own ports collections, with few changes in the build procedures, or interfaces supported. But in any case the basic mechanism was the same after `cd /port/location; make install` invoked:</p> <ul><li>Sources were installed from appropriate media (be it CD-ROM, DVD or internet site);</li><li>Product built using the Makefile given and compiler(s) available;</li><li>And build targets installed according to the rules written in the Makefile or other package definition file;</li></ul> <p>There was an option to handle all dependencies of a given port if there was request, so full installation for bigger package could still be initiated via&nbsp;<em>single command</em>&nbsp;and package manager&nbsp;<em>handled all the recursive dependencies</em>&nbsp;appropriately.</p> <p>From the license and their predecessors prospective I consider Darwin Ports/MacPorts as the derivative of this BSD port collection idea &ndash; we still have the collection of open source software, which is conveniently handled by a single command, i.e.:</p> <pre class="brush: bash"><br />$ sudo port install apache2<br /></pre> <blockquote>It's worth to emphasize &ndash; until the moment both language-based repositories (CTAN/CPAN/CRAN) and BSD port collections (FreeBSD/OpenBSD/NetBSD/MacPorts) were all representing the 1st class of package-managers - <strong>sourcecode-based</strong> package managers </blockquote> <h3>Linux: Debian and Red Hat</h3> <p>Sourcecode-based package management model was working well (till some degree) and produced impression of full transparency and full control. There were only several "small" problems:</p> <ul><li>Not all software could be deployed in source form, there is real life beyond open-source software, and proprietary software still need to be deployed conveniently;</li><li>And building of a big project may took&nbsp;<em>a huge chunk of time</em>(hours).</li></ul> <p>There was apparently a need to establish a way to distribute packages (and all dependencies) in their binary form, already compiled for the given architecture and ready for consumption. So we introduce binary package formats, and the 1<sup>st</sup> which of some interest for us &ndash; is the .deb format use by Debian package manager (dpkg). Original format, introduced in the Debian 0.93 in the March 1993, was just the tar.gz wrapper with some magic ASCII prefixes. Currently .deb package is both simpler and more complex &ndash; it's just the AR archive consisting of 3 files (debian-binary with version, control.tar.gz with metadata and data.tar.* with the installed files). You are rarely using dpkg in the practice - most current Debian-based distributives are using <a href="https://en.wikipedia.org/wiki/Advanced_Packaging_Tool">APT</a> (advanced packaging tool). Surprisingly (at least for me for the moment I started to write this review) APT has outgrown Debian distros, and has been ported to Red Hat based distros (APT-RPM), or Mac OS X (Fink), or even Solaris.</p> <blockquote><p><em>"Apt can be considered a <a>front-end</a> to <a>dpkg</a>, friendlier than the older <a>dselect</a> front-end. While dpkg performs actions on individual packages, apt tools manage relations (especially dependencies) between them, as well as sourcing and management of higher-level versioning decisions (release tracking and version pinning)."</em></p> <p><a>https://en.wikipedia.org/wiki/Advanced_Packaging_Tool</a></p></blockquote> <p>The apt-get' reach functionality and easiness has influenced all later package managers.</p> <p>Another good example for binary packaging systems is the RPM (Red Hat Package Manager). RPM introduced with Red Hat V2.0 the late 1995. Red Hat quickly became the most popular Linux distribution (and solid RPM features was one of the factors winning competition here, till some moment at least). So it is not a big surprise that RPM started to be used by all RedHat-based distributions (e.g. Mandriva, ASPLinux, SUSE, Fedora or CentOS), but even further, beyond Linux it was also used by Novell Netware, or IBM AIX.</p> <p>Similar to APT/dpkg there is Yum wrapper for RPM packages, which is frequently used by end-users, and which provides similar high-level services like dependency tracking or building/versioning.</p> <h3>Mobile software stores: iOS App Store, Android Market/Google Play</h3> <p>Since the introduction of Apple iOS App Store, and later Google Android Market, we have received most probably most popular software repositories which we have seen to date. They are essentially OS specific package managers with extra API for online purchases. This is not yet an issue for App Store, but is an issue for Android Market / Google Play &ndash; there are multiple hardware architectures used by Android devices (ARM, X86 and MIPS at the moment), so there are some extra care should be done before customer could download and install binary package containing executable code for some application. Given hardware agnostic Java code, you either supposed to compile Java-to-native binary upon installation on the target device, or repository itself could take care about this and recompile the code (with full optimizatons enabled) on the cloud, before downloading to the customer device.</p><p>In any case, regardless of where and how such optimizing native adaptation is done, this part of installation process is considered a major part of software packaging services done by operating system. If software supposed to be running on many hardware architectures, and if we are not deploying software in the source-code form (as we done in BSD or Linux) then repository and package maneeger should handle this problem transparently and in an some efficient manner.</p> <blockquote>For a time being, I'm not considering any cross-platform issues, and will handle in the 1<sup>st</sup>&nbsp;implementation only fully open-source packages. We may return back to this question later, to resolve both cross-version and cross-architecture issues simulateneously. </blockquote>  <h3>Windows applications: Chocolatey Nuget</h3> <p>It was a long-standing missing feature - despite the popularity of Windows on the market, we didn't have any central repository, as convenient as for Debian is apt-get, where we could find and install any (many/most) of available applications. There used to be <a href="http://windows.microsoft.com/en-us/windows-8/apps#Cat=t0">Windows Store</a> for Windows Metro applications (but nobody wanted to use them :) ), even before then, there used to be nice and convenient <a href="https://www.nuget.org/packages">NuGet package manager</a>, installed as plugin to Visual Studio, but (the impression was that) it was only serving .NET packages, and was not targeting "generic Windows desktop applications". Even farther, there was <a href="https://cygwin.com/index.html">Cygwin repository</a>, where you could download (quite conveniently though) all Cygwin applications (from bash, to gcc, to git, or X-Window). But this was, once again, not about "any generic windows application", but only about ported POSIX (Linux, BSD, and other UNIX compatible APIs) applications which could be recompiled using Cygwin API.</p> <p>That's why development of <a href="https://chocolatey.org/">Chocolatey Nuget</a> in 2012 got me as a nice surprise: apparently having NuGet as a basis for package manager, with added PowerShell woodoo upon installation, and with added some central repository <a href="https://chocolatey.org/packages">here </a>you could pretty much have the same convenience level as with apt-get in Linux. Everything could be deployed/wrapped as some Chocolatey package, from <a href="https://chocolatey.org/packages/Office365HomePremium">Office 365</a>, to <a href="https://chocolatey.org/packages/Atom">Atom editor</a>, or <a href="https://chocolatey.org/packages/TortoiseGit">Tortoise Git </a>, or even <a href="https://chocolatey.org/packages/VisualStudio2013Ultimate">Visual Studio 2013 Ultimate</a>! This quickly became the best friend of Windows IT administrator, and many extra tools used Chocolatey as their low-level basis have been developed, best example of such is - <a href="https://boxstarter.org/">BoxStarter</a>, the easiest and fastest way to install Windows software to the fresh Windows installations.</p> <p>Chocolatey shows nothing new, which we didn't see before in other operating systems, it just shows that having proper basis (NuGet as a package manager, PowerShell for post-processing, + capable central repository) one could built generic package manager which will attract attention quite fast, even for the operating system where it was unusual. BTW, worth to mention that Microsoft decided to jump to the ship, and are now using Chocoatey as one of repositories, which will be available in their own <a href="http://blogs.msdn.com/b/garretts/archive/2014/04/01/my-little-secret-windows-powershell-oneget.aspx">OneGet package manager</a> to be available since Windows 10.</p> <blockquote>On a personal note, I should admit, I do not like OneGet as much as I like Chocolatey - there is too much PowerShell scripting I'd need to plumbing for OneGet. And from user experience prospective Chocolatey hides all these details, and is looking much, much easier to use.</blockquote> <h3>Node.js NPM</h3> <p>There are multiple factors which have led to recent dramatical success of JavaScript as a server-side language. And one of most important factors in this success (at least IMVHO) - the availability of central Node.js modules repository - <a href="https://www.npmjs.org/">NPM (Node Package Manager) </a>. NPM is bundled with Node.js distribution since version 0.6.3 (November 2011).</p> <p>NPM is modeled similarly as CPAN: you have a wrapper, which from command-line connects to central repository, search for requested module, download it, parse package metainfo, and if there are external dependencies then process this recursively. In a few moments, you have working binaries and sources available for local usage:</p> <pre class="brush: bash"><br />C:\Users\Timur\Downloads&gt;npm install -g less<br />npm http GET https://registry.npmjs.org/less<br />npm http 304 https://registry.npmjs.org/less<br />npm http GET https://registry.npmjs.org/graceful-fs<br />npm http GET https://registry.npmjs.org/mime<br />npm http GET https://registry.npmjs.org/request<br />…<br />npm http GET https://registry.npmjs.org/isarray/-/isarray-0.0.1.tgz<br />npm http 200 https://registry.npmjs.org/isarray/-/isarray-0.0.1.tgz<br />npm http 200 https://registry.npmjs.org/asn1<br />npm http GET https://registry.npmjs.org/asn1/-/asn1-0.1.11.tgz<br />npm http 200 https://registry.npmjs.org/asn1/-/asn1-0.1.11.tgz<br />C:\Users\Timur\AppData\Roaming\npm\lessc -&gt; C:\Users\Timur\AppData\Roaming\npm\node_modules\less\bin\lessc<br />less@2.0.0 C:\Users\Timur\AppData\Roaming\npm\node_modules\less<br />├── mime@1.2.11<br />├── graceful-fs@3.0.4<br />├── promise@6.0.1 (asap@1.0.0)<br />├── source-map@0.1.40 (amdefine@0.1.0)<br />├── mkdirp@0.5.0 (minimist@0.0.8)<br />└── request@2.47.0 (caseless@0.6.0, forever-agent@0.5.2, aws-sign2@0.5.0, json-stringify-safe@5.0.0, tunnel-agent@0.4.0, stringstream@0.0.4, oauth-sign@0.4.0, node-uuid@1.4.1, mime-types@1.0.2, qs@2.3.2, form-data @0.1.4, tough-cookie@0.12.1, hawk@1.1.1, combined-stream@0.0.7, bl@0.9.3, http-signature@0.10.0)<br /></pre> <p>Wortth to note that changes which NPM authors introduce to the package manager practices - they use JSON format for package metainformation, instead of Perl-based ones used in the CPAN.</p> <h2>To be continued&hellip;</h2> <p><em>Ok, enough about current practice used elsewhere, in the <a href="/2014/11/community-package-manager-part-ii.html">2<sup>nd</sup> part of this article</a> we will talk more in details about simple proposal for a package manager in Cach&eacute;. Stay tuned!.</em>​</p>
+<blockquote>​ Here is the problem as I see in the Cach&eacute; developers community - if you are newbie COS/Ensemble/DeepSee developer then it's very hard to find any suitable 3<sup>rd</sup> party component, library or utility. They are spread over the Internet,
+    some of them are in the GitHub, some of them in SourceForce, rare ones are on their own sites, etc. Yes,there are many useful components or tools (there are even standalone debugger or VCS) but it takes <em>some time</em> to discover all the useful
+    location, and get to used to this situation.</br> <strong>There is no single location and there is no convenient way to find and install extension or utility.</strong></br> Which is not very competitive comparing to other languages and development
+    environment. In these articles I will try to investigate this problem further (this part I), and will propose some simple decision (<a href="community-package-manageer-ii.html">part II</a>) </blockquote>
+<p>​What do you think about "package manager" and its importance for the community success? For me, package manager is absolutely a must, and most important ingredient for the language success and maturity of eco-system. You could not find any single language
+    community where there would be no convenient package manager with huge collection of available 3<sup>rd</sup> party packages. After all these years spent hacking in Perl, Python, JavaScript, Ruby, Haskell, Java, (you name other) you pretty much used
+    to expect that when you start a new project you have a plenty of external components which may help you to cook the project fast and seamless. `PM install this`, `PM install that` and quite easy and fast you get something working and useable. Community
+    works for you.</p>
+<p>These words about <a href="http://en.wikipedia.org/wiki/CPAN">CPAN</a> and its experience are pretty much characterizing the importance of the precedent of CPAN and it's later impact toother languages and environments:</p>
+<blockquote>"Experienced Perl programmers often comment that half of Perl's power is in the CPAN. It has been called Perl's killer app.Though the <a href="http://en.wikipedia.org/wiki/TeX"><em>TeX</em></a> typesetting language has an equivalent, the <a href="http://en.wikipedia.org/wiki/CTAN">CTAN</a>    (and in fact the CPAN's name is based on the CTAN), few languages have an exhaustive central repository for libraries. The <a href="http://en.wikipedia.org/wiki/PHP">PHP</a> language has <a href="http://en.wikipedia.org/wiki/PHP_Extension_Community_Library">PECL</a>    and <a href="http://en.wikipedia.org/wiki/PHP_Extension_and_Application_Repository">PEAR</a> <a href="http://en.wikipedia.org/wiki/Python_(programming_language)">Python</a> has a <a href="http://en.wikipedia.org/wiki/PyPI">PyPI</a> (Python Package
+    Index) repository, <a href="http://en.wikipedia.org/wiki/Ruby_(programming_language)">Ruby</a> has <a href="http://en.wikipedia.org/wiki/RubyGems">RubyGems</a> <a href="http://en.wikipedia.org/wiki/R_(programming_language)">R</a> has <a href="http://en.wikipedia.org/wiki/CRAN_(R_programming_language)">CRAN</a>    <a href="http://en.wikipedia.org/wiki/Node.js">Node.js</a> has <a href="http://en.wikipedia.org/wiki/Npm_(software)">npm</a> <a href="http://en.wikipedia.org/wiki/Lua_(programming_language)">Lua</a> has <a href="http://en.wikipedia.org/wiki/LuaRocks">LuaRocks</a>    <a href="http://en.wikipedia.org/wiki/Haskell_(programming_language)">Haskell</a> has <a href="http://en.wikipedia.org/wiki/Hackage">Hackage</a> and an associated installer/make clone <a href="http://en.wikipedia.org/wiki/Cabal_(software)">cabal</a>    but none of these are as large as the CPAN. Recently, <a href="http://en.wikipedia.org/wiki/Common_Lisp">Common Lisp</a> has a de facto CPAN-like system - the Quicklisp repositories. Other major languages, such as <a href="http://en.wikipedia.org/wiki/Java_(programming_language)">Java</a>    and <a href="http://en.wikipedia.org/wiki/C++">C++</a>, have nothing similar to the CPAN (though for Java there is central <a href="http://en.wikipedia.org/wiki/Apache_Maven">Maven</a>). </blockquote>
+<blockquote>The CPAN has grown so large and comprehensive over the years that Perl users are known to express surprise when they start to encounter topics for which a CPAN module doesn't exist already." </blockquote>
+<table border="1">
+    <colgroup>
+        <col />
+        <col /> </colgroup>
+    <tbody>
+        <tr>
+            <td>
+                <div>
+                    <p><a>Package management systems</a> </p>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>
+                    <p><a><strong>Binary installation</strong></a><strong>&nbsp;/</strong> </p>
+                </div>
+                <div>
+                    <p><a><strong>Precompiled packages</strong></a> </p>
+                </div>
+            </td>
+            <td>
+                <table border="1">
+                    <colgroup>
+                        <col />
+                        <col /> </colgroup>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div>
+                                    <p><a><strong>Linux</strong></a> </p>
+                                </div>
+                            </td>
+                            <td>
+                                <table>
+                                    <colgroup>
+                                        <col />
+                                        <col /> </colgroup>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div>
+                                                    <p><a><strong>dpkg</strong></a> </p>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div>
+                                                    <p><a>APT</a>&nbsp;<a>aptitude</a>&nbsp;<a>dselect</a>&nbsp;<a>Ubuntu Software Center</a> </p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div>
+                                                    <p><a><strong>RPM</strong></a> </p>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div>
+                                                    <p><a>YUM</a>&nbsp;<a>APT-RPM</a>&nbsp;<a>poldek</a>&nbsp;<a>up2date</a>&nbsp;<a>urpmi</a>&nbsp;<a>ZYpp</a>&nbsp;<a>dnf</a> </p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div>
+                                                    <p><a><strong>tar-ball</strong></a> </p>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div>
+                                                    <p><a>slapt-get</a>&nbsp;<a>slackpkg</a>&nbsp;<a>zendo</a>&nbsp;<a>netpkg</a>&nbsp;<a>swaret</a> </p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div>
+                                                    <p><strong>Other</strong> </p>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div>
+                                                    <p><a>appbrowser</a>&nbsp;<a>Conary</a>&nbsp;<a>Equo</a>&nbsp;<a>pkgutils</a>&nbsp;<a>pacman</a>&nbsp;<a>PETget</a><a>PISI</a>&nbsp;<a>Portage</a>&nbsp;<a>Smart Package Manager</a>&nbsp;<a>Steam</a>&nbsp;<a>Tazpkg</a><a>Upkg</a>                                                        </p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div>
+                                    <p><a><strong>OS X</strong></a><strong>&nbsp;(<a>pkg</a>)</strong> </p>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <p><a>Mac App Store</a>&nbsp;<a>rudix</a>&nbsp;<a>Steam</a> </p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div>
+                                    <p><a><strong>Microsoft Windows</strong></a> </p>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <p><a>Windows installer</a>&nbsp;<a>Windows Store</a>&nbsp;<a>Allmyapps</a>&nbsp;<a>Cygwin</a>&nbsp;<a>Npackd</a>&nbsp;(<a>Windows Package Manager</a>)&nbsp;<a>Steam</a>&nbsp;<a>NuGet</a>&nbsp;<a>Chocolatey</a>&nbsp;<a>NSIS</a>&nbsp;<a>wpkg</a>                                        </p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div>
+                                    <p><a><strong>Solaris</strong></a> </p>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <p><a>SysV</a>&nbsp;(<a>pkgadd</a>)&nbsp;<a>Image Packaging System</a>&nbsp;<a>OpenCSW</a> </p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div>
+                                    <p><a><strong>Embedded system</strong></a> </p>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <table>
+                                        <colgroup>
+                                            <col />
+                                            <col /> </colgroup>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <div>
+                                                        <p><a><strong>Mobile OS</strong></a> </p>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <table>
+                                                        <colgroup>
+                                                            <col />
+                                                            <col /> </colgroup>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <div>
+                                                                        <p><a><strong>iOS</strong></a> </p>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div>
+                                                                        <p><a>App Store</a> </p>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div>
+                                                                        <p><a><strong>Android</strong></a><strong>&nbsp;(<a>APK</a>)</strong> </p>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div>
+                                                                        <p><a>Google Play</a>&nbsp;<a>GetJar</a>&nbsp;<a>Amazon Appstore</a>&nbsp;<a>SlideME</a>&nbsp;<a>F-Droid</a> </p>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div>
+                                                                        <p><a><strong>Windows Phone</strong></a> </p>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div>
+                                                                        <p><a>Windows Phone Store</a> </p>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div>
+                                                                        <p><a><strong>Windows 8.x</strong></a> </p>
+                                                                    </div>
+                                                                    <div>
+                                                                        <p><a><strong>Windows RT</strong></a> </p>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div>
+                                                                        <p><a>Windows Store</a> </p>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div>
+                                    <p><a><strong>Digital distribution</strong></a> </p>
+                                </div>
+                                <div>
+                                    <p><strong>and</strong> </p>
+                                </div>
+                                <div>
+                                    <p><strong>Application Extensions</strong> </p>
+                                </div>
+                            </td>
+                            <td>
+                                <table>
+                                    <colgroup>
+                                        <col />
+                                        <col /> </colgroup>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div>
+                                                    <p><strong>Application extensions</strong> </p>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <table>
+                                                    <colgroup>
+                                                        <col />
+                                                        <col /> </colgroup>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <div>
+                                                                    <p><a><strong>Google Chrome</strong></a><strong>&nbsp;(<a>crx</a>)</strong> </p>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div>
+                                                                    <p><a>Chrome Web Store</a> </p>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <div>
+                                                                    <p><a><strong>Mozilla Firefox</strong></a> </p>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div>
+                                                                    <p><a>Mozilla Add-ons</a> </p>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div>
+                                    <p><strong>Cross-platform</strong> </p>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <p><a>dpkg</a>&nbsp;<a>Image Packaging System</a>&nbsp;<a>OpenPKG</a>&nbsp;<a>pkgsrc</a>&nbsp;<a>Zero Install</a>&nbsp;(<a>0install</a>)&nbsp;<a>TWW Tools</a>&nbsp;<a>IBM SmartCloud Enterprise</a>&nbsp;<a>Nix package manager</a>&nbsp;<a>wpkg</a>                                        </p>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>
+                    <p><a><strong>Sourcecode-based installation</strong></a><strong>&nbsp;/</strong> </p>
+                </div>
+                <div>
+                    <p><a><strong>Installing using compile scripts</strong></a> </p>
+                </div>
+            </td>
+            <td>
+                <table>
+                    <colgroup>
+                        <col />
+                        <col /> </colgroup>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div>
+                                    <p><a><strong>Linux</strong></a> </p>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <p><a>Portage</a>&nbsp;<a>emerge</a>&nbsp;<a>Compile</a>&nbsp;<a>apt-build</a>&nbsp;<a>Sorcery</a>&nbsp;<a>Spike</a>&nbsp;<a>ABS</a> </p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div>
+                                    <p><a><strong>Apple OS X</strong></a> </p>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <p><a>fink</a>&nbsp;<a>MacPorts</a>&nbsp;<a>Homebrew</a>&nbsp;<a>pkgsrc</a> </p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div>
+                                    <p><a><strong>Hybrid systems</strong></a> </p>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <p><a>FreeBSD Ports</a>&nbsp;<a>MacPorts</a>&nbsp;<a>pkgsrc</a>&nbsp;<a>ports collection</a> </p>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<p><em>Source redacted - <a>https://en.wikipedia.org/wiki/Package_manager</a></em></p>
+<p>Here you see the redacted (significantly simplified) picture of WikiPedia article about package managers. They are a lot, be them source-based, or binary-based ones, particular architecture specific, OS-specific or cross-platform. I will try to cover
+    them to some degree below. I will mix to the picture some language-specific package-management facilities, because without them picture would be of no much usefulness. And we are talking about language-/development-platform specific package managers
+    in any case...</p>
+<blockquote>One important observation you could get from the table above &ndash; the more popular particular operating system and API ecosystem is, the more chances you have to receive <strong>multiple</strong> concurrent package managers for this platform. See situation
+    in the Linux, Windows or Mac OS X as good examples. The more package managers used out there, the faster ecosystem is evolving. Having multiple package managers is not a requisite for fast ecosystems development pace, but rather side-effect of one.</br>
+    Simply putting - if we eventually would get the situation where we would have several package managers with different repositories, than that would be rather indication about good ecosystem state, not bad.</blockquote>
+<h2>Simplified timeline</h2>
+<p>Here is the approach I will use: get most important operating systems and language package managers, put them to the timeline, explain their specifics and interest for us, then do some generalizations and conclusions for Cach&eacute; as a platform.</p>
+<p>As we all know "picture worth a thousand word" so trying to simplify explanation I have drawn this silly timeline, which references all "important" (from my personal point of view) package managers which were used till the moment. Upper part is about
+    language-specific package managers, and lower part is about operating system/distribution specific ones. X-axis steps is by 2 years (from January 1992 until today).</p>
+<p style="clear: both; text-align: center;">
+    <a href="http://4.bp.blogspot.com/-c7mRsvva_ko/VHRyY4wI7VI/AAAAAAAAbL0/2cxELKiyLaM/s1600/timeline.png" imageanchor="1" style="clear: left; float: left; margin-bottom: 1em; margin-right: 1em;"><img border="0" src="http://4.bp.blogspot.com/-c7mRsvva_ko/VHRyY4wI7VI/AAAAAAAAbL0/2cxELKiyLaM/s640/timeline.png" /></a>
+</p>
+<p>Package managers: Timeline from 1992 till 2014</p>
+<h3>CTAN, CPAN &amp; CRAN</h3>
+<p>90ties were years of source-based package managers. We already had internet working as a distribution manager, but all package managers were operating on the same scenario:</p>
+<ul>
+    <li>Given the requested package name PM has downloaded the resolved tar-file;</li>
+    <li>Extracted it locally to the user/site specific area;</li>
+    <li>And invoked some predefined script for "building" and installing those sources to the locally installed distribution.</li>
+</ul>
+<p>CTAN was the 1<sup>st</sup>&nbsp;language distribution which established such handy practice to install contributed content (Tex packages and extensions) from central repository. However, real explosion to this model happened when Perl community started
+    to employ this model &ndash; since the moment of CPAN inception in the 1995 it collected "<a>140,712 Perl modules</a>&nbsp;in 30,670 distributions, written by 11,811 authors,&nbsp;<a>mirrored</a>&nbsp;on 251 servers."</p>
+<p>This is very comfortable to work with language and within environment where for each next task you have the 1<sup>st</sup>&nbsp;question you ask: "Whether there is already module created for XXX?" and only in a couple of seconds (well minutes, taking
+    into consideration the internet speed in middle-late nineties) after the single command executed, say:</p> <pre class="brush: bash"><br />&gt;cpan install HTTP::Proxy<br /></pre>
+<p>You have this module downloaded, source extracted, makefile generated, module recompiled using this generated makefile, all tests ran, sources, binaries and documentation installed into the local distribution and all is ready to use in your Perl environment
+    via simple "use HTTP::Proxy;"!</p>
+<p>Worth to mention that most of CPAN modules are Perl-only packages (i.e. beyond Perl Makefile.pl there are only source files written in Perl, thus not extra processing is necessary, which is simplifying deployment). But also worth to note that Perl Makefile.pl
+    is flexible enough to easily handle combination of Perl sources with some binary modules (e.g. program, which is usually written in C, which in turn to be downloaded and compiled locally, using target specific compiler and its <a href="https://en.wikipedia.org/wiki/Application_binary_interface">ABI</a>).</p>
+<p>The same model used by Tex in CTAN, and Perl in CPAN, developers of statistical language R tried to use in CRAN. The similar repository (archive) of all available sources, and similar infrastructure for easy download and install. The problem with CRAN
+    was the language (R) which was not very famous and so widespread as Tex or Perl. But regardless this fact even "relatively rarely used R" accumulated 6000+ packages of extensions.</p>
+<h3>BSD world: FreeBSD Ports, NetBSD pkgsrc, and Darwin Ports</h3>
+<p>At the same period in the middle of 90-ies, FreeBSD introduced their own way to distribute open-source software via their own "ports collection". Various BSD-derivatives (like OpenBSD and NetBSD) maintained their own ports collections, with few changes
+    in the build procedures, or interfaces supported. But in any case the basic mechanism was the same after `cd /port/location; make install` invoked:</p>
+<ul>
+    <li>Sources were installed from appropriate media (be it CD-ROM, DVD or internet site);</li>
+    <li>Product built using the Makefile given and compiler(s) available;</li>
+    <li>And build targets installed according to the rules written in the Makefile or other package definition file;</li>
+</ul>
+<p>There was an option to handle all dependencies of a given port if there was request, so full installation for bigger package could still be initiated via&nbsp;<em>single command</em>&nbsp;and package manager&nbsp;<em>handled all the recursive dependencies</em>&nbsp;appropriately.</p>
+<p>From the license and their predecessors prospective I consider Darwin Ports/MacPorts as the derivative of this BSD port collection idea &ndash; we still have the collection of open source software, which is conveniently handled by a single command, i.e.:</p>
+<pre class="brush: bash"><br />$ sudo port install apache2<br /></pre>
+<blockquote>It's worth to emphasize &ndash; until the moment both language-based repositories (CTAN/CPAN/CRAN) and BSD port collections (FreeBSD/OpenBSD/NetBSD/MacPorts) were all representing the 1st class of package-managers - <strong>sourcecode-based</strong> package
+    managers </blockquote>
+<h3>Linux: Debian and Red Hat</h3>
+<p>Sourcecode-based package management model was working well (till some degree) and produced impression of full transparency and full control. There were only several "small" problems:</p>
+<ul>
+    <li>Not all software could be deployed in source form, there is real life beyond open-source software, and proprietary software still need to be deployed conveniently;</li>
+    <li>And building of a big project may took&nbsp;<em>a huge chunk of time</em>(hours).</li>
+</ul>
+<p>There was apparently a need to establish a way to distribute packages (and all dependencies) in their binary form, already compiled for the given architecture and ready for consumption. So we introduce binary package formats, and the 1<sup>st</sup> which
+    of some interest for us &ndash; is the .deb format use by Debian package manager (dpkg). Original format, introduced in the Debian 0.93 in the March 1993, was just the tar.gz wrapper with some magic ASCII prefixes. Currently .deb package is both simpler
+    and more complex &ndash; it's just the AR archive consisting of 3 files (debian-binary with version, control.tar.gz with metadata and data.tar.* with the installed files). You are rarely using dpkg in the practice - most current Debian-based distributives
+    are using <a href="https://en.wikipedia.org/wiki/Advanced_Packaging_Tool">APT</a> (advanced packaging tool). Surprisingly (at least for me for the moment I started to write this review) APT has outgrown Debian distros, and has been ported to Red Hat
+    based distros (APT-RPM), or Mac OS X (Fink), or even Solaris.</p>
+<blockquote>
+    <p><em>"Apt can be considered a <a>front-end</a> to <a>dpkg</a>, friendlier than the older <a>dselect</a> front-end. While dpkg performs actions on individual packages, apt tools manage relations (especially dependencies) between them, as well as sourcing and management of higher-level versioning decisions (release tracking and version pinning)."</em></p>
+    <p><a>https://en.wikipedia.org/wiki/Advanced_Packaging_Tool</a></p>
+</blockquote>
+<p>The apt-get' reach functionality and easiness has influenced all later package managers.</p>
+<p>Another good example for binary packaging systems is the RPM (Red Hat Package Manager). RPM introduced with Red Hat V2.0 the late 1995. Red Hat quickly became the most popular Linux distribution (and solid RPM features was one of the factors winning competition
+    here, till some moment at least). So it is not a big surprise that RPM started to be used by all RedHat-based distributions (e.g. Mandriva, ASPLinux, SUSE, Fedora or CentOS), but even further, beyond Linux it was also used by Novell Netware, or IBM
+    AIX.</p>
+<p>Similar to APT/dpkg there is Yum wrapper for RPM packages, which is frequently used by end-users, and which provides similar high-level services like dependency tracking or building/versioning.</p>
+<h3>Mobile software stores: iOS App Store, Android Market/Google Play</h3>
+<p>Since the introduction of Apple iOS App Store, and later Google Android Market, we have received most probably most popular software repositories which we have seen to date. They are essentially OS specific package managers with extra API for online purchases.
+    This is not yet an issue for App Store, but is an issue for Android Market / Google Play &ndash; there are multiple hardware architectures used by Android devices (ARM, X86 and MIPS at the moment), so there are some extra care should be done before
+    customer could download and install binary package containing executable code for some application. Given hardware agnostic Java code, you either supposed to compile Java-to-native binary upon installation on the target device, or repository itself
+    could take care about this and recompile the code (with full optimizatons enabled) on the cloud, before downloading to the customer device.</p>
+<p>In any case, regardless of where and how such optimizing native adaptation is done, this part of installation process is considered a major part of software packaging services done by operating system. If software supposed to be running on many hardware
+    architectures, and if we are not deploying software in the source-code form (as we done in BSD or Linux) then repository and package maneeger should handle this problem transparently and in an some efficient manner.</p>
+<blockquote>For a time being, I'm not considering any cross-platform issues, and will handle in the 1<sup>st</sup>&nbsp;implementation only fully open-source packages. We may return back to this question later, to resolve both cross-version and cross-architecture
+    issues simulateneously. </blockquote>
+<h3>Windows applications: Chocolatey Nuget</h3>
+<p>It was a long-standing missing feature - despite the popularity of Windows on the market, we didn't have any central repository, as convenient as for Debian is apt-get, where we could find and install any (many/most) of available applications. There used
+    to be <a href="http://windows.microsoft.com/en-us/windows-8/apps#Cat=t0">Windows Store</a> for Windows Metro applications (but nobody wanted to use them :) ), even before then, there used to be nice and convenient <a href="https://www.nuget.org/packages">NuGet package manager</a>,
+    installed as plugin to Visual Studio, but (the impression was that) it was only serving .NET packages, and was not targeting "generic Windows desktop applications". Even farther, there was <a href="https://cygwin.com/index.html">Cygwin repository</a>,
+    where you could download (quite conveniently though) all Cygwin applications (from bash, to gcc, to git, or X-Window). But this was, once again, not about "any generic windows application", but only about ported POSIX (Linux, BSD, and other UNIX compatible
+    APIs) applications which could be recompiled using Cygwin API.</p>
+<p>That's why development of <a href="https://chocolatey.org/">Chocolatey Nuget</a> in 2012 got me as a nice surprise: apparently having NuGet as a basis for package manager, with added PowerShell woodoo upon installation, and with added some central repository
+    <a href="https://chocolatey.org/packages">here </a>you could pretty much have the same convenience level as with apt-get in Linux. Everything could be deployed/wrapped as some Chocolatey package, from <a href="https://chocolatey.org/packages/Office365HomePremium">Office 365</a>,
+    to <a href="https://chocolatey.org/packages/Atom">Atom editor</a>, or <a href="https://chocolatey.org/packages/TortoiseGit">Tortoise Git </a>, or even <a href="https://chocolatey.org/packages/VisualStudio2013Ultimate">Visual Studio 2013 Ultimate</a>!
+    This quickly became the best friend of Windows IT administrator, and many extra tools used Chocolatey as their low-level basis have been developed, best example of such is - <a href="https://boxstarter.org/">BoxStarter</a>, the easiest and fastest
+    way to install Windows software to the fresh Windows installations.</p>
+<p>Chocolatey shows nothing new, which we didn't see before in other operating systems, it just shows that having proper basis (NuGet as a package manager, PowerShell for post-processing, + capable central repository) one could built generic package manager
+    which will attract attention quite fast, even for the operating system where it was unusual. BTW, worth to mention that Microsoft decided to jump to the ship, and are now using Chocoatey as one of repositories, which will be available in their own
+    <a href="http://blogs.msdn.com/b/garretts/archive/2014/04/01/my-little-secret-windows-powershell-oneget.aspx">OneGet package manager</a> to be available since Windows 10.</p>
+<blockquote>On a personal note, I should admit, I do not like OneGet as much as I like Chocolatey - there is too much PowerShell scripting I'd need to plumbing for OneGet. And from user experience prospective Chocolatey hides all these details, and is looking much,
+    much easier to use.</blockquote>
+<h3>Node.js NPM</h3>
+<p>There are multiple factors which have led to recent dramatical success of JavaScript as a server-side language. And one of most important factors in this success (at least IMVHO) - the availability of central Node.js modules repository - <a href="https://www.npmjs.org/">NPM (Node Package Manager) </a>.
+    NPM is bundled with Node.js distribution since version 0.6.3 (November 2011).</p>
+<p>NPM is modeled similarly as CPAN: you have a wrapper, which from command-line connects to central repository, search for requested module, download it, parse package metainfo, and if there are external dependencies then process this recursively. In a
+    few moments, you have working binaries and sources available for local usage:</p> <pre class="brush: bash"><br />C:\Users\Timur\Downloads&gt;npm install -g less<br />npm http GET https://registry.npmjs.org/less<br />npm http 304 https://registry.npmjs.org/less<br />npm http GET https://registry.npmjs.org/graceful-fs<br />npm http GET https://registry.npmjs.org/mime<br />npm http GET https://registry.npmjs.org/request<br />…<br />npm http GET https://registry.npmjs.org/isarray/-/isarray-0.0.1.tgz<br />npm http 200 https://registry.npmjs.org/isarray/-/isarray-0.0.1.tgz<br />npm http 200 https://registry.npmjs.org/asn1<br />npm http GET https://registry.npmjs.org/asn1/-/asn1-0.1.11.tgz<br />npm http 200 https://registry.npmjs.org/asn1/-/asn1-0.1.11.tgz<br />C:\Users\Timur\AppData\Roaming\npm\lessc -&gt; C:\Users\Timur\AppData\Roaming\npm\node_modules\less\bin\lessc<br />less@2.0.0 C:\Users\Timur\AppData\Roaming\npm\node_modules\less<br />├── mime@1.2.11<br />├── graceful-fs@3.0.4<br />├── promise@6.0.1 (asap@1.0.0)<br />├── source-map@0.1.40 (amdefine@0.1.0)<br />├── mkdirp@0.5.0 (minimist@0.0.8)<br />└── request@2.47.0 (caseless@0.6.0, forever-agent@0.5.2, aws-sign2@0.5.0, json-stringify-safe@5.0.0, tunnel-agent@0.4.0, stringstream@0.0.4, oauth-sign@0.4.0, node-uuid@1.4.1, mime-types@1.0.2, qs@2.3.2, form-data @0.1.4, tough-cookie@0.12.1, hawk@1.1.1, combined-stream@0.0.7, bl@0.9.3, http-signature@0.10.0)<br /></pre>
+<p>Wortth to note that changes which NPM authors introduce to the package manager practices - they use JSON format for package metainformation, instead of Perl-based ones used in the CPAN.</p>
+<h2>To be continued&hellip;</h2>
+<p><em>Ok, enough about current practice used elsewhere, in the <a href="/2014/11/community-package-manager-part-ii.html">2<sup>nd</sup> part of this article</a> we will talk more in details about simple proposal for a package manager in Cach&eacute;. Stay tuned!.</em>​</p>

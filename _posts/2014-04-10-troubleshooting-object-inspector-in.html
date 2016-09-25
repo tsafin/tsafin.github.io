@@ -8,9 +8,26 @@ tags:
 - troubleshooting
 - CSS inspector
 modified_time: '2014-04-10T23:51:44.553+04:00'
+categories: blog blogger
 thumbnail: http://1.bp.blogspot.com/-WEAdEWPSWaQ/U0bsP-1CvmI/AAAAAAAAQro/dAd17SpRPFM/s72-c/image1.png
 blogger_id: tag:blogger.com,1999:blog-1111089994103028505.post-1136056596681690647
 blogger_orig_url: http://tsafin.blogspot.com/2014/04/troubleshooting-object-inspector-in.html
 ---
 
-<div dir="ltr" style="text-align: left;" trbidi="on">I don't know how you, but I do use frequently the CSS/JavaScript debugger in the browser, and it bothers me a lot when I see situations, sites, pages where I'm unable to use it easily. Blogspot page preview is the such case - they intercept click events on the pages while showing me preview page, and as a side effect of this interception Chrome debugging tools are unable to show me information about selected object (because click is not real click here).<br />If you open preview page and invoke debugger tools, CSS inspector (Ctrl+Shift+I), and try to select the reading area you will probably fail here...<br /><div class="separator" style="clear: both; text-align: center;"><a href="http://1.bp.blogspot.com/-WEAdEWPSWaQ/U0bsP-1CvmI/AAAAAAAAQro/dAd17SpRPFM/s1600/image1.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="http://1.bp.blogspot.com/-WEAdEWPSWaQ/U0bsP-1CvmI/AAAAAAAAQro/dAd17SpRPFM/s1600/image1.png" height="228" width="320" /></a></div>You will probably select the object which cover whole reading pane, and which "coincidentally" has CSS class "Blogger-clickTrap". Taking into account the intention of this div box has been added there I prefer to get rid of it. Yes, just delete this node in the DOM tree in the left:<br /><div class="separator" style="clear: both; text-align: center;"><a href="http://2.bp.blogspot.com/-gUR5nvPQG9Y/U0bs5ZbyjLI/AAAAAAAAQrw/ZmNt3jArg2Y/s1600/image2.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="http://2.bp.blogspot.com/-gUR5nvPQG9Y/U0bs5ZbyjLI/AAAAAAAAQrw/ZmNt3jArg2Y/s1600/image2.png" height="240" width="320" /></a></div><br />Since now on you have 2 nice side effects:<br /><br /><ul style="text-align: left;"><li>CSS debugger object selector is able to work again;</li><li>and click events are properly working for all JavaScript on the page.</li></ul><div>That's the desired effect we wanted to return.</div></div>
+<div dir="ltr" style="text-align: left;">
+    I don't know how you, but I do use frequently the CSS/JavaScript debugger in the browser, and it bothers me a lot when I see situations, sites, pages where I'm unable to use it easily. Blogspot page preview is the such case - they intercept click events
+    on the pages while showing me preview page, and as a side effect of this interception Chrome debugging tools are unable to show me information about selected object (because click is not real click here).<br />If you open preview page and invoke
+    debugger tools, CSS inspector (Ctrl+Shift+I), and try to select the reading area you will probably fail here...<br />
+    <div class="separator" style="clear: both; text-align: center;">
+        <a href="http://1.bp.blogspot.com/-WEAdEWPSWaQ/U0bsP-1CvmI/AAAAAAAAQro/dAd17SpRPFM/s1600/image1.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="http://1.bp.blogspot.com/-WEAdEWPSWaQ/U0bsP-1CvmI/AAAAAAAAQro/dAd17SpRPFM/s1600/image1.png" height="228" width="320" /></a>
+    </div>You will probably select the object which cover whole reading pane, and which "coincidentally" has CSS class "Blogger-clickTrap". Taking into account the intention of this div box has been added there I prefer to get rid of it. Yes, just delete this
+    node in the DOM tree in the left:<br />
+    <div class="separator" style="clear: both; text-align: center;">
+        <a href="http://2.bp.blogspot.com/-gUR5nvPQG9Y/U0bs5ZbyjLI/AAAAAAAAQrw/ZmNt3jArg2Y/s1600/image2.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="http://2.bp.blogspot.com/-gUR5nvPQG9Y/U0bs5ZbyjLI/AAAAAAAAQrw/ZmNt3jArg2Y/s1600/image2.png" height="240" width="320" /></a>
+    </div><br />Since now on you have 2 nice side effects:<br /><br />
+    <ul style="text-align: left;">
+        <li>CSS debugger object selector is able to work again;</li>
+        <li>and click events are properly working for all JavaScript on the page.</li>
+    </ul>
+    <div>That's the desired effect we wanted to return.</div>
+</div>

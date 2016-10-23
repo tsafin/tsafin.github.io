@@ -147,11 +147,11 @@
       display: block;
       margin-left: 60px;
       font-family: $alt-font;
-      @include font-size(24,no);
+      @include font-size(18,no);
       font-weight: 700;
       @include media($small) {
         margin-left: 170px;
-        @include font-size(32,no);
+        @include font-size(24,no);
       }
     }
     .excerpt {

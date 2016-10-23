@@ -16,8 +16,7 @@ blogger_orig_url: https://habrahabr.ru/company/intersystems/blog/312338/
 
 Вы уже, наверное, заметили что MapReduce – это про параллелизм и масштабирование. Но давайте признаемся сразу – алгоритм, какой бы элегантный и простой он ни был бы, очень сложно отлаживать сразу в его в параллельной инкарнации. Обычно, для простоты, мы стартуем с последовательной версии (в нашем случае это будет алгоритм wordcount) и затем подмешаем немного параллелизма.
 
-<img src="https://habrastorage.org/files/56e/cc4/174/56ecc41743d0499f8f52272190f98af3.png" align="center"/>
-<em>Исполнение в среде MapReduce из статьи [&quot;MapReduce: Simplified Data Processing on Large Clusters&quot;, OSDI-2004](http://static.googleusercontent.com/media/research.google.com/ru/archive/mapreduce-osdi04.pdf)</em>
+<img src="https://habrastorage.org/files/56e/cc4/174/56ecc41743d0499f8f52272190f98af3.png" align="center" /><br/><em>Исполнение в среде MapReduce из статьи [&quot;MapReduce: Simplified Data Processing on Large Clusters&quot;, OSDI-2004](http://static.googleusercontent.com/media/research.google.com/ru/archive/mapreduce-osdi04.pdf)</em>
 
 
 Напомним суть задачки wordcount: у нас есть набор текстов (например, все тома «Войны и мир») и вам нужно подсчитать количество слов во всем массиве. Этот простой пример использовался в оригинальной статье Google про MapReduce, потому каждый следующий, рассказывающий про MapReduce использует тот же самый пример. Считайте это &quot;HelloWorld!&quot; параллельного исполнения.

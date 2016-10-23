@@ -24,7 +24,7 @@ blogger_orig_url: https://habrahabr.ru/company/intersystems/blog/312338/
 
 Итак, последовательная реализация WordCount (но с применением MapReduce интерфейсов, введенных ранее) будет содержать все те же самые части, что и параллельная. И, например, mapper будет выглядеть примерно так:
 
-```CacheObjectScript
+```
 Class MR.Sample.WordCount.Mapper Extends (%RegisteredObject, MR.Base.Mapper)
 {
 /// read strings from MR.Base.Iterator and count words
@@ -49,7 +49,7 @@ Method Map(MapInput As MR.Base.Iterator, MapOutput As MR.Base.Emitter)
 
 Процедура свертки (reducer) еще проще:
 
-```CacheObjectScript
+```
 Class MR.Sample.WordCount.Adder Extends (%RegisteredObject, MR.Base.Reducer)
 {
 Method Reduce(ReduceInput As MR.Base.Iterator, ReduceOutput As MR.Base.Emitter)
@@ -72,7 +72,7 @@ Method Reduce(ReduceInput As MR.Base.Iterator, ReduceOutput As MR.Base.Emitter)
 
 Итак, мы показали mapper и reducer, пришла очередь показать главную, управляющую часть программы. Не рискуя сразу упереться в сложность параллелизма, мы заходим с последовательной версии алгоритма, хотя и использующую MapReduce идиому и интерфейсы. Да, в последовательном режиме, все эти отжимания с конвейером, не имеют большого смысла, но … упрощение необходимо в педагогических целях.
 
-```CacheObjectScript
+```
 /// Упрощенная, одно-поточная версия примера "map-reduce".
 /Class MR.Sample.WordCount.App Extends %RegisteredObject
 {
@@ -119,7 +119,7 @@ DATA
 
 - Промежуточный канал intraPipe является экземпляром `MR.Sample.GlobalPipe`, который в нашем случае – просто синоним класса `MR.EmitterSorted`, и как мы описали в [предыдущей части](https://habrahabr.ru/company/intersystems/blog/310196/) автоматически очищается в конце работы программы.
 
-```CacheObjectScript
+```
 Class MR.Sample.GlobalPipe Extends (%RegisteredObject, MR.Emitter.Sorted) { }
 ```
 
@@ -127,7 +127,7 @@ Class MR.Sample.GlobalPipe Extends (%RegisteredObject, MR.Emitter.Sorted) { }
 
 - Входной итератор «маппера» (объекта отображения) будем экземпляром MR.Input.FileLines, который мы еще не показывали...
 
-```CacheObjectScript
+```
 Class MR.Input.FileLines Extends (%RegisteredObject, MR.Base.Iterator)
 {
 Property File As %Stream.FileCharacter;
@@ -202,7 +202,7 @@ $ wc -w war*.txt
 
 Во всех остальных случаях эти два приводимых примера ведут себя идентично – оба используют временные глобалы `^mtemp.Map($J)` и `^mtemp.Reduce($J)` в качестве промежуточного и финального хранилища на стадиях отображения и свертки.
 
-```CacheObjectScript
+```
 Class MR.Sample.WordCount.AppSum Extends %RegisteredObject
 {
 ClassMethod Map(FileName As %String, infraPipe As MR.Sample.GlobalPipe)
@@ -252,7 +252,7 @@ DATA
 
 Вернемся к коду – на предыдущем этапе мы, на стадии отображения, выделили функцию в отдельный метод класса, получающий два аргумента (имя входного файла и имя выходного глобала). Мы выделили данный код в отдельную функция с одной простой целью – облегчить создание параллельной версии. Такая параллельная версия будет использовать механизм worker в Caché ObjectScript [($system.WorkMgr)](http://docs.intersystems.com/latest/csp/documatic/%25CSP.Documatic.cls?PAGE=CLASS&amp;LIBRARY=%25SYS&amp;CLASSNAME=%25SYSTEM.WorkMgr) Ниже мы преобразуем последовательную версию, созданную на предыдущем шаге, в параллельную посредством вызова программ обработчиков (worker), запускаемых с выделенным методом класса.
 
-```CacheObjectScript
+```
 /// Версия #2 Более продвинутая, использующая несколько воркеров
 Class MR.Sample.WordCount.AppWorkers Extends %RegisteredObject
 {
@@ -312,7 +312,7 @@ DATA
 
 _Но тут, дорогой Хьюстон, у нас проблема_. В предыдущем примере метод `MR.Sample.WordCount.AppSum::Map` получал в качестве 2го аргумента экземпляр класса `MR.Sample.GlobalPipe`. Но мы не можем передавать объекты между процессами (а worker – это отдельный процесс из пула процессов). И в данном случае, нам нужно придумать простую схему «сериализации»/«десериализации» объекта в литеральные значения, для того чтобы это можно было передать в параллельный обработчик через `$system.WorkMgr.Queue` API.
 
-> _В случае с `GlobalPipe` "простой метод сериализации" – действительно получается простым. Если передать имя промежуточного глобала то этого достаточно для адекватной передачи состояния нашего  объекта. Вот почему вторым аргументом метода `MR.SampleWordCount.AppWorkers::Map` становится строка с именем глобала, а не объект._
+_В случае с `GlobalPipe` "простой метод сериализации" – действительно получается простым. Если передать имя промежуточного глобала то этого достаточно для адекватной передачи состояния нашего  объекта. Вот почему вторым аргументом метода `MR.SampleWordCount.AppWorkers::Map` становится строка с именем глобала, а не объект._
 
 Рекомендуем прочитать документацию по параллельным обработчикам [здесь](http://docs.intersystems.com/latest/csp/documatic/%25CSP.Documatic.cls?PAGE=CLASS&amp;LIBRARY=%25SYS&amp;CLASSNAME=%25SYSTEM.WorkMgr), но на будущее запомните, что если вы хотите использовать параллельные обработчики (в максимальном количестве, которое позволительно при вашем железе и лицензии) то при инициализации обработчиков вам стоит передать параметр со странным именем &quot;`/multicompile=1`&quot;. [Странное имя объясняется тем, что эта функциональность была добавлена для параллельной компиляции в трансляторе классов Caché ObjectScript. С тех пор этот модификатор стал использоваться и вне кода транслятора.]
 

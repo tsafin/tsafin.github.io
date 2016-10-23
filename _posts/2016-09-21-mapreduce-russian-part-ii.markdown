@@ -14,7 +14,7 @@ blogger_orig_url: https://habrahabr.ru/company/intersystems/blog/310196/
 <habracut/>
 Начнем с реализации абстрактных интерфейсов Mapper и Reducer.
 
-```CacheObjectScript
+```
 
 Class MR.Base.Mapper 
 {
@@ -29,7 +29,7 @@ Method Reduce(ReduceInput As MR.Base.Iterator, ReduceOutput As MR.Base.Emitter) 
 
 Изначально, как и в канонической реализации, мы сделали 2 отдельных интерфейса MapInput и ReduceInput. Но сразу стало очевидным, что они служат одной и той же цели, и предоставляют одни и те же методы – их цель пройтись по потоку данных до конца, т.ч. они оба являются итераторами. Потому, в итоге, редуцируем их в общий интерфейс MR.Base.Iterator:
 
-```CacheObjectScript
+```
 
 Class MR.Base.Iterator
 {
@@ -57,7 +57,7 @@ Method IsAtEnd() As %Boolean [Abstract ] { }
 
 Имея такие требования к дизайну, создадим базовый интерфейс эмиттера:
 
-```CacheObjectScript
+```
 
 Class MR.Base.Emitter Extends MR.Base.Iterator
 {
@@ -78,7 +78,7 @@ _Это всё ещё абстрактный интерфейс, больше м
 
 Если бы нам, при обработке, надо было сохранять порядок поступивших элементов, то мы бы использовали реализацию ниже:
 
-```CacheObjectScript
+```
 
 /// Emitter which maintains the order of (key,value(s))
 Class MR.Emitter.Ordered Extends (%RegisteredObject, MR.Base.Emitter)
@@ -180,7 +180,7 @@ Method Dump()
 
 Именно так и работает MR.Emitter.Sorted, который является наследником MR.Emitter.Ordered (показанного выше):
 
-```CacheObjectScript
+```
 
 /// Emitter which sorts by keys all emitted pairs or tuples (key, value(s))
 Class MR.Emitter.Sorted Extends MR.Emitter.Ordered
@@ -237,7 +237,7 @@ Method Emit(EmitList... As %String)
 
 Но GetNext нам надо переопределить, т.к. мы больше не пытаемся запомнить порядок посланных данных и формат его внутреннего хранилища поменялся:
 
-```CacheObjectScript
+```
 
 Class MR.Emitter.Sorted Extends MR.Emitter.Ordered 
 {

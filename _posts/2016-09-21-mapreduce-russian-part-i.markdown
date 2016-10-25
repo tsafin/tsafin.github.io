@@ -23,7 +23,8 @@ blogger_orig_url: https://habrahabr.ru/company/intersystems/blog/310180/
 
 Наиболее конкретный (из разумных) ответов дал Дэвид Кантер, один из самых уважаемых экспертов по архитектуре процессоров в целом и x86 в частности1:
 
-<twitter>https://twitter.com/thekanter/status/559034352474914816</twitter>
+<blockquote class="twitter-tweet" data-lang="ru"><p lang="en" dir="ltr">&quot;<a href="https://twitter.com/jrk">@jrk</a>: This: <a href="http://t.co/PSWxSjAbnA">http://t.co/PSWxSjAbnA</a>&quot; data isn&#39;t big until it cannot be held in DRAM on a 2S server. Today that is &gt;3TB <a href="https://twitter.com/hashtag/bigdata?src=hash">#bigdata</a> <a href="https://twitter.com/hashtag/myths?src=hash">#myths</a></p>&mdash; David Kanter (@TheKanter) <a href="https://twitter.com/TheKanter/status/559034352474914816">24 января 2015 г.</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 _FWIW, когда я, работая в Интеле, перешел в аппаратную команду, работающую над «процессором следующего поколения» (don&#39;task), то я начал с изучения материалов про [архитектуру процессора](http://www.realworldtech.com/nehalem/) [Nehalem](http://www.realworldtech.com/nehalem/) на сайте Дэвида Кантера, а не с внутренних доков HAS и MAS. Потому как у Дэвида было лучше, и понятнее._
 

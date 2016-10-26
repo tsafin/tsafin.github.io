@@ -18,7 +18,14 @@ InterSystems Fall School is usually 2-3 days long event. This year we were plan
 At around of 17:00 of 2<sup>nd</sup> day we started hackathon: after brief introduction of rules and planned schedule, we started initial project teams assembly. The plan was  – get all possible ideas for projects from all relevant sources (i.e. our Russian University grants suggested projects, or suggested extension ideas to some already existing GitHub projects), start to discuss them and then choice project from the list, or any other relevant idea (which might be influenced by the list of suggested ideas).
 
 <!-- <a href="/assets/team-list.jpg"><img class="size-medium wp-image-1917 aligncenter" src="/assets/team-list-170x300.jpg" alt="team-list" width="170" height="300" /></a> -->
-![team-list](/assets/team-list.jpg)
+
+<div class="card">
+    <div class="card-image">
+      <img src="/assets/team-list.jpg" alt="team-list" width="170" height="300">
+    </div>
+</div>
+
+<!-- ![team-list](/assets/team-list.jpg) -->
 
 If we review now all projects, which started, and categorize them by their sources, then we see that only small fraction were using topics of the suggested list. Most winners were developing their own idea.
 

@@ -21,7 +21,7 @@
 		
 		@include box-shadow(-80px 0 8px rgba(black, .4));
 		@include skew(50deg, 0 , false);
-		@include experimental(transform-origin, 0 100%);
+		@include transform-origin(0 100%);
 	}
 	&:after { display: none; content: none; }
 }
@@ -35,7 +35,7 @@
 		
 		@include box-shadow(80px 0 8px rgba(black, .4));
 		@include skew(-50deg, 0 , false);
-		@include experimental(transform-origin, 0 100%);
+		@include transform-origin(0 100%);
 	}
 	&:after { display: none; content: none; }
 }
@@ -55,9 +55,7 @@
 		top: 1px; bottom: 0;
 		left:12px; right:12px;
 		@include box-shadow(0 0 13px 4px rgba(black, .5));
-		
-		-moz-border-radius:150px / 10px;
-		border-radius:150px / 10px;
+		@include border-radius(150px, 10px);
 	}
 }
 
@@ -83,8 +81,7 @@
 		left:0; right:0%;
 		
 		@include box-shadow(0 0 13px 4px rgba(black, .5));
-		-moz-border-radius:10px / 100px;
-		border-radius:10px / 100px;
+		@include border-radius(10px, 100px);
 	}
 }
 

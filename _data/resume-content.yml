@@ -1,14 +1,33 @@
-- flag: Lorem ipsum
-  time: Feb 2015
-  desc: Lorem ipsum Nisi labore aute do aute culpa magna nulla voluptate
-        exercitation deserunt proident.
+- flag: InterSystems Corporation
+  time: March 2014 .. July 2016
+  position: Sales Engineer
+  desc: As Sales Engineer Timur developed PoC code for customer enabling projects, 
+        delivered lectures on schools, seminars, conferences and meetups. Mentored 
+        several student projects. Maintained open-source repositories forks on intersystems-ru 
+        and intersystems GitHub hubs. Proposed and organized 1st company hackathon, 
+        as part of annual Moscow fall school. Proposed practice of local meetups, 
+        which then spread over country in multiple locations.
 
-- flag: Lorem ipsum Anim.
-  time: Dec 2014
-  desc: Lorem ipsum In ut sit in dolor nisi ex magna eu anim anim tempor 
-        dolore aliquip enim cupidatat laborum dolore.
+- flag: Intel Corporation
+  time: March 2006 .. November 2013
+  position: Senior Software Engineer
+  desc: Participation in development of an x86-core simulator as part of full-system virtual 
+        platform, leader of virtualization technologies efforts. One of 
+        designers of “Virtual CPU API” interface – virtual platform and core simulator 
+        agnostic interface used Intel-wide by several teams, which allows to connect any 
+        compliant Virtual Platform (e.g. Synopsis Innovator or Simics) to any new x86 
+        compatible CPU core engine. Participated in development of several CPU simulators 
+        of various kinds. From functional mode x86 to performance (clock precise) non-x86 
+        simulators.Coordination and participation in development of multi-tier efforts 
+        of control-path analyzer infrastructure, which spreads among several team, 
+        simulators and tools. New software technologies introduced to the team, agile technology adaptation seeded.
 
-- flag: Lorem Occaecat.
-  time: July 2014
-  desc: Lorem ipsum Minim labore Ut cupidatat quis qui deserunt proident 
-        fugiat pariatur cillum cupidatat reprehenderit sit id dolor consectetur ut.
+- flag: Intersystems Corporation
+  time: March 2000 .. February 2006
+  position: Support Programmer
+  desc: Support and bug fixes of many areas of a Caché product, including kernel of a 
+        Caché engine (e.g. compiler, or run-time library), and all surrounding object 
+        framework. Timur has reimplemented and then maintained Windows version of 
+        Caché kernel packet driver (NDIS protocol driver). Implemented various internal 
+        tools for department wide usage. Moderated Russian Caché community, and actively 
+        participated in a worldwide Caché developers community. 

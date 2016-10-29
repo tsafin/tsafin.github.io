@@ -216,6 +216,7 @@ header {
   background: rgb(254, 254, 254);
   @include box-shadow(0 0 1px rgba(0, 0, 0, 0.2));
   z-index: 15;
+  font-size: 0.8em;
 }
 
 @media (min-width: 768px) {

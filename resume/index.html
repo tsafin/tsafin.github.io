@@ -11,7 +11,7 @@ layout: timeline
 <ul class="timeline">
 {% for record in site.data.resume-content %}
   <li>
-    <div class="direction-l">
+    <div class="direction-{% cycle 'l', 'r' %}">
       <div class="flag-wrapper">
         <span class="hexa"></span>
         <span class="flag">{{ record.flag }} </span>

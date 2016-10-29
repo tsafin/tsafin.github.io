@@ -134,7 +134,7 @@ header {
   border-radius: 5px;
 }
 
-.direction-l .flag:after, .direction-r .flag:after {
+%direction-flag-after {
   content: "";
   position: absolute;
   left: 50%;
@@ -148,12 +148,49 @@ header {
   pointer-events: none;
 }
 
-.direction-l .flag {
-  @include box-shadow(-1px 1px 1px rgba(0, 0, 0, 0.15), 0 0 1px rgba(0, 0, 0, 0.15));
+
+%direction-desc {
+  position: relative;
+  margin: 1em 1em 0 1em;
+  padding: 1em;
+  z-index: 15;
 }
 
-.direction-r .flag {
-  @include box-shadow(1px 1px 1px rgba(0, 0, 0, 0.15), 0 0 1px rgba(0, 0, 0, 0.15));
+.direction-l {
+
+  .flag {
+      @include box-shadow(-1px 1px 1px rgba(0, 0, 0, 0.15), 0 0 1px rgba(0, 0, 0, 0.15));
+      
+      &:after {
+         @extend %direction-flag-after;
+      }
+   }
+
+   .time-wrapper {
+      float: none;
+   }
+
+   .desc {
+       @extend %direction-desc;
+   }
+}
+
+.direction-r {
+   .flag {
+      @include box-shadow(1px 1px 1px rgba(0, 0, 0, 0.15), 0 0 1px rgba(0, 0, 0, 0.15));
+
+      &:after {
+         @extend %direction-flag-after;
+      }
+   }
+   
+   .time-wrapper {
+      float: none;
+   }
+
+   .desc {
+       @extend %direction-desc;
+   }
 }
 
 .time-wrapper {
@@ -164,10 +201,6 @@ header {
   line-height: 1em;
   vertical-align: middle;
   color: #fff;
-}
-
-.direction-l .time-wrapper, .direction-r .time-wrapper {
-  float: none;
 }
 
 .time {
@@ -182,13 +215,6 @@ header {
   padding: 1em;
   background: rgb(254, 254, 254);
   @include box-shadow(0 0 1px rgba(0, 0, 0, 0.2));
-  z-index: 15;
-}
-
-.direction-l .desc, .direction-r .desc {
-  position: relative;
-  margin: 1em 1em 0 1em;
-  padding: 1em;
   z-index: 15;
 }
 

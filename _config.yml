@@ -1,5 +1,6 @@
 ---
 title: Timur Safin - Making No Sense
+repository: tsafin/tsafin.github.io
 timezone: UTC
 collections:
   posts:
@@ -16,7 +17,9 @@ url:
 feed:
   path: atom.xml
 sass:
-  sass_dir: _sass
+  load_paths:
+    - _sass
+    - _compass
   style: compressed
 permalink: "/:categories/:title/"
 kramdown:
@@ -28,6 +31,7 @@ gems:
 - jekyll-gist
 - jekyll-feed
 - jekyll-compass
+- jekyll-assets
 owner:
   name: Timur Safin
   email: timur.safin@gmail.com

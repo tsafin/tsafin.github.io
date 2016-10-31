@@ -6,10 +6,10 @@ sitemap: false
 
 /* @import url(http://fonts.googleapis.com/css?family=Raleway:400,900); */
 
-body {
+/* body {
   font-family: 'Raleway', sans-serif;
   color: #333;
-}
+} */
 
 header {
   h1, h2, h3, h4, blockquote  {
@@ -134,6 +134,19 @@ header {
   padding: 6px 10px;
   text-align: left;
   border-radius: 5px;
+}
+
+
+span.circle {
+  img {
+    /* @include shadow(raised); */
+    -webkit-clip-path: circle(50% at 50% 50%);
+    clip-path: circle(50% at 50% 50%);
+
+  }
+
+  -webkit-filter: drop-shadow(2px 2px 5px black);
+  filter: drop-shadow(2px 2px 5px black);
 }
 
 %direction-flag-after {

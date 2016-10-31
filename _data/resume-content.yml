@@ -1,33 +1,67 @@
 - flag: InterSystems Corporation
   time: March 2014 .. July 2016
   position: Sales Engineer
-  desc: As Sales Engineer Timur developed PoC code for customer enabling projects, 
-        delivered lectures on schools, seminars, conferences and meetups. Mentored 
-        several student projects. Maintained open-source repositories forks on intersystems-ru 
-        and intersystems GitHub hubs. Proposed and organized 1st company hackathon, 
-        as part of annual Moscow fall school. Proposed practice of local meetups, 
-        which then spread over country in multiple locations.
+  desc: Developed proof-of-concept code for several customer enabling projects. 
+        Taught on schools, seminars, conferences and meetups. Wrote articles and blog posts. 
+        Proposed and organized 1st InterSystems hackathon. 
+        Started practice of local meetups which then spread over regions.
 
-- flag: Intel Corporation
-  time: March 2006 .. November 2013
+- flag: Intel Corporation <br/>Vippy
+  time: July 2010 .. November 2013
   position: Senior Software Engineer
-  desc: Participation in development of an x86-core simulator as part of full-system virtual 
-        platform, leader of virtualization technologies efforts. One of 
-        designers of “Virtual CPU API” interface – virtual platform and core simulator 
-        agnostic interface used Intel-wide by several teams, which allows to connect any 
-        compliant Virtual Platform (e.g. Synopsis Innovator or Simics) to any new x86 
-        compatible CPU core engine. Participated in development of several CPU simulators 
-        of various kinds. From functional mode x86 to performance (clock precise) non-x86 
-        simulators.Coordination and participation in development of multi-tier efforts 
-        of control-path analyzer infrastructure, which spreads among several team, 
-        simulators and tools. New software technologies introduced to the team, agile technology adaptation seeded.
+  desc: As part of memory subsystem team participated in the development of
+        clock-precise simulator for the experimental, next-generation processor.
+        Introduced agile and XP techniques to the team.
+
+- flag: Intel Corporation <br/>ZSIM 
+  time: December 2009 .. June 2010
+  position: Senior Software Engineer
+  desc: Fast, fucntional mode x86 simulator has been created from scratch. Developed new
+        pagewalkers. Maintained VCPUAPI interface for working with external
+        virtual platforms (e.g. Synopsis Innovator). 
+
+- flag: Intel Corporation <br/>SoftSDV
+  time: March 2006 .. December 2009
+  position: Senior Software Engineer
+  desc: Served as a virtualization technical leader in the CPU team of 
+        full-system virtual platform (SoftSDV). Worked with Intel architects in 
+        enabling of new virtualization technologies in the next core architectures.
+        One of designers of "Virtual CPU API" interface – virtual platform and core simulator agnostic interface used in the Intel by several teams.
 
 - flag: Intersystems Corporation
   time: March 2000 .. February 2006
   position: Support Programmer
   desc: Support and bug fixes of many areas of a Caché product, including kernel of a 
-        Caché engine (e.g. compiler, or run-time library), and all surrounding object 
-        framework. Timur has reimplemented and then maintained Windows version of 
-        Caché kernel packet driver (NDIS protocol driver). Implemented various internal 
-        tools for department wide usage. Moderated Russian Caché community, and actively 
-        participated in a worldwide Caché developers community. 
+        Caché engine, and surrounding object framework. 
+        Кeimplemented and maintained 64-bit Windows version of a  
+        Caché kernel packet driver (NDIS protocol driver). 
+        Moderated Russian Caché community, and participated in a worldwide Caché 
+        developers community. 
+
+- flag: StatProgress
+  time: November 1996 .. February 2000
+  position: Senior Programmer
+  desc: Development of the original patented technology for constructing of 
+        16-and 32-bit multimedia MediaView-based courses running on Windows.
+        Led development of several multimedia courses, and web sites.
+        Part-time UI design, web-design and web-programming.
+
+- flag: Inzer
+  time: May 1994 .. February 1996
+  position: Programmer
+  desc: Participated in the development of Windows Application Constructor,
+        scripting subsystem in the Windows terminal and dialer program (DataLine 2.0).
+        Documentation, setups in various projects. Custom development.
+
+- flag: MP Karat
+  time: September 1990 .. April 1994
+  position: Technical Support Advisor
+  desc: Support of Borland C/C++ and Borland Pascal products.
+
+- flag: Heliomed
+  time: March 1990 .. March 1994
+  position: Programmer
+  desc: Development of an optimizing C compiler for 8-bit Z80-based embedded software 
+        (firmware of x-ray devices).
+  
+

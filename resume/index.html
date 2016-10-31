@@ -2,14 +2,38 @@
 layout: timeline
 ---
 
-<header>
-    <h1>CSS based responsive timeline</h1>
+<header class="center">
+    <h1>Timur Safin</h1>
+    <h4>Systems Software Engineer</h4>
 
-    <p>Heya! Worked on all modern browsers</p>
+    <blockquote>Born in the Soviet Moscow the snowy December 1970. 
+      Fast forward 40 years - programmed performance simulator for some experimental "next-generation" processor. Few years further and, boom, now we are evangelizing Intersystems Caché database.</blockquote>
+
+    <h3>Experience</h3>
+
 </header>
 
 <ul class="timeline">
 {% for record in site.data.resume-content %}
+  <li>
+    <div class="direction-{% cycle 'l', 'r' %}">
+      <div class="flag-wrapper">
+        <span class="hexa"></span>
+        <span class="flag">{{ record.flag }} </span>
+        <span class="time-wrapper"><span class="time">{{ record.time }}</span></span>
+      </div>
+      <div class="shadow raised desc">{{ record.desc }} </div>
+    </div>
+  </li>
+{% endfor %}
+</ul>
+
+<header>
+<h3>Education and academia</h3>
+</header>>
+
+<ul class="timeline">
+{% for record in site.data.resume-education %}
   <li>
     <div class="direction-{% cycle 'l', 'r' %}">
       <div class="flag-wrapper">

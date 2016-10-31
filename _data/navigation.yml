@@ -1,6 +1,16 @@
 # Site navigation links
 
-- title:
-  url:
-  excerpt:
+- title: Articles
+  url: /blog/
+  excerpt: Blog posts and random rumblings...
+  image:
+
+- title: Projects
+  url: /projects/
+  excerpt: Open-source projects
+  image:
+
+- title: About
+  url: /resume/
+  excerpt: Resume and such...
   image:

@@ -1,50 +1,54 @@
 ---
-layout: timeline
+layout: timeline 
 ---
 
 <header>
-    
+
     <h1><span class="circle"><img src="{{ site.url }}/images/{{ site.owner.photo }}" alt="{{ site.owner.name }}"></span></br>
-    Timur Safin</h1>
+        Timur Safin</h1>
     <h4>Systems Software Engineer</h4>
 
-    <blockquote>Born in the Soviet Moscow the snowy December 1970. 
-      Fast forward 40 years - programmed performance simulator for some experimental "next-generation" processor. Few years further and, boom, now we are evangelizing Intersystems Caché database.</blockquote>
-
-    <h3>Experience</h3>
+    <blockquote>Born in the Soviet Moscow the snowy December 1970. Fast forward 40 years - programmed performance simulator for some experimental "next-generation" processor. Few years further and, boom, now we are evangelizing Intersystems Caché database.</blockquote>
 
 </header>
 
+{% include rrssb.html %}
+
+<header>
+<h3>Experience</h3>
+</header>
+
 <ul class="timeline">
-{% for record in site.data.resume-content %}
-  <li>
-    <div class="direction-{% cycle 'l', 'r' %}">
-      <div class="flag-wrapper">
-        <span class="hexa"></span>
-        <span class="flag">{{ record.flag }} </span>
-        <span class="time-wrapper"><span class="time">{{ record.time }}</span></span>
-      </div>
-      <div class="shadow raised desc">{{ record.desc }} </div>
-    </div>
-  </li>
-{% endfor %}
+    {% for record in site.data.resume-content %}
+    <li>
+        <div class="direction-{% cycle 'l', 'r' %}">
+            <div class="flag-wrapper">
+                <span class="hexa"></span>
+                <span class="flag">{{ record.flag }} </span>
+                <span class="time-wrapper"><span class="time">{{ record.time }}</span></span>
+            </div>
+            <div class="shadow raised desc">{{ record.desc }} </div>
+        </div>
+    </li>
+    {% endfor %}
 </ul>
 
 <header>
 <h3>Education and academia</h3>
-</header>>
+</header>
 
 <ul class="timeline">
-{% for record in site.data.resume-education %}
-  <li>
-    <div class="direction-{% cycle 'l', 'r' %}">
-      <div class="flag-wrapper">
-        <span class="hexa"></span>
-        <span class="flag">{{ record.flag }} </span>
-        <span class="time-wrapper"><span class="time">{{ record.time }}</span></span>
-      </div>
-      <div class="shadow raised desc">{{ record.desc }} </div>
-    </div>
-  </li>
-{% endfor %}
+    {% for record in site.data.resume-education %}
+    <li>
+        <div class="direction-{% cycle 'l', 'r' %}">
+            <div class="flag-wrapper">
+                <span class="hexa"></span>
+                <span class="flag">{{ record.flag }} </span>
+                <span class="time-wrapper"><span class="time">{{ record.time }}</span></span>
+            </div>
+            <div class="shadow raised desc">{{ record.desc }} </div>
+        </div>
+    </li>
+    {% endfor %}
 </ul>
+

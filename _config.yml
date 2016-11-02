@@ -13,7 +13,7 @@ description: Try to be public. Again
 logo: tsafin_twitter_small_logo.jpg
 teaser: 400x250.gif
 locale: en
-url: 
+url: "http://tsafin.net"
 feed:
   path: atom.xml
 sass:

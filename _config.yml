@@ -32,6 +32,7 @@ gems:
 - jekyll-feed
 - jekyll-compass
 - jekyll-assets
+- jemoji
 owner:
   name: Timur Safin
   email: timur.safin@gmail.com

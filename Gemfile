@@ -32,4 +32,5 @@ group :jekyll_plugins do
   gem 'jekyll-compass'
   gem 'jekyll-assets'
   gem 'jekyll-sass-converter'
+  gem 'jemoji'
 end

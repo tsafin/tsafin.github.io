@@ -5,21 +5,42 @@ sitemap: false
 @import "shadows";
 @import "vendor/rrssb/rrssb";
 
-/* @import url(http://fonts.googleapis.com/css?family=Raleway:400,900); */
+$row-width: 60em;
 
-/* body {
-  font-family: 'Raleway', sans-serif;
-  color: #333;
-} */
-
-header {
-  h1, h2, h3, h4, blockquote  {
-    text-align: center;
+@mixin clearfix {
+  &:after {
+    content:"";
+    display:table;
+    clear:both;
   }
+}
 
-  p {
-    text-align: center;
-    margin-bottom: 0;
+@mixin outer-container {
+  @include clearfix;
+  max-width: $row-width;
+  margin: {
+    left: auto;
+    right: auto;
+  }
+}
+
+
+container {
+  //@include grid-row;
+
+  .column {
+    //@include grid-column($columns:11, $center:true, $collapse:null, $float:false);
+    @include outer-container;
+  
+    
+    h1, h2, h3, h4, h5, blockquote  {
+      text-align: center;
+    }
+
+    p {
+      text-align: center;
+      margin-bottom: 0;
+    }
   }
 }
 

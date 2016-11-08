@@ -2,7 +2,7 @@
 layout: timeline 
 ---
 
-<header>
+<container><div class="column">
 
     <h1><span class="circle"><img src="{{ site.url }}/images/{{ site.owner.photo }}" alt="{{ site.owner.name }}"></span></br>
         Timur Safin</h1>
@@ -10,13 +10,9 @@ layout: timeline
 
     <blockquote>Born in the Soviet Moscow the snowy December 1970. Fast forward 40 years - programmed performance simulator for some experimental "next-generation" processor. Few years further and, boom, now we are evangelizing Intersystems Caché database.</blockquote>
 
-</header>
-
 {% include rrssb.html %}
 
-<header>
 <h3>Experience</h3>
-</header>
 
 <ul class="timeline">
     {% for record in site.data.resume-content %}
@@ -33,9 +29,7 @@ layout: timeline
     {% endfor %}
 </ul>
 
-<header>
 <h3>Education and academia</h3>
-</header>
 
 <ul class="timeline">
     {% for record in site.data.resume-education %}
@@ -52,3 +46,4 @@ layout: timeline
     {% endfor %}
 </ul>
 
+</div></container>

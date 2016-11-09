@@ -26,6 +26,7 @@ kramdown:
   toc_levels: 1..2
 highlighter: rouge
 google_analytics_key: UA-84704404-1
+yandex_metrika_key: 40768979
 gems:
 - jekyll-sitemap
 - jekyll-gist

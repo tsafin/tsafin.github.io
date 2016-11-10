@@ -4,6 +4,9 @@ title:  "Удаленное прокси может быть не (очень) �
 date:   2016-11-11 00:00:00 +0300
 categories: blog mapreduce
 comments: true
+image:
+  feature: landscapes/feature1.jpg
+  credits:
 blogger_orig_url: https://community.intersystems.com/post/remote-proxy-objects-dynamic-dispatch
 ---
 

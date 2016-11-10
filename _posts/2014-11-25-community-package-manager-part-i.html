@@ -9,6 +9,9 @@ tags:
 - Caché
 modified_time: '2014-11-25T17:29:32.777+03:00'
 categories: blog blogger
+image:
+  feature: landscapes/feature12.jpg
+  credits:
 thumbnail: http://4.bp.blogspot.com/-c7mRsvva_ko/VHRyY4wI7VI/AAAAAAAAbL0/2cxELKiyLaM/s72-c/timeline.png
 blogger_id: tag:blogger.com,1999:blog-1111089994103028505.post-2325275840240469991
 blogger_orig_url: http://tsafin.blogspot.com/2014/11/community-package-manager-part-i.html
@@ -16,16 +19,40 @@ blogger_orig_url: http://tsafin.blogspot.com/2014/11/community-package-manager-p
 
 <blockquote>​ Here is the problem as I see in the Cach&eacute; developers community - if you are newbie COS/Ensemble/DeepSee developer then it's very hard to find any suitable 3<sup>rd</sup> party component, library or utility. They are spread over the Internet,
     some of them are in the GitHub, some of them in SourceForce, rare ones are on their own sites, etc. Yes,there are many useful components or tools (there are even standalone debugger or VCS) but it takes <em>some time</em> to discover all the useful
-    location, and get to used to this situation.</br> <strong>There is no single location and there is no convenient way to find and install extension or utility.</strong></br> Which is not very competitive comparing to other languages and development
-    environment. In these articles I will try to investigate this problem further (this part I), and will propose some simple decision (<a href="community-package-manageer-ii.html">part II</a>) </blockquote>
+    location, and get to used to this situation.</br>
+    <strong>There is no single location and there is no convenient way to find and install extension or utility.</strong></br>
+    Which is not very competitive comparing to other languages and development
+    environment. In these articles I will try to investigate this problem further (this part I), and will propose some simple decision 
+    (<a href="community-package-manageer-ii.html">part II</a>) </blockquote>
 <p>​What do you think about "package manager" and its importance for the community success? For me, package manager is absolutely a must, and most important ingredient for the language success and maturity of eco-system. You could not find any single language
     community where there would be no convenient package manager with huge collection of available 3<sup>rd</sup> party packages. After all these years spent hacking in Perl, Python, JavaScript, Ruby, Haskell, Java, (you name other) you pretty much used
     to expect that when you start a new project you have a plenty of external components which may help you to cook the project fast and seamless. `PM install this`, `PM install that` and quite easy and fast you get something working and useable. Community
     works for you.</p>
+
 <p>These words about <a href="http://en.wikipedia.org/wiki/CPAN">CPAN</a> and its experience are pretty much characterizing the importance of the precedent of CPAN and it's later impact toother languages and environments:</p>
-<blockquote>"Experienced Perl programmers often comment that half of Perl's power is in the CPAN. It has been called Perl's killer app.Though the <a href="http://en.wikipedia.org/wiki/TeX"><em>TeX</em></a> typesetting language has an equivalent, the <a href="http://en.wikipedia.org/wiki/CTAN">CTAN</a>    (and in fact the CPAN's name is based on the CTAN), few languages have an exhaustive central repository for libraries. The <a href="http://en.wikipedia.org/wiki/PHP">PHP</a> language has <a href="http://en.wikipedia.org/wiki/PHP_Extension_Community_Library">PECL</a>    and <a href="http://en.wikipedia.org/wiki/PHP_Extension_and_Application_Repository">PEAR</a> <a href="http://en.wikipedia.org/wiki/Python_(programming_language)">Python</a> has a <a href="http://en.wikipedia.org/wiki/PyPI">PyPI</a> (Python Package
-    Index) repository, <a href="http://en.wikipedia.org/wiki/Ruby_(programming_language)">Ruby</a> has <a href="http://en.wikipedia.org/wiki/RubyGems">RubyGems</a> <a href="http://en.wikipedia.org/wiki/R_(programming_language)">R</a> has <a href="http://en.wikipedia.org/wiki/CRAN_(R_programming_language)">CRAN</a>    <a href="http://en.wikipedia.org/wiki/Node.js">Node.js</a> has <a href="http://en.wikipedia.org/wiki/Npm_(software)">npm</a> <a href="http://en.wikipedia.org/wiki/Lua_(programming_language)">Lua</a> has <a href="http://en.wikipedia.org/wiki/LuaRocks">LuaRocks</a>    <a href="http://en.wikipedia.org/wiki/Haskell_(programming_language)">Haskell</a> has <a href="http://en.wikipedia.org/wiki/Hackage">Hackage</a> and an associated installer/make clone <a href="http://en.wikipedia.org/wiki/Cabal_(software)">cabal</a>    but none of these are as large as the CPAN. Recently, <a href="http://en.wikipedia.org/wiki/Common_Lisp">Common Lisp</a> has a de facto CPAN-like system - the Quicklisp repositories. Other major languages, such as <a href="http://en.wikipedia.org/wiki/Java_(programming_language)">Java</a>    and <a href="http://en.wikipedia.org/wiki/C++">C++</a>, have nothing similar to the CPAN (though for Java there is central <a href="http://en.wikipedia.org/wiki/Apache_Maven">Maven</a>). </blockquote>
-<blockquote>The CPAN has grown so large and comprehensive over the years that Perl users are known to express surprise when they start to encounter topics for which a CPAN module doesn't exist already." </blockquote>
+
+<blockquote>"Experienced Perl programmers often comment that half of Perl's power is in the CPAN. It has been called Perl's killer app.Though the 
+    <a href="http://en.wikipedia.org/wiki/TeX"><em>TeX</em></a> typesetting language has an equivalent, 
+    the <a href="http://en.wikipedia.org/wiki/CTAN">CTAN</a>    
+    (and in fact the CPAN's name is based on the CTAN), few languages have an exhaustive central repository for libraries. 
+    The <a href="http://en.wikipedia.org/wiki/PHP">PHP</a> language has <a href="http://en.wikipedia.org/wiki/PHP_Extension_Community_Library">PECL</a> 
+    and <a href="http://en.wikipedia.org/wiki/PHP_Extension_and_Application_Repository">PEAR</a> 
+    <a href="http://en.wikipedia.org/wiki/Python_(programming_language)">Python</a> has a <a href="http://en.wikipedia.org/wiki/PyPI">PyPI</a> 
+   (Python Package Index) repository, <a href="http://en.wikipedia.org/wiki/Ruby_(programming_language)">Ruby</a> has 
+   <a href="http://en.wikipedia.org/wiki/RubyGems">RubyGems</a> <a href="http://en.wikipedia.org/wiki/R_(programming_language)">R</a> 
+   has <a href="http://en.wikipedia.org/wiki/CRAN_(R_programming_language)">CRAN</a>    <a href="http://en.wikipedia.org/wiki/Node.js">Node.js</a> 
+   has <a href="http://en.wikipedia.org/wiki/Npm_(software)">npm</a> <a href="http://en.wikipedia.org/wiki/Lua_(programming_language)">Lua</a> 
+   has <a href="http://en.wikipedia.org/wiki/LuaRocks">LuaRocks</a>    <a href="http://en.wikipedia.org/wiki/Haskell_(programming_language)">Haskell</a> 
+   has <a href="http://en.wikipedia.org/wiki/Hackage">Hackage</a> and an associated installer/make 
+   clone <a href="http://en.wikipedia.org/wiki/Cabal_(software)">cabal</a> but none of these are as large as the CPAN. 
+   Recently, <a href="http://en.wikipedia.org/wiki/Common_Lisp">Common Lisp</a> has a de facto CPAN-like system - the Quicklisp repositories. 
+   Other major languages, such as <a href="http://en.wikipedia.org/wiki/Java_(programming_language)">Java</a> 
+   and <a href="http://en.wikipedia.org/wiki/C++">C++</a>, have nothing similar to the CPAN (though for Java there is 
+   central <a href="http://en.wikipedia.org/wiki/Apache_Maven">Maven</a>). </blockquote>
+
+<blockquote>The CPAN has grown so large and comprehensive over the years that Perl users are known to express surprise when they start to 
+   encounter topics for which a CPAN module doesn't exist already." </blockquote>
+
 <table border="1">
     <colgroup>
         <col />

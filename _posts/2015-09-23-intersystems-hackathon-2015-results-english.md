@@ -4,6 +4,9 @@ title:  InterSystems hackathon 2015 results
 date:   2015-09-23 15:49:24 +0300
 categories: hackathon
 comments: true
+image:
+  feature: landscapes/feature3.jpg
+  credits:
 blogger_orig_url: http://writeimagejournal.com/?p=1912
 ---
 
@@ -21,7 +24,7 @@ At around of 17:00 of 2<sup>nd</sup> day we started hackathon: after brief intro
 
 <div class="card">
     <div class="card-image">
-      <img src="/assets/team-list.jpg" alt="team-list" width="170" height="300">
+      <img src="/assets/team-list.jpg" alt="team-list" width="170" height="300" />
     </div>
 </div>
 

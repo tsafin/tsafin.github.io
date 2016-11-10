@@ -4,6 +4,9 @@ title:  "Еще раз про MapReduce. Часть 2 – базовые инт�
 date:   2016-10-04 13:24:00 +0300
 categories: blog mapreduce
 comments: true
+image:
+  feature: landscapes/feature6.jpg
+  credits:
 thumbnail: https://habrastorage.org/files/e4c/cac/f03/e4ccacf0316840bca92ee668bfdb1f95.jpg
 blogger_orig_url: https://habrahabr.ru/company/intersystems/blog/310196/
 ---

@@ -4,6 +4,9 @@ title:  "Какая-такая Data? или Еще раз про MapReduce"
 date:   2016-09-26 17:07:00 +0300
 categories: blog mapreduce
 comments: true
+image:
+  feature: landscapes/feature7.jpg
+  credits:
 thumbnail: https://habrastorage.org/getpro/habr/post_images/fa7/7e6/27c/fa77e627c184bec95f61df62ccca0b54.jpg
 blogger_orig_url: https://habrahabr.ru/company/intersystems/blog/310180/
 ---

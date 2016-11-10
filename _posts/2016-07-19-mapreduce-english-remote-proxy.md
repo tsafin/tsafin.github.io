@@ -4,6 +4,9 @@ title:  "Remote proxy objects via dynamic dispatch"
 date:   2016-07-19 00:00:00 +0300
 categories: blog mapreduce
 comments: true
+image:
+  feature: landscapes/feature2.jpg
+  credits:
 blogger_orig_url: https://community.intersystems.com/post/remote-proxy-objects-dynamic-dispatch
 ---
 

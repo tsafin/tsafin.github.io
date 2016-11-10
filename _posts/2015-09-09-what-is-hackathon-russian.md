@@ -4,6 +4,9 @@ title:  Школа Инноваций 2015 - что такое хакатон?
 date:   2015-09-09 19:26:03 +0300
 categories: hackathon
 comments: true
+image:
+  feature: landscapes/feature4.jpg
+  credits:
 blogger_orig_url: http://writeimagejournal.com/?p=1902
 ---
 

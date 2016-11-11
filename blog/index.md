@@ -6,8 +6,8 @@ modified:
 excerpt: "Blog posts and random rumblings..."
 tags: []
 image:
-  feature:
-  teaser:
+  feature: landscapes/feature18.jpg
+  credits:
 ---
 
 <div class="tiles">

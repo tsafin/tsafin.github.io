@@ -7,7 +7,7 @@ comments: true
 image:
   feature: landscapes/feature1.jpg
   credits:
-blogger_orig_url: https://community.intersystems.com/post/remote-proxy-objects-dynamic-dispatch
+blogger_orig_url: https://habrahabr.ru/company/intersystems/blog/314774/
 ---
 
 # (Использование динамического диспетчирования на радость и во славу)

@@ -1,7 +1,7 @@
 ---
 layout: article
 title:  "Удаленное прокси может быть не (очень) больно"
-date:   2016-11-15 16:00:00 +0300
+date:   2016-11-14 16:00:00 +0300
 categories: blog mapreduce
 comments: true
 image:

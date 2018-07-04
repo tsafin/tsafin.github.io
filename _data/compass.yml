@@ -1,7 +1,7 @@
 ---
 require:
 - jekyll-compass
-project_path: C:\Users\Timur\Documents\tsafin.github.io\
+project_path: /Users/tsafin/src/github/tsafin.github.io
 http_path: /
 css_dir: css
 sass_dir: _sass

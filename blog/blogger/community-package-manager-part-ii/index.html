@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Intersystems Caché - Approaching Community Package Manager - Part II • Timur Safin - Making No Sense</title>
+    <meta name="description" content="This is the second part of my long post about package managers in various operating systems and language distributions. Now you probably "buy the idea" that convenient package manager and 3rd    party code repository is the key factor in establishing of a live and popular ecosystem. In the second part we will discuss the action plan for creating of a package-manager for the Cach&eacute;​ database environment.
+​So let try to estimate how much we should implement if we would try to add some basic package management facilities to Cach&eacute; ecosystem? Should we do anything in the kernel, or could it be done as external service? What is the minimum functionality    necessary at the beginning to establish anything resembling package management repository? Which still be useful?
+Format
+1st&nbsp;question to answer - what is composing the &ldquo;package&rdquo;? What about simplest ever case - when only Cach&eacute; classes to be deployed? How we keep multiple file types? In the ideal case &ndash; some ZIP container could be
+    used, but in the&nbsp; simplest case even the simple XML file, as a Cach&eacute; Studio project export could serve the purpose, because even now we could embed all supported file types (CLS, RTN, INC, CSP, ZEN, CSS, GIF, etc.) to such XML
+    export files. Not everything is possible to add to the project using Studio UI, but AFAIK much less restrictions applied if we use the Studio API classes.
+Yes XML export is very inefficient, bloated, and although it could handle binary files as base64 encoded, but it would generate large files. For the initial implementation though we could ignore this inefficiency for the moment
+Metadata file
+2nd&nbsp;question to answer - what should we put as the metadata info? Certainly there should be &ldquo;dependency information&rdquo; (to make possible recursive install of all dependent packages), but what else?
+Here is the example of metadata information from some abstract CPAN module using ExtUtils::AutoInstall package functions, which is not usually part of distribution, but one has handy facility for dependency tracking: use inc::Module::Install; name 'Joe-Hacker'; abstract 'Perl Interface to Joe Hacker'; author 'Joe Hacker &lt;joe@hacker.org&gt;'; include 'Module::AutoInstall'; requires 'Module0'; # mandatory modules feature 'Feature1', -default =&gt; 0, 'Module2' =&gt; '0.1'; auto_install( make_args =&gt; '--hello', # option(s) for CPAN::Config force =&gt; 1, # pseudo-option to force install do_once =&gt; 1, # skip previously failed modules ); WriteAll;
+Here is the example of NPM package dependencies description: { "dependencies" : { "foo" : "1.0.0 - 2.9999.9999" , "bar" : "&gt;=1.0.2 &lt;2.1.2" , "qux" : "&lt;1.0.0 || &gt;=2.3.1 &lt;2.4.5 || &gt;=2.5.2 &lt;3.0.0" , "asd" : "http://asdf.com/asdf.tar.gz" , "til" : "~1.2" , "elf" : "~1.2.3" , "lat" : "latest" , "dyl" : "file:../dyl" }}
+As a rough approximation, we could start with&nbsp;JSON format used by the NPM packages. However, for the simplicity sake, before we have better JSON support in the kernel, we could start
+    with XML metadata file information.
+Honestly, I hate XML, but let face it - XML and JSON are quite interchangeable, and all about the same, they are 2 different way to serialize hierarchical info. So whatever is described in JSON, could be similarly described in XML, and vice versa.
+    Once we have better JSON support in the product, we could easily switch the gears, and use JSON instead of XML for metadata information file. 
+Dependency on system classes
+When we are talking about dependencies on some classes there is interesting problem to address - how to mark dependency on some &ldquo;built-in&rdquo; Cach&eacute;/Ensemble/HealthShare/TrakCare class(es), which may have been introduced with some particular
+    version? And in general - how to denote dependency on anything from %CACHELIB and similar system database?
+For simplicity matter (in the initial implementation) we may just ignore that problem, and if deployed extra class will reference to anything of system database then just assume it&rsquo;s just there.
+In the ideal case we should have facilities to require dependency on some particular version (i.e. &ldquo;&gt;2014.1&rdquo;) of particular product (&ldquo;Cache&rdquo;, &ldquo;Ensemble&rdquo;, &ldquo;HealthShare&rdquo;, &ldquo;EM&rdquo;, etc.) or even
+    some particular package installed (&ldquo;iKnow&rdquo;, &ldquo;SetAnalysis&rdquo;, etc) This is too early though at the moment to try to invent some definitive mechanism, so we may leave this question unanswered.
+Cross-platform binary modules
+CPAN would not get so much success if there would be no way to distribute packages, which are partially implemented in C, and part in Perl. So for calling to some mission critical, highly optimized code, or as a wrappers for sokme externally available
+    C/C++ library. In Perl they have XS API facilities which allows you to call C code from Perl module, and in reverse. If you would look into the implementation details you would quickly realize that
+    XS is modelled very similar to Cach&eacute; callout - similarly as in our case, there is no&nbsp;simple&nbsp;and direct&nbsp;wayto call any C/C++ API, you have to write wrapper to call it. But dislike to callout there are available
+    a number of service utilities which simplify the process of a wrapper creation, such as:
+
+    h2xs preprocessor to generate XS header using the given C header file (well with some limitations);
+    xsubpp - preprocessor to convert XS code to pure C code, etc; 
+While dealing with callout code from COS we have a little help from the system, and most of the code should be written manually. [Fortunately, now we are allowed to write DLL callouts, and not obliged to statically recompile Cach&eacute; kernel, the situation
+    I remember at the early 2000]
+There are a couple of rather modern, and relatively convenient approaches to call external C/C++ code from Cach&eacute; kernel:
+
+    Builtin FFI mechanism used, for example, by iKnow libraries;
+    Or CNA (Cach&eacute; Native Access) callout wrapper&nbsp;which uses LibFFI mechanism for easy calling of&nbsp;any&nbsp;C-runtime function from the COS code;
+
+From the practical prospective though, taking into account multiple Cach&eacute platforms we should handle equally well (Windows, Linux, Mac OS X, oreven VMS), and the fact that these both FFI (foreign-function interfaces) are not yet officially supported,
+    I should admit that they both are not ready yet, and could not be recommended as a way to handle deployment of mixed C/COS packages. Now it&rsquo;s not a big issue, but eventually, once we will go to cross-platform with binary packages we should revisit
+    this topic.
+Unit Testing
+CPAN example showed us yet another good practice, which may positively affect the maturity and stability of 3rd&nbsp;party eco-system &ndash; built-in testing support. Each popular Perl package had built-in set of unit-test, which supposed
+    to be run after compilation completed and before installation happen. If there this unit-testing is not passed for the target system then installation will not happen.
+For simplicity sake we may ignore unit-testing support in the 1st implementation, but once it will evolve to the binary package format (i.e. ZIP) and binary modules support added &ndash; then testing should become required step before installation.
+Command-line access
+User experience is a key factor here - if this system would be inconvenient to use then there is big chance to stay unnoticed. To be useful for COS developers community here we supposed to handle &ldquo;package installations&rdquo; both directions:
+
+    be it invoked from COS shell, via simple package-manager shell `do ^CPM`
+    or from command-line, i.e. `cpm install DeepSee-Mobile`
+
+From practical point of view they should be interchangeable and provide the same side-effect for each operation. But having CLI access to package manager is important for administrators due to scripting needs. In the longer term, once infrastructure is established and mature enough there should be developed GUI wrapper for package manipulations (say, callable from SMP), but GUI is not required at the 1st step.
+Mirroring and CDN
+In 199x-200x years each package management system faced yet another problem, they had to address separately - how to make their repository respond fast, and preferably from geo-optimized mirror location? And while we are at this topic - what about that
+    mirror system should be DDoS resistant at the same time? Such &ldquo;old school&rdquo; software repositories usually relied on community power to deploy huge network of geo-spread mirrors (CPAN, CTAN, Debian, etc.). They are still using the same approach,
+    and still have multiple mirrors spread over the planet, but today we have easier soluion to this same problem.
+Today there is available a cheap facility of CDN providers. If we need to just host some set of static binary files then CDN is just &ldquo;that doctor ordered&rdquo;. I have no idea who is the best selection for our scenario: whether it will be some
+    generic VM-hosting provider like Amazon or Azure, or, may be, we would need to select between&nbsp;Amazon CloudFront, or&nbsp;MaxCDN&nbsp;or anything similar.
+    Anything of mentioned is easy to handle nowadays, and not require any extra mirroring effort from the community.
+If you have any prior experience with CDN, and have strong preference on something, please provide us advice - we will be curios to know any details. 
+Final words
+This is my simple take on the apparent problem of missing convenient repository for 3rd party components used in Cach&eacute; database problem. They are either hard to find, or hard to install, or unmaintained, or all at once. We need more
+    utilities, more classes available, and more developers involved in the ecosystem. Central repository like CPAN could be a trigger point in changing the scenario of how an average Joe "the COS developer" develops their new solutions.
+I hope it's clear now that package manager might be doable right now, even with current database platform support, and could be done in reasonable amount of time. So...
+So who is wanting to participate? Do we have community demand here?">
+    <meta name="keywords" content="package manager, Intersystems, Caché">
+    
+    	<!-- Twitter Cards -->
+	<meta name="twitter:title" content="Intersystems Caché - Approaching Community Package Manager - Part II">
+	<meta name="twitter:description" content="This is the second part of my long post about package managers in various operating systems and language distributions. Now you probably "buy the idea" that convenient package manager and 3rd    party code repository is the key factor in establishing of a live and popular ecosystem. In the second part we will discuss the action plan for creating of a package-manager for the Cach&eacute;​ database environment.
+​So let try to estimate how much we should implement if we would try to add some basic package management facilities to Cach&eacute; ecosystem? Should we do anything in the kernel, or could it be done as external service? What is the minimum functionality    necessary at the beginning to establish anything resembling package management repository? Which still be useful?
+Format
+1st&nbsp;question to answer - what is composing the &ldquo;package&rdquo;? What about simplest ever case - when only Cach&eacute; classes to be deployed? How we keep multiple file types? In the ideal case &ndash; some ZIP container could be
+    used, but in the&nbsp; simplest case even the simple XML file, as a Cach&eacute; Studio project export could serve the purpose, because even now we could embed all supported file types (CLS, RTN, INC, CSP, ZEN, CSS, GIF, etc.) to such XML
+    export files. Not everything is possible to add to the project using Studio UI, but AFAIK much less restrictions applied if we use the Studio API classes.
+Yes XML export is very inefficient, bloated, and although it could handle binary files as base64 encoded, but it would generate large files. For the initial implementation though we could ignore this inefficiency for the moment
+Metadata file
+2nd&nbsp;question to answer - what should we put as the metadata info? Certainly there should be &ldquo;dependency information&rdquo; (to make possible recursive install of all dependent packages), but what else?
+Here is the example of metadata information from some abstract CPAN module using ExtUtils::AutoInstall package functions, which is not usually part of distribution, but one has handy facility for dependency tracking: use inc::Module::Install; name 'Joe-Hacker'; abstract 'Perl Interface to Joe Hacker'; author 'Joe Hacker &lt;joe@hacker.org&gt;'; include 'Module::AutoInstall'; requires 'Module0'; # mandatory modules feature 'Feature1', -default =&gt; 0, 'Module2' =&gt; '0.1'; auto_install( make_args =&gt; '--hello', # option(s) for CPAN::Config force =&gt; 1, # pseudo-option to force install do_once =&gt; 1, # skip previously failed modules ); WriteAll;
+Here is the example of NPM package dependencies description: { "dependencies" : { "foo" : "1.0.0 - 2.9999.9999" , "bar" : "&gt;=1.0.2 &lt;2.1.2" , "qux" : "&lt;1.0.0 || &gt;=2.3.1 &lt;2.4.5 || &gt;=2.5.2 &lt;3.0.0" , "asd" : "http://asdf.com/asdf.tar.gz" , "til" : "~1.2" , "elf" : "~1.2.3" , "lat" : "latest" , "dyl" : "file:../dyl" }}
+As a rough approximation, we could start with&nbsp;JSON format used by the NPM packages. However, for the simplicity sake, before we have better JSON support in the kernel, we could start
+    with XML metadata file information.
+Honestly, I hate XML, but let face it - XML and JSON are quite interchangeable, and all about the same, they are 2 different way to serialize hierarchical info. So whatever is described in JSON, could be similarly described in XML, and vice versa.
+    Once we have better JSON support in the product, we could easily switch the gears, and use JSON instead of XML for metadata information file. 
+Dependency on system classes
+When we are talking about dependencies on some classes there is interesting problem to address - how to mark dependency on some &ldquo;built-in&rdquo; Cach&eacute;/Ensemble/HealthShare/TrakCare class(es), which may have been introduced with some particular
+    version? And in general - how to denote dependency on anything from %CACHELIB and similar system database?
+For simplicity matter (in the initial implementation) we may just ignore that problem, and if deployed extra class will reference to anything of system database then just assume it&rsquo;s just there.
+In the ideal case we should have facilities to require dependency on some particular version (i.e. &ldquo;&gt;2014.1&rdquo;) of particular product (&ldquo;Cache&rdquo;, &ldquo;Ensemble&rdquo;, &ldquo;HealthShare&rdquo;, &ldquo;EM&rdquo;, etc.) or even
+    some particular package installed (&ldquo;iKnow&rdquo;, &ldquo;SetAnalysis&rdquo;, etc) This is too early though at the moment to try to invent some definitive mechanism, so we may leave this question unanswered.
+Cross-platform binary modules
+CPAN would not get so much success if there would be no way to distribute packages, which are partially implemented in C, and part in Perl. So for calling to some mission critical, highly optimized code, or as a wrappers for sokme externally available
+    C/C++ library. In Perl they have XS API facilities which allows you to call C code from Perl module, and in reverse. If you would look into the implementation details you would quickly realize that
+    XS is modelled very similar to Cach&eacute; callout - similarly as in our case, there is no&nbsp;simple&nbsp;and direct&nbsp;wayto call any C/C++ API, you have to write wrapper to call it. But dislike to callout there are available
+    a number of service utilities which simplify the process of a wrapper creation, such as:
+
+    h2xs preprocessor to generate XS header using the given C header file (well with some limitations);
+    xsubpp - preprocessor to convert XS code to pure C code, etc; 
+While dealing with callout code from COS we have a little help from the system, and most of the code should be written manually. [Fortunately, now we are allowed to write DLL callouts, and not obliged to statically recompile Cach&eacute; kernel, the situation
+    I remember at the early 2000]
+There are a couple of rather modern, and relatively convenient approaches to call external C/C++ code from Cach&eacute; kernel:
+
+    Builtin FFI mechanism used, for example, by iKnow libraries;
+    Or CNA (Cach&eacute; Native Access) callout wrapper&nbsp;which uses LibFFI mechanism for easy calling of&nbsp;any&nbsp;C-runtime function from the COS code;
+
+From the practical prospective though, taking into account multiple Cach&eacute platforms we should handle equally well (Windows, Linux, Mac OS X, oreven VMS), and the fact that these both FFI (foreign-function interfaces) are not yet officially supported,
+    I should admit that they both are not ready yet, and could not be recommended as a way to handle deployment of mixed C/COS packages. Now it&rsquo;s not a big issue, but eventually, once we will go to cross-platform with binary packages we should revisit
+    this topic.
+Unit Testing
+CPAN example showed us yet another good practice, which may positively affect the maturity and stability of 3rd&nbsp;party eco-system &ndash; built-in testing support. Each popular Perl package had built-in set of unit-test, which supposed
+    to be run after compilation completed and before installation happen. If there this unit-testing is not passed for the target system then installation will not happen.
+For simplicity sake we may ignore unit-testing support in the 1st implementation, but once it will evolve to the binary package format (i.e. ZIP) and binary modules support added &ndash; then testing should become required step before installation.
+Command-line access
+User experience is a key factor here - if this system would be inconvenient to use then there is big chance to stay unnoticed. To be useful for COS developers community here we supposed to handle &ldquo;package installations&rdquo; both directions:
+
+    be it invoked from COS shell, via simple package-manager shell `do ^CPM`
+    or from command-line, i.e. `cpm install DeepSee-Mobile`
+
+From practical point of view they should be interchangeable and provide the same side-effect for each operation. But having CLI access to package manager is important for administrators due to scripting needs. In the longer term, once infrastructure is established and mature enough there should be developed GUI wrapper for package manipulations (say, callable from SMP), but GUI is not required at the 1st step.
+Mirroring and CDN
+In 199x-200x years each package management system faced yet another problem, they had to address separately - how to make their repository respond fast, and preferably from geo-optimized mirror location? And while we are at this topic - what about that
+    mirror system should be DDoS resistant at the same time? Such &ldquo;old school&rdquo; software repositories usually relied on community power to deploy huge network of geo-spread mirrors (CPAN, CTAN, Debian, etc.). They are still using the same approach,
+    and still have multiple mirrors spread over the planet, but today we have easier soluion to this same problem.
+Today there is available a cheap facility of CDN providers. If we need to just host some set of static binary files then CDN is just &ldquo;that doctor ordered&rdquo;. I have no idea who is the best selection for our scenario: whether it will be some
+    generic VM-hosting provider like Amazon or Azure, or, may be, we would need to select between&nbsp;Amazon CloudFront, or&nbsp;MaxCDN&nbsp;or anything similar.
+    Anything of mentioned is easy to handle nowadays, and not require any extra mirroring effort from the community.
+If you have any prior experience with CDN, and have strong preference on something, please provide us advice - we will be curios to know any details. 
+Final words
+This is my simple take on the apparent problem of missing convenient repository for 3rd party components used in Cach&eacute; database problem. They are either hard to find, or hard to install, or unmaintained, or all at once. We need more
+    utilities, more classes available, and more developers involved in the ecosystem. Central repository like CPAN could be a trigger point in changing the scenario of how an average Joe "the COS developer" develops their new solutions.
+I hope it's clear now that package manager might be doable right now, even with current database platform support, and could be done in reasonable amount of time. So...
+So who is wanting to participate? Do we have community demand here?">
+	<meta name="twitter:site" content="@tsafin">
+	
+	
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:image" content="http://tsafin.net/images/landscapes/feature11.jpg">
+	
+	<!-- Open Graph -->
+	<meta property="og:locale" content="en">
+	<meta property="og:type" content="article">
+	<meta property="og:title" content="Intersystems Caché - Approaching Community Package Manager - Part II">
+	<meta property="og:description" content="This is the second part of my long post about package managers in various operating systems and language distributions. Now you probably "buy the idea" that convenient package manager and 3rd    party code repository is the key factor in establishing of a live and popular ecosystem. In the second part we will discuss the action plan for creating of a package-manager for the Cach&eacute;​ database environment.
+​So let try to estimate how much we should implement if we would try to add some basic package management facilities to Cach&eacute; ecosystem? Should we do anything in the kernel, or could it be done as external service? What is the minimum functionality    necessary at the beginning to establish anything resembling package management repository? Which still be useful?
+Format
+1st&nbsp;question to answer - what is composing the &ldquo;package&rdquo;? What about simplest ever case - when only Cach&eacute; classes to be deployed? How we keep multiple file types? In the ideal case &ndash; some ZIP container could be
+    used, but in the&nbsp; simplest case even the simple XML file, as a Cach&eacute; Studio project export could serve the purpose, because even now we could embed all supported file types (CLS, RTN, INC, CSP, ZEN, CSS, GIF, etc.) to such XML
+    export files. Not everything is possible to add to the project using Studio UI, but AFAIK much less restrictions applied if we use the Studio API classes.
+Yes XML export is very inefficient, bloated, and although it could handle binary files as base64 encoded, but it would generate large files. For the initial implementation though we could ignore this inefficiency for the moment
+Metadata file
+2nd&nbsp;question to answer - what should we put as the metadata info? Certainly there should be &ldquo;dependency information&rdquo; (to make possible recursive install of all dependent packages), but what else?
+Here is the example of metadata information from some abstract CPAN module using ExtUtils::AutoInstall package functions, which is not usually part of distribution, but one has handy facility for dependency tracking: use inc::Module::Install; name 'Joe-Hacker'; abstract 'Perl Interface to Joe Hacker'; author 'Joe Hacker &lt;joe@hacker.org&gt;'; include 'Module::AutoInstall'; requires 'Module0'; # mandatory modules feature 'Feature1', -default =&gt; 0, 'Module2' =&gt; '0.1'; auto_install( make_args =&gt; '--hello', # option(s) for CPAN::Config force =&gt; 1, # pseudo-option to force install do_once =&gt; 1, # skip previously failed modules ); WriteAll;
+Here is the example of NPM package dependencies description: { "dependencies" : { "foo" : "1.0.0 - 2.9999.9999" , "bar" : "&gt;=1.0.2 &lt;2.1.2" , "qux" : "&lt;1.0.0 || &gt;=2.3.1 &lt;2.4.5 || &gt;=2.5.2 &lt;3.0.0" , "asd" : "http://asdf.com/asdf.tar.gz" , "til" : "~1.2" , "elf" : "~1.2.3" , "lat" : "latest" , "dyl" : "file:../dyl" }}
+As a rough approximation, we could start with&nbsp;JSON format used by the NPM packages. However, for the simplicity sake, before we have better JSON support in the kernel, we could start
+    with XML metadata file information.
+Honestly, I hate XML, but let face it - XML and JSON are quite interchangeable, and all about the same, they are 2 different way to serialize hierarchical info. So whatever is described in JSON, could be similarly described in XML, and vice versa.
+    Once we have better JSON support in the product, we could easily switch the gears, and use JSON instead of XML for metadata information file. 
+Dependency on system classes
+When we are talking about dependencies on some classes there is interesting problem to address - how to mark dependency on some &ldquo;built-in&rdquo; Cach&eacute;/Ensemble/HealthShare/TrakCare class(es), which may have been introduced with some particular
+    version? And in general - how to denote dependency on anything from %CACHELIB and similar system database?
+For simplicity matter (in the initial implementation) we may just ignore that problem, and if deployed extra class will reference to anything of system database then just assume it&rsquo;s just there.
+In the ideal case we should have facilities to require dependency on some particular version (i.e. &ldquo;&gt;2014.1&rdquo;) of particular product (&ldquo;Cache&rdquo;, &ldquo;Ensemble&rdquo;, &ldquo;HealthShare&rdquo;, &ldquo;EM&rdquo;, etc.) or even
+    some particular package installed (&ldquo;iKnow&rdquo;, &ldquo;SetAnalysis&rdquo;, etc) This is too early though at the moment to try to invent some definitive mechanism, so we may leave this question unanswered.
+Cross-platform binary modules
+CPAN would not get so much success if there would be no way to distribute packages, which are partially implemented in C, and part in Perl. So for calling to some mission critical, highly optimized code, or as a wrappers for sokme externally available
+    C/C++ library. In Perl they have XS API facilities which allows you to call C code from Perl module, and in reverse. If you would look into the implementation details you would quickly realize that
+    XS is modelled very similar to Cach&eacute; callout - similarly as in our case, there is no&nbsp;simple&nbsp;and direct&nbsp;wayto call any C/C++ API, you have to write wrapper to call it. But dislike to callout there are available
+    a number of service utilities which simplify the process of a wrapper creation, such as:
+
+    h2xs preprocessor to generate XS header using the given C header file (well with some limitations);
+    xsubpp - preprocessor to convert XS code to pure C code, etc; 
+While dealing with callout code from COS we have a little help from the system, and most of the code should be written manually. [Fortunately, now we are allowed to write DLL callouts, and not obliged to statically recompile Cach&eacute; kernel, the situation
+    I remember at the early 2000]
+There are a couple of rather modern, and relatively convenient approaches to call external C/C++ code from Cach&eacute; kernel:
+
+    Builtin FFI mechanism used, for example, by iKnow libraries;
+    Or CNA (Cach&eacute; Native Access) callout wrapper&nbsp;which uses LibFFI mechanism for easy calling of&nbsp;any&nbsp;C-runtime function from the COS code;
+
+From the practical prospective though, taking into account multiple Cach&eacute platforms we should handle equally well (Windows, Linux, Mac OS X, oreven VMS), and the fact that these both FFI (foreign-function interfaces) are not yet officially supported,
+    I should admit that they both are not ready yet, and could not be recommended as a way to handle deployment of mixed C/COS packages. Now it&rsquo;s not a big issue, but eventually, once we will go to cross-platform with binary packages we should revisit
+    this topic.
+Unit Testing
+CPAN example showed us yet another good practice, which may positively affect the maturity and stability of 3rd&nbsp;party eco-system &ndash; built-in testing support. Each popular Perl package had built-in set of unit-test, which supposed
+    to be run after compilation completed and before installation happen. If there this unit-testing is not passed for the target system then installation will not happen.
+For simplicity sake we may ignore unit-testing support in the 1st implementation, but once it will evolve to the binary package format (i.e. ZIP) and binary modules support added &ndash; then testing should become required step before installation.
+Command-line access
+User experience is a key factor here - if this system would be inconvenient to use then there is big chance to stay unnoticed. To be useful for COS developers community here we supposed to handle &ldquo;package installations&rdquo; both directions:
+
+    be it invoked from COS shell, via simple package-manager shell `do ^CPM`
+    or from command-line, i.e. `cpm install DeepSee-Mobile`
+
+From practical point of view they should be interchangeable and provide the same side-effect for each operation. But having CLI access to package manager is important for administrators due to scripting needs. In the longer term, once infrastructure is established and mature enough there should be developed GUI wrapper for package manipulations (say, callable from SMP), but GUI is not required at the 1st step.
+Mirroring and CDN
+In 199x-200x years each package management system faced yet another problem, they had to address separately - how to make their repository respond fast, and preferably from geo-optimized mirror location? And while we are at this topic - what about that
+    mirror system should be DDoS resistant at the same time? Such &ldquo;old school&rdquo; software repositories usually relied on community power to deploy huge network of geo-spread mirrors (CPAN, CTAN, Debian, etc.). They are still using the same approach,
+    and still have multiple mirrors spread over the planet, but today we have easier soluion to this same problem.
+Today there is available a cheap facility of CDN providers. If we need to just host some set of static binary files then CDN is just &ldquo;that doctor ordered&rdquo;. I have no idea who is the best selection for our scenario: whether it will be some
+    generic VM-hosting provider like Amazon or Azure, or, may be, we would need to select between&nbsp;Amazon CloudFront, or&nbsp;MaxCDN&nbsp;or anything similar.
+    Anything of mentioned is easy to handle nowadays, and not require any extra mirroring effort from the community.
+If you have any prior experience with CDN, and have strong preference on something, please provide us advice - we will be curios to know any details. 
+Final words
+This is my simple take on the apparent problem of missing convenient repository for 3rd party components used in Cach&eacute; database problem. They are either hard to find, or hard to install, or unmaintained, or all at once. We need more
+    utilities, more classes available, and more developers involved in the ecosystem. Central repository like CPAN could be a trigger point in changing the scenario of how an average Joe "the COS developer" develops their new solutions.
+I hope it's clear now that package manager might be doable right now, even with current database platform support, and could be done in reasonable amount of time. So...
+So who is wanting to participate? Do we have community demand here?">
+	<meta property="og:url" content="http://tsafin.net/blog/blogger/community-package-manager-part-ii/">
+	<meta property="og:site_name" content="Timur Safin - Making No Sense">
+
+    <link rel="canonical" href="http://tsafin.net/blog/blogger/community-package-manager-part-ii/">
+
+    <link href="http://tsafin.net/atom.xml" type="application/atom+xml" rel="alternate" title="Timur Safin - Making No Sense Atom Feed">
+    <link href="http://tsafin.net/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="cleartype" content="on">
+
+    <link rel="stylesheet" href="http://tsafin.net/css/main.css">
+    <!-- HTML5 Shiv and Media Query Support for IE -->
+    <!--[if lt IE 9]>
+      <script src="http://tsafin.net/js/vendor/html5shiv.min.js"></script>
+      <script src="http://tsafin.net/js/vendor/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body id="js-body">
+    <!--[if lt IE 9]><div class="upgrade notice-warning"><strong>Your browser is quite old!</strong> Why not <a href="http://whatbrowser.org/">upgrade to a newer one</a> to better enjoy this site?</div><![endif]-->
+
+    <header id="masthead">
+  <div class="inner-wrap">
+    <a href="http://tsafin.net/" class="site-title">Timur Safin - Making No Sense</a>
+    <nav role="navigation" class="menu top-menu">
+        <ul class="menu-item">
+	<li class="home"><a href="/">Timur Safin - Making No Sense</a></li>
+	 
+      
+      <li><a href="http://tsafin.net/blog/" >Articles</a></li>
+    
+      
+      <li><a href="http://tsafin.net/projects/" >Projects</a></li>
+    
+      
+      <li><a href="http://tsafin.net/resume/" >About</a></li>
+    
+</ul>
+    </nav>
+  </div><!-- /.inner-wrap -->
+</header><!-- /.masthead -->
+    <nav role="navigation" id="js-menu" class="sliding-menu-content">
+  <h5>Timur Safin - Making No Sense <span>Table of Contents</span></h5>
+  <ul class="menu-item">
+    <li>
+      <a href="http://tsafin.net/blog/">
+        
+        <div class="title">Articles</div>
+        <p class="excerpt">Blog posts and random rumblings...</p>
+      </a>
+    </li><li>
+      <a href="http://tsafin.net/projects/">
+        
+        <div class="title">Projects</div>
+        <p class="excerpt">Open-source projects</p>
+      </a>
+    </li><li>
+      <a href="http://tsafin.net/resume/">
+        
+        <div class="title">About</div>
+        <p class="excerpt">Resume and such...</p>
+      </a>
+    </li>
+  </ul>
+</nav>
+<button type="button" id="js-menu-trigger" class="sliding-menu-button lines-button x2" role="button" aria-label="Toggle Navigation">
+  <span class="nav-lines"></span>
+</button>
+
+<div id="js-menu-screen" class="menu-screen"></div>
+
+
+    <div id="page-wrapper">
+      <div id="main" role="main">
+	<article class="wrap" itemscope itemtype="http://schema.org/Article">
+		
+		<div class="page-feature">
+			<div class="page-image">
+				<img src="http://tsafin.net/images/landscapes/feature11.jpg" class="page-feature-image" alt="Intersystems Caché - Approaching Community Package Manager - Part II" itemprop="image">
+				
+			</div><!-- /.page-image -->
+		</div><!-- /.page-feature -->
+		
+		
+<nav class="breadcrumbs">
+    <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+      <a href="http://tsafin.net" itemprop="url">
+        <span itemprop="title">Home</span>
+    </a> ›
+    <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+      <a href="http://tsafin.net/blog/" itemprop="url">
+        <span itemprop="title">Blog</span>
+    </a>
+    </span>
+</nav>
+<!-- /.breadcrumbs -->
+
+
+<div class="breadcrumbs sm">
+    <a href="http://tsafin.blogspot.com/2014/11/community-package-manager-part-ii.html" itemprop="url">
+        http://tsafin.blogspot.com/2014/11/community-package-manager-part-ii.html&nbsp;<span class="glyphicon glyphicon-share" aria-hidden="true"></span>
+    </a>
+</div>
+
+		<div class="page-title">
+			<h1>Intersystems Caché - Approaching Community Package Manager - Part II</h1>
+		</div>
+		<div class="inner-wrap">
+			<div id="content" class="page-content" itemprop="articleBody">
+				<blockquote>This is the second part of my long post <a href="/2014/11/community-package-manager-part-i.html">about package managers in various operating systems and language distributions</a>. Now you probably "buy the idea" that convenient package manager and 3<sup>rd</sup>    party code repository is the key factor in establishing of a live and popular ecosystem. In the second part we will discuss the action plan for creating of a package-manager for the Cach&eacute;​ database environment.</blockquote>
+<p>​So let try to estimate how much we should implement if we would try to add some basic package management facilities to Cach&eacute; ecosystem? Should we do anything in the kernel, or could it be done as external service? What is the <em>minimum functionality</em>    necessary at the beginning to establish anything resembling package management repository? Which still be useful?</p>
+<h3>Format</h3>
+<p>1<sup>st</sup>&nbsp;question to answer - what is composing the &ldquo;package&rdquo;? What about simplest ever case - when only Cach&eacute; classes to be deployed? How we keep multiple file types? In the ideal case &ndash; some ZIP container could be
+    used, but in the&nbsp; <em>simplest case</em> even the simple XML file, as a Cach&eacute; Studio project export could serve the purpose, because even now we could embed all supported file types (CLS, RTN, INC, CSP, ZEN, CSS, GIF, etc.) to such XML
+    export files. Not everything is possible to add to the project using Studio UI, but AFAIK much less restrictions applied if we use the Studio API classes.</p>
+<blockquote>Yes XML export is very inefficient, bloated, and although it could handle binary files as base64 encoded, but it would generate large files. For the initial implementation though we could ignore this inefficiency for the moment</blockquote>
+<h3>Metadata file</h3>
+<p>2<sup>nd</sup>&nbsp;question to answer - what should we put as the metadata info? Certainly there should be &ldquo;dependency information&rdquo; (to make possible recursive install of all dependent packages), but what else?</p>
+<p>Here is the example of metadata information from some abstract CPAN module using <em>ExtUtils::AutoInstall</em> package functions, which is not usually part of distribution, but one has handy facility for dependency tracking:</p> <pre class="brush: perl"><br /><p>use inc::Module::Install;<br /><br /> name 'Joe-Hacker';<br /> abstract 'Perl Interface to Joe Hacker';<br /> author 'Joe Hacker &lt;joe@hacker.org&gt;';<br /> include 'Module::AutoInstall';<br /><br /> requires 'Module0'; # mandatory modules<br /><br /> feature 'Feature1',<br /> -default =&gt; 0,<br /> 'Module2' =&gt; '0.1';<br /><br /> auto_install(<br /> make_args =&gt; '--hello', # option(s) for CPAN::Config<br /> force =&gt; 1, # pseudo-option to force install<br /> do_once =&gt; 1, # skip previously failed modules<br /> );<br /><br /><br /> WriteAll;<br /></pre>
+<p>Here is the example of NPM package dependencies description:</p> <pre class="brush: javascript"><br />{ "dependencies" :<br /> { "foo" : "1.0.0 - 2.9999.9999"<br /> , "bar" : "&gt;=1.0.2 &lt;2.1.2"<br /> , "qux" : "&lt;1.0.0 || &gt;=2.3.1 &lt;2.4.5 || &gt;=2.5.2 &lt;3.0.0"<br /> , "asd" : "http://asdf.com/asdf.tar.gz"<br /> , "til" : "~1.2"<br /> , "elf" : "~1.2.3"<br /> , "lat" : "latest"<br /> , "dyl" : "file:../dyl"<br /> }<br />}<br /></pre>
+<p>As a rough approximation, we could start with&nbsp;<a href="https://www.npmjs.org/doc/files/package.json.html">JSON format used by the NPM packages</a>. However, for the simplicity sake, before we have better JSON support in the kernel, we could start
+    with XML metadata file information.</p>
+<blockquote>Honestly, I hate XML, but let face it - XML and JSON are quite interchangeable, and all about the same, they are 2 different way to serialize hierarchical info. So whatever is described in JSON, could be similarly described in XML, and vice versa.</br>
+    Once we have better JSON support in the product, we could easily switch the gears, and use JSON instead of XML for metadata information file. </blockquote>
+<h3>Dependency on system classes</h3>
+<p>When we are talking about dependencies on some classes there is interesting problem to address - how to mark dependency on some &ldquo;built-in&rdquo; Cach&eacute;/Ensemble/HealthShare/TrakCare class(es), which may have been introduced with some particular
+    version? And in general - how to denote dependency on anything from %CACHELIB and similar system database?</p>
+<p>For simplicity matter (in the initial implementation) we may just ignore that problem, and if deployed extra class will reference to anything of system database then just assume it&rsquo;s just there.</p>
+<p>In the ideal case we should have facilities to require dependency on some particular version (i.e. &ldquo;&gt;2014.1&rdquo;) of particular product (&ldquo;Cache&rdquo;, &ldquo;Ensemble&rdquo;, &ldquo;HealthShare&rdquo;, &ldquo;EM&rdquo;, etc.) or even
+    some particular package installed (&ldquo;iKnow&rdquo;, &ldquo;SetAnalysis&rdquo;, etc) This is too early though at the moment to try to invent some definitive mechanism, so we may leave this question unanswered.</p>
+<h3>Cross-platform binary modules</h3>
+<p>CPAN would not get so much success if there would be no way to distribute packages, which are partially implemented in C, and part in Perl. So for calling to some mission critical, highly optimized code, or as a wrappers for sokme externally available
+    C/C++ library. In Perl they have <a href="http://perldoc.perl.org/perlxstut.html">XS API facilities</a> which allows you to call C code from Perl module, and in reverse. If you would look into the implementation details you would quickly realize that
+    XS is modelled very similar to Cach&eacute; callout - similarly as in our case, there is no&nbsp;<em>simple</em>&nbsp;<em>and direct&nbsp;</em>wayto call any C/C++ API, you have to write wrapper to call it. But dislike to callout there are available
+    a number of service utilities which simplify the process of a wrapper creation, such as:</p>
+<ul>
+    <li>h2xs preprocessor to generate XS header using the given C header file (well with some limitations);</li>
+    <li>xsubpp - preprocessor to convert XS code to pure C code, etc; </ul>
+<p>While dealing with callout code from COS we have a little help from the system, and most of the code should be written manually. [Fortunately, now we are allowed to write DLL callouts, and not obliged to statically recompile Cach&eacute; kernel, the situation
+    I remember at the early 2000]</p>
+<p>There are a couple of rather modern, and relatively convenient approaches to call external C/C++ code from Cach&eacute; kernel:</p>
+<ul>
+    <li>Builtin FFI mechanism used, for example, by iKnow libraries;</li>
+    <li>Or <a href="https://github.com/intersystems-ru/cna">CNA (Cach&eacute; Native Access) callout wrapper</a>&nbsp;which uses LibFFI mechanism for easy calling of&nbsp;<em>any&nbsp;</em>C-runtime function from the COS code;</li>
+</ul>
+<blockquote>From the practical prospective though, taking into account multiple Cach&eacute platforms we should handle equally well (Windows, Linux, Mac OS X, oreven VMS), and the fact that these both FFI (foreign-function interfaces) are not yet officially supported,
+    I should admit that they both are not ready yet, and could not be recommended as a way to handle deployment of mixed C/COS packages. Now it&rsquo;s not a big issue, but eventually, once we will go to cross-platform with binary packages we should revisit
+    this topic.</blockquote>
+<h3>Unit Testing</h3>
+<p>CPAN example showed us yet another good practice, which may positively affect the maturity and stability of 3<sup>rd</sup>&nbsp;party eco-system &ndash; built-in testing support. Each popular Perl package had built-in set of unit-test, which supposed
+    to be run after compilation completed and before installation happen. If there this unit-testing is not passed for the target system then installation will not happen.</p>
+<p>For simplicity sake we may ignore unit-testing support in the 1st implementation, but once it will evolve to the binary package format (i.e. ZIP) and binary modules support added &ndash; then testing should become required step before installation.</p>
+<h3>Command-line access</h3>
+<p>User experience is a key factor here - if this system would be inconvenient to use then there is big chance to stay unnoticed. To be useful for COS developers community here we supposed to handle &ldquo;package installations&rdquo; both directions:</p>
+<ul>
+    <li>be it invoked from COS shell, via simple package-manager shell `do ^CPM`</li>
+    <li>or from command-line, i.e. `cpm install DeepSee-Mobile`</li>
+</ul>
+<blockquote>From practical point of view they should be interchangeable and provide the same side-effect for each operation. But having CLI access to package manager is important for administrators due to scripting needs.</br> <em>In the longer term, once infrastructure is established and mature enough there should be developed GUI wrapper for package manipulations (say, callable from SMP), but GUI is not required at the 1<sup>st</sup> step.</em></blockquote>
+<h3>Mirroring and CDN</h3>
+<p>In 199x-200x years each package management system faced yet another problem, they had to address separately - how to make their repository respond fast, and preferably from geo-optimized mirror location? And while we are at this topic - what about that
+    mirror system should be DDoS resistant at the same time? Such &ldquo;old school&rdquo; software repositories usually relied on community power to deploy huge network of geo-spread mirrors (CPAN, CTAN, Debian, etc.). They are still using the same approach,
+    and still have multiple mirrors spread over the planet, but today we have easier soluion to this same problem.</p>
+<p>Today there is available a cheap facility of CDN providers. If we need to just host some set of static binary files then CDN is just &ldquo;that doctor ordered&rdquo;. I have no idea who is the best selection for our scenario: whether it will be some
+    generic VM-hosting provider like Amazon or Azure, or, may be, we would need to select between&nbsp;<a href="http://aws.amazon.com/ru/cloudfront/">Amazon CloudFront</a>, or&nbsp;<a href="https://www.maxcdn.com/">MaxCDN</a>&nbsp;or anything similar.
+    Anything of mentioned is easy to handle nowadays, and not require any extra mirroring effort from the community.</p>
+<blockquote>If you have any prior experience with CDN, and have strong preference on something, please provide us advice - we will be curios to know any details. </blockquote>
+<h1>Final words</h1>
+<p>This is my simple take on the apparent problem of missing convenient repository for 3<sup>rd</sup> party components used in Cach&eacute; database problem. They are either hard to find, or hard to install, or unmaintained, or all at once. We need more
+    utilities, more classes available, and more developers involved in the ecosystem. Central repository like CPAN could be a trigger point in changing the scenario of how an average Joe "the COS developer" develops their new solutions.</p>
+<p>I hope it's clear now that package manager might be doable right now, even with current database platform support, and could be done in reasonable amount of time. So...</p>
+<blockquote>So who is wanting to participate? Do we have community demand here?</blockquote>
+				<hr />
+				<footer class="page-footer">
+					
+
+<div class="author-image">
+    <img src="http://tsafin.net/images/tsafin_twitter_small_logo.jpg" alt="Timur Safin">
+</div>
+<!-- ./author-image -->
+<div class="author-content">
+    <h3 class="author-name">Written by <span itemprop="author">Timur Safin</span></h3>
+    <p class="author-bio"></p>
+</div>
+<!-- ./author-content -->
+					<div class="inline-btn">
+	<a class="btn-social twitter" href="https://twitter.com/intent/tweet?text=Intersystems%20Caché%20-%20Approaching%20Community%20Package%20Manager%20-%20Part%20II&amp;url=http://tsafin.net/blog/blogger/community-package-manager-part-ii/&amp;via=tsafin" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i> Share on Twitter</a>
+	<a class="btn-social facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://tsafin.net/blog/blogger/community-package-manager-part-ii/" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i> Share on Facebook</a>
+	<a class="btn-social google-plus"  href="https://plus.google.com/share?url=http://tsafin.net/blog/blogger/community-package-manager-part-ii/" target="_blank"><i class="fa fa-google-plus" aria-hidden="true"></i> Share on Google+</a>
+</div><!-- /.share-this -->
+
+					<div class="page-meta">
+	<p>Updated <time datetime="2014-11-25T14:24:00Z" itemprop="datePublished">November 25, 2014</time></p>
+</div><!-- /.page-meta -->
+				</footer><!-- /.footer -->
+				<aside>
+					
+				</aside>
+			</div><!-- /.content -->
+		</div><!-- /.inner-wrap -->
+		
+	</article><!-- ./wrap -->
+</div><!-- /#main -->
+
+      <footer role="contentinfo" id="site-footer">
+	<nav role="navigation" class="menu bottom-menu">
+		<ul class="menu-item">
+		
+      
+			<li><a href="http://tsafin.net/" >Home</a></li>
+		
+      
+			<li><a href="http://tsafin.net/blog/" >Articles</a></li>
+		
+      
+			<li><a href="http://tsafin.net/projects/" >Projects</a></li>
+		
+      
+			<li><a href="http://tsafin.net/about/" >About</a></li>
+		
+		</ul>
+	</nav><!-- /.bottom-menu -->
+	<p class="copyright">&#169; 2020 <a href="http://tsafin.net">Timur Safin - Making No Sense</a> powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> + <a href="http://mmistakes.github.io/skinny-bones-jekyll/" rel="nofollow">Skinny Bones</a>.</p>
+</footer>
+
+    </div>
+
+    <script src="http://tsafin.net/js/vendor/jquery-1.9.1.min.js"></script>
+    <script src="http://tsafin.net/js/main.js"></script>
+
+    
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-84704404-1', 'auto');
+  ga('require', 'linkid');
+  ga('send', 'pageview');
+
+</script>
+
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function (d, w, c) {
+        (w[c] = w[c] || []).push(function() {
+            try {
+                w.yaCounter40768979 = new Ya.Metrika({
+                    id:40768979,
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true
+                });
+            } catch(e) { }
+        });
+
+        var n = d.getElementsByTagName("script")[0],
+            s = d.createElement("script"),
+            f = function () { n.parentNode.insertBefore(s, n); };
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = "https://mc.yandex.ru/metrika/watch.js";
+
+        if (w.opera == "[object Opera]") {
+            d.addEventListener("DOMContentLoaded", f, false);
+        } else { f(); }
+    })(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/40768979" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+
+
+  </body>
+
+</html>

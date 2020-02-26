@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>MapReduce из подручных материалов. Часть III – собираем все вместе • Timur Safin - Making No Sense</title>
+    <meta name="description" content="
+  В первой (достаточно капитанской) части этой серии мы рассказали про базовые концепции MapReduce почему это плохо, почему это неизбежно, и как с этим жить в других средах разработки (если вы не про Си++ или Java). Во второй части мы-таки начали рассказывать про базовые классы реализации MapReduce на Caché ObjectScript, введя абстрактные интерфейсы и их первичные реализации.
+Сегодня пришел наш день! – мы покажем первый пример собранный в парадигме MapReduce, да, он будет странный и не самый эффективный, и совсем не распределенный, но вполне MapReduce.
+
+
+
+">
+    <meta name="keywords" content="">
+    
+    	<!-- Twitter Cards -->
+	<meta name="twitter:title" content="MapReduce из подручных материалов. Часть III – собираем все вместе">
+	<meta name="twitter:description" content="
+  В первой (достаточно капитанской) части этой серии мы рассказали про базовые концепции MapReduce почему это плохо, почему это неизбежно, и как с этим жить в других средах разработки (если вы не про Си++ или Java). Во второй части мы-таки начали рассказывать про базовые классы реализации MapReduce на Caché ObjectScript, введя абстрактные интерфейсы и их первичные реализации.
+Сегодня пришел наш день! – мы покажем первый пример собранный в парадигме MapReduce, да, он будет странный и не самый эффективный, и совсем не распределенный, но вполне MapReduce.
+
+
+
+">
+	<meta name="twitter:site" content="@tsafin">
+	<meta name="twitter:creator" content="@tsafin">
+	
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:image" content="http://tsafin.net/images/landscapes/feature5.jpg">
+	
+	<!-- Open Graph -->
+	<meta property="og:locale" content="en">
+	<meta property="og:type" content="article">
+	<meta property="og:title" content="MapReduce из подручных материалов. Часть III – собираем все вместе">
+	<meta property="og:description" content="
+  В первой (достаточно капитанской) части этой серии мы рассказали про базовые концепции MapReduce почему это плохо, почему это неизбежно, и как с этим жить в других средах разработки (если вы не про Си++ или Java). Во второй части мы-таки начали рассказывать про базовые классы реализации MapReduce на Caché ObjectScript, введя абстрактные интерфейсы и их первичные реализации.
+Сегодня пришел наш день! – мы покажем первый пример собранный в парадигме MapReduce, да, он будет странный и не самый эффективный, и совсем не распределенный, но вполне MapReduce.
+
+
+
+">
+	<meta property="og:url" content="http://tsafin.net/blog/mapreduce/mapreduce-russian-part-iii/">
+	<meta property="og:site_name" content="Timur Safin - Making No Sense">
+
+    <link rel="canonical" href="http://tsafin.net/blog/mapreduce/mapreduce-russian-part-iii/">
+
+    <link href="http://tsafin.net/atom.xml" type="application/atom+xml" rel="alternate" title="Timur Safin - Making No Sense Atom Feed">
+    <link href="http://tsafin.net/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="cleartype" content="on">
+
+    <link rel="stylesheet" href="http://tsafin.net/css/main.css">
+    <!-- HTML5 Shiv and Media Query Support for IE -->
+    <!--[if lt IE 9]>
+      <script src="http://tsafin.net/js/vendor/html5shiv.min.js"></script>
+      <script src="http://tsafin.net/js/vendor/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body id="js-body">
+    <!--[if lt IE 9]><div class="upgrade notice-warning"><strong>Your browser is quite old!</strong> Why not <a href="http://whatbrowser.org/">upgrade to a newer one</a> to better enjoy this site?</div><![endif]-->
+
+    <header id="masthead">
+  <div class="inner-wrap">
+    <a href="http://tsafin.net/" class="site-title">Timur Safin - Making No Sense</a>
+    <nav role="navigation" class="menu top-menu">
+        <ul class="menu-item">
+	<li class="home"><a href="/">Timur Safin - Making No Sense</a></li>
+	 
+      
+      <li><a href="http://tsafin.net/blog/" >Articles</a></li>
+    
+      
+      <li><a href="http://tsafin.net/projects/" >Projects</a></li>
+    
+      
+      <li><a href="http://tsafin.net/resume/" >About</a></li>
+    
+</ul>
+    </nav>
+  </div><!-- /.inner-wrap -->
+</header><!-- /.masthead -->
+    <nav role="navigation" id="js-menu" class="sliding-menu-content">
+  <h5>Timur Safin - Making No Sense <span>Table of Contents</span></h5>
+  <ul class="menu-item">
+    <li>
+      <a href="http://tsafin.net/blog/">
+        
+        <div class="title">Articles</div>
+        <p class="excerpt">Blog posts and random rumblings...</p>
+      </a>
+    </li><li>
+      <a href="http://tsafin.net/projects/">
+        
+        <div class="title">Projects</div>
+        <p class="excerpt">Open-source projects</p>
+      </a>
+    </li><li>
+      <a href="http://tsafin.net/resume/">
+        
+        <div class="title">About</div>
+        <p class="excerpt">Resume and such...</p>
+      </a>
+    </li>
+  </ul>
+</nav>
+<button type="button" id="js-menu-trigger" class="sliding-menu-button lines-button x2" role="button" aria-label="Toggle Navigation">
+  <span class="nav-lines"></span>
+</button>
+
+<div id="js-menu-screen" class="menu-screen"></div>
+
+
+    <div id="page-wrapper">
+      <div id="main" role="main">
+	<article class="wrap" itemscope itemtype="http://schema.org/Article">
+		
+		<div class="page-feature">
+			<div class="page-image">
+				<img src="http://tsafin.net/images/landscapes/feature5.jpg" class="page-feature-image" alt="MapReduce из подручных материалов. Часть III – собираем все вместе" itemprop="image">
+				
+			</div><!-- /.page-image -->
+		</div><!-- /.page-feature -->
+		
+		
+<nav class="breadcrumbs">
+    <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+      <a href="http://tsafin.net" itemprop="url">
+        <span itemprop="title">Home</span>
+    </a> ›
+    <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+      <a href="http://tsafin.net/blog/" itemprop="url">
+        <span itemprop="title">Blog</span>
+    </a>
+    </span>
+</nav>
+<!-- /.breadcrumbs -->
+
+
+<div class="breadcrumbs sm">
+    <a href="https://habrahabr.ru/company/intersystems/blog/312338/" itemprop="url">
+        https://habrahabr.ru/company/intersystems/blog/312338/&nbsp;<span class="glyphicon glyphicon-share" aria-hidden="true"></span>
+    </a>
+</div>
+
+		<div class="page-title">
+			<h1>MapReduce из подручных материалов. Часть III – собираем все вместе</h1>
+		</div>
+		<div class="inner-wrap">
+			<div id="content" class="page-content" itemprop="articleBody">
+				<blockquote>
+  <p><em><a href="http://fineartamerica.com/featured/mosaic-joan-pollak.html"><img src="https://habrastorage.org/files/6ff/2e3/a5d/6ff2e3a5d1404619883c068798441862.jpg" alt="Mosaic by Joan Pollak" align="left" width="288" height="240" /></a><a href="../mapreduce-russian-part-i/">В первой (достаточно капитанской) части этой серии</a> мы рассказали про базовые концепции MapReduce почему это плохо, почему это неизбежно, и как с этим жить в других средах разработки (если вы не про Си++ или Java). Во <a href="../mapreduce-russian-part-ii/">второй части</a> мы-таки начали рассказывать про базовые классы реализации MapReduce на Caché ObjectScript, введя абстрактные интерфейсы и их первичные реализации.
+Сегодня пришел наш день! – мы покажем первый пример собранный в парадигме MapReduce, да, он будет странный и не самый эффективный, и совсем не распределенный, но вполне MapReduce.</em></p>
+</blockquote>
+<habracut />
+
+<h2 id="wordcount--простая-последовательная-реализация">WordCount – простая, последовательная реализация</h2>
+
+<p>Вы уже, наверное, заметили что MapReduce – это про параллелизм и масштабирование. Но давайте признаемся сразу – алгоритм, какой бы элегантный и простой он ни был бы, очень сложно отлаживать сразу в его в параллельной инкарнации. Обычно, для простоты, мы стартуем с последовательной версии (в нашем случае это будет алгоритм wordcount) и затем подмешаем немного параллелизма.</p>
+
+<p><img src="https://habrastorage.org/files/56e/cc4/174/56ecc41743d0499f8f52272190f98af3.png" align="center" /><br /><em>Исполнение в среде MapReduce из статьи <a href="http://static.googleusercontent.com/media/research.google.com/ru/archive/mapreduce-osdi04.pdf">"MapReduce: Simplified Data Processing on Large Clusters", OSDI-2004</a></em></p>
+
+<p>Напомним суть задачки wordcount: у нас есть набор текстов (например, все тома «Войны и мир») и вам нужно подсчитать количество слов во всем массиве. Этот простой пример использовался в оригинальной статье Google про MapReduce, потому каждый следующий, рассказывающий про MapReduce использует тот же самый пример. Считайте это "HelloWorld!" параллельного исполнения.</p>
+
+<p>Итак, последовательная реализация WordCount (но с применением MapReduce интерфейсов, введенных ранее) будет содержать все те же самые части, что и параллельная. И, например, mapper будет выглядеть примерно так:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Class MR.Sample.WordCount.Mapper Extends (%RegisteredObject, MR.Base.Mapper)
+{
+/// read strings from MR.Base.Iterator and count words
+Method Map(MapInput As MR.Base.Iterator, MapOutput As MR.Base.Emitter)
+{
+    while 'MapInput.IsAtEnd() {
+        #dim line As %String = MapInput.GetNext()
+        #dim pattern As %Regex.Matcher = ##class(%Regex.Matcher).%New("[^\s]+")
+        set pattern.Text = line
+        while pattern.Locate() {
+            #dim word As %String = pattern.Group
+            do MapOutput.Emit(word)
+        }
+    }
+}
+}
+</code></pre></div></div>
+
+<p>Подпрограмма Map получает «входной поток» через параметр MapInput, и эмиттит данные в выходной MapOutput. Алгоритм тут очевиден – если во входном потоке еще остались данные (т.е. <em>НЕ</em> <em>MapInput.IsAtEnd()</em> ), то он прочтет следующую «строку» через MapInput.GetNext(), разобьет строку на слова при помощи %Regex.Matcher (смотри хорошую вводную статью про использование регулярных выражений в Caché на портале сообщества «<a href="https://community.intersystems.com/post/using-regular-expressions-cach%C3%A9">Using Regular Expressions in Caché</a>») и каждое выделенное слово пересылается в выходной эмиттер.</p>
+
+<blockquote>
+  <p><em>В классическом MapReduce интерфейсе мы всегда эмиттим «<code class="highlighter-rouge">ключ, значение</code>», в данном случае мы сделали упрощение для случая «<code class="highlighter-rouge">ключ, 1</code>», используя форму с 1 аргументом. Объяснение дано <a href="https://habrahabr.ru/company/intersystems/blog/310196/">в предыдущей части</a></em></p>
+</blockquote>
+
+<p>Процедура свертки (reducer) еще проще:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Class MR.Sample.WordCount.Adder Extends (%RegisteredObject, MR.Base.Reducer)
+{
+Method Reduce(ReduceInput As MR.Base.Iterator, ReduceOutput As MR.Base.Emitter)
+{
+    #dim result As %Numeric = 0
+    while 'ReduceInput.IsAtEnd() {
+        #dim value As %String = ReduceInput.GetNext() ; get &lt;key,value&gt; in $listbuild format
+        #dim word As %String = $li(value,1)
+        #dim count As %Integer = +$li(value,2)
+        set result = result + count
+    }
+    do ReduceOutput.Emit("Count", result)
+}
+}
+</code></pre></div></div>
+
+<p>Пока не встретили конца потока (<code class="highlighter-rouge">'ReduceInput.IsAtEnd()</code>) тот продолжает потреблять данные из потока ReduceInput, и на каждой итерации из потока вынимается пара «ключ-значение» в бинарном формате списка <code class="highlighter-rouge">$listbuild&lt;&gt;</code> (т.е. в виде <code class="highlighter-rouge">$lb(word,count)</code>).</p>
+
+<p>Данная функция агрегирует число слов в переменную result и эмитит её итоговое значение н следующую стадию конвейера через поток ReduceOutput.</p>
+
+<p>Итак, мы показали mapper и reducer, пришла очередь показать главную, управляющую часть программы. Не рискуя сразу упереться в сложность параллелизма, мы заходим с последовательной версии алгоритма, хотя и использующую MapReduce идиому и интерфейсы. Да, в последовательном режиме, все эти отжимания с конвейером, не имеют большого смысла, но … упрощение необходимо в педагогических целях.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/// Упрощенная, одно-поточная версия примера "map-reduce".
+/Class MR.Sample.WordCount.App Extends %RegisteredObject
+{
+ClassMethod MapReduce() [ ProcedureBlock = 0 ]
+{
+    new
+    //kill ^mtemp.Map,^mtemp.Reduce
+
+    #dim infraPipe As MR.Sample.GlobalPipe = ##class(MR.Sample.GlobalPipe).%New($name(^mtemp.Map($J)))
+    for i=1:1 {
+        #dim fileName As %String = $piece($Text(DATA+i),";",3)
+        quit:fileName=""
+        // map
+        #dim inputFile As MR.Input.FileLines = ##class(MR.Input.FileLines).%New(FileName)
+        #dim mapper As MR.Sample.WordCount.Mapper = ##class(MR.Sample.WordCount.Mapper).%New()
+
+        do mapper.Map(inputFile, infraPipe)
+
+        // reduce
+        #dim outPipe As MR.Base.Emitter = ##class(MR.Emitter.Sorted).%New($name(^mtemp.Reduce($J)))
+        #dim reducer As MR.Sample.WordCount.Adder = ##class(MR.Sample.WordCount.Adder).%New()
+        while 'infraPipe.IsAtEnd() {
+            do reducer.Reduce(infraPipe, outPipe)
+        }
+        do outPipe.Dump()
+    }
+    quit
+
+DATA
+    ;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol1.txt
+    ;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol2.txt
+    ;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol3.txt
+    ;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol4.txt
+    ;;
+}
+}
+</code></pre></div></div>
+
+<p>Попытаемся объяснить этот код строчка за строчкой:</p>
+
+<ul>
+  <li>
+    <p>В обычном случае мы такого не рекомендуем делать, но в данном случае это необходимо: мы выключаем процедурные блоки <a href="http://docs.intersystems.com/latest/csp/docbook/DocBook.UI.Page.cls?KEY=ROBJ_class_procedureblock">ProcedureBlock = 0</a> и возвращаемся к старой семантике с ручным управлением содержимым таблицы символов с локальными переменными. Нам это нужно для встраивания блока DATA содержащего входные данные (в данном случае пути до входных файлов), к которым мы будем обращаться через функцию <code class="highlighter-rouge">$TEXT</code>. В данном случае мы используем 4 тома «Войны и мира» Льва Толстого;</p>
+  </li>
+  <li>
+    <p>Мы будем использовать для промежуточного хранения данных между стадиями конвейера глобалы вида <code class="highlighter-rouge">^mtemp.Map($J)</code> и <code class="highlighter-rouge">^mtemp.Reduce($J)</code>. По волшебному стечению обстоятельств, глобалы вида <code class="highlighter-rouge">^mtemp*</code> и <code class="highlighter-rouge">^CacheTemp*</code> автоматически отображаются во временную базу <a href="http://docs.intersystems.com/latest/csp/docbook/DocBook.UI.Page.cls?KEY=RCPF_Namespace_n">CACHETEMP</a> не будут журналироваться и будут поддерживаться в памяти (насколько это возможно). Будем рассматривать их как "in-memory" глобалы.</p>
+  </li>
+  <li>
+    <p>Промежуточный канал intraPipe является экземпляром <code class="highlighter-rouge">MR.Sample.GlobalPipe</code>, который в нашем случае – просто синоним класса <code class="highlighter-rouge">MR.EmitterSorted</code>, и как мы описали в <a href="https://habrahabr.ru/company/intersystems/blog/310196/">предыдущей части</a> автоматически очищается в конце работы программы.</p>
+  </li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Class MR.Sample.GlobalPipe Extends (%RegisteredObject, MR.Emitter.Sorted) { }
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p>Мы проходим по строкам <code class="highlighter-rouge">$TEXT(DATA+i)</code>, вытаскиваем 3ий аргумент строки, разделенной ";". Если результат непустой – то мы используем это значение как имя входного файла.</p>
+  </li>
+  <li>
+    <p>Входной итератор «маппера» (объекта отображения) будем экземпляром MR.Input.FileLines, который мы еще не показывали…</p>
+  </li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Class MR.Input.FileLines Extends (%RegisteredObject, MR.Base.Iterator)
+{
+Property File As %Stream.FileCharacter;
+Method %OnNew(FileName As %String) As %Status
+{
+    set ..File = ##class(%Stream.FileCharacter).%New()
+    #dim sc As %Status = ..File.LinkToFile(FileName)
+    quit sc
+}
+Method GetNext() As %String
+{
+    if $isobject(..File) &amp;&amp; '..File.AtEnd {
+        quit ..File.ReadLine()
+    }
+    quit ""
+}
+Method IsAtEnd() As %Boolean
+{
+    quit '$isobject(..File) || ..File.AtEnd
+}
+}
+</code></pre></div></div>
+
+<p>Вернемся обратно к приложению <code class="highlighter-rouge">MR.Sample.WordCount.App</code>:</p>
+
+<ul>
+  <li>
+    <p>Объект «маппер» будет экземпляром уже известного <code class="highlighter-rouge">MR.Sample.WordCount.Mapper</code> (см. выше). Экземпляр создается отдельно для каждого обрабатываемого файла.</p>
+  </li>
+  <li>
+    <p>В цикле мы последовательно вызываем функцию Map маппера, передавая экземпляр входного потока, работающего с открытым файлом. В этом конкретном случае стадия отображения линеаризуется в последовательном цикле. Что не очень типично для MapReduce но нужно в качестве упрощенного упражнения.</p>
+  </li>
+  <li>
+    <p>На стадии свертки мы получаем: выходной объект эмиттера (<code class="highlighter-rouge">outPipe</code>) как экземпляр <code class="highlighter-rouge">MR.Emitter.Sorted</code>, который указывает на <code class="highlighter-rouge">^mtemp.Reduce($J)</code>. Напоминаю, что спецификой <code class="highlighter-rouge">MR.Emitter.Sorted</code> будет использование реализации B*-Tree в движке Caché для различных оптимизаций. Ключи-значения хранятся в персистентном хранилище естественным образом отсортированными, и потому становятся возможными реализации свертки с автоинкрементом выходных значений.</p>
+  </li>
+  <li>
+    <p>Объект свертки является экземпляром <code class="highlighter-rouge">MR.Sample.WordCount.Adder</code> описанного выше.</p>
+  </li>
+  <li>
+    <p>Для каждого открытого файла, и на той же итерации цикла, мы вызываем <code class="highlighter-rouge">reducer.Reduce</code>, передавая туда как промежуточный поток <code class="highlighter-rouge">infraPipe</code>, так и выходной поток.</p>
+  </li>
+</ul>
+
+<p>Вроде бы все части в сборе – давайте посмотрим как это все работает.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DEVLATEST:MAPREDUCE:23:53:27:.000203&gt;do ##class(MR.Sample.WordCount.App).MapReduce()
+^mtemp.Reduce(3276,"Count")=114830
+^mtemp.Reduce(3276,"Count")=123232
+^mtemp.Reduce(3276,"Count")=130276
+^mtemp.Reduce(3276,"Count")=109344
+</code></pre></div></div>
+
+<p>Здесь мы видим вычисленное число слов в каждом томе книги, которое выводится в конце каждой итерации цикла. Это все хорошо, но остаются 2 вопроса, на которые мы не получили ответ:</p>
+
+<ul>
+  <li>Какое общее число слов во всех томах?</li>
+  <li>И уверены ли мы, что выданные числа корректны? Что, кстати, не начальном этапе написания программ является более важным.</li>
+</ul>
+
+<p>Начнем с ответа на второй вопрос, с верификации результата – проверить это просто, запустив Linux/Unix/Cygwin утилиту <code class="highlighter-rouge">wc</code> на тех же самих данных:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Timur@TimurYoga2P /cygdrive/c/Users/Timur/Documents/mapreduce/data
+$ wc -w war*.txt
+ 114830 war_and_peace_vol1.txt
+ 123232 war_and_peace_vol2.txt
+ 130276 war_and_peace_vol3.txt
+ 109344 war_and_peace_vol4.txt
+ 477682 total
+</code></pre></div></div>
+
+<p>Видим, что вычисленное число слов для каждого тома было правильным, т.ч. перейдем к вычислению финального, агрегатного значения.</p>
+
+<h3 id="измененный-вариант--с-подсчетом-общей-суммы">Измененный вариант – с подсчетом общей суммы</h3>
+
+<p>Для подсчета финальной суммы нам надо внести 2 простых изменений в код программы показанный выше:</p>
+
+<ul>
+  <li>
+    <p>Нужно применить метод рефакторинга <a href="http://refactoring.com/catalog/extractMethod.html">"Extract Method"</a> на части кода маппера. В дальнейшем нам эта часть кода понадобится отдельно, в виде <em>метода класса,</em> что, в итоге, упростит дальнейшие модификации с параллелизацией или даже удаленным исполнением кода.</p>
+  </li>
+  <li>
+    <p>Также, нам нужно вынести инстанцирование объектов reducer и вызов его функции Reduce из цикла вовне. Цель такой модификации – не удалять промежуточный канал с данными в конце каждой итерации, и продолжать аккумулировать данные между итерациями, для показа общей суммы  после цикла. Агрегатная сумма будет подсчитываться автоматически, т.к. мы применим автоинкрементный вариант.</p>
+  </li>
+</ul>
+
+<p>Во всех остальных случаях эти два приводимых примера ведут себя идентично – оба используют временные глобалы <code class="highlighter-rouge">^mtemp.Map($J)</code> и <code class="highlighter-rouge">^mtemp.Reduce($J)</code> в качестве промежуточного и финального хранилища на стадиях отображения и свертки.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Class MR.Sample.WordCount.AppSum Extends %RegisteredObject
+{
+ClassMethod Map(FileName As %String, infraPipe As MR.Sample.GlobalPipe)
+{
+    #dim inputFile As MR.Input.FileLines      = ##class(MR.Input.FileLines).%New(FileName)
+    #dim mapper As MR.Sample.WordCount.Mapper = ##class(MR.Sample.WordCount.Mapper).%New()
+
+    do mapper.Map(inputFile, infraPipe)
+}
+ClassMethod MapReduce() [ ProcedureBlock = 0 ]
+{
+    new
+
+    #dim infraPipe As MR.Sample.GlobalPipe    = ##class(MR.Sample.GlobalPipe).%New($name(^mtemp.Map($J)))
+    #dim outPipe As MR.Base.Emitter           = ##class(MR.Emitter.Sorted).%New($name(^mtemp.Reduce($J)))
+    #dim reducer As MR.Sample.WordCount.Adder = ##class(MR.Sample.WordCount.Adder).%New()
+
+    for i=1:1 {
+        #dim fileName As %String = $piece($Text(DATA+i),";",3)
+        quit:fileName=""
+
+        do ..Map(fileName, infraPipe)
+        //do infraPipe.Dump()
+
+    }
+    while 'infraPipe.IsAtEnd() {
+        do reducer.Reduce(infraPipe, outPipe)
+    }
+    do outPipe.Dump()
+
+    quit
+DATA
+    ;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol1.txt
+    ;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol2.txt
+    ;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol3.txt
+    ;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol4.txt
+    ;;
+}
+}
+</code></pre></div></div>
+
+<h3 id="параллельная-реализация">Параллельная реализация</h3>
+
+<p>Давайте сразу признаемся себе – такие отжимания с MapReduce интерфейсами при создании простого алгоритма для подсчета слов не были самым простым, очевидным и естественным подходом при разработке такой тривиальной программы. Но потенциальные «плюшки», которые мы можем получить здесь все же перевешивают все начальные проблемы и дополнительную боль. При разумном планировании параллелизма и с применением соответствующих алгоритмов, мы можем получить масштабирование, которое сложно получить на последовательных алгоритмах. Например, в данном случае, на простом low-power Haswell ULT ноутбуке, на котором пишется данная статья, последовательный алгоритм отрабатывал за 4.5 секунды, тогда как параллельная версия завершалась за 2.6 секунды.</p>
+
+<p>Разница не такая драматическая, но достаточно существенная, особенно принимая во внимание малый входной набор и всего два ядра на ноутбуке.</p>
+
+<p>Вернемся к коду – на предыдущем этапе мы, на стадии отображения, выделили функцию в отдельный метод класса, получающий два аргумента (имя входного файла и имя выходного глобала). Мы выделили данный код в отдельную функция с одной простой целью – облегчить создание параллельной версии. Такая параллельная версия будет использовать механизм worker в Caché ObjectScript <a href="http://docs.intersystems.com/latest/csp/documatic/%25CSP.Documatic.cls?PAGE=CLASS&amp;LIBRARY=%25SYS&amp;CLASSNAME=%25SYSTEM.WorkMgr">($system.WorkMgr)</a> Ниже мы преобразуем последовательную версию, созданную на предыдущем шаге, в параллельную посредством вызова программ обработчиков (worker), запускаемых с выделенным методом класса.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/// Версия #2 Более продвинутая, использующая несколько воркеров
+Class MR.Sample.WordCount.AppWorkers Extends %RegisteredObject
+{
+ClassMethod Map(FileName As %String, InfraPipeName As %String) As %Status
+{
+    #dim inputFile As MR.Input.FileLines        = ##class(MR.Input.FileLines).%New(FileName)
+    #dim mapper As MR.Sample.WordCount.Mapper   = ##class(MR.Sample.WordCount.Mapper).%New()
+    #dim infraPipe As MR.Sample.GlobalPipeClone = ##class(MR.Sample.GlobalPipeClone).%New(InfraPipeName)
+
+    do mapper.Map(inputFile, infraPipe)
+
+    quit $$$OK
+}
+ClassMethod MapReduce() [ ProcedureBlock = 0 ]
+{
+    new
+    #dim infraPipe As MR.Sample.GlobalPipe = ##class(MR.Sample.GlobalPipe).%New($name(^mtemp.Map($J)))
+    #dim outPipe As MR.Base.Emitter = ##class(MR.Emitter.Sorted).%New($name(^mtemp.Reduce($J)))
+    #dim reducer As MR.Sample.WordCount.Adder = ##class(MR.Sample.WordCount.Adder).%New()
+
+    #dim sc As %Status = $$$OK
+    // do $system.WorkMgr.StopWorkers()
+    #dim queue As %SYSTEM.WorkMgr = $system.WorkMgr.Initialize("/multicompile=1", .sc) 
+    quit:$$$ISERR(sc)
+
+    for i=1:1 {
+        #dim fileName As %String = $piece($Text(DATA+i),";",3)
+        quit:fileName=""
+
+        //do ..Map(fileName, infraPipe)
+        set sc = queue.Queue("##class(MR.Sample.WordCount.AppWorkers).Map", fileName, infraPipe.GlobalName)
+        quit:$$$ISERR(sc)
+    }
+    set sc = queue.WaitForComplete() quit:$$$ISERR(sc)
+
+    while 'infraPipe.IsAtEnd() {
+        do reducer.Reduce(infraPipe, outPipe)
+    }
+    do outPipe.Dump()
+
+    quit
+DATA
+    ;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol1.txt
+    ;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol2.txt
+    ;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol3.txt
+    ;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol4.txt
+    ;;
+}
+</code></pre></div></div>
+
+<p>Ранее пример назывался AppSum, Новый пример нзывается AppWorkers, и разница между ними очень маленькая, но важная – мы вызываем процедуру отображения в отдельном треде (процессе) обработчике посредством <code class="highlighter-rouge">$system.WorkMgr.Queue</code> API. Это API может вызывать простую подпрограмму, или метод класса, но (по естественным причнима) не может вызывать методы объекта, т.к. не предусмотрен механизм передачи объекта во внешний процесс.</p>
+
+<p>При вызове параллельного обработчика через это API накладываются дополнительные ограничения и на типы передаваемых значений:</p>
+
+<ul>
+  <li>Мы не можем передавать значения по ссылке и, как следствие, не можем возвращать измененные значения таких аргументов;</li>
+  <li>Более того, мы можем передавать только простые скалярные значения (числа и строки), но не объекты.</li>
+</ul>
+
+<p><em>Но тут, дорогой Хьюстон, у нас проблема</em>. В предыдущем примере метод <code class="highlighter-rouge">MR.Sample.WordCount.AppSum::Map</code> получал в качестве 2го аргумента экземпляр класса <code class="highlighter-rouge">MR.Sample.GlobalPipe</code>. Но мы не можем передавать объекты между процессами (а worker – это отдельный процесс из пула процессов). И в данном случае, нам нужно придумать простую схему «сериализации»/«десериализации» объекта в литеральные значения, для того чтобы это можно было передать в параллельный обработчик через <code class="highlighter-rouge">$system.WorkMgr.Queue</code> API.</p>
+
+<p><em>В случае с <code class="highlighter-rouge">GlobalPipe</code> “простой метод сериализации” – действительно получается простым. Если передать имя промежуточного глобала то этого достаточно для адекватной передачи состояния нашего  объекта. Вот почему вторым аргументом метода <code class="highlighter-rouge">MR.SampleWordCount.AppWorkers::Map</code> становится строка с именем глобала, а не объект.</em></p>
+
+<p>Рекомендуем прочитать документацию по параллельным обработчикам <a href="http://docs.intersystems.com/latest/csp/documatic/%25CSP.Documatic.cls?PAGE=CLASS&amp;LIBRARY=%25SYS&amp;CLASSNAME=%25SYSTEM.WorkMgr">здесь</a>, но на будущее запомните, что если вы хотите использовать параллельные обработчики (в максимальном количестве, которое позволительно при вашем железе и лицензии) то при инициализации обработчиков вам стоит передать параметр со странным именем "<code class="highlighter-rouge">/multicompile=1</code>". [Странное имя объясняется тем, что эта функциональность была добавлена для параллельной компиляции в трансляторе классов Caché ObjectScript. С тех пор этот модификатор стал использоваться и вне кода транслятора.]</p>
+
+<p>Как только мы запланировали исполнение метода через <a href="http://docs.intersystems.com/latest/csp/documatic/%25CSP.Documatic.cls?PAGE=CLASS&amp;LIBRARY=%25SYS&amp;CLASSNAME=%25SYSTEM.WorkMgr#Queue">$system.WorkMgr.Queue</a>, мы можем запустить все запланированные подпрограммы и дождаться их завершения через <a href="http://docs.intersystems.com/latest/csp/documatic/%25CSP.Documatic.cls?PAGE=CLASS&amp;LIBRARY=%25SYS&amp;CLASSNAME=%25SYSTEM.WorkMgr#Queue">$system.WorkMgr.WaitForComplete</a>.</p>
+
+<p>Все параллельные обработчики будут использовать один и тот же промежуточный глобал <code class="highlighter-rouge">infraPipe</code> для передачи данных между стадиями конвейера, но коллизий с данными не стоит ожидать, т.к. нижележащий движок данных отработает их корректно. Напомним, что архитектура Caché изначально <em>многопроцессная</em>, с множеством масштабируемых механизмов синхронизации между процессами, работающими с одними и теми же данными. Дополнительно заметим, что наш упрощенный пример с вычислением общего числа слов во всех томах исполняет свертку (reducer) в одном потоке, что также упрощает код и избавляет нас от некоторой головной боли.</p>
+
+<blockquote>
+  <p><em>Таким образом, на текущий момент мы успели рассказать об общих терминах алгоритмов MapReduce, создали базовые интерфейсы MapReduce при реализации их в контексте среды Caché ObjectScript, и создали в этой же среде простой пример с подсчетом слов. В следующей статье мы покажем другие используемые в нашей реализации идиомы, используя второй классический пример из WikiPedia – AgeAverage. Всё только начинается!</em></p>
+</blockquote>
+
+				<hr />
+				<footer class="page-footer">
+					
+
+<div class="author-image">
+    <img src="http://tsafin.net/images/tsafin_twitter_small_logo.jpg" alt="Timur Safin">
+</div>
+<!-- ./author-image -->
+<div class="author-content">
+    <h3 class="author-name">Written by <span itemprop="author">Timur Safin</span></h3>
+    <p class="author-bio"></p>
+</div>
+<!-- ./author-content -->
+					<div class="inline-btn">
+	<a class="btn-social twitter" href="https://twitter.com/intent/tweet?text=MapReduce%20из%20подручных%20материалов.%20Часть%20III%20–%20собираем%20все%20вместе&amp;url=http://tsafin.net/blog/mapreduce/mapreduce-russian-part-iii/&amp;via=tsafin" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i> Share on Twitter</a>
+	<a class="btn-social facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://tsafin.net/blog/mapreduce/mapreduce-russian-part-iii/" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i> Share on Facebook</a>
+	<a class="btn-social google-plus"  href="https://plus.google.com/share?url=http://tsafin.net/blog/mapreduce/mapreduce-russian-part-iii/" target="_blank"><i class="fa fa-google-plus" aria-hidden="true"></i> Share on Google+</a>
+</div><!-- /.share-this -->
+
+					<div class="page-meta">
+	<p>Updated <time datetime="2016-10-16T21:00:00Z" itemprop="datePublished">October 16, 2016</time></p>
+</div><!-- /.page-meta -->
+				</footer><!-- /.footer -->
+				<aside>
+					<hr />
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+	var disqus_shortname = 'tsafin-net';
+
+	/* * * DON'T EDIT BELOW THIS LINE * * */
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+				</aside>
+			</div><!-- /.content -->
+		</div><!-- /.inner-wrap -->
+		
+	</article><!-- ./wrap -->
+</div><!-- /#main -->
+
+      <footer role="contentinfo" id="site-footer">
+	<nav role="navigation" class="menu bottom-menu">
+		<ul class="menu-item">
+		
+      
+			<li><a href="http://tsafin.net/" >Home</a></li>
+		
+      
+			<li><a href="http://tsafin.net/blog/" >Articles</a></li>
+		
+      
+			<li><a href="http://tsafin.net/projects/" >Projects</a></li>
+		
+      
+			<li><a href="http://tsafin.net/about/" >About</a></li>
+		
+		</ul>
+	</nav><!-- /.bottom-menu -->
+	<p class="copyright">&#169; 2020 <a href="http://tsafin.net">Timur Safin - Making No Sense</a> powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> + <a href="http://mmistakes.github.io/skinny-bones-jekyll/" rel="nofollow">Skinny Bones</a>.</p>
+</footer>
+
+    </div>
+
+    <script src="http://tsafin.net/js/vendor/jquery-1.9.1.min.js"></script>
+    <script src="http://tsafin.net/js/main.js"></script>
+
+    
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-84704404-1', 'auto');
+  ga('require', 'linkid');
+  ga('send', 'pageview');
+
+</script>
+
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function (d, w, c) {
+        (w[c] = w[c] || []).push(function() {
+            try {
+                w.yaCounter40768979 = new Ya.Metrika({
+                    id:40768979,
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true
+                });
+            } catch(e) { }
+        });
+
+        var n = d.getElementsByTagName("script")[0],
+            s = d.createElement("script"),
+            f = function () { n.parentNode.insertBefore(s, n); };
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = "https://mc.yandex.ru/metrika/watch.js";
+
+        if (w.opera == "[object Opera]") {
+            d.addEventListener("DOMContentLoaded", f, false);
+        } else { f(); }
+    })(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/40768979" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+
+
+  </body>
+
+</html>

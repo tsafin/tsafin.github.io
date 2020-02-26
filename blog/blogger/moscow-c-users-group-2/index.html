@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Московская встреча пользователей Си++ - часть 2 • Timur Safin - Making No Sense</title>
+    <meta name="description" content="
+Место встречи
+
+    
+
+Сергей Платонов организовал московскую встречу Си++ разработчиков в конференц зале московской гостиницы Бородино, в районе Красносельского. Анонс группы и предварительная регистрация происходила посредством служб
+    Google+, т.ч. тем кто пропустил, но хочет в дальнейшем быть в курсе, то милости прошу Google+ C++ User Group, Russia.
+    Некоторые утверждают, что Google+ мертв, но мне кажется вы все не поняли его фишку. Там нет никого, кроме программистов! И в этом его очарование - например, все Linux kernel разработчики там (потому как собственно Linus        там). Приходите туда - там тихо, и мухи не летают!
+
+Вообще, конечно, до того как у нас появится какой-то центральный сайт с информацией о российских Си++ событиях (типа isocpp.org но с проекцией на Россию, и конкретные города), узнавать приходится из разных источников и подчас случайно. Например, про готовящееся
+    событие в Москве я узнал спросив @meetingcpp
+
+    @meetingcpp so what is the current state with Moscow CPPUG?&mdash; Timur Safin (40+) (@tsafin) 17 января 2014
+
+    В любом случае, даже анонс через Google+ сработал вполне хорошо. На Питерское событие пришло порядка 20 человек, и это считалось успехом. Но на московскую встречу зарегистрировались уже 66, и 37 колебались. (Хорошо, что не все пришли, кстати, иначе
+        я не знаю как мы бы решали эту проблему, зал реально был небольшим). Арендованный зал мог вместить 50-60 человек, и уже к концу первого доклада был почти полностью забит. Что можно считать успехом
+    С другой стороны Си++ программистов в Москве на 2 или 3 порядка больше, и надо задуматься как наиболее эффективно с точки зрения стоимости решать проблему с большим количеством посетителей, если практика устоится и станет популярной. Но об этом поговорим
+        в последнем посте серии...
+    
+        27 attendees on Moscow #cop users group. Ready to start&mdash; Timur Safin (40+) (@tsafin) 15 февраля 2014
+    
+        BTW, before 1st slides completed we have almost fully filled the hall #cpp #moscowcppusersgroup&mdash;
+        Timur Safin (40+) (@tsafin) 15 февраля 2014
+        Но хватит лирики, давайте пойдем по докладам, один за одним, начиная с самой первой сессии.
+        Григорий Демченко - асинхронность и конкурентность на сопрограммах
+        
+            Smoothly approaching boost.asio as async proactor implementation #cpp &mdash; Timur Safin (40+) (@tsafin) 15 февраля 2014
+        Григорий Демченко на примере простейшего http сервера с начала с последовательным кодом, но использующего все нужные Си++11 идиомы (типа лямбда-функций, auto, и последнего oost,asio), а потом и с асинхронным кодом, попытался рассказать про множество
+            проблем, которые вас ждут при написании асинхронного кода на Си++. В любом случае Вас ожидает дилемма: удобный/читабельный код против эффективного использования ресурсов.
+        Григорий ввёл свои определения "параллельности" и "конкурентности" (которые могут не обязательно совпадать с классическими).
+        От синхронного кода простого сервера http Григорий перешел к более эффективному асинхронному с отложенными обработчиками в виде различных лямбд. По-прежнему для примеров использовались сервисы Boost::asio/ Автором утверждалось, что многопоточное
+            асинхронное решение плохо масштабируется при росте запросов к серверу, посему было предложено использовать сопрограммы (coroutines) как более эффективное асинхронное решение
+        
+            Any async code could be transformed to coroutines semiautomatically #cpp &mdash; Timur Safin (40+) (@tsafin) 15 февраля 2014
+        Утверждалось что любой чисто асинхронный код приведенный на ранних слайдах можно полуавтоматически перевести на использование сопрограм, и разработанной Григорием библиотеки synca.
+        
+            Boost.context for coprograms&mdash; Timur Safin (40+) (@tsafin) 15 февраля 2014
+        При работе с многопоточным приложением и при использовании механизма сопрограмм возникает необходимость сохранять/восстанавливать программный контекст сопрограммы. Для этих целей используются сервисы Boost.context, который уже адаптирован для
+            многих операционных систем и архитектур. На вопрос зачем использовать boost.context при наличии в любом Си окружении sejmp/longjmp Григорий затруднился дать ответ.
+        
+            Parallel vs concurrent: goWait pattern #cpp &mdash; Timur Safin (40+) (@tsafin) 15 февраля 2014
+        Григорий в своей библиотеке добавил множество примитивов для упрощения многопоточного программирования и работы с ресурсами например goWait - ожидание завершения всех аргументов (сопрограмм).
+        
+            Several patterns for teleporting coroutines between threads #cpp &mdash; Timur Safin (40+) (@tsafin) 15 февраля 2014
+        Т.к. сопрограммы могут мигрировать с одного потока из пула на любой другой активный поток, то в библиотеки предоставляется API для переноса сопрограмм из контекста в контекст - "телепортация". Стилистически мне это API не очень понравилось (к
+            тому же в глаза бросалось использование глобальных/нереентрантных данных), но пока будем считать это моей вкусовщиной, и придирками старого брюзги.
+        
+            Boost::asio также знает про стренды. &quot;Если вы понимаете о чем я говорю&quot;&mdash; Timur Safin (40+) (@tsafin) 15 февраля 2014
+        
+            http://t.co/oCz9SPyglb&mdash; Timur Safin (40+) (@tsafin) 15 февраля 2014
+        
+            Grigory Demchecnko on async was quite good. New boost services, and idioms covered #cpp #Moscow&mdash; Timur
+            Safin (40+) (@tsafin) 15 февраля 2014
+        Библиотека synca доступна на BitBucket https://bitbucket.org/gridem/synca так что смотрите сами. В целом, несмотря на эти маленькие придирки выше, данный доклад был интересен, и множество упомянутых
+            идиом и паттернов будут крайне полезны многим при написании масштабируемых многопоточных приложений, даже если Вы не будете в итоге использовать synca или Boost::Asio.
+        Продолжение следует...">
+    <meta name="keywords" content="c++, Moscow C++ Users Group">
+    
+    	<!-- Twitter Cards -->
+	<meta name="twitter:title" content="Московская встреча пользователей Си++ - часть 2">
+	<meta name="twitter:description" content="
+Место встречи
+
+    
+
+Сергей Платонов организовал московскую встречу Си++ разработчиков в конференц зале московской гостиницы Бородино, в районе Красносельского. Анонс группы и предварительная регистрация происходила посредством служб
+    Google+, т.ч. тем кто пропустил, но хочет в дальнейшем быть в курсе, то милости прошу Google+ C++ User Group, Russia.
+    Некоторые утверждают, что Google+ мертв, но мне кажется вы все не поняли его фишку. Там нет никого, кроме программистов! И в этом его очарование - например, все Linux kernel разработчики там (потому как собственно Linus        там). Приходите туда - там тихо, и мухи не летают!
+
+Вообще, конечно, до того как у нас появится какой-то центральный сайт с информацией о российских Си++ событиях (типа isocpp.org но с проекцией на Россию, и конкретные города), узнавать приходится из разных источников и подчас случайно. Например, про готовящееся
+    событие в Москве я узнал спросив @meetingcpp
+
+    @meetingcpp so what is the current state with Moscow CPPUG?&mdash; Timur Safin (40+) (@tsafin) 17 января 2014
+
+    В любом случае, даже анонс через Google+ сработал вполне хорошо. На Питерское событие пришло порядка 20 человек, и это считалось успехом. Но на московскую встречу зарегистрировались уже 66, и 37 колебались. (Хорошо, что не все пришли, кстати, иначе
+        я не знаю как мы бы решали эту проблему, зал реально был небольшим). Арендованный зал мог вместить 50-60 человек, и уже к концу первого доклада был почти полностью забит. Что можно считать успехом
+    С другой стороны Си++ программистов в Москве на 2 или 3 порядка больше, и надо задуматься как наиболее эффективно с точки зрения стоимости решать проблему с большим количеством посетителей, если практика устоится и станет популярной. Но об этом поговорим
+        в последнем посте серии...
+    
+        27 attendees on Moscow #cop users group. Ready to start&mdash; Timur Safin (40+) (@tsafin) 15 февраля 2014
+    
+        BTW, before 1st slides completed we have almost fully filled the hall #cpp #moscowcppusersgroup&mdash;
+        Timur Safin (40+) (@tsafin) 15 февраля 2014
+        Но хватит лирики, давайте пойдем по докладам, один за одним, начиная с самой первой сессии.
+        Григорий Демченко - асинхронность и конкурентность на сопрограммах
+        
+            Smoothly approaching boost.asio as async proactor implementation #cpp &mdash; Timur Safin (40+) (@tsafin) 15 февраля 2014
+        Григорий Демченко на примере простейшего http сервера с начала с последовательным кодом, но использующего все нужные Си++11 идиомы (типа лямбда-функций, auto, и последнего oost,asio), а потом и с асинхронным кодом, попытался рассказать про множество
+            проблем, которые вас ждут при написании асинхронного кода на Си++. В любом случае Вас ожидает дилемма: удобный/читабельный код против эффективного использования ресурсов.
+        Григорий ввёл свои определения "параллельности" и "конкурентности" (которые могут не обязательно совпадать с классическими).
+        От синхронного кода простого сервера http Григорий перешел к более эффективному асинхронному с отложенными обработчиками в виде различных лямбд. По-прежнему для примеров использовались сервисы Boost::asio/ Автором утверждалось, что многопоточное
+            асинхронное решение плохо масштабируется при росте запросов к серверу, посему было предложено использовать сопрограммы (coroutines) как более эффективное асинхронное решение
+        
+            Any async code could be transformed to coroutines semiautomatically #cpp &mdash; Timur Safin (40+) (@tsafin) 15 февраля 2014
+        Утверждалось что любой чисто асинхронный код приведенный на ранних слайдах можно полуавтоматически перевести на использование сопрограм, и разработанной Григорием библиотеки synca.
+        
+            Boost.context for coprograms&mdash; Timur Safin (40+) (@tsafin) 15 февраля 2014
+        При работе с многопоточным приложением и при использовании механизма сопрограмм возникает необходимость сохранять/восстанавливать программный контекст сопрограммы. Для этих целей используются сервисы Boost.context, который уже адаптирован для
+            многих операционных систем и архитектур. На вопрос зачем использовать boost.context при наличии в любом Си окружении sejmp/longjmp Григорий затруднился дать ответ.
+        
+            Parallel vs concurrent: goWait pattern #cpp &mdash; Timur Safin (40+) (@tsafin) 15 февраля 2014
+        Григорий в своей библиотеке добавил множество примитивов для упрощения многопоточного программирования и работы с ресурсами например goWait - ожидание завершения всех аргументов (сопрограмм).
+        
+            Several patterns for teleporting coroutines between threads #cpp &mdash; Timur Safin (40+) (@tsafin) 15 февраля 2014
+        Т.к. сопрограммы могут мигрировать с одного потока из пула на любой другой активный поток, то в библиотеки предоставляется API для переноса сопрограмм из контекста в контекст - "телепортация". Стилистически мне это API не очень понравилось (к
+            тому же в глаза бросалось использование глобальных/нереентрантных данных), но пока будем считать это моей вкусовщиной, и придирками старого брюзги.
+        
+            Boost::asio также знает про стренды. &quot;Если вы понимаете о чем я говорю&quot;&mdash; Timur Safin (40+) (@tsafin) 15 февраля 2014
+        
+            http://t.co/oCz9SPyglb&mdash; Timur Safin (40+) (@tsafin) 15 февраля 2014
+        
+            Grigory Demchecnko on async was quite good. New boost services, and idioms covered #cpp #Moscow&mdash; Timur
+            Safin (40+) (@tsafin) 15 февраля 2014
+        Библиотека synca доступна на BitBucket https://bitbucket.org/gridem/synca так что смотрите сами. В целом, несмотря на эти маленькие придирки выше, данный доклад был интересен, и множество упомянутых
+            идиом и паттернов будут крайне полезны многим при написании масштабируемых многопоточных приложений, даже если Вы не будете в итоге использовать synca или Boost::Asio.
+        Продолжение следует...">
+	<meta name="twitter:site" content="@tsafin">
+	
+	
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:image" content="http://tsafin.net/images/landscapes/feature18.jpg">
+	
+	<!-- Open Graph -->
+	<meta property="og:locale" content="en">
+	<meta property="og:type" content="article">
+	<meta property="og:title" content="Московская встреча пользователей Си++ - часть 2">
+	<meta property="og:description" content="
+Место встречи
+
+    
+
+Сергей Платонов организовал московскую встречу Си++ разработчиков в конференц зале московской гостиницы Бородино, в районе Красносельского. Анонс группы и предварительная регистрация происходила посредством служб
+    Google+, т.ч. тем кто пропустил, но хочет в дальнейшем быть в курсе, то милости прошу Google+ C++ User Group, Russia.
+    Некоторые утверждают, что Google+ мертв, но мне кажется вы все не поняли его фишку. Там нет никого, кроме программистов! И в этом его очарование - например, все Linux kernel разработчики там (потому как собственно Linus        там). Приходите туда - там тихо, и мухи не летают!
+
+Вообще, конечно, до того как у нас появится какой-то центральный сайт с информацией о российских Си++ событиях (типа isocpp.org но с проекцией на Россию, и конкретные города), узнавать приходится из разных источников и подчас случайно. Например, про готовящееся
+    событие в Москве я узнал спросив @meetingcpp
+
+    @meetingcpp so what is the current state with Moscow CPPUG?&mdash; Timur Safin (40+) (@tsafin) 17 января 2014
+
+    В любом случае, даже анонс через Google+ сработал вполне хорошо. На Питерское событие пришло порядка 20 человек, и это считалось успехом. Но на московскую встречу зарегистрировались уже 66, и 37 колебались. (Хорошо, что не все пришли, кстати, иначе
+        я не знаю как мы бы решали эту проблему, зал реально был небольшим). Арендованный зал мог вместить 50-60 человек, и уже к концу первого доклада был почти полностью забит. Что можно считать успехом
+    С другой стороны Си++ программистов в Москве на 2 или 3 порядка больше, и надо задуматься как наиболее эффективно с точки зрения стоимости решать проблему с большим количеством посетителей, если практика устоится и станет популярной. Но об этом поговорим
+        в последнем посте серии...
+    
+        27 attendees on Moscow #cop users group. Ready to start&mdash; Timur Safin (40+) (@tsafin) 15 февраля 2014
+    
+        BTW, before 1st slides completed we have almost fully filled the hall #cpp #moscowcppusersgroup&mdash;
+        Timur Safin (40+) (@tsafin) 15 февраля 2014
+        Но хватит лирики, давайте пойдем по докладам, один за одним, начиная с самой первой сессии.
+        Григорий Демченко - асинхронность и конкурентность на сопрограммах
+        
+            Smoothly approaching boost.asio as async proactor implementation #cpp &mdash; Timur Safin (40+) (@tsafin) 15 февраля 2014
+        Григорий Демченко на примере простейшего http сервера с начала с последовательным кодом, но использующего все нужные Си++11 идиомы (типа лямбда-функций, auto, и последнего oost,asio), а потом и с асинхронным кодом, попытался рассказать про множество
+            проблем, которые вас ждут при написании асинхронного кода на Си++. В любом случае Вас ожидает дилемма: удобный/читабельный код против эффективного использования ресурсов.
+        Григорий ввёл свои определения "параллельности" и "конкурентности" (которые могут не обязательно совпадать с классическими).
+        От синхронного кода простого сервера http Григорий перешел к более эффективному асинхронному с отложенными обработчиками в виде различных лямбд. По-прежнему для примеров использовались сервисы Boost::asio/ Автором утверждалось, что многопоточное
+            асинхронное решение плохо масштабируется при росте запросов к серверу, посему было предложено использовать сопрограммы (coroutines) как более эффективное асинхронное решение
+        
+            Any async code could be transformed to coroutines semiautomatically #cpp &mdash; Timur Safin (40+) (@tsafin) 15 февраля 2014
+        Утверждалось что любой чисто асинхронный код приведенный на ранних слайдах можно полуавтоматически перевести на использование сопрограм, и разработанной Григорием библиотеки synca.
+        
+            Boost.context for coprograms&mdash; Timur Safin (40+) (@tsafin) 15 февраля 2014
+        При работе с многопоточным приложением и при использовании механизма сопрограмм возникает необходимость сохранять/восстанавливать программный контекст сопрограммы. Для этих целей используются сервисы Boost.context, который уже адаптирован для
+            многих операционных систем и архитектур. На вопрос зачем использовать boost.context при наличии в любом Си окружении sejmp/longjmp Григорий затруднился дать ответ.
+        
+            Parallel vs concurrent: goWait pattern #cpp &mdash; Timur Safin (40+) (@tsafin) 15 февраля 2014
+        Григорий в своей библиотеке добавил множество примитивов для упрощения многопоточного программирования и работы с ресурсами например goWait - ожидание завершения всех аргументов (сопрограмм).
+        
+            Several patterns for teleporting coroutines between threads #cpp &mdash; Timur Safin (40+) (@tsafin) 15 февраля 2014
+        Т.к. сопрограммы могут мигрировать с одного потока из пула на любой другой активный поток, то в библиотеки предоставляется API для переноса сопрограмм из контекста в контекст - "телепортация". Стилистически мне это API не очень понравилось (к
+            тому же в глаза бросалось использование глобальных/нереентрантных данных), но пока будем считать это моей вкусовщиной, и придирками старого брюзги.
+        
+            Boost::asio также знает про стренды. &quot;Если вы понимаете о чем я говорю&quot;&mdash; Timur Safin (40+) (@tsafin) 15 февраля 2014
+        
+            http://t.co/oCz9SPyglb&mdash; Timur Safin (40+) (@tsafin) 15 февраля 2014
+        
+            Grigory Demchecnko on async was quite good. New boost services, and idioms covered #cpp #Moscow&mdash; Timur
+            Safin (40+) (@tsafin) 15 февраля 2014
+        Библиотека synca доступна на BitBucket https://bitbucket.org/gridem/synca так что смотрите сами. В целом, несмотря на эти маленькие придирки выше, данный доклад был интересен, и множество упомянутых
+            идиом и паттернов будут крайне полезны многим при написании масштабируемых многопоточных приложений, даже если Вы не будете в итоге использовать synca или Boost::Asio.
+        Продолжение следует...">
+	<meta property="og:url" content="http://tsafin.net/blog/blogger/moscow-c-users-group-2/">
+	<meta property="og:site_name" content="Timur Safin - Making No Sense">
+
+    <link rel="canonical" href="http://tsafin.net/blog/blogger/moscow-c-users-group-2/">
+
+    <link href="http://tsafin.net/atom.xml" type="application/atom+xml" rel="alternate" title="Timur Safin - Making No Sense Atom Feed">
+    <link href="http://tsafin.net/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="cleartype" content="on">
+
+    <link rel="stylesheet" href="http://tsafin.net/css/main.css">
+    <!-- HTML5 Shiv and Media Query Support for IE -->
+    <!--[if lt IE 9]>
+      <script src="http://tsafin.net/js/vendor/html5shiv.min.js"></script>
+      <script src="http://tsafin.net/js/vendor/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body id="js-body">
+    <!--[if lt IE 9]><div class="upgrade notice-warning"><strong>Your browser is quite old!</strong> Why not <a href="http://whatbrowser.org/">upgrade to a newer one</a> to better enjoy this site?</div><![endif]-->
+
+    <header id="masthead">
+  <div class="inner-wrap">
+    <a href="http://tsafin.net/" class="site-title">Timur Safin - Making No Sense</a>
+    <nav role="navigation" class="menu top-menu">
+        <ul class="menu-item">
+	<li class="home"><a href="/">Timur Safin - Making No Sense</a></li>
+	 
+      
+      <li><a href="http://tsafin.net/blog/" >Articles</a></li>
+    
+      
+      <li><a href="http://tsafin.net/projects/" >Projects</a></li>
+    
+      
+      <li><a href="http://tsafin.net/resume/" >About</a></li>
+    
+</ul>
+    </nav>
+  </div><!-- /.inner-wrap -->
+</header><!-- /.masthead -->
+    <nav role="navigation" id="js-menu" class="sliding-menu-content">
+  <h5>Timur Safin - Making No Sense <span>Table of Contents</span></h5>
+  <ul class="menu-item">
+    <li>
+      <a href="http://tsafin.net/blog/">
+        
+        <div class="title">Articles</div>
+        <p class="excerpt">Blog posts and random rumblings...</p>
+      </a>
+    </li><li>
+      <a href="http://tsafin.net/projects/">
+        
+        <div class="title">Projects</div>
+        <p class="excerpt">Open-source projects</p>
+      </a>
+    </li><li>
+      <a href="http://tsafin.net/resume/">
+        
+        <div class="title">About</div>
+        <p class="excerpt">Resume and such...</p>
+      </a>
+    </li>
+  </ul>
+</nav>
+<button type="button" id="js-menu-trigger" class="sliding-menu-button lines-button x2" role="button" aria-label="Toggle Navigation">
+  <span class="nav-lines"></span>
+</button>
+
+<div id="js-menu-screen" class="menu-screen"></div>
+
+
+    <div id="page-wrapper">
+      <div id="main" role="main">
+	<article class="wrap" itemscope itemtype="http://schema.org/Article">
+		
+		<div class="page-feature">
+			<div class="page-image">
+				<img src="http://tsafin.net/images/landscapes/feature18.jpg" class="page-feature-image" alt="Московская встреча пользователей Си++ - часть 2" itemprop="image">
+				
+			</div><!-- /.page-image -->
+		</div><!-- /.page-feature -->
+		
+		
+<nav class="breadcrumbs">
+    <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+      <a href="http://tsafin.net" itemprop="url">
+        <span itemprop="title">Home</span>
+    </a> ›
+    <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+      <a href="http://tsafin.net/blog/" itemprop="url">
+        <span itemprop="title">Blog</span>
+    </a>
+    </span>
+</nav>
+<!-- /.breadcrumbs -->
+
+
+<div class="breadcrumbs sm">
+    <a href="http://tsafin.blogspot.com/2014/02/moscow-c-users-group-2.html" itemprop="url">
+        http://tsafin.blogspot.com/2014/02/moscow-c-users-group-2.html&nbsp;<span class="glyphicon glyphicon-share" aria-hidden="true"></span>
+    </a>
+</div>
+
+		<div class="page-title">
+			<h1>Московская встреча пользователей Си++ - часть 2</h1>
+		</div>
+		<div class="inner-wrap">
+			<div id="content" class="page-content" itemprop="articleBody">
+				<style type="text/css">
+    p blockquote {
+        font-style: italic;
+    }
+</style>
+<h2>Место встречи</h2>
+<p>
+    <a href="http://3.bp.blogspot.com/-egWcpPHWnlE/Uv_8yMIqswI/AAAAAAAAQao/y8SmWB3HujM/s1600/moscow_cpp_meetup_event.png" imageanchor="1"><img border="0" src="http://3.bp.blogspot.com/-egWcpPHWnlE/Uv_8yMIqswI/AAAAAAAAQao/y8SmWB3HujM/s320/moscow_cpp_meetup_event.png" /></a>
+</p>
+<p><a href="http://sermp.blogspot.ru/">Сергей Платонов</a> организовал московскую встречу Си++ разработчиков в конференц зале московской гостиницы Бородино, в районе Красносельского. Анонс группы и предварительная регистрация происходила посредством служб
+    Google+, т.ч. тем кто пропустил, но хочет в дальнейшем быть в курсе, то милости прошу <a href="https://plus.google.com/u/0/communities/103730158693260931136">Google+ C++ User Group, Russia</a>.
+    <blockquote>Некоторые утверждают, что Google+ мертв, но мне кажется вы все не поняли его фишку. Там нет никого, кроме программистов! И в этом его очарование - например, все Linux kernel разработчики там (потому как собственно <a hreg="https://plus.google.com/u/0/+LinusTorvalds/posts">Linus</a>        там). Приходите туда - там тихо, и мухи не летают!</blockquote>
+</p>
+<p>Вообще, конечно, до того как у нас появится какой-то центральный сайт с информацией о российских Си++ событиях (типа isocpp.org но с проекцией на Россию, и конкретные города), узнавать приходится из разных источников и подчас случайно. Например, про готовящееся
+    событие в Москве я узнал спросив @meetingcpp</p>
+<blockquote class="twitter-tweet" lang="ru">
+    <p><a href="https://twitter.com/meetingcpp">@meetingcpp</a> so what is the current state with Moscow CPPUG?</p>&mdash; Timur Safin (40+) (@tsafin) <a href="https://twitter.com/tsafin/statuses/424241237185802240">17 января 2014</a></blockquote>
+<script
+    async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <p>В любом случае, даже анонс через Google+ сработал вполне хорошо. На Питерское событие пришло порядка 20 человек, и это считалось успехом. Но на московскую встречу зарегистрировались уже 66, и 37 колебались. (Хорошо, что не все пришли, кстати, иначе
+        я не знаю как мы бы решали эту проблему, зал реально был небольшим). Арендованный зал мог вместить 50-60 человек, и уже к концу первого доклада был почти полностью забит. Что можно считать успехом</p>
+    <p>С другой стороны Си++ программистов в Москве на 2 или 3 порядка больше, и надо задуматься как наиболее эффективно с точки зрения стоимости решать проблему с большим количеством посетителей, если практика устоится и станет популярной. Но об этом поговорим
+        в последнем посте серии...</p>
+    <blockquote class="twitter-tweet" lang="ru">
+        <p>27 attendees on Moscow <a href="https://twitter.com/search?q=%23cop&amp;src=hash">#cop</a> users group. Ready to start</p>&mdash; Timur Safin (40+) (@tsafin) <a href="https://twitter.com/tsafin/statuses/434597796575203328">15 февраля 2014</a></blockquote>
+    <blockquote
+        class="twitter-tweet" lang="ru">
+        <p>BTW, before 1st slides completed we have almost fully filled the hall <a href="https://twitter.com/search?q=%23cpp&amp;src=hash">#cpp</a> <a href="https://twitter.com/search?q=%23moscowcppusersgroup&amp;src=hash">#moscowcppusersgroup</a></p>&mdash;
+        Timur Safin (40+) (@tsafin) <a href="https://twitter.com/tsafin/statuses/434620826071990272">15 февраля 2014</a></blockquote>
+        <p>Но хватит лирики, давайте пойдем по докладам, один за одним, начиная с самой первой сессии.</p>
+        <h3>Григорий Демченко - <a href="http://www.meetingcpp.ru/cpp/cpp-moscow-2014/1%20%D0%90%D1%81%D0%B8%D0%BD%D1%85%D1%80%D0%BE%D0%BD%D0%BD%D0%BE%D1%81%D1%82%D1%8C%20%D0%B8%20%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D0%B5%D0%BD%D1%82%D0%BD%D0%BE%D1%81%D1%82%D1%8C%20%D0%BD%D0%B0%20%D1%81%D0%BE%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0%D1%85.pdf">асинхронность и конкурентность на сопрограммах</a></h3>
+        <blockquote class="twitter-tweet" lang="ru">
+            <p>Smoothly approaching boost.asio as async proactor implementation <a href="https://twitter.com/search?q=%23cpp&amp;src=hash">#cpp</a> </p>&mdash; Timur Safin (40+) (@tsafin) <a href="https://twitter.com/tsafin/statuses/434600548432904192">15 февраля 2014</a></blockquote>
+        <p>Григорий Демченко на примере простейшего http сервера с начала с последовательным кодом, но использующего все нужные Си++11 идиомы (типа лямбда-функций, auto, и последнего oost,asio), а потом и с асинхронным кодом, попытался рассказать про множество
+            проблем, которые вас ждут при написании асинхронного кода на Си++. В любом случае Вас ожидает дилемма: удобный/читабельный код против эффективного использования ресурсов.</p>
+        <p>Григорий ввёл свои определения "параллельности" и "конкурентности" (которые могут не обязательно совпадать с классическими).</p>
+        <p>От синхронного кода простого сервера http Григорий перешел к более эффективному асинхронному с отложенными обработчиками в виде различных лямбд. По-прежнему для примеров использовались сервисы Boost::asio/ Автором утверждалось, что многопоточное
+            асинхронное решение плохо масштабируется при росте запросов к серверу, посему было предложено использовать сопрограммы (coroutines) как более эффективное асинхронное решение</p>
+        <blockquote class="twitter-tweet" lang="ru">
+            <p>Any async code could be transformed to coroutines semiautomatically <a href="https://twitter.com/search?q=%23cpp&amp;src=hash">#cpp</a> </p>&mdash; Timur Safin (40+) (@tsafin) <a href="https://twitter.com/tsafin/statuses/434605620554002432">15 февраля 2014</a></blockquote>
+        <p>Утверждалось что любой чисто асинхронный код приведенный на ранних слайдах можно полуавтоматически перевести на использование сопрограм, и разработанной Григорием библиотеки synca.</p>
+        <blockquote class="twitter-tweet" lang="ru">
+            <p>Boost.context for coprograms</p>&mdash; Timur Safin (40+) (@tsafin) <a href="https://twitter.com/tsafin/statuses/434601987335012352">15 февраля 2014</a></blockquote>
+        <p>При работе с многопоточным приложением и при использовании механизма сопрограмм возникает необходимость сохранять/восстанавливать программный контекст сопрограммы. Для этих целей используются сервисы Boost.context, который уже адаптирован для
+            многих операционных систем и архитектур. На вопрос зачем использовать boost.context при наличии в любом Си окружении sejmp/longjmp Григорий затруднился дать ответ.</p>
+        <blockquote class="twitter-tweet" lang="ru">
+            <p>Parallel vs concurrent: goWait pattern <a href="https://twitter.com/search?q=%23cpp&amp;src=hash">#cpp</a> </p>&mdash; Timur Safin (40+) (@tsafin) <a href="https://twitter.com/tsafin/statuses/434606975364898816">15 февраля 2014</a></blockquote>
+        <p>Григорий в своей библиотеке добавил множество примитивов для упрощения многопоточного программирования и работы с ресурсами например goWait - ожидание завершения всех аргументов (сопрограмм).</p>
+        <blockquote class="twitter-tweet" lang="ru">
+            <p>Several patterns for teleporting coroutines between threads <a href="https://twitter.com/search?q=%23cpp&amp;src=hash">#cpp</a> </p>&mdash; Timur Safin (40+) (@tsafin) <a href="https://twitter.com/tsafin/statuses/434609544443199488">15 февраля 2014</a></blockquote>
+        <p>Т.к. сопрограммы могут мигрировать с одного потока из пула на любой другой активный поток, то в библиотеки предоставляется API для переноса сопрограмм из контекста в контекст - "телепортация". Стилистически мне это API не очень понравилось (к
+            тому же в глаза бросалось использование глобальных/нереентрантных данных), но пока будем считать это моей вкусовщиной, и придирками старого брюзги.</p>
+        <blockquote class="twitter-tweet" lang="ru">
+            <p>Boost::asio также знает про стренды. &quot;Если вы понимаете о чем я говорю&quot;</p>&mdash; Timur Safin (40+) (@tsafin) <a href="https://twitter.com/tsafin/statuses/434611133027475456">15 февраля 2014</a></blockquote>
+        <blockquote class="twitter-tweet"
+            lang="ru">
+            <p><a href="http://t.co/oCz9SPyglb">http://t.co/oCz9SPyglb</a></p>&mdash; Timur Safin (40+) (@tsafin) <a href="https://twitter.com/tsafin/statuses/434612294468009984">15 февраля 2014</a></blockquote>
+        <blockquote class="twitter-tweet" lang="ru">
+            <p>Grigory Demchecnko on async was quite good. New boost services, and idioms covered <a href="https://twitter.com/search?q=%23cpp&amp;src=hash">#cpp</a> <a href="https://twitter.com/search?q=%23Moscow&amp;src=hash">#Moscow</a></p>&mdash; Timur
+            Safin (40+) (@tsafin) <a href="https://twitter.com/tsafin/statuses/434616408903651328">15 февраля 2014</a></blockquote>
+        <p>Библиотека synca доступна на BitBucket <a href="https://bitbucket.org/gridem/synca">https://bitbucket.org/gridem/synca</a> так что смотрите сами. В целом, несмотря на эти маленькие придирки выше, данный доклад был интересен, и множество упомянутых
+            идиом и паттернов будут крайне полезны многим при написании масштабируемых многопоточных приложений, даже если Вы не будете в итоге использовать synca или Boost::Asio.</p>
+        <p><i><a href="/2014/02/moscow-c-users-group-3.html">Продолжение следует...</a></i></p>
+				<hr />
+				<footer class="page-footer">
+					
+
+<div class="author-image">
+    <img src="http://tsafin.net/images/tsafin_twitter_small_logo.jpg" alt="Timur Safin">
+</div>
+<!-- ./author-image -->
+<div class="author-content">
+    <h3 class="author-name">Written by <span itemprop="author">Timur Safin</span></h3>
+    <p class="author-bio"></p>
+</div>
+<!-- ./author-content -->
+					<div class="inline-btn">
+	<a class="btn-social twitter" href="https://twitter.com/intent/tweet?text=Московская%20встреча%20пользователей%20Си++%20-%20часть%202&amp;url=http://tsafin.net/blog/blogger/moscow-c-users-group-2/&amp;via=tsafin" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i> Share on Twitter</a>
+	<a class="btn-social facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://tsafin.net/blog/blogger/moscow-c-users-group-2/" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i> Share on Facebook</a>
+	<a class="btn-social google-plus"  href="https://plus.google.com/share?url=http://tsafin.net/blog/blogger/moscow-c-users-group-2/" target="_blank"><i class="fa fa-google-plus" aria-hidden="true"></i> Share on Google+</a>
+</div><!-- /.share-this -->
+
+					<div class="page-meta">
+	<p>Updated <time datetime="2014-02-16T23:47:00Z" itemprop="datePublished">February 16, 2014</time></p>
+</div><!-- /.page-meta -->
+				</footer><!-- /.footer -->
+				<aside>
+					
+				</aside>
+			</div><!-- /.content -->
+		</div><!-- /.inner-wrap -->
+		
+	</article><!-- ./wrap -->
+</div><!-- /#main -->
+
+      <footer role="contentinfo" id="site-footer">
+	<nav role="navigation" class="menu bottom-menu">
+		<ul class="menu-item">
+		
+      
+			<li><a href="http://tsafin.net/" >Home</a></li>
+		
+      
+			<li><a href="http://tsafin.net/blog/" >Articles</a></li>
+		
+      
+			<li><a href="http://tsafin.net/projects/" >Projects</a></li>
+		
+      
+			<li><a href="http://tsafin.net/about/" >About</a></li>
+		
+		</ul>
+	</nav><!-- /.bottom-menu -->
+	<p class="copyright">&#169; 2020 <a href="http://tsafin.net">Timur Safin - Making No Sense</a> powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> + <a href="http://mmistakes.github.io/skinny-bones-jekyll/" rel="nofollow">Skinny Bones</a>.</p>
+</footer>
+
+    </div>
+
+    <script src="http://tsafin.net/js/vendor/jquery-1.9.1.min.js"></script>
+    <script src="http://tsafin.net/js/main.js"></script>
+
+    
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-84704404-1', 'auto');
+  ga('require', 'linkid');
+  ga('send', 'pageview');
+
+</script>
+
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function (d, w, c) {
+        (w[c] = w[c] || []).push(function() {
+            try {
+                w.yaCounter40768979 = new Ya.Metrika({
+                    id:40768979,
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true
+                });
+            } catch(e) { }
+        });
+
+        var n = d.getElementsByTagName("script")[0],
+            s = d.createElement("script"),
+            f = function () { n.parentNode.insertBefore(s, n); };
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = "https://mc.yandex.ru/metrika/watch.js";
+
+        if (w.opera == "[object Opera]") {
+            d.addEventListener("DOMContentLoaded", f, false);
+        } else { f(); }
+    })(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/40768979" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+
+
+  </body>
+
+</html>

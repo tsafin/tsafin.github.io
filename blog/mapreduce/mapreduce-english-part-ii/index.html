@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Caché MapReduce - Basic interfaces for MapReduce implementation (part II) • Timur Safin - Making No Sense</title>
+    <meta name="description" content="In the prior part of this series we have provided introduction to Google MapReduce approach, but still not covered their possible ObjectScript implementation. Which we will start to explain today.
+
+We still plan to model Caché ObjectScript MapReduce implementation quite close to the original Google C++ example given before. We start from Mapper and Reducer abstract interfaces which will be implemented elsewhere later:
+
+">
+    <meta name="keywords" content="">
+    
+    	<!-- Twitter Cards -->
+	<meta name="twitter:title" content="Caché MapReduce - Basic interfaces for MapReduce implementation (part II)">
+	<meta name="twitter:description" content="In the prior part of this series we have provided introduction to Google MapReduce approach, but still not covered their possible ObjectScript implementation. Which we will start to explain today.
+
+We still plan to model Caché ObjectScript MapReduce implementation quite close to the original Google C++ example given before. We start from Mapper and Reducer abstract interfaces which will be implemented elsewhere later:
+
+">
+	<meta name="twitter:site" content="@tsafin">
+	
+	
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:image" content="http://tsafin.net/images/landscapes/feature9.jpg">
+	
+	<!-- Open Graph -->
+	<meta property="og:locale" content="en">
+	<meta property="og:type" content="article">
+	<meta property="og:title" content="Caché MapReduce - Basic interfaces for MapReduce implementation (part II)">
+	<meta property="og:description" content="In the prior part of this series we have provided introduction to Google MapReduce approach, but still not covered their possible ObjectScript implementation. Which we will start to explain today.
+
+We still plan to model Caché ObjectScript MapReduce implementation quite close to the original Google C++ example given before. We start from Mapper and Reducer abstract interfaces which will be implemented elsewhere later:
+
+">
+	<meta property="og:url" content="http://tsafin.net/blog/mapreduce/mapreduce-english-part-ii/">
+	<meta property="og:site_name" content="Timur Safin - Making No Sense">
+
+    <link rel="canonical" href="http://tsafin.net/blog/mapreduce/mapreduce-english-part-ii/">
+
+    <link href="http://tsafin.net/atom.xml" type="application/atom+xml" rel="alternate" title="Timur Safin - Making No Sense Atom Feed">
+    <link href="http://tsafin.net/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="cleartype" content="on">
+
+    <link rel="stylesheet" href="http://tsafin.net/css/main.css">
+    <!-- HTML5 Shiv and Media Query Support for IE -->
+    <!--[if lt IE 9]>
+      <script src="http://tsafin.net/js/vendor/html5shiv.min.js"></script>
+      <script src="http://tsafin.net/js/vendor/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body id="js-body">
+    <!--[if lt IE 9]><div class="upgrade notice-warning"><strong>Your browser is quite old!</strong> Why not <a href="http://whatbrowser.org/">upgrade to a newer one</a> to better enjoy this site?</div><![endif]-->
+
+    <header id="masthead">
+  <div class="inner-wrap">
+    <a href="http://tsafin.net/" class="site-title">Timur Safin - Making No Sense</a>
+    <nav role="navigation" class="menu top-menu">
+        <ul class="menu-item">
+	<li class="home"><a href="/">Timur Safin - Making No Sense</a></li>
+	 
+      
+      <li><a href="http://tsafin.net/blog/" >Articles</a></li>
+    
+      
+      <li><a href="http://tsafin.net/projects/" >Projects</a></li>
+    
+      
+      <li><a href="http://tsafin.net/resume/" >About</a></li>
+    
+</ul>
+    </nav>
+  </div><!-- /.inner-wrap -->
+</header><!-- /.masthead -->
+    <nav role="navigation" id="js-menu" class="sliding-menu-content">
+  <h5>Timur Safin - Making No Sense <span>Table of Contents</span></h5>
+  <ul class="menu-item">
+    <li>
+      <a href="http://tsafin.net/blog/">
+        
+        <div class="title">Articles</div>
+        <p class="excerpt">Blog posts and random rumblings...</p>
+      </a>
+    </li><li>
+      <a href="http://tsafin.net/projects/">
+        
+        <div class="title">Projects</div>
+        <p class="excerpt">Open-source projects</p>
+      </a>
+    </li><li>
+      <a href="http://tsafin.net/resume/">
+        
+        <div class="title">About</div>
+        <p class="excerpt">Resume and such...</p>
+      </a>
+    </li>
+  </ul>
+</nav>
+<button type="button" id="js-menu-trigger" class="sliding-menu-button lines-button x2" role="button" aria-label="Toggle Navigation">
+  <span class="nav-lines"></span>
+</button>
+
+<div id="js-menu-screen" class="menu-screen"></div>
+
+
+    <div id="page-wrapper">
+      <div id="main" role="main">
+	<article class="wrap" itemscope itemtype="http://schema.org/Article">
+		
+		<div class="page-feature">
+			<div class="page-image">
+				<img src="http://tsafin.net/images/landscapes/feature9.jpg" class="page-feature-image" alt="Caché MapReduce - Basic interfaces for MapReduce implementation (part II)" itemprop="image">
+				
+			</div><!-- /.page-image -->
+		</div><!-- /.page-feature -->
+		
+		
+<nav class="breadcrumbs">
+    <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+      <a href="http://tsafin.net" itemprop="url">
+        <span itemprop="title">Home</span>
+    </a> ›
+    <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+      <a href="http://tsafin.net/blog/" itemprop="url">
+        <span itemprop="title">Blog</span>
+    </a>
+    </span>
+</nav>
+<!-- /.breadcrumbs -->
+
+
+<div class="breadcrumbs sm">
+    <a href="https://community.intersystems.com/post/cach%C3%A9-mapreduce-basic-interfaces-mapreduce-implementation-part-ii" itemprop="url">
+        https://community.intersystems.com/post/cach%C3%A9-mapreduce-basic-interfaces-mapreduce-implementation-part-ii&nbsp;<span class="glyphicon glyphicon-share" aria-hidden="true"></span>
+    </a>
+</div>
+
+		<div class="page-title">
+			<h1>Caché MapReduce - Basic interfaces for MapReduce implementation (part II)</h1>
+		</div>
+		<div class="inner-wrap">
+			<div id="content" class="page-content" itemprop="articleBody">
+				<p><em>In the <a href="../mapreduce-english-part-i/">prior part of this series</a> we have provided introduction to Google MapReduce approach, but still not covered their possible ObjectScript implementation. Which we will start to explain today.</em></p>
+<p><!--break--></p>
+<p>We still plan to model Caché ObjectScript MapReduce implementation quite close to the original Google C++ example given before. We start from Mapper and Reducer abstract interfaces which will be implemented elsewhere later:</p><div>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">/// Base class for MapReduce Mapper.
+Class MR.Base.Mapper 
+{
+
+Method Map(MapInput As MR.Base.Iterator, MapOutput As MR.Base.Emitter) [ Abstract ] { }
+
+}
+
+
+/// Base class for MapReduce Reducer.
+Class MR.Base.Reducer
+{
+Method Reduce(ReduceInput As MR.Base.Iterator, ReduceOutput As MR.Base.Emitter) [ Abstract ] { }
+
+}</code></pre></figure>
+
+</div>
+<p>Originally, we’ve started with separate implementations of MapInput and ReduceInput interface classes (as in C++), but then we’ve realized that they are about the same – iteration over the stream, until there is end reached, so they got unified to the common MR.Base.Iterator:</p>
+<div>
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">Class</span> <span class="n">MR</span><span class="p">.</span><span class="n">Base</span><span class="p">.</span><span class="n">Iterator</span> 
+<span class="p">{</span>
+
+<span class="n">Method</span> <span class="n">GetNext</span><span class="p">()</span> <span class="n">As</span> <span class="o">%</span><span class="n">String</span> <span class="p">[</span> <span class="n">Abstract</span> <span class="p">]</span> <span class="p">{</span> <span class="p">}</span>
+
+<span class="n">Method</span> <span class="n">IsAtEnd</span><span class="p">()</span> <span class="n">As</span> <span class="o">%</span><span class="n">Boolean</span> <span class="p">[</span> <span class="n">Abstract</span> <span class="p">]</span> <span class="p">{</span> <span class="p">}</span>
+
+<span class="p">}</span></code></pre></figure>
+</div>
+
+<h2>Using globals as a channel</h2>
+
+<p>Original Google MapReduce implementation used Google GFS cluster file-system as a transport media between nodes for intermediate and final storage. We have different media to establish interaction between cluster Caché nodes and it’s called – <a href="http://docs.intersystems.com/documentation/cache/latest/pdfs/GDDM.pdf">Enterprise Cache Protocol (ECP)</a>. Right now it’s used by application servers for operating with remote data mounted from data server, but there is nothing stopping us from using ECP as a simple “control bus” interface, where we will put &lt;key, value&gt; pairs or similar operating data from the sender side and retrieve those commands on the receiver side. If implementation actors (i.e. reduce and combine workers) will be running on the same machine, then they could even use ultra-fast, scratch data space on the CACHETEMP</p>
+<div><p><cite>If there would be inheritance implemented between parent and child processes for process-private globals opened by parent ^||PPG, or may be some magical locals be automatically marshalled between processes, then PPG or inherited local arrays would be much more convenient to use here, for emitter operations. Dreams, dreams…</cite></p></div>
+<p>Either way, be they local for the particular node, or, may be, mapped remotely via ECP, <em>globals</em> are very convenient, and well established mechanism, which is very fitting as transport for sending intermediate data between MapReduce stages. Let try to use it this way.</p>
+<h2>Emitters and some dirty magic</h2>
+<p>You remember that between moment when data is emitted from mapper, and when element of a collection retrieved by reducer there is some heavy shuffle algorithm used on master node. Actually, in the MUMPS/ObjectScript environment, we could entirely avoid this overhead if we will use some built-in functions, which will handle aggregation for us. Luckily, all this aggregation can be done without any extra traffic between involved parties (master, mapper or reducer). [<em>More details about this handy optimization will be given later</em>]</p>
+<p>Here is basic emitter interface we introduce:</p>
+<div>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">Class MR.Base.Emitter Extends MR.Base.Iterator
+{
+
+/// emit $listbuild(key,value(s))
+Method Emit(EmitList... As %String) [ Abstract ] { }
+
+}</code></pre></figure>
+</div>
+
+<p>Semantically, emitter is very similar to input iterator (thus we see it’s ancestor of MR.Base.Iterator), but in addition to iterator interface we will introduce some extra functions which will send data to the intermediate collection (e.g. Emit function).</p>
+<div><p>At the beginning of the MapReduce project our Emit function was very close to classical one, it was accepting 2 arguments for simple case of &lt;key, value&gt; pair. But then we’ve discovered some necessity to extend it to something more multi-dimensional (i.e. handling generic tuples), thus right now it’s accepting variable number of arguments (though, most of the time there are either single or 2 arguments passed).</p></div>
+<p>This is still abstract interface, and more “meat” will be added quite soon:</p>
+<p>If we need to keep the order of emitted data then we could use implementation similar to MR.Emitter.Ordered:</p>
+<div>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">/// Emitter which maintains the order of (key,value(s))
+Class MR.Emitter.Ordered Extends (%RegisteredObject, MR.Base.Emitter)
+{
+
+­­/// global name serving as data channel
+Property GlobalName As %String;
+
+Method %OnNew(initval As %String) As %Status
+{
+    $$$ThrowOnError($length(initval)&amp;gt;0)
+    set ..GlobalName = initval
+    quit $$$OK
+}
+
+Parameter AUTOCLEANUP = 1;
+Method %OnClose() As %Status
+{
+    if ..#AUTOCLEANUP {
+        if $data(@i%GlobalName) {
+            kill @i%GlobalName
+        }
+    }
+    Quit $$$OK
+}
+
+…</code></pre></figure>
+
+</div>
+<p>Globals are global, and they not automatically cleaned up, once process, which has created them, will be terminated. But in our case we use globals as rather intermediate, not as a persistent storage, so sometimes we do need to proceed automatic cleanup. That’s why we have introduced #AUTOCLEANUP class parameter (which is enabled by default, so the global those name is stored to GlobalName property, will be killed at the moment emitter is deleted (see %OnClose callback). Please pay attention that there is 1 required parameter we enforce in the %New() constructor of this class – it expects to receive global name with whom we will operate.</p>
+<div>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">…
+
+Method IsAtEnd() As %Boolean
+{
+    quit ($data(@i%GlobalName)\10)=0
+}
+
+/// emit $listbuild(key,value)
+Method Emit(EmitList... As %String)
+{
+    #dim list As %String = ""
+    for i=1:1:$get(EmitList) {
+        set $li(list,i) = $get(EmitList(i))
+    }
+    #dim name As %String = ..GlobalName
+    set @name@($seq(@name)) = list
+}
+
+/// returns emitted $lb(key,value)
+Method GetNext() As %String
+{
+    #dim value As %String
+    #dim index As %String = $order(@i%GlobalName@(""),1,value)
+    if index'="" {
+        kill @i%GlobalName@(index)
+        quit value
+    } else {
+        kill @i%GlobalName
+        quit ""
+    }
+}
+
+Method Dump()
+{
+    zwrite @i%GlobalName
+}
+
+}</code></pre></figure>
+
+</div>
+<p>Do you still remember that Emitter is ancestor of Iterator, so it supposed to implement not only Emit function but IsAtEnd and GetNext as well?</p>
+<ul><li>IsAtEnd is simple – if there are data in the global (i.e. $data returns 1x) then we assume collection is not empty.</li><li>Emit creates new node at the end of global, keeping passed argument list in $listbuild(list) format. As you already aware, $sequential function could be used (almost) at the same cases when $increment is used, but it has one big advantage for us – their performance observes less contention over global mode used if it’s working over ECP (see <a href="https://community.intersystems.com/post/sequence-function">"On $Sequence function"</a> by Alexander Koblov)</li><li>On the other hand GetNext() retrieves head of a collection ($order(@i%GlobalName@(“”)) and then delete the head. To pass &lt;key,value&gt; pair we use $lb&lt;&gt; data structure. Lists created by $listbuild() function allow to keep not only simple (key, value) pair, but tuple of any desired size. We will use this ability later.</li></ul>
+<p>Data structure as implemented by MR.Emitter.Ordered is a classical FIFO (“First in – First Out”) collection: we push data at the end, and pop from the head.</p>
+
+<h2>Autoaggregating emitter</h2>
+
+<p>If you look into the sorted collection implementation, and compare to what we send in word-count example, then you will immediately recognize that:</p>
+<ul><li>Actually, we do not care about order we send keys to emitter. After we write them unordered as keys (subscript values) of some particular global node they to be automatically sorted by the underlining btree* database storage;</li><li>And in majority of cases when we emit &lt;word, 1&gt; in mapper then we assume to proceed in the reducer the simple aggregation of those 1s, essentially, it will work as simple $increment counter.</li></ul>
+<p>So why bother and produce unnecessary traffic if we could use magical $increment from ObjectScript?</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">/// Emitter which sorts by keys all emitted pairs or tuples (key, value(s))
+Class MR.Emitter.Sorted Extends MR.Emitter.Ordered
+{
+
+Property AutoIncrement As %Boolean [ InitialExpression = 1 ];
+
+/// emit $listbuild(key,value)
+Method Emit(EmitList... As %String)
+{
+    #dim name As %String = ..GlobalName
+    #dim key As %String
+    #dim value As %String 
+
+    if $get(EmitList)=1 {
+        // special case - only key name given, no value
+        set key = $get(EmitList(1))
+        quit:key=""
+        if ..AutoIncrement {
+            #dim dummyX As %Integer = $increment(@name@(key)) ; $seq is non-deterministic
+        } else {
+            set @name@(key) = 1
+        }
+    } else {
+        set value = $get(EmitList(EmitList))
+        set EmitList = EmitList - 1
+        for i=1:1:$get(EmitList) {
+            #dim index As %String = $get(EmitList(i))
+            quit:index=""
+            set name = $name(@name@(index))
+        }
+        if ..AutoIncrement {
+            #dim dummyY As %Integer = $increment(@name,value)
+        } else {
+            set @name = value
+        }
+    }
+}
+
+…</code></pre></figure>
+
+<p>There is simplest case, when there is 1 argument passed to Emit function (the key only). So if we are acting in AutoIncrement mode then we immediately count the sum of all key with the same name passed. If it’s not in autoincrementing mode, then we simply (re)define this key in global, holding 1 as the value.</p>
+<p>For 2 argument mode (key, value) and in autoincrementing mode, we accumulate in the corresponding node of a global the sum of all values passed so far.</p>
+<p><em>But there is more</em> – this function is able to handle any size of a tuple &lt;key, value(s)&gt;, even more than 2. When there is no autoincrement enabled it’s still easy –emitter will just define an appropriate node in a global where all arguments passed to the functions become subscripts of a global node. On the other hand, for autoincrement mode it acts a little differently, and should consider last argument as value for multi-dimensional node, so all arguments before the last one will be subscript names.</p>
+<p>This unusual extension of a key-value nature data use in algorithm is not typical to our knowledge, we are unaware whether there is something similar used by other MapReduce implementations (probably, because of the fact they operate with strict key-value or bigtable stores, and not with hierarchical arrays like in our case, where efficient $increment facilities available). We’ll show later some practical example of such extension.</p>
+<p>IsAtEnd is still not redefined by this class, and is inherited from parent MR.Emitter.Ordered (i.e. it returns non-null value of there is some data under GloRef name used for intermediate store).</p>
+<p>But GetNext should be a little bit more complex than before.</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">…
+
+/// returns emitted $lb(key,value)
+Method GetNext() As %String
+{
+    #dim name As %String = ..GlobalName
+    #dim value As %String
+    #dim ref As %String = $query(@name,1,value)
+    if ref'="" {
+        zkill @ref
+        #dim i As %Integer
+        #dim refLen As %Integer = $qlength(ref)
+        #dim baseLen As %Integer = $qlength(name)
+        #dim listbuild = ""
+        for i=baseLen+1:1:refLen {
+            set $li(listbuild,i-baseLen)=$qs(ref,i)
+        }
+        set $li(listbuild,*+1)=value
+
+        quit listbuild
+    }
+
+    quit ""
+}
+
+…</code></pre></figure>
+
+<p>We expect $LB&lt;&gt; data returned from the function, but Emit stores tuple data into global as subscripts, so we need to reassemble $listbuild from the subscripts and there stored node value. The returned node is immediately killed in the global so it will be removed from “collection” and not available for other workers.</p>
+<p><em>In this 2<sup>nd</sup> part of series we have introduced basic interfaces used by our ObjectScript MapReduce implementation. In a future parts we will put all things together, and will provide more concrete examples.</em></p>
+				<hr />
+				<footer class="page-footer">
+					
+
+<div class="author-image">
+    <img src="http://tsafin.net/images/tsafin_twitter_small_logo.jpg" alt="Timur Safin">
+</div>
+<!-- ./author-image -->
+<div class="author-content">
+    <h3 class="author-name">Written by <span itemprop="author">Timur Safin</span></h3>
+    <p class="author-bio"></p>
+</div>
+<!-- ./author-content -->
+					<div class="inline-btn">
+	<a class="btn-social twitter" href="https://twitter.com/intent/tweet?text=Caché%20MapReduce%20-%20Basic%20interfaces%20for%20MapReduce%20implementation%20(part%20II)&amp;url=http://tsafin.net/blog/mapreduce/mapreduce-english-part-ii/&amp;via=tsafin" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i> Share on Twitter</a>
+	<a class="btn-social facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://tsafin.net/blog/mapreduce/mapreduce-english-part-ii/" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i> Share on Facebook</a>
+	<a class="btn-social google-plus"  href="https://plus.google.com/share?url=http://tsafin.net/blog/mapreduce/mapreduce-english-part-ii/" target="_blank"><i class="fa fa-google-plus" aria-hidden="true"></i> Share on Google+</a>
+</div><!-- /.share-this -->
+
+					<div class="page-meta">
+	<p>Updated <time datetime="2016-09-01T20:56:00Z" itemprop="datePublished">September 01, 2016</time></p>
+</div><!-- /.page-meta -->
+				</footer><!-- /.footer -->
+				<aside>
+					<hr />
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+	var disqus_shortname = 'tsafin-net';
+
+	/* * * DON'T EDIT BELOW THIS LINE * * */
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+				</aside>
+			</div><!-- /.content -->
+		</div><!-- /.inner-wrap -->
+		
+	</article><!-- ./wrap -->
+</div><!-- /#main -->
+
+      <footer role="contentinfo" id="site-footer">
+	<nav role="navigation" class="menu bottom-menu">
+		<ul class="menu-item">
+		
+      
+			<li><a href="http://tsafin.net/" >Home</a></li>
+		
+      
+			<li><a href="http://tsafin.net/blog/" >Articles</a></li>
+		
+      
+			<li><a href="http://tsafin.net/projects/" >Projects</a></li>
+		
+      
+			<li><a href="http://tsafin.net/about/" >About</a></li>
+		
+		</ul>
+	</nav><!-- /.bottom-menu -->
+	<p class="copyright">&#169; 2020 <a href="http://tsafin.net">Timur Safin - Making No Sense</a> powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> + <a href="http://mmistakes.github.io/skinny-bones-jekyll/" rel="nofollow">Skinny Bones</a>.</p>
+</footer>
+
+    </div>
+
+    <script src="http://tsafin.net/js/vendor/jquery-1.9.1.min.js"></script>
+    <script src="http://tsafin.net/js/main.js"></script>
+
+    
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-84704404-1', 'auto');
+  ga('require', 'linkid');
+  ga('send', 'pageview');
+
+</script>
+
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function (d, w, c) {
+        (w[c] = w[c] || []).push(function() {
+            try {
+                w.yaCounter40768979 = new Ya.Metrika({
+                    id:40768979,
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true
+                });
+            } catch(e) { }
+        });
+
+        var n = d.getElementsByTagName("script")[0],
+            s = d.createElement("script"),
+            f = function () { n.parentNode.insertBefore(s, n); };
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = "https://mc.yandex.ru/metrika/watch.js";
+
+        if (w.opera == "[object Opera]") {
+            d.addEventListener("DOMContentLoaded", f, false);
+        } else { f(); }
+    })(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/40768979" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+
+
+  </body>
+
+</html>

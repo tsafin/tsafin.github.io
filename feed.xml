@@ -3,8 +3,8 @@
   <channel>
     <title>Timur Safin - Making No Sense</title>
     <description>Try to be public. Again</description>
-    <link>http://tsafin.net/</link>
-    <atom:link href="http://tsafin.net/feed.xml" rel="self" type="application/rss+xml"/>
+    <link>/</link>
+    <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
     <pubDate>Wed, 26 Feb 2020 23:33:59 +0000</pubDate>
     <lastBuildDate>Wed, 26 Feb 2020 23:33:59 +0000</lastBuildDate>
     <generator>Jekyll v3.8.6</generator>
@@ -45,8 +45,8 @@
 
 </description>
         <pubDate>Sun, 07 Apr 2019 07:00:00 +0000</pubDate>
-        <link>http://tsafin.net/blog/jit/aot/bt/Eshche-odna-istoriya-pro-binarnuyu-translyaciyu-04-07/</link>
-        <guid isPermaLink="true">http://tsafin.net/blog/jit/aot/bt/Eshche-odna-istoriya-pro-binarnuyu-translyaciyu-04-07/</guid>
+        <link>/blog/jit/aot/bt/Eshche-odna-istoriya-pro-binarnuyu-translyaciyu-04-07/</link>
+        <guid isPermaLink="true">/blog/jit/aot/bt/Eshche-odna-istoriya-pro-binarnuyu-translyaciyu-04-07/</guid>
         
         
         <category>blog</category>
@@ -574,8 +574,8 @@ DEVLATEST:19:24:17:MAPREDUCE&amp;gt;write p.Addition(1,2)
 &lt;p&gt;Весь код, упомянутый здесь, доступен через &lt;a href=&quot;https://gist.github.com/tsafin/02bb6b5967cbdd1176618cb645445770&quot;&gt;gist&lt;/a&gt;.&lt;/p&gt;
 </description>
         <pubDate>Mon, 14 Nov 2016 13:00:00 +0000</pubDate>
-        <link>http://tsafin.net/blog/mapreduce/mapreduce-russian-remote-proxy/</link>
-        <guid isPermaLink="true">http://tsafin.net/blog/mapreduce/mapreduce-russian-remote-proxy/</guid>
+        <link>/blog/mapreduce/mapreduce-russian-remote-proxy/</link>
+        <guid isPermaLink="true">/blog/mapreduce/mapreduce-russian-remote-proxy/</guid>
         
         
         <category>blog</category>
@@ -924,8 +924,8 @@ DATA
 &lt;/blockquote&gt;
 </description>
         <pubDate>Sun, 16 Oct 2016 21:00:00 +0000</pubDate>
-        <link>http://tsafin.net/blog/mapreduce/mapreduce-russian-part-iii/</link>
-        <guid isPermaLink="true">http://tsafin.net/blog/mapreduce/mapreduce-russian-part-iii/</guid>
+        <link>/blog/mapreduce/mapreduce-russian-part-iii/</link>
+        <guid isPermaLink="true">/blog/mapreduce/mapreduce-russian-part-iii/</guid>
         
         
         <category>blog</category>
@@ -1228,8 +1228,8 @@ Method GetNext() As %String
 &lt;/blockquote&gt;
 </description>
         <pubDate>Tue, 04 Oct 2016 10:24:00 +0000</pubDate>
-        <link>http://tsafin.net/blog/mapreduce/mapreduce-russian-part-ii/</link>
-        <guid isPermaLink="true">http://tsafin.net/blog/mapreduce/mapreduce-russian-part-ii/</guid>
+        <link>/blog/mapreduce/mapreduce-russian-part-ii/</link>
+        <guid isPermaLink="true">/blog/mapreduce/mapreduce-russian-part-ii/</guid>
         
         
         <category>blog</category>
@@ -1461,8 +1461,8 @@ Method GetNext() As %String
 &lt;p&gt;&lt;em&gt;Пожалуй, этого достаточно для вводной части – мы еще не затронули собственно Caché ObjectScript реализации, хотя и дали достаточно информации для начала реализации MapReduce на любом языке. К нашей реализации MapReduce мы вернемся в следующей статье. Оставайтесь на линии!&lt;/em&gt;&lt;/p&gt;
 </description>
         <pubDate>Mon, 26 Sep 2016 14:07:00 +0000</pubDate>
-        <link>http://tsafin.net/blog/mapreduce/mapreduce-russian-part-i/</link>
-        <guid isPermaLink="true">http://tsafin.net/blog/mapreduce/mapreduce-russian-part-i/</guid>
+        <link>/blog/mapreduce/mapreduce-russian-part-i/</link>
+        <guid isPermaLink="true">/blog/mapreduce/mapreduce-russian-part-i/</guid>
         
         
         <category>blog</category>
@@ -1747,8 +1747,8 @@ DATA
 
 &lt;p&gt;&lt;em&gt;In this series &lt;a href=&quot;../mapreduce-english-part-i/&quot;&gt;we have introduced MapReduce algorithm in general&lt;/a&gt;, &lt;a href=&quot;../mapreduce-english-part-ii/&quot;&gt;covered basic infrastructure necessary for MapReduce in Caché ObjectScript&lt;/a&gt; and have created 1st rather simple MapReduce example counting words in the input stream(s). The next step we will continue cover MapReduce idioms using&amp;nbsp;classic example – now it will AgeAverage example from WikiPedia. Stay tuned.&lt;/em&gt;&lt;/p&gt;</description>
         <pubDate>Tue, 06 Sep 2016 20:56:00 +0000</pubDate>
-        <link>http://tsafin.net/blog/mapreduce/mapreduce-english-part-iii/</link>
-        <guid isPermaLink="true">http://tsafin.net/blog/mapreduce/mapreduce-english-part-iii/</guid>
+        <link>/blog/mapreduce/mapreduce-english-part-iii/</link>
+        <guid isPermaLink="true">/blog/mapreduce/mapreduce-english-part-iii/</guid>
         
         
         <category>blog</category>
@@ -1974,8 +1974,8 @@ Method GetNext() As %String
 &lt;p&gt;We expect $LB&amp;lt;&amp;gt; data returned from the function, but Emit stores tuple data into global as subscripts, so we need to reassemble $listbuild from the subscripts and there stored node value. The returned node is immediately killed in the global so it will be removed from “collection” and not available for other workers.&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;In this 2&lt;sup&gt;nd&lt;/sup&gt; part of series we have introduced basic interfaces used by our ObjectScript MapReduce implementation. In a future parts we will put all things together, and will provide more concrete examples.&lt;/em&gt;&lt;/p&gt;</description>
         <pubDate>Thu, 01 Sep 2016 20:56:00 +0000</pubDate>
-        <link>http://tsafin.net/blog/mapreduce/mapreduce-english-part-ii/</link>
-        <guid isPermaLink="true">http://tsafin.net/blog/mapreduce/mapreduce-english-part-ii/</guid>
+        <link>/blog/mapreduce/mapreduce-english-part-ii/</link>
+        <guid isPermaLink="true">/blog/mapreduce/mapreduce-english-part-ii/</guid>
         
         
         <category>blog</category>
@@ -2221,8 +2221,8 @@ Method GetNext() As %String
 	&lt;/div&gt;
 &lt;/div&gt;</description>
         <pubDate>Thu, 18 Aug 2016 20:56:00 +0000</pubDate>
-        <link>http://tsafin.net/blog/mapreduce/mapreduce-english-part-i/</link>
-        <guid isPermaLink="true">http://tsafin.net/blog/mapreduce/mapreduce-english-part-i/</guid>
+        <link>/blog/mapreduce/mapreduce-english-part-i/</link>
+        <guid isPermaLink="true">/blog/mapreduce/mapreduce-english-part-i/</guid>
         
         
         <category>blog</category>
@@ -3240,8 +3240,8 @@ log arguments and then dispatch dynamically method to the proxy object&amp;lt;/D
 &lt;p&gt;In general, you should rather avoid creating huge DOM tree of an objects, or proceeding network operations inside of %New constructor. Constructor needs to allocate just bare minimum of memory, necessary for beginning of operations, and initialize fields to their default values [that will be done automatically]. That's it.&lt;/p&gt;
 </description>
         <pubDate>Mon, 18 Jul 2016 21:00:00 +0000</pubDate>
-        <link>http://tsafin.net/blog/mapreduce/mapreduce-english-remote-proxy/</link>
-        <guid isPermaLink="true">http://tsafin.net/blog/mapreduce/mapreduce-english-remote-proxy/</guid>
+        <link>/blog/mapreduce/mapreduce-english-remote-proxy/</link>
+        <guid isPermaLink="true">/blog/mapreduce/mapreduce-english-remote-proxy/</guid>
         
         
         <category>blog</category>
@@ -3509,8 +3509,8 @@ cjs.connector.connect(“http://172.16.2.172:57776/”, “Samples”, [“Schoo
 
 </description>
         <pubDate>Wed, 23 Sep 2015 12:49:24 +0000</pubDate>
-        <link>http://tsafin.net/hackathon/intersystems-hackathon-2015-results-english/</link>
-        <guid isPermaLink="true">http://tsafin.net/hackathon/intersystems-hackathon-2015-results-english/</guid>
+        <link>/hackathon/intersystems-hackathon-2015-results-english/</link>
+        <guid isPermaLink="true">/hackathon/intersystems-hackathon-2015-results-english/</guid>
         
         
         <category>hackathon</category>

@@ -1,7 +1,21 @@
+- flag: Huawei GaussDB(DWS)
+  time: April 2023 .. Today
+  position: Team Leader
+  desc: What could you do if you have big cloud player behind your DBMS engine,
+        a very talented and capable team, and intention to get to the top of
+        TPC-H rating?
+
+- flag: Tarantool Team
+  time: February 2020 .. February 2023
+  position: Lead Software Developer
+  desc: What could be more fun than playing with database engines?
+        Like playing with SQL and LuaJit al together...
+
 - flag: Yandex.Taxi
-  time: May 2018 .. Today
+  time: May 2018 .. February 2020
   position: Software Developer
-  desc: Making Taxi backend software using more effecient algorithms
+  desc: Was making Taxi backend software using more effecient algorithms. 
+        Played with transport simulators, but discovered that they are complex.
 
 - flag: Acronis
   time: December 2016 .. April 2018

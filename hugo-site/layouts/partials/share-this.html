@@ -1,0 +1,5 @@
+<div class="inline-btn">
+  <a class="btn-social twitter" href="https://twitter.com/intent/tweet?text={{ .Title | urlquery }}&amp;url={{ .Permalink | urlquery }}&amp;via={{ .Site.Params.twitter }}" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i> {{ with (index .Site.Data.messages.locales .Site.Language.Lang) }}{{ .share }}{{ end }} Twitter</a>
+  <a class="btn-social facebook" href="https://www.facebook.com/sharer/sharer.php?u={{ .Permalink | urlquery }}" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i> {{ with (index .Site.Data.messages.locales .Site.Language.Lang) }}{{ .share }}{{ end }} Facebook</a>
+  <a class="btn-social google-plus" href="https://plus.google.com/share?url={{ .Permalink | urlquery }}" target="_blank"><i class="fa fa-google-plus" aria-hidden="true"></i> {{ with (index .Site.Data.messages.locales .Site.Language.Lang) }}{{ .share }}{{ end }} Google+</a>
+</div><!-- /.share-this -->

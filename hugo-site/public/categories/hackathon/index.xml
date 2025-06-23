@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hackathon on Timur Safin - Making No Sense</title>
+    <link>http://localhost:1313/categories/hackathon/</link>
+    <description>Recent content in Hackathon on Timur Safin - Making No Sense</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 23 Sep 2015 15:49:24 +0300</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/hackathon/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>InterSystems hackathon 2015 results</title>
+      <link>http://localhost:1313/posts/intersystems-hackathon-2015-results/</link>
+      <pubDate>Wed, 23 Sep 2015 15:49:24 +0300</pubDate>
+      <guid>http://localhost:1313/posts/intersystems-hackathon-2015-results/</guid>
+      <description>&lt;blockquote&gt;&lt;em&gt;[Русская версия статьи изначально опубликована на &lt;a href=&#34;http://habrahabr.ru/company/intersystems/blog/267459/&#34; target=&#34;_blank&#34;&gt;Хабре здесь&lt;/a&gt;]&lt;/em&gt;&lt;/blockquote&gt;&#xD;&#xA;&lt;p&gt;We have never arranged hackathon before, and none of us has even participated in such events. But if we bring ~50 of experienced COS developers to the same location for multi days training then why not try to apply their expertise for our good? Divide to teams, ask for ideas, and make them code some crazy projects in 1 day of hacking. &lt;em&gt;[Well a little bit less than 1 day as we have found actually, but still idea is the same]&lt;/em&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Школа Инноваций 2015 - что такое хакатон?</title>
+      <link>http://localhost:1313/posts/%D1%88%D0%BA%D0%BE%D0%BB%D0%B0-%D0%B8%D0%BD%D0%BD%D0%BE%D0%B2%D0%B0%D1%86%D0%B8%D0%B9-2015-%D1%87%D1%82%D0%BE-%D1%82%D0%B0%D0%BA%D0%BE%D0%B5-%D1%85%D0%B0%D0%BA%D0%B0%D1%82%D0%BE%D0%BD/</link>
+      <pubDate>Wed, 09 Sep 2015 19:26:03 +0300</pubDate>
+      <guid>http://localhost:1313/posts/%D1%88%D0%BA%D0%BE%D0%BB%D0%B0-%D0%B8%D0%BD%D0%BD%D0%BE%D0%B2%D0%B0%D1%86%D0%B8%D0%B9-2015-%D1%87%D1%82%D0%BE-%D1%82%D0%B0%D0%BA%D0%BE%D0%B5-%D1%85%D0%B0%D0%BA%D0%B0%D1%82%D0%BE%D0%BD/</guid>
+      <description>&lt;p&gt;В этом году осенняя школа InterSystems слегка изменит формат. Да мы по-прежнему будем собираться в изолированном месте за пределами города, позволяющем максимально погрузиться в темы школы, да, мы по-прежнему будем чередовать теоретические лекции и практические упражнения, и по-прежнему это будет чисто техническое мероприятие. Но…&lt;/p&gt;&#xA;&lt;p&gt;Раз уж мы собираем в одном месте на несколько дней такое большое количество высококвалифицированных специалистов в разных областях платформы InterSystems, и раз уж мы традиционно заставляем работать слушателей в командах над разными заданиями, то почему бы не расширить такие практические упражнения и не сделать это тем, что сейчас привычно называют &amp;ldquo;хакатоном&amp;rdquo;?&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

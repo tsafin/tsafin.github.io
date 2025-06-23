@@ -1,0 +1,6 @@
+<ul class="menu-item">
+  <li class="home"><a href="/">{{ .Site.Title }}</a></li>
+  {{ range .Site.Data.navigation }}
+    <li><a href="{{ .url }}" {{ if (in .url "http") }}target="_blank"{{ end }}>{{ .title }}</a></li>
+  {{ end }}
+</ul>

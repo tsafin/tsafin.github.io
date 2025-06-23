@@ -1,0 +1,27 @@
+---
+layout: default
+---
+
+{{ define "main" }}
+<div id="main" role="main">
+  <div class="wrap">
+    {{ with .Params.image.feature }}
+    <div class="page-feature">
+      <div class="page-image">
+        <img src="{{ $.Site.BaseURL }}images/{{ . }}" class="page-feature-image" alt="{{ $.Title }}">
+        {{ with $.Params.image.credit }}{{ partial "image-credit.html" $ }}{{ end }}
+      </div>
+    </div>
+    {{ end }}
+    <div class="page-title">
+      <h1>{{ .Title }}</h1>
+      {{ with .Params.excerpt }}<h2>{{ . }}</h2>{{ end }}
+    </div>
+    <div class="archive-wrap">
+      <div class="page-content">
+        {{ .Content }}
+      </div>
+    </div>
+  </div>
+</div>
+{{ end }}

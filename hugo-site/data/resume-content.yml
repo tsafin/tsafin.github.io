@@ -1,0 +1,91 @@
+- flag: Huawei GaussDB(DWS)
+  time: April 2023 .. Today
+  position: Team Leader
+  desc: What could you do if you have big cloud player behind your DBMS engine,
+        a very talented and capable team, and intention to get to the top of
+        TPC-H rating?
+
+- flag: Tarantool Team
+  time: February 2020 .. February 2023
+  position: Lead Software Developer
+  desc: What could be more fun than playing with database engines?
+        Like playing with SQL and LuaJit al together...
+
+- flag: Yandex.Taxi
+  time: May 2018 .. February 2020
+  position: Software Developer
+  desc: Was making Taxi backend software using more effecient algorithms. 
+        Played with transport simulators, but discovered that they are complex.
+
+- flag: Acronis
+  time: December 2016 .. April 2018
+  position: Senior Software Developer
+  desc: Was making enterprise backups great again...
+
+- flag: InterSystems Corporation
+  time: March 2014 .. July 2016
+  position: Sales Engineer
+  desc: Developed proof-of-concept code for several customer enabling projects. 
+        Taught on schools, seminars, conferences and meetups. Wrote articles and blog posts. 
+        Proposed and organized 1st InterSystems hackathon. 
+        Started practice of local meetups which then spread over regions.
+
+- flag: Intel Corporation <br/>Vippy
+  time: July 2010 .. November 2013
+  position: Senior Software Engineer
+  desc: As part of memory subsystem team participated in the development of
+        clock-precise simulator for the experimental, next-generation processor.
+        Introduced agile and XP techniques to the team.
+
+- flag: Intel Corporation <br/>ZSIM 
+  time: December 2009 .. June 2010
+  position: Senior Software Engineer
+  desc: Fast, fucntional mode x86 simulator has been created from scratch. Developed new
+        pagewalkers. Maintained VCPUAPI interface for working with external
+        virtual platforms (e.g. Synopsis Innovator). 
+
+- flag: Intel Corporation <br/>SoftSDV
+  time: March 2006 .. December 2009
+  position: Senior Software Engineer
+  desc: Served as a virtualization technical leader in the CPU team of 
+        full-system virtual platform (SoftSDV). Worked with Intel architects in 
+        enabling of new virtualization technologies in the next core architectures.
+        One of designers of "Virtual CPU API" interface — virtual platform and core simulator agnostic interface used in the Intel by several teams.
+
+- flag: Intersystems Corporation
+  time: March 2000 .. February 2006
+  position: Support Programmer
+  desc: Support and bug fixes of many areas of a Caché product, including kernel of a 
+        Caché engine, and surrounding object framework. 
+        Rеimplemented and maintained 64-bit Windows version of a  
+        Caché kernel packet driver (NDIS protocol driver). 
+        Moderated Russian Caché community, and participated in a worldwide Caché 
+        developers community. 
+
+- flag: StatProgress
+  time: November 1996 .. February 2000
+  position: Senior Programmer
+  desc: Development of the original patented technology for constructing of 
+        16-and 32-bit multimedia MediaView-based courses running on Windows.
+        Led development of several multimedia courses, and web sites.
+        Part-time UI design, web-design and web-programming.
+
+- flag: Inzer
+  time: May 1994 .. February 1996
+  position: Programmer
+  desc: Participated in the development of Windows Application Constructor,
+        scripting subsystem in the Windows terminal and dialer program (DataLine 2.0).
+        Documentation, setups in various projects. Custom development.
+
+- flag: MP Karat
+  time: September 1990 .. April 1994
+  position: Technical Support Advisor
+  desc: Support of Borland C/C++ and Borland Pascal products.
+
+- flag: Heliomed
+  time: March 1990 .. March 1994
+  position: Programmer
+  desc: Development of an optimizing C compiler for 8-bit Z80-based embedded software 
+        (firmware of x-ray devices).
+
+

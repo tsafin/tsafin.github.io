@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Intersystems Caché - Approaching Community Package Manager - Part I • Timur Safin - Making No Sense</title>
+    <style>
+      body { font-family: system-ui, sans-serif; margin: 0; padding: 0; background: #fafbfc; color: #222; }
+      header, footer { background: #222; color: #fff; padding: 1rem; text-align: center; }
+      main { max-width: 800px; margin: 2rem auto; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px #0001; padding: 2rem; }
+      h1, h2, h3 { color: #1a4b7a; }
+      a { color: #1a4b7a; text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      img { max-width: 100%; height: auto; border-radius: 4px; }
+      @media (max-width: 600px) {
+        main { padding: 1rem; margin: 0.5rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="/" style="color:#fff;text-decoration:none;"><strong>Timur Safin - Making No Sense</strong></a>
+    </header>
+    <main>
+      
+<h1>Intersystems Caché - Approaching Community Package Manager - Part I</h1>
+<article>
+  <blockquote>
+<p>Here is the problem as I see in the Caché developers community - if you are newbie COS/Ensemble/DeepSee developer then it&rsquo;s very hard to find any suitable 3rd party component, library or utility. They are spread over the Internet, some of them are in the GitHub, some of them in SourceForce, rare ones are on their own sites, etc. Yes, there are many useful components or tools (there are even standalone debugger or VCS) but it takes <em>some time</em> to discover all the useful location, and get to used to this situation.</p>
+<p><strong>There is no single location and there is no convenient way to find and install extension or utility.</strong></p>
+<p>Which is not very competitive comparing to other languages and development environment. In these articles I will try to investigate this problem further (this part I), and will propose some simple decision (<a href="/2014/11/community-package-manager-part-ii.html">part II</a>)</p></blockquote>
+<p>Что вы думаете о &ldquo;package manager&rdquo; и его важности для успеха сообщества? Для меня package manager — это абсолютно необходимый и важнейший ингредиент для успеха языка и зрелости экосистемы. Нет ни одного языка, где не было бы удобного package manager с огромной коллекцией сторонних пакетов. После всех этих лет с Perl, Python, JavaScript, Ruby, Haskell, Java (и другими) вы привыкаете, что когда начинаете новый проект, у вас есть масса внешних компонентов, которые помогают быстро и удобно собрать рабочий продукт. <code>PM install this</code>, <code>PM install that</code> — и вы быстро получаете что-то работающее. Сообщество работает на вас.</p>
+<p>Эти слова о <a href="http://en.wikipedia.org/wiki/CPAN">CPAN</a> и его опыте хорошо иллюстрируют важность этого прецедента и его влияние на другие языки и среды:</p>
+<blockquote>
+<p>&ldquo;Experienced Perl programmers often comment that half of Perl&rsquo;s power is in the CPAN. It has been called Perl&rsquo;s killer app. Though the <a href="http://en.wikipedia.org/wiki/TeX">TeX</a> typesetting language has an equivalent, the <a href="http://en.wikipedia.org/wiki/CTAN">CTAN</a> (and in fact the CPAN&rsquo;s name is based on the CTAN), few languages have an exhaustive central repository for libraries. The <a href="http://en.wikipedia.org/wiki/PHP">PHP</a> language has <a href="http://en.wikipedia.org/wiki/PHP_Extension_Community_Library">PECL</a> and <a href="http://en.wikipedia.org/wiki/PHP_Extension_and_Application_Repository">PEAR</a>, <a href="http://en.wikipedia.org/wiki/Python_(programming_language)">Python</a> has a <a href="http://en.wikipedia.org/wiki/PyPI">PyPI</a> (Python Package Index) repository, <a href="http://en.wikipedia.org/wiki/Ruby_(programming_language)">Ruby</a> has <a href="http://en.wikipedia.org/wiki/RubyGems">RubyGems</a>, <a href="http://en.wikipedia.org/wiki/R_(programming_language)">R</a> has <a href="http://en.wikipedia.org/wiki/CRAN_(R_programming_language)">CRAN</a>, <a href="http://en.wikipedia.org/wiki/Node.js">Node.js</a> has <a href="http://en.wikipedia.org/wiki/Npm_(software)">npm</a>, <a href="http://en.wikipedia.org/wiki/Lua_(programming_language)">Lua</a> has <a href="http://en.wikipedia.org/wiki/LuaRocks">LuaRocks</a>, <a href="http://en.wikipedia.org/wiki/Haskell_(programming_language)">Haskell</a> has <a href="http://en.wikipedia.org/wiki/Hackage">Hackage</a> and an associated installer/make clone <a href="http://en.wikipedia.org/wiki/Cabal_(software)">cabal</a>, but none of these are as large as the CPAN. Recently, <a href="http://en.wikipedia.org/wiki/Common_Lisp">Common Lisp</a> has a de facto CPAN-like system - the Quicklisp repositories. Other major languages, such as <a href="http://en.wikipedia.org/wiki/Java_(programming_language)">Java</a> and <a href="http://en.wikipedia.org/wiki/C++">C++</a>, have nothing similar to the CPAN (though for Java there is central <a href="http://en.wikipedia.org/wiki/Apache_Maven">Maven</a>).&rdquo;</p></blockquote>
+<blockquote>
+<p>The CPAN has grown so large and comprehensive over the years that Perl users are known to express surprise when they start to encounter topics for which a CPAN module doesn&rsquo;t exist already.</p></blockquote>
+<h2 id="таблица-системы-управления-пакетами">Таблица: Системы управления пакетами</h2>
+<table>
+  <thead>
+      <tr>
+          <th>Операционная система / Тип</th>
+          <th>Системы управления пакетами</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>Linux (dpkg)</strong></td>
+          <td>APT, aptitude, dselect, Ubuntu Software Center</td>
+      </tr>
+      <tr>
+          <td><strong>Linux (RPM)</strong></td>
+          <td>YUM, APT-RPM, poldek, up2date, urpmi, ZYpp, dnf</td>
+      </tr>
+      <tr>
+          <td><strong>Linux (tar-ball)</strong></td>
+          <td>slapt-get, slackpkg, zendo, netpkg, swaret</td>
+      </tr>
+      <tr>
+          <td><strong>Linux (Other)</strong></td>
+          <td>appbrowser, Conary, Equo, pkgutils, pacman, PETget, PISI, Portage, Smart Package Manager, Steam, Tazpkg, Upkg</td>
+      </tr>
+      <tr>
+          <td><strong>OS X (pkg)</strong></td>
+          <td>Mac App Store, rudix, Steam</td>
+      </tr>
+      <tr>
+          <td><strong>Windows</strong></td>
+          <td>Windows installer, Windows Store, Allmyapps, Cygwin, Npackd, Windows Package Manager, Steam, NuGet, Chocolatey, NSIS, wpkg</td>
+      </tr>
+      <tr>
+          <td><strong>Solaris</strong></td>
+          <td>SysV (pkgadd), Image Packaging System, OpenCSW</td>
+      </tr>
+      <tr>
+          <td><strong>Embedded system</strong></td>
+          <td>см. ниже</td>
+      </tr>
+      <tr>
+          <td><strong>Mobile OS (iOS)</strong></td>
+          <td>App Store</td>
+      </tr>
+      <tr>
+          <td><strong>Mobile OS (Android)</strong></td>
+          <td>Google Play, GetJar, Amazon Appstore, SlideME, F-Droid</td>
+      </tr>
+      <tr>
+          <td><strong>Mobile OS (Windows Phone)</strong></td>
+          <td>Windows Phone Store</td>
+      </tr>
+      <tr>
+          <td><strong>Windows 8.x/RT</strong></td>
+          <td>Windows Store</td>
+      </tr>
+      <tr>
+          <td><strong>Digital distribution / Application Extensions</strong></td>
+          <td>Chrome Web Store, Mozilla Add-ons</td>
+      </tr>
+      <tr>
+          <td><strong>Cross-platform</strong></td>
+          <td>dpkg, Image Packaging System, OpenPKG, pkgsrc, Zero Install (0install), TWW Tools, IBM SmartCloud Enterprise, Nix package manager, wpkg</td>
+      </tr>
+      <tr>
+          <td><strong>Sourcecode-based (Linux)</strong></td>
+          <td>Portage, emerge, Compile, apt-build, Sorcery, Spike, ABS</td>
+      </tr>
+      <tr>
+          <td><strong>Sourcecode-based (OS X)</strong></td>
+          <td>fink, MacPorts, Homebrew, pkgsrc</td>
+      </tr>
+      <tr>
+          <td><strong>Hybrid systems</strong></td>
+          <td>FreeBSD Ports, MacPorts, pkgsrc, ports collection</td>
+      </tr>
+  </tbody>
+</table>
+<p><em>Источник: <a href="https://en.wikipedia.org/wiki/Package_manager">https://en.wikipedia.org/wiki/Package_manager</a> (редакция и упрощение)</em></p>
+<p>Здесь приведена сокращённая и упрощённая схема из статьи WikiPedia о менеджерах пакетов. Их очень много — как основанных на исходниках, так и бинарных, специфичных для архитектуры, ОС или кроссплатформенных. Далее я попробую рассмотреть их подробнее. Также я добавлю к картине языковые менеджеры пакетов, иначе она будет мало полезна. Ведь мы говорим о менеджерах пакетов для языков/платформ разработки!</p>
+<blockquote>
+<p>Важное наблюдение: чем популярнее ОС или экосистема API, тем больше шансов, что для неё появится несколько конкурирующих менеджеров пакетов. Посмотрите на ситуацию в Linux, Windows или Mac OS X. Чем больше менеджеров пакетов используется, тем быстрее развивается экосистема. Наличие нескольких менеджеров — не обязательное условие быстрого развития, но скорее его побочный эффект. Если у нас когда-нибудь появится несколько менеджеров пакетов с разными репозиториями — это будет скорее признак здоровой экосистемы, а не проблемы.</p></blockquote>
+<h2 id="упрощённая-временная-шкала">Упрощённая временная шкала</h2>
+<p>Далее я рассмотрю основные ОС и языковые менеджеры пакетов, размещу их на временной шкале, объясню их особенности и интерес для нас, а затем сделаю выводы для Caché как платформы.</p>
+<p>Как известно, &ldquo;лучше один раз увидеть, чем сто раз услышать&rdquo;, поэтому для наглядности я нарисовал простую временную шкалу, где отмечены все &ldquo;важные&rdquo; (на мой взгляд) менеджеры пакетов, существовавшие к настоящему моменту. Верхняя часть — языковые менеджеры, нижняя — ОС/дистрибутивные. Ось X — шаг 2 года (с января 1992 по сегодня).</p>
+<p><img src="http://4.bp.blogspot.com/-c7mRsvva_ko/VHRyY4wI7VI/AAAAAAAAbL0/2cxELKiyLaM/s640/timeline.png" alt="timeline"></p>
+<p><em>Package managers: Timeline from 1992 till 2014</em></p>
+<h3 id="ctan-cpan--cran">CTAN, CPAN &amp; CRAN</h3>
+<p>90-е годы — эпоха source-based менеджеров пакетов. Интернет уже работал как канал распространения, но все менеджеры работали по одному сценарию:</p>
+<ul>
+<li>По имени пакета менеджер скачивал tar-архив;</li>
+<li>Распаковывал его в пользовательскую/системную область;</li>
+<li>Запускал скрипт сборки и установки в локальную дистрибуцию.</li>
+</ul>
+<p>CTAN был первым языковым репозиторием, где появилась удобная практика установки расширений из центрального хранилища. Но настоящий взрыв произошёл, когда Perl-сообщество внедрило эту модель — с момента появления CPAN в 1995 году он собрал &ldquo;140,712 Perl modules in 30,670 distributions, written by 11,811 authors, mirrored on 251 servers.&rdquo;</p>
+<p>Работать в такой среде очень удобно: для любой задачи первым делом спрашиваешь — &ldquo;а нет ли уже модуля для XXX?&rdquo; — и через пару секунд (ну, минут, учитывая интернет 90-х) после одной команды, например:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cpan install HTTP::Proxy
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>у тебя уже скачан модуль, распакован исходник, сгенерирован makefile, всё собрано, протестировано и установлено в локальную дистрибуцию. Можно сразу писать <code>use HTTP::Proxy;</code>!</p>
+<p>Большинство модулей CPAN — чисто Perl, но Makefile.pl достаточно гибок, чтобы собирать и бинарные компоненты (например, C-программы, которые скачиваются и компилируются под нужный ABI).</p>
+<p>Ту же модель использовали Tex/CTAN и R/CRAN. Проблема CRAN — язык R не так популярен, но даже он собрал 6000+ расширений.</p>
+<h3 id="мир-bsd-freebsd-ports-netbsd-pkgsrc-и-darwin-ports">Мир BSD: FreeBSD Ports, NetBSD pkgsrc, и Darwin Ports</h3>
+<p>В то же время, в середине 90-х, FreeBSD представила свой способ распространения открытого ПО через свою &ldquo;коллекцию портов&rdquo;. Различные производные от BSD (такие как OpenBSD и NetBSD) поддерживали свои собственные коллекции портов, с незначительными изменениями в процедурах сборки или поддерживаемых интерфейсах. Но в любом случае базовый механизм оставался прежним после вызова <code>cd /port/location; make install</code>:</p>
+<ul>
+<li>Исходники устанавливались с соответствующих носителей (будь то CD-ROM, DVD или интернет-сайт);</li>
+<li>Продукт собирался с использованием данного Makefile и доступных компиляторов;</li>
+<li>А цели сборки устанавливали согласно правилам, записанным в Makefile или другом файле определения пакета.</li>
+</ul>
+<p>Существовала возможность обрабатывать все зависимости данного порта, если была такая просьба, так что полная установка для большего пакета всё ещё могла быть инициирована через <em>одну команду</em>, и менеджер пакетов <em>адекватно обрабатывал все рекурсивные зависимости</em>.</p>
+<p>С точки зрения лицензий и их предшественников, я рассматриваю Darwin Ports/MacPorts как производную идею этой коллекции портов BSD — у нас по-прежнему есть коллекция открытого программного обеспечения, которая удобно обрабатывается одной командой, т.е.:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ sudo port install apache2
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>Стоит подчеркнуть — до сих пор как языковые репозитории (CTAN/CPAN/CRAN), так и коллекции портов BSD все представляли собой 1-й класс менеджеров пакетов — <em>sourcecode-based</em> менеджеры пакетов.</p></blockquote>
+<h3 id="linux-debian-и-red-hat">Linux: Debian и Red Hat</h3>
+<p>Модель управления пакетами на основе исходного кода работала хорошо (до некоторой степени) и создавала впечатление полной прозрачности и контроля. Но существовало несколько &ldquo;небольших&rdquo; проблем:</p>
+<ul>
+<li>Не всё ПО можно было развернуть в виде исходников, ведь есть ещё и проприетарное ПО, которое тоже нужно удобно развёртывать;</li>
+<li>А сборка большого проекта могла занимать <em>огромное количество времени</em> (часы).</li>
+</ul>
+<p>Очевидно, что возникла необходимость установить способ распространения пакетов (и всех зависимостей) в бинарной форме, уже скомпилированных для данной архитектуры и готовых к использованию. Так появились бинарные форматы пакетов, и первым, представляющим интерес для нас, стал формат .deb, используемый менеджером пакетов Debian (dpkg). Исходный формат, представленный в Debian 0.93 в марте 1993 года, был просто обёрткой tar.gz с некоторыми магическими ASCII-префиксами. В настоящее время пакет .deb одновременно и проще, и сложнее — это просто архив AR, состоящий из 3 файлов (debian-binary с версией, control.tar.gz с метаданными и data.tar.* с установленными файлами). На практике вы редко используете dpkg — большинство современных дистрибутивов на базе Debian используют <a href="https://en.wikipedia.org/wiki/Advanced_Packaging_Tool">APT</a> (расширенный инструмент упаковки). Удивительно (по крайней мере, для меня, когда я начал писать этот обзор), что APT вышел за пределы дистрибутивов Debian и был портирован на дистрибутивы на базе Red Hat (APT-RPM), Mac OS X (Fink) и даже Solaris.</p>
+<blockquote>
+<p>&ldquo;Apt can be considered a <a href="https://en.wikipedia.org/wiki/Advanced_Packaging_Tool">front-end</a> to <a href="https://en.wikipedia.org/wiki/Dpkg">dpkg</a>, friendlier than the older <a href="https://en.wikipedia.org/wiki/Dselect">dselect</a> front-end. While dpkg performs actions on individual packages, apt tools manage relations (especially dependencies) between them, as well as sourcing and management of higher-level versioning decisions (release tracking and version pinning).&rdquo;</p></blockquote>
+<p>Функциональность и простота использования apt-get оказали влияние на все последующие менеджеры пакетов.</p>
+<p>Другим хорошим примером бинарных систем упаковки является RPM (Red Hat Package Manager). RPM был представлен с Red Hat V2.0 в конце 1995 года. Red Hat быстро стал самым популярным дистрибутивом Linux (и надёжные функции RPM были одними из факторов, выигравших конкуренцию здесь, по крайней мере, до некоторого момента). Поэтому не удивительно, что RPM начал использоваться всеми дистрибутивами на базе RedHat (например, Mandriva, ASPLinux, SUSE, Fedora или CentOS), но даже дальше, за пределами Linux, он также использовался в Novell Netware или IBM AIX.</p>
+<p>Аналогично APT/dpkg существует обёртка Yum для RPM-пакетов, которая часто используется конечными пользователями и предоставляет аналогичные высокоуровневые услуги, такие как отслеживание зависимостей или управление сборками/версиями.</p>
+<h3 id="магазины-мобильного-по-ios-app-store-android-marketgoogle-play">Магазины мобильного ПО: iOS App Store, Android Market/Google Play</h3>
+<p>С момента появления App Store для iOS от Apple, а затем и Google Android Market, у нас появились, вероятно, самые популярные программные репозитории на сегодняшний день. Это, по сути, специфичные для ОС менеджеры пакетов с дополнительным API для онлайн-покупок. Это ещё не проблема для App Store, но является таковой для Android Market / Google Play — существует множество аппаратных архитектур, используемых устройствами Android (ARM, X86 и MIPS на данный момент), поэтому перед тем, как клиент сможет скачать и установить бинарный пакет с исполняемым кодом для какого-либо приложения, необходимо предпринять дополнительные меры.</p>
+<p>В любом случае, независимо от того, где и как такая оптимизация выполняется, эта часть процесса установки считается основной частью услуг упаковки программного обеспечения, предоставляемых операционной системой. Если программное обеспечение должно работать на многих аппаратных архитектурах, и если мы не разворачиваем его в виде исходного кода (как в случае с BSD или Linux), то репозиторий и менеджер пакетов должны обрабатывать эту проблему прозрачно и эффективно.</p>
+<blockquote>
+<p>На данный момент я не рассматриваю кроссплатформенные вопросы и в первой реализации буду иметь в виду только полностью открытые пакеты. Возможно, мы вернёмся к этому вопросу позже, чтобы решить проблемы как кросс-версийности, так и кросс-архитектурности одновременно.</p></blockquote>
+<h3 id="приложения-для-windows-chocolatey-nuget">Приложения для Windows: Chocolatey Nuget</h3>
+<p>Это была давно назревшая недостающая функция — несмотря на популярность Windows на рынке, у нас не было центрального репозитория, такого же удобного, как apt-get для Debian, где мы могли бы найти и установить любые (многие/большинство) доступные приложения. Ранее существовал <a href="http://windows.microsoft.com/en-us/windows-8/apps#Cat=t0">Windows Store</a> для приложений Windows Metro (но никто не хотел их использовать :) ), даже до этого существовал удобный <a href="https://www.nuget.org/packages">NuGet package manager</a>, устанавливаемый как плагин для Visual Studio, но (по впечатлениям) он обслуживал только .NET-пакеты и не был нацелен на &ldquo;обычные приложения для рабочего стола Windows&rdquo;. Ещё дальше находился <a href="https://cygwin.com/index.html">Cygwin repository</a>, где вы могли скачать (довольно удобно) все приложения Cygwin (от bash до gcc, git или X-Window). Но это, опять же, не касалось &ldquo;любого обычного приложения для Windows&rdquo;, а только портированных приложений POSIX (Linux, BSD и других совместимых с UNIX API), которые могли быть перекомпилированы с использованием Cygwin API.</p>
+<p>Поэтому разработка <a href="https://chocolatey.org/">Chocolatey Nuget</a> в 2012 году стала для меня приятным сюрпризом: имея NuGet в качестве основы для менеджера пакетов, с добавленным волшебством PowerShell при установке и с добавленным центральным репозиторием <a href="https://chocolatey.org/packages">здесь</a>, вы могли бы получить тот же уровень удобства, что и с apt-get в Linux. Всё могло быть развернуто/упаковано как какой-то пакет Chocolatey, от <a href="https://chocolatey.org/packages/Office365HomePremium">Office 365</a> до <a href="https://chocolatey.org/packages/Atom">Atom editor</a> или <a href="https://chocolatey.org/packages/TortoiseGit">Tortoise Git</a>, или даже <a href="https://chocolatey.org/packages/VisualStudio2013Ultimate">Visual Studio 2013 Ultimate</a>! Это быстро стало лучшим другом администраторов Windows, и многие дополнительные инструменты, использующие Chocolatey в качестве своей низкоуровневой основы, были разработаны, лучший пример такого — <a href="https://boxstarter.org/">BoxStarter</a>, самый простой и быстрый способ установить программное обеспечение для Windows на свежие установки Windows.</p>
+<p>Chocolatey не показывает ничего нового, чего мы не видели раньше в других операционных системах, он просто демонстрирует, что имея надёжную основу (NuGet в качестве менеджера пакетов, PowerShell для пост-обработки и способный центральный репозиторий), можно построить универсальный менеджер пакетов, который быстро привлечёт внимание, даже для операционной системы, где это было необычно. Кстати, стоит упомянуть, что Microsoft решила присоединиться к этому направлению и теперь использует Chocolatey в качестве одного из репозиториев, который будет доступен в их собственном <a href="http://blogs.msdn.com/b/garretts/archive/2014/04/01/my-little-secret-windows-powershell-oneget.aspx">OneGet package manager</a>, который будет доступен начиная с Windows 10.</p>
+<blockquote>
+<p>Личное замечание: я должен признаться, мне не нравится OneGet так же, как и Chocolatey — там слишком много скриптинга на PowerShell, который мне нужно будет настраивать для OneGet. А с точки зрения удобства использования Chocolatey скрывает все эти детали и выглядит гораздо проще.</p></blockquote>
+<h3 id="nodejs-npm">Node.js NPM</h3>
+<p>Существует множество факторов, которые привели к недавнему драматическому успеху JavaScript в качестве серверного языка. И одним из самых важных факторов этого успеха (по крайней мере, на мой взгляд) является наличие центрального репозитория модулей для Node.js — <a href="https://www.npmjs.org/">NPM (Node Package Manager)</a>. NPM поставляется в комплекте с дистрибутивом Node.js, начиная с версии 0.6.3 (ноябрь 2011).</p>
+<p>NPM смоделирован аналогично CPAN: у вас есть обёртка, которая из командной строки подключается к центральному репозиторию, ищет запрашиваемый модуль, скачивает его, парсит метаинформацию пакета, и если есть внешние зависимости, то обрабатывает их рекурсивно. Через несколько мгновений у вас есть рабочие бинарные файлы и исходники, доступные для локального использования:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">C:<span class="se">\U</span>sers<span class="se">\T</span>imur<span class="se">\D</span>ownloads&gt;npm install -g less
+</span></span><span class="line"><span class="cl">npm http GET https://registry.npmjs.org/less
+</span></span><span class="line"><span class="cl">npm http <span class="m">304</span> https://registry.npmjs.org/less
+</span></span><span class="line"><span class="cl">npm http GET https://registry.npmjs.org/graceful-fs
+</span></span><span class="line"><span class="cl">npm http GET https://registry.npmjs.org/mime
+</span></span><span class="line"><span class="cl">npm http GET https://registry.npmjs.org/request
+</span></span><span class="line"><span class="cl">…
+</span></span><span class="line"><span class="cl">npm http GET https://registry.npmjs.org/isarray/-/isarray-0.0.1.tgz
+</span></span><span class="line"><span class="cl">npm http <span class="m">200</span> https://registry.npmjs.org/isarray/-/isarray-0.0.1.tgz
+</span></span><span class="line"><span class="cl">npm http <span class="m">200</span> https://registry.npmjs.org/asn1
+</span></span><span class="line"><span class="cl">npm http GET https://registry.npmjs.org/asn1/-/asn1-0.1.11.tgz
+</span></span><span class="line"><span class="cl">npm http <span class="m">200</span> https://registry.npmjs.org/asn1/-/asn1-0.1.11.tgz
+</span></span><span class="line"><span class="cl">C:<span class="se">\U</span>sers<span class="se">\T</span>imur<span class="se">\A</span>ppData<span class="se">\R</span>oaming<span class="se">\n</span>pm<span class="se">\l</span>essc -&gt; C:<span class="se">\U</span>sers<span class="se">\T</span>imur<span class="se">\A</span>ppData<span class="se">\R</span>oaming<span class="se">\n</span>pm<span class="se">\n</span>ode_modules<span class="se">\l</span>ess<span class="se">\b</span>in<span class="se">\l</span>essc
+</span></span><span class="line"><span class="cl">less@2.0.0 C:<span class="se">\U</span>sers<span class="se">\T</span>imur<span class="se">\A</span>ppData<span class="se">\R</span>oaming<span class="se">\n</span>pm<span class="se">\n</span>ode_modules<span class="se">\l</span>ess
+</span></span><span class="line"><span class="cl">├── mime@1.2.11
+</span></span><span class="line"><span class="cl">├── graceful-fs@3.0.4
+</span></span><span class="line"><span class="cl">├── promise@6.0.1 <span class="o">(</span>asap@1.0.0<span class="o">)</span>
+</span></span><span class="line"><span class="cl">├── source-map@0.1.40 <span class="o">(</span>amdefine@0.1.0<span class="o">)</span>
+</span></span><span class="line"><span class="cl">├── mkdirp@0.5.0 <span class="o">(</span>minimist@0.0.8<span class="o">)</span>
+</span></span><span class="line"><span class="cl">└── request@2.47.0 <span class="o">(</span>caseless@0.6.0, forever-agent@0.5.2, aws-sign2@0.5.0, json-stringify-safe@5.0.0, tunnel-agent@0.4.0, stringstream@0.0.4, oauth-sign@0.4.0, node-uuid@1.4.1, mime-types@1.0.2, qs@2.3.2, form-data @0.1.4, tough-cookie@0.12.1, hawk@1.1.1, combined-stream@0.0.7, bl@0.9.3, http-signature@0.10.0<span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Стоит отметить, что изменения, которые авторы NPM внесли в практику менеджеров пакетов — они используют формат JSON для метаинформации пакета, вместо основанных на Perl, используемых в CPAN.</p>
+<hr>
+<p><em>Продолжение следует&hellip;</em></p>
+<p><strong>Ок, достаточно о текущей практике в других экосистемах. Во <a href="/2014/11/community-package-manager-part-ii.html">второй части этой статьи</a> мы подробнее поговорим о простом предложении по менеджеру пакетов для Caché. Stay tuned!</strong></p>
+
+</article>
+
+    </main>
+    <footer>
+      &copy; 2025 Timur Safin - Making No Sense
+    </footer>
+  </body>
+</html>

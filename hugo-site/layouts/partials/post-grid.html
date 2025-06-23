@@ -1,0 +1,17 @@
+<article class="tile" itemscope itemtype="http://schema.org/Article">
+  <a href="{{ .RelPermalink }}" title="{{ .Title }}" class="post-teaser">
+    {{ if .Params.image.teaser }}
+      <img src="{{ $.Site.BaseURL }}images/{{ .Params.image.teaser }}" alt="teaser" itemprop="image">
+    {{ else }}
+      {{ if .Params.thumbnail }}
+        <img src="http://res.cloudinary.com/deeufw4xg/image/fetch/c_scale,h_400,q_59:444,w_400/c_crop,e_saturation:-85,h_250,w_400/{{ .Params.thumbnail }}" alt="thumbnail" itemprop="image">
+      {{ else }}
+        <img src="{{ $.Site.BaseURL }}images/{{ $.Site.Params.teaser }}" alt="teaser" itemprop="image">
+      {{ end }}
+    {{ end }}
+  </a>
+  {{ with .Date }}<p class="entry-date date published"><time datetime="{{ .Format "2006-01-02" }}" itemprop="datePublished">{{ .Format "January 02, 2006" }}</time></p>{{ end }}
+  <h2 class="post-title" itemprop="name"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+  {{ with .Params.excerpt }}<p class="post-excerpt" itemprop="description">{{ . | plainify | truncate 160 }}</p>{{ end }}
+</article>
+<!-- /.tile -->

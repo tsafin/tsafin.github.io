@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Meetup on Timur Safin - Making No Sense</title>
+    <link>http://localhost:1313/tags/meetup/</link>
+    <description>Recent content in Meetup on Timur Safin - Making No Sense</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 16 Oct 2014 00:56:00 +0400</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/meetup/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Intersystems Meetup в Питере</title>
+      <link>http://localhost:1313/posts/intersystems-meetup-%D0%B2-%D0%BF%D0%B8%D1%82%D0%B5%D1%80%D0%B5/</link>
+      <pubDate>Thu, 16 Oct 2014 00:56:00 +0400</pubDate>
+      <guid>http://localhost:1313/posts/intersystems-meetup-%D0%B2-%D0%BF%D0%B8%D1%82%D0%B5%D1%80%D0%B5/</guid>
+      <description>&lt;div id=&#34;fb-root&#34;&gt;&lt;/div&gt;&#xA;&lt;script&gt;&#xA;    (function(d, s, id) {&#xA;        var js, fjs = d.getElementsByTagName(s)[0];&#xA;        if (d.getElementById(id)) return;&#xA;        js = d.createElement(s);&#xA;        js.id = id;&#xA;        js.src = &#34;//connect.facebook.net/en_US/all.js#xfbml=1&#34;;&#xA;        fjs.parentNode.insertBefore(js, fjs);&#xA;    }(document, &#39;script&#39;, &#39;facebook-jssdk&#39;));&#xA;&lt;/script&gt;&#xA;&lt;div class=&#34;fb-post&#34; data-href=&#34;https://www.facebook.com/timur.safin/posts/10152580010423649:0&#34; data-width=&#34;466&#34;&gt;&#xA;    &lt;div class=&#34;fb-xfbml-parse-ignore&#34;&gt;&lt;a href=&#34;https://www.facebook.com/timur.safin/posts/10152580010423649:0&#34;&gt;Post&lt;/a&gt; by &lt;a href=&#34;https://www.facebook.com/timur.safin&#34;&gt;Timur Safin&lt;/a&gt;.&lt;/div&gt;&#xA;&lt;/div&gt;</description>
+    </item>
+  </channel>
+</rss>

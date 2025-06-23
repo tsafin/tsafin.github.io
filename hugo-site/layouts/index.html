@@ -1,0 +1,76 @@
+{{ define "main" }}
+<nav class="main-nav" style="margin-bottom:1.5rem;">
+  <a href="/" class="main-nav-link">Главная</a>
+  <a href="/resume/" class="main-nav-link">Резюме</a>
+  <a href="/posts/" class="main-nav-link">Все посты</a>
+  <!-- Добавьте другие ссылки по необходимости -->
+</nav>
+<h1>{{ .Site.Title }}</h1>
+<p>{{ .Site.Params.description }}</p>
+<style>
+.main-nav {
+  display: flex;
+  gap: 1.2rem;
+  font-size: 1.08rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.main-nav-link {
+  color: #1976d2;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.2em 0.5em;
+  border-radius: 6px;
+  transition: background 0.15s;
+}
+.main-nav-link:hover {
+  background: #e3eafc;
+  color: #0d47a1;
+}
+.grid-posts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+  padding: 0;
+}
+.grid-post {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  padding: 1.2rem 1rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.2s;
+}
+.grid-post:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.13);
+}
+.grid-post-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #1a237e;
+  text-decoration: none;
+}
+.grid-post-date {
+  font-size: 0.95rem;
+  color: #888;
+  margin-bottom: 0.7rem;
+}
+.grid-post-summary {
+  font-size: 1rem;
+  color: #333;
+  flex: 1 1 auto;
+}
+</style>
+<div class="grid-posts">
+  {{ range first 20 .Site.RegularPages }}
+    <div class="grid-post">
+      <a class="grid-post-title" href="{{ .RelPermalink }}">{{ .Title }}</a>
+      <div class="grid-post-date">{{ .Date.Format "02.01.2006" }}</div>
+      <div class="grid-post-summary">{{ .Summary | plainify | truncate 120 }}</div>
+    </div>
+  {{ end }}
+</div>
+{{ end }}

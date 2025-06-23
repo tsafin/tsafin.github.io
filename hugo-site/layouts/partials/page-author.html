@@ -1,0 +1,10 @@
+<div class="author-image">
+  <img src="{{ .Site.BaseURL }}images/{{ .Site.Params.avatar }}" alt="{{ .Site.Params.owner_name }}">
+</div>
+<div class="author-content">
+  <h3 class="author-name">
+    {{ with (index .Site.Data.messages.locales .Site.Language.Lang) }}{{ .written_by }} {{ end }}
+    {{ if .Site.Params.owner_web }}<a href="{{ .Site.Params.owner_web }}" itemprop="author">{{ .Site.Params.owner_name }}</a>{{ else }}<span itemprop="author">{{ .Site.Params.owner_name }}</span>{{ end }}
+  </h3>
+  <p class="author-bio">{{ .Site.Params.bio }}</p>
+</div>

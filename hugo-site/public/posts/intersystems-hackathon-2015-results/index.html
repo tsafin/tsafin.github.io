@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>InterSystems hackathon 2015 results • Timur Safin - Making No Sense</title>
+    <style>
+      body { font-family: system-ui, sans-serif; margin: 0; padding: 0; background: #fafbfc; color: #222; }
+      header, footer { background: #222; color: #fff; padding: 1rem; text-align: center; }
+      main { max-width: 800px; margin: 2rem auto; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px #0001; padding: 2rem; }
+      h1, h2, h3 { color: #1a4b7a; }
+      a { color: #1a4b7a; text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      img { max-width: 100%; height: auto; border-radius: 4px; }
+      @media (max-width: 600px) {
+        main { padding: 1rem; margin: 0.5rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="/" style="color:#fff;text-decoration:none;"><strong>Timur Safin - Making No Sense</strong></a>
+    </header>
+    <main>
+      
+<h1>InterSystems hackathon 2015 results</h1>
+<article>
+  <blockquote><em>[Русская версия статьи изначально опубликована на <a href="http://habrahabr.ru/company/intersystems/blog/267459/" target="_blank">Хабре здесь</a>]</em></blockquote>
+<p>We have never arranged hackathon before, and none of us has even participated in such events. But if we bring ~50 of experienced COS developers to the same location for multi days training then why not try to apply their expertise for our good? Divide to teams, ask for ideas, and make them code some crazy projects in 1 day of hacking. <em>[Well a little bit less than 1 day as we have found actually, but still idea is the same]</em></p>
+<p>We are newbies in hackathon organization, so we asked for the external help – we have contacted Grigory Petrov (now technical evangelist of Voximplant, and former evangelist of Digital October center where he arranged several hackathon and similar events). He was willing to help, but we have discovered the harder way that he has to be in PyCon 2015 the same days we arrange Russian InterSystems School. Sigh. In any case, after long discussion with Grigory we have got clear understanding of all possible scenarios, of steps we need to proceed before hackathon, during, what to do, when and in which sequence. We were mentally ready for it.</p>
+<p>InterSystems Fall School is usually 2-3 days long event. This year we were planning to start with almost 2 days of technical training and exercises (where most of training were doing various operations over the same dataset – database of sql.ru/cache posts). And after those 2 days participant supposed to be well prepared to use modern practices (using Angular for the client development, DeepSee and iKnow for analytics, and such).</p>
+<p>At around of 17:00 of 2<sup>nd</sup> day we started hackathon: after brief introduction of rules and planned schedule, we started initial project teams assembly. The plan was  – get all possible ideas for projects from all relevant sources (i.e. our Russian University grants suggested projects, or suggested extension ideas to some already existing GitHub projects), start to discuss them and then choice project from the list, or any other relevant idea (which might be influenced by the list of suggested ideas).</p>
+<!-- <a href="/assets/team-list.jpg"><img class="size-medium wp-image-1917 aligncenter" src="/assets/team-list-170x300.jpg" alt="team-list" width="170" height="300" /></a> -->
+<div class="card">
+    <div class="card-image">
+      <img src="/assets/team-list.jpg" alt="team-list" width="170" height="300" />
+    </div>
+</div>
+<!-- ![team-list](/assets/team-list.jpg) -->
+<p>If we review now all projects, which started, and categorize them by their sources, then we see that only small fraction were using topics of the suggested list. Most winners were developing their own idea.</p>
+<p>Here is the list of projects at the start:</p>
+<table>
+<tbody>
+<tr>
+<td width="414">1.       Atom plugin;</td>
+<td width="736">Suggested development of existing project</td>
+</tr>
+<tr>
+<td width="414">2.       CPM web site;</td>
+<td width="736">Suggested development of existing project</td>
+</tr>
+<tr>
+<td width="414">3.       Geo-spatial indices</td>
+<td width="736">Suggested but new</td>
+</tr>
+<tr>
+<td width="414">4.       Caché &lt;&gt; JS projection</td>
+<td width="736">Brand new</td>
+</tr>
+<tr>
+<td width="414">5.       Arduino connect</td>
+<td width="736">Suggested but new</td>
+</tr>
+<tr>
+<td width="414">6.       Call diagram</td>
+<td width="736">Brand new</td>
+</tr>
+<tr>
+<td width="414">7.       B*-Tree map</td>
+<td width="736">Brand new</td>
+</tr>
+</tbody>
+</table>
+We have proceeded a couple of intermediate stops where we have reviewed project advancement (i.e. at around 22:00 the 1<sup>st</sup> day, and at 11:00 the next day). And we stopped development at the 13:00 the 2<sup>nd</sup> day (due to logistics constraints), and not as if it would be spanning whole day hacking – the 17:00 the 2<sup>nd</sup> day. i.e. teams have only 20 hours for development, but apparently it was not a big deal for those who prepared well enough.
+<p>Each team had 5-10 minutes for presentation, and then ISC SEs decided which teams are winners. We have touch problem to choose – there were 4 brilliant works, each of them in other circumstances would be considered a winner. But we decided that Nikita Savchenko/Anton Gnibeda work this day was the best. Just because of astonishing development speed (only 1 day since the project inception) and the shown quality and achieved results.</p>
+<!-- 
+<a href="/assets/hackathon-1.jpg"><img class="alignnone wp-image-1920" src="/assets/hackathon-1-300x265.jpg" alt="hackathon-1" width="159" height="142" /></a> <a href="/assets/hackathon-2.jpg"><img class="alignnone wp-image-1918" src="/assets/hackathon-2-300x214.jpg" alt="hackathon-2" width="195" height="142" /></a> <a href="/assets/hackathon-3.jpg"><img class="alignnone wp-image-1919" src="/assets/hackathon-3-300x254.jpg" alt="hackathon-3" width="166" height="142" /></a> -->
+<p><img src="/assets/hackathon-1.jpg" alt="hackathon-1"><img src="/assets/hackathon-2.jpg" alt="hackathon-2"><img src="/assets/hackathon-3.jpg" alt="hackathon-3"></p>
+<p>Here are more details about projects winners:</p>
+<h1>1<sup>st</sup> place</h1>
+Nikita Svchenko and Anton Gnibeda are stars of our local community. They both participated in many outstanding projects, e.g
+<ul>
+	<li><a href="https://github.com/ZitRos">Nikita @ZitRos Savchenko</a>: LightPivotTable in <a href="https://github.com/ZitRos/LightPivotTable">DeepSee Mobile</a>, <a href="https://github.com/ZitRos/CacheUMLExplorer">CacheUMLExplorer</a>, <a href="https://github.com/intersystems-ru/webterminal">WebTerminal</a>, <a href="https://github.com/ZitRos/globalsDB-Admin-NodeJS">GlobalsDB Admin</a>, etc</li>
+	<li><a href="https://github.com/gnibeda">Anton @gnibeda Gnibeda</a>: <a href="https://github.com/intersystems-ru/DeepSeeWeb">DeepSee Web</a>, <a href="https://github.com/intersystems-ru/DeepSeeMobile">DeepSee Mobile</a></li>
+</ul>
+Although Nikita, Anton and Irina are all living in Kiev nowadays, but they usually not working on the same project at the same time, and this school was a rare chance for them to work together. But when they decided to form the team we (organizers) were tending to break a team and rebalance to others because other teams will be lacking of frontend skills we need elsewhere. However, at the end we decided to just see where this star team could go given opportunity and chance. [That was correct decision as we see today]
+<p>This project was not developing some precooked project as many other were doing. They have developed idea at the start of 2<sup>nd</sup> day of school, and then started coding immediately.</p>
+<h2>JavaScript Object Data Model — JavaScript object projection from Caché</h2>
+<table>
+<tbody>
+<tr>
+<td width="321">Team:</td>
+<td width="1017"><a href="https://d.docs.live.net/32e0f479b4a6efd5/isc/school-2015/hackathon-isc-schoool-2015.docx">Nikita @ZitRos Savchenko</a>, <a href="https://github.com/gnibeda">Anton @gnibeda Gnibeda</a>, <a href="https://github.com/Gra-ach">Irene @Gra-ach Mikhailova</a></td>
+</tr>
+<tr>
+<td width="321">GitHub repo:</td>
+<td width="1017"><a href="https://github.com/ZitRos/cjs">https://github.com/ZitRos/cjs</a></td>
+</tr>
+</tbody>
+</table>
+There are 2 parts in this projects: server COS and client JavaScript. Server-side is simple REST data-points which allow get access to methods/properties of a classes. Client-side uses dirty JavaScript magic for extending client-side objects with the list of available server-side methods/properties. Which simplify debugging in the debugger
+<!-- <a href="/assets/cjs-in-browser.jpg"><img class="wp-image-1914 aligncenter" src="/assets/cjs-in-browser-300x165.jpg" alt="cjs-in-browser" width="531" height="301" /></a> -->
+<p><img src="/assets/cjs-in-browser.jpg" alt="cjs-in-browser"></p>
+<p>The beauty of this API design – it uses “proper”, modern paradigms in the JavaScript part, i.e. async calls and cascading where possible.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-JavaScript" data-lang="JavaScript"><span class="line"><span class="cl"><span class="nx">cjs</span><span class="p">.</span><span class="nx">connector</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="s2">&#34;http://172.16.2.172:57776/&#34;</span><span class="p">,</span> <span class="s2">&#34;Samples&#34;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&#34;School2015&#34;</span><span class="p">],</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">cache</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// creating a new object
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="kd">var</span> <span class="nx">p</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">cache</span><span class="p">.</span><span class="nx">School2015</span><span class="p">.</span><span class="nx">Participant</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"> <span class="nx">p</span><span class="p">.</span><span class="nx">Name</span> <span class="o">=</span> <span class="s2">&#34;Anton&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> <span class="nx">p</span><span class="p">.</span><span class="nx">Surname</span> <span class="o">=</span> <span class="s2">&#34;Gnibeda&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> <span class="nx">p</span><span class="p">.</span><span class="nx">$save</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">obj</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;Participant with name &#34;</span> <span class="o">+</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">name</span> <span class="o">+</span> <span class="s2">&#34; saved!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"> <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// executing instance method
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="nx">cache</span><span class="p">.</span><span class="nx">School2015</span><span class="p">.</span><span class="nx">Group</span><span class="p">.</span><span class="nx">openById</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">group</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="nx">group</span><span class="p">.</span><span class="nx">PrintInfo</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">res</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">   <span class="p">});</span>
+</span></span><span class="line"><span class="cl"> <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// executing linq-like queries
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="nx">cache</span><span class="p">.</span><span class="nx">School2015</span><span class="p">.</span><span class="nx">Participant</span>
+</span></span><span class="line"><span class="cl">   <span class="p">.</span><span class="nx">query</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">   <span class="p">.</span><span class="nx">where</span><span class="p">(</span><span class="s2">&#34;Carma &amp;lt; 100 OR Carma &amp;gt; 140&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">   <span class="p">.</span><span class="nx">where</span><span class="p">(</span><span class="s2">&#34;$id &amp;gt; 10&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">   <span class="p">.</span><span class="nx">orderByDesc</span><span class="p">(</span><span class="s2">&#34;Carma&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">   <span class="p">.</span><span class="nx">orderBy</span><span class="p">(</span><span class="s2">&#34;Name&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">   <span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">     <span class="nx">console</span><span class="p">.</span><span class="nx">table</span><span class="p">(</span><span class="nx">res</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">   <span class="p">});</span>
+</span></span><span class="line"><span class="cl"> <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="mi">2</span><span class="o">&lt;</span><span class="nx">sup</span><span class="o">&gt;</span><span class="nx">nd</span><span class="o">&lt;</span><span class="err">/sup&gt; place&lt;/h1&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">em</span><span class="o">&gt;</span><span class="nx">As</span> <span class="nx">I</span> <span class="nx">already</span> <span class="nx">mentioned</span> <span class="o">&lt;</span><span class="sr">/em&gt;&lt;a href=&#34;http:/</span><span class="o">/</span><span class="nx">writeimagejournal</span><span class="p">.</span><span class="nx">com</span><span class="o">/?</span><span class="nx">p</span><span class="o">=</span><span class="mi">1902</span><span class="s2">&#34;&gt;&lt;em&gt;as a preparation step to hackathon&lt;/em&gt;&lt;/a&gt;&lt;em&gt; we have formed a list of “interesting” task, which might be approached during hackathon. This was collected of Russian grants backlog and current GitHub projects backlog, with few additions of ideas from ISC employees.&lt;/em&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">And it was a good surprise for us when 1 of topics from grant backlog list was selected as a hackathon projects – geo indices.
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;h2&gt;Geospatial — spatial indices in Caché&lt;/h2&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;table&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;tbody&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;tr&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;td width=&#34;</span><span class="mi">321</span><span class="s2">&#34;&gt;Team:&lt;/td&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;td width=&#34;</span><span class="mi">1017</span><span class="s2">&#34;&gt;&lt;a href=&#34;</span><span class="nx">https</span><span class="o">:</span><span class="c1">//github.com/ARechitsky&#34;&gt;Andrey @Arechitsky Rechitsly&lt;/a&gt;, &lt;a href=&#34;https://github.com/adaptun&#34;&gt;Alexander @adaptun Koblov&lt;/a&gt;, &lt;a href=&#34;https://github.com/APogrebnikov&#34;&gt;Alexander @Apogrebnikov Pogrebnikov&lt;/a&gt;&lt;/td&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">&lt;</span><span class="err">/tr&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">tr</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">td</span> <span class="nx">width</span><span class="o">=</span><span class="s2">&#34;321&#34;</span><span class="o">&gt;</span><span class="nx">GitHub</span> <span class="nx">repo</span><span class="o">:&lt;</span><span class="err">/td&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">td</span> <span class="nx">width</span><span class="o">=</span><span class="s2">&#34;1017&#34;</span><span class="o">&gt;&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="s2">&#34;https://github.com/intersystems-ru/spatialindex&#34;</span><span class="o">&gt;</span><span class="nx">https</span><span class="o">:</span><span class="c1">//github.com/intersystems-ru/spatialindex&lt;/a&gt;&lt;/td&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">&lt;</span><span class="err">/tr&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="err">/tbody&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="err">/table&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">This</span> <span class="nx">was</span> <span class="nx">a</span> <span class="kr">long</span><span class="o">-</span><span class="nx">standing</span> <span class="nx">request</span> <span class="err">–</span> <span class="nx">we</span> <span class="nx">wanted</span> <span class="nx">that</span> <span class="nx">someone</span> <span class="nx">would</span> <span class="nx">implement</span> <span class="nx">support</span> <span class="k">of</span> <span class="nx">geo</span> <span class="nx">spatial</span> <span class="nx">indices</span> <span class="k">in</span> <span class="nx">Caché</span><span class="p">.</span> <span class="nx">There</span> <span class="nx">was</span> <span class="nx">no</span> <span class="nx">single</span> <span class="nx">reason</span> <span class="nx">why</span> <span class="nx">it</span> <span class="nx">could</span> <span class="nx">not</span> <span class="nx">be</span> <span class="nx">done</span> <span class="nx">eventually</span><span class="p">,</span> <span class="nx">given</span> <span class="nx">enough</span> <span class="k">of</span> <span class="nx">expertise</span> <span class="nx">and</span> <span class="nx">opportunity</span><span class="p">.</span> <span class="nx">This</span> <span class="nx">hackathon</span> <span class="nx">was</span> <span class="nx">a</span> <span class="nx">good</span> <span class="nx">chance</span><span class="p">,</span> <span class="nx">because</span> <span class="k">this</span> <span class="nx">team</span> <span class="nx">formed</span> <span class="nx">was</span> <span class="nx">overwhelmed</span> <span class="kd">with</span> <span class="nx">mathematics</span> <span class="nx">skills</span> <span class="nx">and</span> <span class="nx">COS</span> <span class="nx">expertise</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">Thanks</span> <span class="nx">to</span> <span class="k">this</span> <span class="nx">project</span> <span class="nx">now</span> <span class="nx">we</span> <span class="nx">have</span> <span class="nx">custom</span> <span class="nx">indices</span> <span class="nx">which</span> <span class="nx">internally</span> <span class="nx">use</span> <span class="nx">quad</span><span class="o">-</span><span class="nx">trees</span> <span class="k">for</span> <span class="nx">given</span> <span class="nx">set</span> <span class="k">of</span> <span class="nx">geo</span> <span class="nx">pairs</span><span class="p">.</span> <span class="nx">Also</span> <span class="nx">authors</span> <span class="nx">have</span> <span class="nx">demonstrated</span> <span class="nx">simple</span> <span class="nx">Angular</span> <span class="nx">application</span><span class="p">,</span> <span class="nx">which</span> <span class="nx">visualizes</span> <span class="nx">quick</span> <span class="nx">search</span> <span class="k">for</span> <span class="nx">the</span> <span class="nx">given</span> <span class="nx">box</span> <span class="nx">on</span> <span class="nx">map</span><span class="p">,</span> <span class="nx">and</span> <span class="k">this</span> <span class="nx">search</span> <span class="nx">takes</span> <span class="nx">fractions</span> <span class="k">of</span> <span class="nx">seconds</span> <span class="nx">even</span> <span class="k">for</span> <span class="nx">the</span> <span class="nx">multiple</span> <span class="nx">millions</span> <span class="k">in</span> <span class="nx">dataset</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">In</span> <span class="nx">essence</span> <span class="nx">adding</span> <span class="k">of</span> <span class="nx">such</span> <span class="nx">geospatial</span> <span class="nx">indices</span> <span class="nx">could</span> <span class="nx">be</span> <span class="nx">done</span> <span class="k">this</span> <span class="nx">way</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">ol</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">&lt;</span><span class="nx">li</span><span class="o">&gt;</span><span class="nx">Add</span> <span class="nx">index</span> <span class="k">for</span> <span class="nx">the</span> <span class="nx">pair</span> <span class="k">of</span> <span class="nx">properties</span> <span class="p">(</span><span class="nx">longitude</span><span class="p">,</span> <span class="nx">latitude</span><span class="p">)</span><span class="o">:&lt;</span><span class="err">/li&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="err">/ol&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;</span><span class="nx">Index</span> <span class="nx">x1f</span> <span class="nx">on</span> <span class="p">(</span><span class="nx">Latitude</span><span class="p">,</span><span class="nx">Longitude</span><span class="p">)</span> <span class="nx">As</span> <span class="nx">SpatialIndex</span><span class="p">.</span><span class="nx">Index</span><span class="p">;</span><span class="o">&lt;</span><span class="err">/pre&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">ol</span> <span class="nx">start</span><span class="o">=</span><span class="s2">&#34;2&#34;</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">&lt;</span><span class="nx">li</span><span class="o">&gt;</span><span class="nx">Search</span> <span class="k">for</span> <span class="nx">the</span> <span class="nx">given</span> <span class="nx">box</span> <span class="k">of</span> <span class="nx">coordinates</span><span class="o">&lt;</span><span class="err">/li&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="err">/ol&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;</span><span class="nx">SELECT</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"> <span class="nx">FROM</span> <span class="nx">SpatialIndex</span><span class="p">.</span><span class="nx">Test</span>
+</span></span><span class="line"><span class="cl"> <span class="nx">WHERE</span> <span class="o">%</span><span class="nx">ID</span> <span class="o">%</span><span class="nx">FIND</span> <span class="nx">search_index</span><span class="p">(</span><span class="nx">x1F</span><span class="p">,</span><span class="s1">&#39;window&#39;</span><span class="p">,</span><span class="s1">&#39;minx=56,miny=56,maxx=57,maxy=57&#39;</span><span class="p">)</span><span class="o">&lt;</span><span class="err">/pre&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">ol</span> <span class="nx">start</span><span class="o">=</span><span class="s2">&#34;3&#34;</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">&lt;</span><span class="nx">li</span><span class="o">&gt;</span><span class="nx">Search</span> <span class="k">for</span> <span class="nx">the</span> <span class="nx">given</span> <span class="nx">ellipse</span><span class="o">&lt;</span><span class="err">/li&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="err">/ol&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;</span><span class="nx">SELECT</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"> <span class="nx">FROM</span> <span class="nx">SpatialIndex</span><span class="p">.</span><span class="nx">Test</span>
+</span></span><span class="line"><span class="cl"> <span class="nx">WHERE</span>  <span class="o">%</span><span class="nx">ID</span> <span class="o">%</span><span class="nx">FIND</span> <span class="nx">search_index</span><span class="p">(</span><span class="nx">x1F</span><span class="p">,</span><span class="s1">&#39;radius&#39;</span><span class="p">,</span><span class="s1">&#39;x=55,y=55,radiusX=2,radiusY=2&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="nx">and</span> <span class="nx">name</span> <span class="o">%</span><span class="nx">StartsWith</span> <span class="s1">&#39;Z&#39;</span><span class="o">&lt;</span><span class="err">/pre&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">This</span> <span class="nx">is</span> <span class="nx">only</span> <span class="nx">beginning</span> <span class="k">of</span> <span class="nx">an</span> <span class="nx">implementation</span><span class="p">,</span> <span class="nx">obviously</span><span class="p">,</span> <span class="nx">and</span> <span class="nx">not</span> <span class="k">in</span> <span class="nx">any</span> <span class="k">case</span> <span class="nx">is</span> <span class="nx">pretending</span> <span class="nx">to</span> <span class="nx">be</span> <span class="nx">ISO</span> <span class="mi">19125</span> <span class="nx">compliant</span> <span class="k">in</span> <span class="k">this</span> <span class="nx">early</span> <span class="nx">development</span> <span class="nx">state</span><span class="p">.</span> <span class="nx">But</span> <span class="nx">that</span> <span class="nx">was</span> <span class="nx">an</span> <span class="nx">important</span> <span class="mi">1</span><span class="o">&lt;</span><span class="nx">sup</span><span class="o">&gt;</span><span class="nx">st</span><span class="o">&lt;</span><span class="err">/sup&gt; step, and is already usable in the COS projects</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">I</span> <span class="nx">am</span> <span class="kr">super</span> <span class="nx">excited</span> <span class="nx">about</span> <span class="k">this</span> <span class="nx">particular</span> <span class="nx">project</span><span class="o">!</span> <span class="nx">It</span> <span class="nx">is</span> <span class="nx">not</span> <span class="nx">that</span> <span class="nx">polished</span> <span class="nx">as</span> <span class="nx">other</span> <span class="nx">winning</span> <span class="nx">projects</span><span class="p">,</span> <span class="nx">but</span> <span class="nx">could</span> <span class="nx">be</span> <span class="nx">influencing</span> <span class="nx">product</span> <span class="k">in</span> <span class="nx">a</span> <span class="kr">long</span> <span class="nx">run</span><span class="err">…</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="mi">3</span><span class="o">&lt;</span><span class="nx">sup</span><span class="o">&gt;</span><span class="nx">rd</span><span class="o">&lt;</span><span class="err">/sup&gt; place&lt;/h1&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">em</span><span class="o">&gt;</span><span class="nx">We</span> <span class="nx">decided</span> <span class="nx">to</span> <span class="nx">give</span> <span class="mi">3</span><span class="o">&lt;</span><span class="nx">sup</span><span class="o">&gt;</span><span class="nx">rd</span><span class="o">&lt;</span><span class="err">/sup&gt; place to 2 brilliant projects: call diagram visualizer and global map visualizer.&lt;/em&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">em</span><span class="o">&gt;</span><span class="nx">And</span> <span class="nx">worth</span> <span class="nx">to</span> <span class="nx">note</span> <span class="nx">that</span> <span class="nx">both</span> <span class="nx">these</span> <span class="nx">projects</span> <span class="nx">were</span> <span class="nx">directly</span> <span class="nx">influenced</span> <span class="nx">by</span> <span class="nx">Nikita</span> <span class="nx">Savchecnko</span><span class="err">’</span> <span class="o">&lt;</span><span class="sr">/em&gt;&lt;a href=&#34;https:/</span><span class="o">/</span><span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">intersystems</span><span class="o">-</span><span class="nx">ru</span><span class="o">/</span><span class="nx">UMLExplorer</span><span class="s2">&#34;&gt;&lt;em&gt;UMLExplorer&lt;/em&gt;&lt;/a&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;h2&gt;Callsmap —call diagram visualization&lt;/h2&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;table&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;tbody&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;tr&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;td width=&#34;</span><span class="mi">320</span><span class="s2">&#34;&gt;Team:&lt;/td&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;td width=&#34;</span><span class="mi">824</span><span class="s2">&#34;&gt;&lt;a href=&#34;</span><span class="nx">https</span><span class="o">:</span><span class="c1">//github.com/doublefint&#34;&gt;Oleg @doublefint Dmitrovich&lt;/a&gt;, Evgenia Litvin, &lt;a href=&#34;https://github.com/TsvetkovAV&#34;&gt;Alexander @TsvetkovAV Tsvetokov&lt;/a&gt;&lt;/td&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">&lt;</span><span class="err">/tr&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">tr</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">td</span> <span class="nx">width</span><span class="o">=</span><span class="s2">&#34;320&#34;</span><span class="o">&gt;</span><span class="nx">GitHub</span> <span class="nx">repo</span><span class="o">:&lt;</span><span class="err">/td&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">td</span> <span class="nx">width</span><span class="o">=</span><span class="s2">&#34;824&#34;</span><span class="o">&gt;&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="s2">&#34;https://github.com/intersystems-ru/callsmap&#34;</span><span class="o">&gt;</span><span class="nx">https</span><span class="o">:</span><span class="c1">//github.com/intersystems-ru/callsmap&lt;/a&gt;&lt;/td&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">&lt;</span><span class="err">/tr&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="err">/tbody&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="err">/table&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Oleg</span> <span class="nx">Dmitrovich</span> <span class="nx">liked</span> <span class="nx">how</span> <span class="nx">UMLExplorer</span> <span class="nx">visualized</span> <span class="kr">class</span> <span class="nx">hierarchy</span><span class="p">,</span> <span class="nx">and</span> <span class="nx">he</span> <span class="nx">wanted</span> <span class="nx">to</span> <span class="nx">extend</span> <span class="nx">it</span> <span class="kd">with</span> <span class="nx">call</span> <span class="nx">diagram</span> <span class="nx">functionality</span><span class="p">.</span> <span class="nx">They</span> <span class="nx">parse</span> <span class="nx">classes</span> <span class="nx">themselves</span><span class="p">,</span> <span class="nx">extracting</span> <span class="nx">method</span> <span class="nx">and</span> <span class="kd">function</span> <span class="nx">names</span><span class="p">,</span> <span class="nx">and</span> <span class="nx">then</span> <span class="nx">want</span> <span class="nx">to</span> <span class="nx">show</span> <span class="nx">call</span> <span class="nx">graph</span> <span class="nx">somehow</span><span class="p">.</span> <span class="nx">But</span> <span class="nx">unfortunately</span> <span class="nx">the</span> <span class="nx">components</span> <span class="nx">used</span> <span class="k">in</span> <span class="nx">the</span> <span class="nx">UMLExplorer</span> <span class="nx">was</span> <span class="nx">not</span> <span class="nx">scalable</span> <span class="nx">enough</span> <span class="nx">to</span> <span class="nx">handle</span> <span class="nx">so</span> <span class="nx">many</span> <span class="nx">classes</span> <span class="nx">as</span> <span class="nx">Oleg</span> <span class="nx">had</span> <span class="k">in</span> <span class="nx">their</span> <span class="nx">development</span> <span class="nx">namespaces</span> <span class="p">(</span><span class="nx">several</span> <span class="nx">thousand</span> <span class="k">of</span> <span class="nx">classes</span><span class="p">,</span> <span class="kd">with</span> <span class="nx">the</span> <span class="nx">corresponding</span> <span class="nx">number</span> <span class="k">of</span> <span class="nx">call</span> <span class="nx">edges</span><span class="p">).</span> <span class="nx">Thus</span> <span class="nx">he</span> <span class="nx">had</span> <span class="nx">to</span> <span class="nx">find</span> <span class="nx">another</span> <span class="nx">JavaScript</span> <span class="nx">component</span> <span class="nx">which</span> <span class="nx">could</span> <span class="nx">handle</span> <span class="nx">their</span> <span class="nx">situation</span> <span class="nx">and</span> <span class="nx">eventually</span> <span class="nx">they</span> <span class="nx">ended</span> <span class="nx">up</span> <span class="nx">using</span> <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="s2">&#34;https://github.com/anvaka/VivaGraphJS&#34;</span><span class="o">&gt;</span><span class="nx">Viva</span> <span class="nx">Graph</span><span class="o">&lt;</span><span class="err">/a&gt;, which is &lt;em&gt;very fast&lt;/em&gt;.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">In</span> <span class="nx">some</span> <span class="k">of</span> <span class="nx">their</span> <span class="nx">namespaces</span> <span class="nx">call</span> <span class="nx">diagram</span> <span class="err">“</span><span class="nx">galaxy</span><span class="err">”</span> <span class="nx">could</span> <span class="nx">be</span> <span class="nx">visualized</span> <span class="k">this</span> <span class="nx">way</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!--</span> <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="s2">&#34;/assets/cache-galaxy.png&#34;</span><span class="o">&gt;&lt;</span><span class="nx">img</span> <span class="kr">class</span><span class="o">=</span><span class="s2">&#34;wp-image-1913 aligncenter&#34;</span> <span class="nx">src</span><span class="o">=</span><span class="s2">&#34;/assets/cache-galaxy-300x252.png&#34;</span> <span class="nx">alt</span><span class="o">=</span><span class="s2">&#34;cache-galaxy&#34;</span> <span class="nx">width</span><span class="o">=</span><span class="s2">&#34;500&#34;</span> <span class="nx">height</span><span class="o">=</span><span class="s2">&#34;423&#34;</span> <span class="o">/&gt;&lt;</span><span class="err">/a&gt; --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">!</span><span class="p">[</span><span class="nx">cache</span><span class="o">-</span><span class="nx">galaxy</span><span class="p">](</span><span class="err">/assets/cache-galaxy.png)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">Static</span> <span class="nx">picture</span> <span class="nx">does</span> <span class="nx">not</span> <span class="nx">show</span> <span class="nx">the</span> <span class="nx">whole</span> <span class="nx">beauty</span> <span class="k">of</span> <span class="nx">a</span> <span class="nx">visualized</span> <span class="nx">diagram</span> <span class="p">(</span><span class="nx">which</span> <span class="nx">has</span> <span class="nx">nice</span> <span class="nx">animation</span> <span class="nx">effect</span> <span class="k">in</span> <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="s2">&#34;https://github.com/anvaka/VivaGraphJS&#34;</span><span class="o">&gt;</span><span class="nx">Viva</span> <span class="nx">Graph</span><span class="o">&lt;</span><span class="err">/a&gt;, in real life this graph animation is really astonishing)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">h2</span><span class="o">&gt;</span><span class="nx">CacheBlocksExplorer</span> <span class="err">—</span> <span class="nx">global</span> <span class="nx">tree</span> <span class="nx">and</span> <span class="nx">database</span> <span class="nx">map</span> <span class="nx">visualizer</span><span class="o">&lt;</span><span class="err">/h2&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">table</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">tbody</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">tr</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">td</span> <span class="nx">width</span><span class="o">=</span><span class="s2">&#34;320&#34;</span><span class="o">&gt;</span><span class="nx">Team</span><span class="o">:&lt;</span><span class="err">/td&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">td</span> <span class="nx">width</span><span class="o">=</span><span class="s2">&#34;717&#34;</span><span class="o">&gt;&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="s2">&#34;https://github.com/daimor&#34;</span><span class="o">&gt;</span><span class="nx">Dmitry</span> <span class="err">@</span><span class="nx">daimor</span> <span class="nx">Maslennikov</span><span class="o">&lt;</span><span class="err">/a&gt;, Olga Kazantseva&lt;/td&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="err">/tr&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">tr</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">td</span> <span class="nx">width</span><span class="o">=</span><span class="s2">&#34;320&#34;</span><span class="o">&gt;</span><span class="nx">GitHub</span> <span class="nx">repo</span><span class="o">:&lt;</span><span class="err">/td&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">td</span> <span class="nx">width</span><span class="o">=</span><span class="s2">&#34;717&#34;</span><span class="o">&gt;&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="s2">&#34;https://github.com/intersystems-ru/CacheBlocksExplorer&#34;</span><span class="o">&gt;</span><span class="nx">https</span><span class="o">:</span><span class="c1">//github.com/intersystems-ru/CacheBlocksExplorer&lt;/a&gt;&lt;/td&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">&lt;</span><span class="err">/tr&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="err">/tbody&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="err">/table&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">Yet</span> <span class="nx">another</span> <span class="nx">project</span><span class="p">,</span> <span class="nx">which</span> <span class="nx">has</span> <span class="nx">been</span> <span class="nx">created</span> <span class="nx">on</span> <span class="nx">UMLExplorer</span> <span class="nx">engine</span> <span class="err">—</span> <span class="nx">is</span> <span class="nx">that</span> <span class="nx">global</span> <span class="nx">tree</span><span class="p">,</span> <span class="nx">and</span> <span class="nx">database</span> <span class="nx">map</span> <span class="nx">visualizer</span> <span class="nx">created</span> <span class="nx">by</span> <span class="nx">Dmitry</span> <span class="nx">Maslennikov</span><span class="p">.</span> <span class="nx">Actually</span> <span class="nx">he</span> <span class="nx">had</span> <span class="nx">working</span> <span class="o">&lt;</span><span class="nx">em</span><span class="o">&gt;</span><span class="nx">globals</span> <span class="nx">b</span><span class="o">*-</span><span class="nx">tree</span> <span class="nx">visualizer</span><span class="o">&lt;</span><span class="err">/em&gt; even before hackathon started (as a side effect of one question he has been asked at the Vladivostock training he delivered before). But once he showed his project at the start of hackathon the consensus was that we all want database map just like in old school “Norton SpeedDisk”. So Dmitry has implemented just exactly that map in 1 night.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!--</span> <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="s2">&#34;/assets/global-tree.png&#34;</span><span class="o">&gt;&lt;</span><span class="nx">img</span> <span class="kr">class</span><span class="o">=</span><span class="s2">&#34;alignnone wp-image-1916&#34;</span> <span class="nx">src</span><span class="o">=</span><span class="s2">&#34;/assets/global-tree-300x171.png&#34;</span> <span class="nx">alt</span><span class="o">=</span><span class="s2">&#34;global-tree&#34;</span> <span class="nx">width</span><span class="o">=</span><span class="s2">&#34;499&#34;</span> <span class="nx">height</span><span class="o">=</span><span class="s2">&#34;290&#34;</span> <span class="o">/&gt;&lt;</span><span class="err">/a&gt; &lt;a href=&#34;/assets/disk-map.png&#34;&gt;&lt;img class=&#34;alignnone wp-image-1915&#34; src=&#34;/assets/disk-map-300x171.png&#34; alt=&#34;disk-map&#34; width=&#34;499&#34; height=&#34;290&#34; /&gt;&lt;/a&gt; --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">!</span><span class="p">[</span><span class="nx">global</span><span class="o">-</span><span class="nx">tree</span><span class="p">](</span><span class="err">/assets/global-tree.png)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">Now</span><span class="p">,</span> <span class="nx">as</span> <span class="nx">a</span> <span class="nx">side</span> <span class="nx">effect</span> <span class="k">of</span> <span class="k">this</span> <span class="nx">project</span> <span class="nx">development</span> <span class="nx">we</span> <span class="nx">have</span> <span class="mi">2</span> <span class="nx">very</span> <span class="nx">valuable</span> <span class="nx">tools</span><span class="p">,</span> <span class="nx">which</span> <span class="nx">might</span> <span class="nx">be</span> <span class="nx">useful</span> <span class="nx">both</span> <span class="k">for</span> <span class="nx">education</span> <span class="nx">and</span> <span class="k">for</span> <span class="nx">performance</span> <span class="nx">analysis</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="nx">_It</span> <span class="nx">will</span> <span class="nx">be</span> <span class="nx">one</span> <span class="k">of</span> <span class="nx">my</span> <span class="nx">favorite</span> <span class="nx">tools</span><span class="p">,</span> <span class="nx">I</span> <span class="nx">guess</span><span class="p">.</span><span class="nx">_</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">Other</span> <span class="nx">noticeable</span> <span class="nx">projects</span><span class="o">&lt;</span><span class="err">/h1&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">There</span> <span class="nx">were</span> <span class="mi">3</span> <span class="nx">more</span> <span class="nx">projects</span> <span class="nx">which</span> <span class="nx">got</span> <span class="nx">to</span> <span class="nx">the</span> <span class="kr">final</span> <span class="nx">pitching</span> <span class="nx">stage</span> <span class="k">in</span> <span class="nx">various</span> <span class="nx">conditions</span><span class="p">.</span> <span class="nx">Most</span> <span class="k">of</span> <span class="nx">them</span> <span class="nx">are</span> <span class="kr">long</span><span class="o">-</span><span class="nx">standing</span> <span class="nx">projects</span><span class="p">,</span> <span class="nx">and</span> <span class="nx">will</span> <span class="nx">be</span> <span class="nx">probably</span> <span class="nx">mentioned</span> <span class="nx">later</span><span class="p">,</span> <span class="nx">once</span> <span class="nx">some</span> <span class="nx">notable</span> <span class="nx">development</span> <span class="nx">would</span> <span class="nx">happened</span> <span class="nx">and</span> <span class="nx">went</span> <span class="nx">online</span><span class="p">.</span> <span class="nx">Not</span> <span class="nx">today</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">Here</span> <span class="nx">are</span> <span class="nx">their</span> <span class="nx">repositories</span> <span class="k">in</span> <span class="nx">any</span> <span class="k">case</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">table</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">tbody</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">tr</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">td</span> <span class="nx">width</span><span class="o">=</span><span class="s2">&#34;242&#34;</span><span class="o">&gt;</span><span class="nx">CPM</span><span class="o">&lt;</span><span class="err">/td&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">td</span> <span class="nx">width</span><span class="o">=</span><span class="s2">&#34;682&#34;</span><span class="o">&gt;&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="s2">&#34;https://github.com/intersystems-ru/CPM&#34;</span><span class="o">&gt;</span><span class="nx">https</span><span class="o">:</span><span class="c1">//github.com/intersystems-ru/CPM&lt;/a&gt;&lt;/td&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">&lt;</span><span class="err">/tr&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">tr</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">td</span> <span class="nx">width</span><span class="o">=</span><span class="s2">&#34;242&#34;</span><span class="o">&gt;</span><span class="nx">Atom</span> <span class="nx">COS</span> <span class="nx">Studio</span><span class="o">&lt;</span><span class="err">/td&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">td</span> <span class="nx">width</span><span class="o">=</span><span class="s2">&#34;682&#34;</span><span class="o">&gt;&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="s2">&#34;https://github.com/UGroup/Atom-COS-Studio&#34;</span><span class="o">&gt;</span><span class="nx">https</span><span class="o">:</span><span class="c1">//github.com/UGroup/Atom-COS-Studio&lt;/a&gt;&lt;/td&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">&lt;</span><span class="err">/tr&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">tr</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">td</span> <span class="nx">width</span><span class="o">=</span><span class="s2">&#34;242&#34;</span><span class="o">&gt;</span><span class="nx">Arduino</span> <span class="nx">Snippets</span><span class="o">&lt;</span><span class="err">/td&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">td</span> <span class="nx">width</span><span class="o">=</span><span class="s2">&#34;682&#34;</span><span class="o">&gt;&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="s2">&#34;https://github.com/intersystems-ru/ArduinoSnippets&#34;</span><span class="o">&gt;</span><span class="nx">https</span><span class="o">:</span><span class="c1">//github.com/intersystems-ru/ArduinoSnippets&lt;/a&gt;&lt;/td&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">&lt;</span><span class="err">/tr&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="err">/tbody&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="err">/table&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">Conclusion</span><span class="o">&lt;</span><span class="err">/h1&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">Now</span><span class="p">,</span> <span class="nx">several</span> <span class="nx">days</span> <span class="nx">after</span> <span class="nx">the</span> <span class="nx">hackathon</span> <span class="nx">completion</span> <span class="nx">we</span> <span class="nx">might</span> <span class="nx">derive</span> <span class="nx">cold</span> <span class="nx">hearty</span> <span class="nx">conclusions</span><span class="p">,</span> <span class="nx">and</span> <span class="nx">should</span> <span class="nx">admit</span> <span class="nx">that</span> <span class="k">this</span> <span class="nx">hackathon</span> <span class="nx">experiment</span> <span class="nx">was</span> <span class="nx">more</span> <span class="nx">than</span> <span class="nx">successful</span><span class="p">,</span> <span class="nx">and</span> <span class="nx">produced</span> <span class="mi">4</span> <span class="nx">brilliant</span> <span class="nx">projects</span> <span class="nx">which</span> <span class="nx">will</span> <span class="nx">be</span> <span class="k">of</span> <span class="nx">much</span> <span class="nx">help</span> <span class="nx">to</span> <span class="nx">community</span> <span class="nx">and</span> <span class="nx">to</span> <span class="nx">the</span> <span class="nx">product</span> <span class="k">in</span> <span class="nx">a</span> <span class="nx">longer</span> <span class="nx">run</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">Ain</span><span class="err">’</span><span class="nx">t</span> <span class="nx">it</span> <span class="nx">cool</span><span class="o">?</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">*</span> <span class="p">[</span><span class="nx">https</span><span class="o">:</span><span class="c1">//plus.google.com/+TimurSafin1/posts/AN2JcP9K2yx](https://plus.google.com/+TimurSafin1/posts/AN2JcP9K2yx)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">*</span> <span class="p">[</span><span class="nx">https</span><span class="o">:</span><span class="c1">//plus.google.com/+TimurSafin1/posts/9BMJjFAqmxn](https://plus.google.com/+TimurSafin1/posts/9BMJjFAqmxn)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">*</span> <span class="p">[</span><span class="nx">https</span><span class="o">:</span><span class="c1">//www.facebook.com/groups/mskiscmeetup/permalink/1056669757706535/](https://www.facebook.com/groups/mskiscmeetup/permalink/1056669757706535/)
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+</article>
+
+    </main>
+    <footer>
+      &copy; 2025 Timur Safin - Making No Sense
+    </footer>
+  </body>
+</html>

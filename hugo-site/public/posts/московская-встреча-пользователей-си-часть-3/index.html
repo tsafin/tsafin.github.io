@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Московская встреча пользователей Си&#43;&#43; - часть 3 • Timur Safin - Making No Sense</title>
+    <style>
+      body { font-family: system-ui, sans-serif; margin: 0; padding: 0; background: #fafbfc; color: #222; }
+      header, footer { background: #222; color: #fff; padding: 1rem; text-align: center; }
+      main { max-width: 800px; margin: 2rem auto; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px #0001; padding: 2rem; }
+      h1, h2, h3 { color: #1a4b7a; }
+      a { color: #1a4b7a; text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      img { max-width: 100%; height: auto; border-radius: 4px; }
+      @media (max-width: 600px) {
+        main { padding: 1rem; margin: 0.5rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="/" style="color:#fff;text-decoration:none;"><strong>Timur Safin - Making No Sense</strong></a>
+    </header>
+    <main>
+      
+<h1>Московская встреча пользователей Си&#43;&#43; - часть 3</h1>
+<article>
+  <h3 id="андрей-иванитский--c-memory-model">Андрей Иванитский — <a href="http://www.meetingcpp.ru/cpp/cpp-moscow-2014/2%20Memory-Model.pdf">C++ Memory model</a></h3>
+<blockquote>
+<p>Перед тем как говорить про собственно презентацию, немного о фирме Андрея Иванитского. Как мы потом узнали эта таинственная, неназванная фирма была спонсором Московского мероприятия. Но по каким-то причинам они предпочли не называть своего имени. Но мы не привыкли играть по таким правилам, потому я попытался найти того &ldquo;Андрея Иванитского&rdquo;, который мог бы показаться релевантным здесь. Имея достаточно обширную сеть в Linkedin я попытался найти Андрея Иванитского там, и после нескольких фальстартов увидел 2 возможных кандидата. [Про размер сети сейчас сказать точно невозможно, т.к. linkedin некоторое время назад убил страницу статистики сети, но когда то они утверждали что круги 3-го порядка достигают у меня пару миллион контактов, что я расцениваю это как сеть, покрывающую большую часть российского программирования. За исключением самой дремучей его части, которые не завели себе профиля в LinkedIn.]</p>
+<p><img src="http://4.bp.blogspot.com/-gYnHGyGcTK0/UwKGPK64GII/AAAAAAAAQa4/B9cl6Xp2bDc/s1600/andrew_ivanitsky_linkedin.png" alt="andrew_ivanitsky_linkedin"></p>
+<p>Второй Андрей Иванитский работает в IT подразделении Тандем, фармацевтической фирмы. Кажется не очень релевантным. Первый же является главой тренинг центра Naumen, и занимается XP, Agile и всем таким. Все кажется вполне релевантным, посему я предлагаю считать что это тренинг центр Naumen спонсировал данное собрание. <strong>За что ему отдельное большое спасибо!</strong></p></blockquote>
+<p>Но вернемся к материалам доклада. C++ memory model — не легкая тема. Не легкая и противоречивая. Мне кажется в этом отчасти виноват и сам Бьерн, т.к. он не лез в соответсвующие части и отдал на откуп Ханс Боэму (<a href="http://en.wikipedia.org/wiki/Boehm_garbage_collector">С/C++ garbage collector</a> помните?). Мне всегда казалось, что Ханс очень не любит простых путей, часто запутывая остальных. Понятно, что работа с памятью в многопроцессорной среде не может быть простой. Понятно, что работа с памятью в таком множестве различных архитектур, в каком поддерживается Си++, не может быть унифицировнным. Понятно, что в стандарте придется допускать расхождения в любую сторону. Но не <a href="http://stackoverflow.com/search?q=c%2B%2B11+%22memory+model%22">до такой же степени должно быть заморочено!</a></p>
+<blockquote>
+<p>Now we are moving to the 2nd slides by Andrey Ivanitsky on C++ model memory #cpp #Moscow — Timur Safin (40+) <a href="https://twitter.com/tsafin/statuses/434616959435419648">15 февраля 2014</a>
+synchronize-with and happens-before as order relationships in #cpp memory model — Timur Safin (40+) <a href="https://twitter.com/tsafin/statuses/434619929107509248">15 февраля 2014</a>
+memory orderings: sequenciallly consustent, acquire-release, and relaxed orderings #cpp #Moscow — Timur Safin (40+) <a href="https://twitter.com/tsafin/statuses/434620352732221440">15 февраля 2014</a></p></blockquote>
+<p>(Часто перечисление записанного мной в Твитере будет малосвязанным, т.к. полной ясности до сих пор нет. Уж извините!) Было рассказано про отношения порядка: synchronize-with и happens-before. При рассмотрении порядка доступа к памяти (memory ordering) были введены различные типы синхронизаций: sequenciallly consistent (консистентно для следующих друг за другом), acquire-release (захват, освобождение), и relaxed orderings (&ldquo;расслабленное&rdquo; упорядочивание).</p>
+<blockquote>
+<p>why there is no copy constructor for std::atomic&lt;&gt;? #cpp #MOSCOW — Timur Safin (40+) <a href="https://twitter.com/tsafin/statuses/434621636302475264">15 февраля 2014</a>
+Because they are sync primitives and copying such primitive is an indication you are doing something wrong #cpp — Timur Safin (40+) <a href="https://twitter.com/tsafin/statuses/434621751893323776">15 февраля 2014</a>
+Totall: Do not use relaxed memory ordering ! #cpp #moscow — Timur Safin (40+) <a href="https://twitter.com/tsafin/statuses/434625084431413248">15 февраля 2014</a>
+Total: recommended to use hihger level promitives (std::future, packaged_tasks) and not low level primitives std::mutex/atomic — Timur Safin (40+) <a href="https://twitter.com/tsafin/statuses/434625522123816960">15 февраля 2014</a></p></blockquote>
+<p>Были даны обобщённые советы, чтобы аудитория никогда не использовала relaxed ordering, и вообще не заморачивалась про memory ordering и блокировки, а лучше использовала высокоуровневые примитивы типа std::future или packaged_tasks. На что Григорий Демченко (предыдущий докладчик про synca библиотеку) разумно возразил, что ему не заморачиваться не удаётся, и в жизни такое часто.</p>
+<blockquote>
+<p>Немножко запутал, конечно, аудиторию докладчик про memory ordering #cpp #moscow #usergroup — Timur Safin (40+) <a href="https://twitter.com/tsafin/statuses/434627215758618624">15 февраля 2014</a></p></blockquote>
+<p>Подводя итог, могу заметить, что Андрей Иванитский затронул важную, мало освещённую, мало понимаемую часть стандарта Си++. Но проблема в том, что, очевидно, эта часть ещё им самим не хорошо была изучена, и как результат ясности понимания у аудитории не возникло. С другой стороны, важная часть эффекта всё же была достигнута — меня и многих других этот доклад заставил заглянуть в стандарт и соответствующие материалы группы WG21. Надеюсь, в будущем это позволит вновь вернуться к данному вопросу и рассказать о нём уже с практической точки зрения, но уже на новом уровне понимания.</p>
+<p><em><em><a href="../../2014/02/moscow-c-users-group-4.html">Продолжение следует&hellip;</a></em></em></p>
+
+</article>
+
+    </main>
+    <footer>
+      &copy; 2025 Timur Safin - Making No Sense
+    </footer>
+  </body>
+</html>

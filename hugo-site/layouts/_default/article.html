@@ -1,0 +1,18 @@
+---
+layout: default
+---
+
+{{ define "main" }}
+<div id="main" role="main">
+  <article class="wrap" itemscope itemtype="http://schema.org/Article">
+    <div class="page-title">
+      <h1>{{ .Title }}</h1>
+    </div>
+    <div class="inner-wrap">
+      <div id="content" class="page-content" itemprop="articleBody">
+        {{ .Content }}
+      </div>
+    </div>
+  </article>
+</div>
+{{ end }}

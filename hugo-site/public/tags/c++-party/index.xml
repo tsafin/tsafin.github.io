@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>C&#43;&#43; Party on Timur Safin - Making No Sense</title>
+    <link>http://localhost:1313/tags/c&#43;&#43;-party/</link>
+    <description>Recent content in C&#43;&#43; Party on Timur Safin - Making No Sense</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 19 Apr 2014 14:58:00 +0400</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/c++-party/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Yandex C&#43;&#43; party, 27 марта 2014</title>
+      <link>http://localhost:1313/drafts/2014-04-19-yandex-c-party-27-2014/</link>
+      <pubDate>Sat, 19 Apr 2014 14:58:00 +0400</pubDate>
+      <guid>http://localhost:1313/drafts/2014-04-19-yandex-c-party-27-2014/</guid>
+      <description>&lt;blockquote&gt;Продолжу рассказ про встречи Си++ программистов в Москве. До прошлого года никакой активности в сообществе Си++ не было (ну или таковая сильно скрывалась и я не знал), в этом же году &#34;густо пошлО&#34;. Еще совсем недавно, 15 февраля, произошла первая встреча&#xA;    &#34;C++ Users Group Meeting&#34; в Москве, и немногим более через месяц, 27 марта, Яндекс устраивает аналогичную встречу (&#34;C++ party&#34;) но уже на своей базе. &lt;/blockquote&gt;&#xA;&lt;p&gt;Яндексовская встреча кардинально отличалась по формату от первой встречи:&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

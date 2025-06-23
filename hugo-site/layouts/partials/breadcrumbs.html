@@ -1,0 +1,23 @@
+{{ if .Params.categories }}
+<nav class="breadcrumbs">
+  <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+    <a href="{{ .Site.BaseURL }}" itemprop="url">
+      <span itemprop="title">Home</span>
+    </a> ›
+    {{ with (index .Params.categories 0) }}
+    <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+      <a href="{{ $.Site.BaseURL }}{{ . }}/" itemprop="url">
+        <span itemprop="title">{{ . | humanize | title }}</span>
+      </a>
+    </span>
+    {{ end }}
+  </span>
+</nav>
+{{ end }}
+{{ with .Params.blogger_orig_url }}
+<div class="breadcrumbs sm">
+  <a href="{{ . }}" itemprop="url">
+    {{ . }}&nbsp;<span class="glyphicon glyphicon-share" aria-hidden="true"></span>
+  </a>
+</div>
+{{ end }}

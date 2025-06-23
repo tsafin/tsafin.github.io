@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Московская встреча пользователей Си&#43;&#43; - часть 4 • Timur Safin - Making No Sense</title>
+    <style>
+      body { font-family: system-ui, sans-serif; margin: 0; padding: 0; background: #fafbfc; color: #222; }
+      header, footer { background: #222; color: #fff; padding: 1rem; text-align: center; }
+      main { max-width: 800px; margin: 2rem auto; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px #0001; padding: 2rem; }
+      h1, h2, h3 { color: #1a4b7a; }
+      a { color: #1a4b7a; text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      img { max-width: 100%; height: auto; border-radius: 4px; }
+      @media (max-width: 600px) {
+        main { padding: 1rem; margin: 0.5rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="/" style="color:#fff;text-decoration:none;"><strong>Timur Safin - Making No Sense</strong></a>
+    </header>
+    <main>
+      
+<h1>Московская встреча пользователей Си&#43;&#43; - часть 4</h1>
+<article>
+  <h3 id="антоний-полухин--boost-и-c11c14-новости-с-фронта-или-обо-всём-понемногу">Антоний Полухин — <a href="http://www.meetingcpp.ru/cpp/cpp-moscow-2014/3%20C++andBoost4.pdf">Boost и C++11/C++14: Новости с фронта, или обо всём понемногу</a></h3>
+<p>Доклад Антона Полухина, одного из контрибьюторов Boost-а (&ldquo;В свободное от работы время&rdquo;), не был посвящен какой-то определенной теме, а рассказывал о многом, что было недавно (за прошлый год) сделано в Boost. Больше всего такой рассказ был похож на, скажем, квартальный &ldquo;Status Update&rdquo; доклад о достижениях команды, часто делаемый в больших корпорациях. К нему ты не сильно обычно готовишься (15 минут — час), в него ты быстро набрасываешь все основные пункты из отчетов за период, и большую часть информации доносишь уже на презентации. Обычно аудитория в контексте (они читали твои регулярные отчеты), ты знаешь все ответы на вопросы (потому что ты собственно все это и делал), и такой доклад не сильно отвлекает от дел. Ты ведь программист, а не менеджер, тебе надо кодить, а не языком молотить?</p>
+<p>Именно такая легкость и некоторая часть импровизации импонировала в докладе Антона. Даже несмотря на малую связанность экранов между собой :) Нам всем был интересен прогресс в библиотеке Boost, т.к. большинство аудитории являлось, надеюсь, этой библиотеки пользователями.</p>
+<blockquote>
+<p>Next preseter: Anton Polukhin about Boost and C++11/14 #cpp — Timur Safin (40+) <a href="https://twitter.com/tsafin/statuses/434633715684089856">15 февраля 2014</a>
+<strong>PRETTY_FUNCTION</strong> and variadic templates (reduced executablel code size) #cpp11 — Timur Safin (40+) <a href="https://twitter.com/tsafin/statuses/434636188553453568">15 февраля 2014</a></p></blockquote>
+<p>Антон рассказал как введение в Си++ шаблонов с переменным количеством аргументов (variadic templates) счастливым образом отразилось на простоте кода библиотеки, уменьшении размера кода и отладочной информации.</p>
+<blockquote>
+<p>Boost for Android is being developed for a couple of years already #cpp #boost #moscow — Timur Safin (40+) <a href="https://twitter.com/tsafin/statuses/434637493430800386">15 февраля 2014</a>
+Next release of Boost will have Android changes #cpp #moscow — Timur Safin (40+) <a href="https://twitter.com/tsafin/statuses/434637629020053504">15 февраля 2014</a>
+github:regression_android project for Boost/Android regression testing — Timur Safin (40+) <a href="https://twitter.com/tsafin/statuses/434637724981530625">15 февраля 2014</a></p></blockquote>
+<p>Было упомянуто, что была активность по адаптации Boost к Android NDK, и все внесённые модификации должны быть доступны к следующему релизу. Соответствующие билд-боты будут поддерживать состояние Android порта через запуск набора регрессионных тестов.</p>
+<blockquote>
+<p>Since new year Boost has moved from SVN to GIT — Timur Safin (40+) <a href="https://twitter.com/tsafin/statuses/434637892648828928">15 февраля 2014</a>
+So far Boost developers annoyed with Git #cpp11 #moscow — Timur Safin (40+) <a href="https://twitter.com/tsafin/statuses/434638159553380353">15 февраля 2014</a></p></blockquote>
+<p>Как-то так получилось, что Антон пропустил дискуссию, где решалось на какую DVCS переходить, и не понял почему была выбрана Git, а не скажем Mercurial. Но уж что случилось, то случилось. С начала года Boost теперь хостится на Github, и разработчики, вне зависимости как они относятся к Git (плохо относятся, чего уж) обязаны его использовать. Может привыкнут когда, так везде. В любом случае, побочным эффектом перехода на GitHub был значительный рост внешних патчей. Очевидно, что популярность GitHub тут сыграла определённую роль.</p>
+<blockquote>
+<p>Next Boost will support VS2013 #cpp11 #boost #moscow — Timur Safin (40+) <a href="https://twitter.com/tsafin/statuses/434638647208321025">15 февраля 2014</a>
+Appeared that VS2013 was not correntlly handling variadic templates with Boost #cpp11 #boost #moscow — Timur Safin (40+) <a href="https://twitter.com/tsafin/statuses/434639006022660096">15 февраля 2014</a></p></blockquote>
+<p>При недавнем выпуске Visual Studio 2013 разработчики и пользователи Boost обнаружили, что новый VS2013 несовместим с последним Boost в С++11 режиме. Хотя ничего не предвещало, и бета версия компилятора была вполне в рабочем состоянии. Пришлось править Boost и большей частью выпиливать variadic-template в некоторых частях проекта.</p>
+<blockquote>
+<p>At the end he has requestsed help for boost ticket #8555. Commits welcome #cpp11 #moscow — Timur Safin (40+) <a href="https://twitter.com/tsafin/statuses/434640265219805184">15 февраля 2014</a></p></blockquote>
+<p>Не знаю из каких соображений, но Антон упомянул об одном странном баге, который никто не знает как лечить — <a href="https://svn.boost.org/trac/boost/ticket/8555">ticket #8555</a>. Если Вы знаете в чём закавыка — все будут премного благодарны.</p>
+<blockquote>
+<p>There is project which tries to migrate from bjam to cmake, but it has problems #cpp11 #boost #moscow — Timur Safin (40+) <a href="https://twitter.com/tsafin/statuses/434640418823622656">15 февраля 2014</a>
+Anton explains why bost.coroutines were postponed for reworking (to get rid of mem allocations) #cpp11 #boost #moscow — Timur Safin (40+) <a href="https://twitter.com/tsafin/statuses/434641828403363840">15 февраля 2014</a>
+Apparentlly Anton Polukhin still has not hard-copy of his own Boost book. Oops! #cpp11 #boost #moscow — Timur Safin (40+) <a href="https://twitter.com/tsafin/statuses/434641642830561280">15 февраля 2014</a></p></blockquote>
+<p>И, кстати, вы, наверное, знаете, что Антон является автором книги про Boost — <a href="http://www.packtpub.com/boost-cplusplus-application-development-cookbook/book">&ldquo;Boost C++ Application Development Cookbook&rdquo;</a>?</p>
+<p>Так вот, оказывается у него до сих пор нет ни одной копии этой книги. Издательство уже несколько раз пыталось прислать книгу автору, но каждый раз что-то не срасталось, и она возвращалась. Российская таможня — твёрдый орешек!</p>
+<p><img src="http://2.bp.blogspot.com/-HLnFMmdIbok/UwPqWu8jUeI/AAAAAAAAQcQ/PvcV3bI0oR4/s1600/boost_cookbook.png" alt="boost_cookbook"></p>
+<p>Даже с учётом таких проблем с таможней, я думаю, имеет смысл (хотя бы некоторым из нас) пойти на сайт издательства и купить электронную и/или твёрдую копию этой полезной книги. Поддержим копеечкой отечественного автора!</p>
+<p><em><em><a href="../../2014/02/moscow-c-users-group-5.html">Продолжение следует&hellip;</a></em></em></p>
+
+</article>
+
+    </main>
+    <footer>
+      &copy; 2025 Timur Safin - Making No Sense
+    </footer>
+  </body>
+</html>

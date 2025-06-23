@@ -1,0 +1,7 @@
+<h3>Latest {{ with (index .Params.categories 0) }}{{ . | humanize | title }}{{ end }}</h3>
+<ul>
+  {{ $cat := (index .Params.categories 0) }}
+  {{ range first 3 (where .Site.RegularPages "Params.categories" "intersect" (slice $cat)) }}
+    <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+  {{ end }}
+</ul>

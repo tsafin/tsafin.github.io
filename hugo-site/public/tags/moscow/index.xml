@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Moscow on Timur Safin - Making No Sense</title>
+    <link>http://localhost:1313/tags/moscow/</link>
+    <description>Recent content in Moscow on Timur Safin - Making No Sense</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 21 Apr 2014 01:54:00 +0400</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/moscow/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>DroidCon Moscow, 11 апреля 2014</title>
+      <link>http://localhost:1313/posts/droidcon-moscow-11-%D0%B0%D0%BF%D1%80%D0%B5%D0%BB%D1%8F-2014/</link>
+      <pubDate>Mon, 21 Apr 2014 01:54:00 +0400</pubDate>
+      <guid>http://localhost:1313/posts/droidcon-moscow-11-%D0%B0%D0%BF%D1%80%D0%B5%D0%BB%D1%8F-2014/</guid>
+      <description>&lt;script async src=&#34;//platform.twitter.com/widgets.js&#34; charset=&#34;utf-8&#34;&gt;&lt;/script&gt;&#xA;&lt;div id=&#34;fb-root&#34;&gt;&lt;/div&gt;&#xA;&lt;script&gt;&#xA;    (function(d, s, id) {&#xA;        var js, fjs = d.getElementsByTagName(s)[0];&#xA;        if (d.getElementById(id)) return;&#xA;        js = d.createElement(s);&#xA;        js.id = id;&#xA;        js.src = &#34;//connect.facebook.net/en_US/all.js#xfbml=1&#34;;&#xA;        fjs.parentNode.insertBefore(js, fjs);&#xA;    }(document, &#39;script&#39;, &#39;facebook-jssdk&#39;));&#xA;&lt;/script&gt;&#xA;&lt;div&gt;Я вообще не знал и ранее не слышал про DroidCon конференцию, случайно встретил ссылку на неё в твитере Ya.Events. Ну и так как Яндекс предоставлял &#34;хак&#34; позволяющий бесплатно сходить на эту конференцию, я и пошел. Почему бы нет? Андроид я люблю. Хакатонов&#xA;    отродясь не видел. Посмотрим на молодое поколение, может чего нового узнаем.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

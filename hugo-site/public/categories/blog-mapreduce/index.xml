@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blog Mapreduce on Timur Safin - Making No Sense</title>
+    <link>http://localhost:1313/categories/blog-mapreduce/</link>
+    <description>Recent content in Blog Mapreduce on Timur Safin - Making No Sense</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 14 Nov 2016 16:00:00 +0300</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/blog-mapreduce/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Удаленное прокси может быть не (очень) больно</title>
+      <link>http://localhost:1313/posts/%D1%83%D0%B4%D0%B0%D0%BB%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5-%D0%BF%D1%80%D0%BE%D0%BA%D1%81%D0%B8-%D0%BC%D0%BE%D0%B6%D0%B5%D1%82-%D0%B1%D1%8B%D1%82%D1%8C-%D0%BD%D0%B5-%D0%BE%D1%87%D0%B5%D0%BD%D1%8C-%D0%B1%D0%BE%D0%BB%D1%8C%D0%BD%D0%BE/</link>
+      <pubDate>Mon, 14 Nov 2016 16:00:00 +0300</pubDate>
+      <guid>http://localhost:1313/posts/%D1%83%D0%B4%D0%B0%D0%BB%D0%B5%D0%BD%D0%BD%D0%BE%D0%B5-%D0%BF%D1%80%D0%BE%D0%BA%D1%81%D0%B8-%D0%BC%D0%BE%D0%B6%D0%B5%D1%82-%D0%B1%D1%8B%D1%82%D1%8C-%D0%BD%D0%B5-%D0%BE%D1%87%D0%B5%D0%BD%D1%8C-%D0%B1%D0%BE%D0%BB%D1%8C%D0%BD%D0%BE/</guid>
+      <description>&lt;h2 id=&#34;динамическая-диспетчеризация-спешит-на-помощь&#34;&gt;(Динамическая диспетчеризация спешит на помощь)&lt;/h2&gt;&#xA;&lt;p&gt;После нескольких статей про &lt;strong&gt;MapReduce&lt;/strong&gt; нам показалось необходимым еще раз отойти в сторону и поговорить про инфраструктуру, которая поможет облегчить построение решения MapReduce. Мы, по-прежнему, говорим про &lt;strong&gt;InterSystems Caché&lt;/strong&gt;, и, по-прежнему, пытаемся построить &lt;strong&gt;MapReduce&lt;/strong&gt; систему на базе имеющихся в системе подручных материалов.&lt;/p&gt;&#xA;&lt;p&gt;На определенном этапе написания системы, типа &lt;strong&gt;MapReduce&lt;/strong&gt;, встает задача удобного вызова удаленных методов и процедур (например, посылка управляющих сообщений с контроллера на сторону управляемых узлов). В среде Caché есть несколько простых, но не очень удобных методов достичь этой цели, тогда как хочется бы получить &lt;em&gt;именно удобный&lt;/em&gt;.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>MapReduce из подручных материалов. Часть III – собираем все вместе</title>
+      <link>http://localhost:1313/posts/mapreduce-%D0%B8%D0%B7-%D0%BF%D0%BE%D0%B4%D1%80%D1%83%D1%87%D0%BD%D1%8B%D1%85-%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D0%BE%D0%B2.-%D1%87%D0%B0%D1%81%D1%82%D1%8C-iii-%D1%81%D0%BE%D0%B1%D0%B8%D1%80%D0%B0%D0%B5%D0%BC-%D0%B2%D1%81%D0%B5-%D0%B2%D0%BC%D0%B5%D1%81%D1%82%D0%B5/</link>
+      <pubDate>Mon, 17 Oct 2016 00:00:00 +0300</pubDate>
+      <guid>http://localhost:1313/posts/mapreduce-%D0%B8%D0%B7-%D0%BF%D0%BE%D0%B4%D1%80%D1%83%D1%87%D0%BD%D1%8B%D1%85-%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D0%BE%D0%B2.-%D1%87%D0%B0%D1%81%D1%82%D1%8C-iii-%D1%81%D0%BE%D0%B1%D0%B8%D1%80%D0%B0%D0%B5%D0%BC-%D0%B2%D1%81%D0%B5-%D0%B2%D0%BC%D0%B5%D1%81%D1%82%D0%B5/</guid>
+      <description>&lt;blockquote&gt;&#xA;&lt;p&gt;&lt;em&gt;&lt;a href=&#34;http://fineartamerica.com/featured/mosaic-joan-pollak.html&#34;&gt;&lt;img src=&#34;https://habrastorage.org/files/6ff/2e3/a5d/6ff2e3a5d1404619883c068798441862.jpg&#34; alt=&#34;Mosaic by Joan Pollak&#34; align=&#34;left&#34; width=&#34;288&#34; height=&#34;240&#34; /&gt;&lt;/a&gt;&lt;a href=&#34;../mapreduce-russian-part-i/&#34;&gt;В первой (достаточно капитанской) части этой серии&lt;/a&gt; мы рассказали про базовые концепции MapReduce почему это плохо, почему это неизбежно, и как с этим жить в других средах разработки (если вы не про Си++ или Java). Во &lt;a href=&#34;../mapreduce-russian-part-ii/&#34;&gt;второй части&lt;/a&gt; мы-таки начали рассказывать про базовые классы реализации MapReduce на Caché ObjectScript, введя абстрактные интерфейсы и их первичные реализации.&#xA;Сегодня пришел наш день! – мы покажем первый пример собранный в парадигме MapReduce, да, он будет странный и не самый эффективный, и совсем не распределенный, но вполне MapReduce.&lt;/em&gt;&#xA;&lt;habracut/&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Еще раз про MapReduce. Часть 2 – базовые интерфейсы реализации</title>
+      <link>http://localhost:1313/posts/%D0%B5%D1%89%D0%B5-%D1%80%D0%B0%D0%B7-%D0%BF%D1%80%D0%BE-mapreduce.-%D1%87%D0%B0%D1%81%D1%82%D1%8C-2-%D0%B1%D0%B0%D0%B7%D0%BE%D0%B2%D1%8B%D0%B5-%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D1%84%D0%B5%D0%B9%D1%81%D1%8B-%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%B8/</link>
+      <pubDate>Tue, 04 Oct 2016 13:24:00 +0300</pubDate>
+      <guid>http://localhost:1313/posts/%D0%B5%D1%89%D0%B5-%D1%80%D0%B0%D0%B7-%D0%BF%D1%80%D0%BE-mapreduce.-%D1%87%D0%B0%D1%81%D1%82%D1%8C-2-%D0%B1%D0%B0%D0%B7%D0%BE%D0%B2%D1%8B%D0%B5-%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D1%84%D0%B5%D0%B9%D1%81%D1%8B-%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%B8/</guid>
+      <description>&lt;blockquote&gt;&#xA;&lt;p&gt;&lt;em&gt;&lt;a href=&#34;http://fineartamerica.com/featured/take-it-like-a-man-joan-pollak.html&#34;&gt;&lt;img src=&#34;https://habrastorage.org/files/e4c/cac/f03/e4ccacf0316840bca92ee668bfdb1f95.jpg&#34; align=&#34;left&#34; width=&#34;288&#34; height=&#34;240&#34; alt=&#34;Take it like a man by Joan Pollak&#34; /&gt;&lt;/a&gt;&lt;a href=&#34;../mapreduce-russian-part-i/&#34;&gt;В предыдущей части серии&lt;/a&gt; мы (в 100500й раз) попытались рассказать про основные приемы и стадии подхода Google MapReduce, должен признаться, что первая часть была намерено &amp;ldquo;капитанской&amp;rdquo;, чтобы дать знать о MapReduce целевой аудитории последующих статей. Мы не успели показать ни строчки того, как всё это мы собираемся реализовывать в Caché ObjectScript. И про это наша рассказ сегодня (и в последующие дни).&lt;/em&gt;&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;p&gt;Напомним первоначальный посыл нашего мини-проекта: вы всё еще планируем реализовать MapReduce алгоритм используя те подручные средства, что есть в Caché ObjectScript. При создании интерфейсов, мы попытаемся придерживаться того API, что мы описали в предыдущей статье про оригинальную реализацию Google MapReduce, любые девиации будут озвучены соответствующе.&#xA;&lt;habracut/&gt;&#xA;Начнем с реализации абстрактных интерфейсов Mapper и Reducer.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Какая-такая Data? или Еще раз про MapReduce</title>
+      <link>http://localhost:1313/posts/%D0%BA%D0%B0%D0%BA%D0%B0%D1%8F-%D1%82%D0%B0%D0%BA%D0%B0%D1%8F-data-%D0%B8%D0%BB%D0%B8-%D0%B5%D1%89%D0%B5-%D1%80%D0%B0%D0%B7-%D0%BF%D1%80%D0%BE-mapreduce/</link>
+      <pubDate>Mon, 26 Sep 2016 17:07:00 +0300</pubDate>
+      <guid>http://localhost:1313/posts/%D0%BA%D0%B0%D0%BA%D0%B0%D1%8F-%D1%82%D0%B0%D0%BA%D0%B0%D1%8F-data-%D0%B8%D0%BB%D0%B8-%D0%B5%D1%89%D0%B5-%D1%80%D0%B0%D0%B7-%D0%BF%D1%80%D0%BE-mapreduce/</guid>
+      <description>&lt;blockquote&gt;&#xA;&lt;p&gt;&lt;em&gt;&lt;a href=&#34;https://habrahabr.ru/company/intersystems/blog/310180/&#34;&gt;&lt;img src=&#34;https://habrastorage.org/getpro/habr/post_images/fa7/7e6/27c/fa77e627c184bec95f61df62ccca0b54.jpg&#34; align=&#34;left&#34; width=&#34;288&#34; height=&#34;240&#34; alt=&#34;Big Fish Small Fry by John Pollack&#34;/&gt;&lt;/a&gt; Если Вы последние 10 лет провели на удаленном острове, без интернета и в отрыве от цивилизации, то специально для Вас мы попытаемся еще раз рассказать про концепцию MapReduce. Введение будет небольшим, в объеме достаточном, для реализации концепции MapReduce в среде InterSystems Caché. Если же Вы не сильно далеко удалялись последние 10 лет, то сразу переходите ко 2ой части, где мы создаем основы инфраструктуры.&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;&lt;/em&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Caché MapReduce - putting it all together – WordCount example (part III)</title>
+      <link>http://localhost:1313/posts/cach%C3%A9-mapreduce-putting-it-all-together-wordcount-example-part-iii/</link>
+      <pubDate>Wed, 07 Sep 2016 00:56:00 +0400</pubDate>
+      <guid>http://localhost:1313/posts/cach%C3%A9-mapreduce-putting-it-all-together-wordcount-example-part-iii/</guid>
+      <description>&lt;p&gt;&lt;em&gt;In &lt;a href=&#34;https://community.intersystems.com/post/cach%C3%A9-mapreduce-introduction-bigdata-and-mapreduce-concept&#34;&gt;part I&lt;/a&gt; of this series we have introduced MapReduce as a generic concept, and in &lt;a href=&#34;https://community.intersystems.com/post/cach%C3%A9-mapreduce-basic-interfaces-mapreduce-implementation-part-ii&#34;&gt;part II&lt;/a&gt; we started to approach Caché ObjectScript implementation via introducing abstract interfaces. Now we will try to provide more concrete examples of applications using MapReduce.&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&lt;!--break--&gt;&lt;/p&gt;&lt;h2&gt;WordCount – Simple sequential implementation&lt;/h2&gt;&lt;p&gt;MapReduce is all about parallelization and scalability. But let admit– it is very hard to understand and debug applications if they are parallel from the beginning. For simplicity sake we rather start from sequential version of wordcount algorithm, and then will add some parallelism.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Caché MapReduce - Basic interfaces for MapReduce implementation (part II)</title>
+      <link>http://localhost:1313/posts/cach%C3%A9-mapreduce-basic-interfaces-for-mapreduce-implementation-part-ii/</link>
+      <pubDate>Fri, 02 Sep 2016 00:56:00 +0400</pubDate>
+      <guid>http://localhost:1313/posts/cach%C3%A9-mapreduce-basic-interfaces-for-mapreduce-implementation-part-ii/</guid>
+      <description>&lt;p&gt;&lt;em&gt;In the &lt;a href=&#34;../mapreduce-english-part-i/&#34;&gt;prior part of this series&lt;/a&gt; we have provided introduction to Google MapReduce approach, but still not covered their possible ObjectScript implementation. Which we will start to explain today.&lt;/em&gt;&lt;/p&gt;&#xD;&#xA;&lt;p&gt;&lt;!--break--&gt;&lt;/p&gt;&#xD;&#xA;&lt;p&gt;We still plan to model Caché ObjectScript MapReduce implementation quite close to the original Google C++ example given before. We start from Mapper and Reducer abstract interfaces which will be implemented elsewhere later:&lt;/p&gt;&lt;div&gt;&#xD;&#xA;&lt;p&gt;{% highlight text %}&#xA;/// Base class for MapReduce Mapper.&#xA;Class MR.Base.Mapper&#xA;{&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Caché MapReduce - introduction to BigData and MapReduce concept</title>
+      <link>http://localhost:1313/posts/cach%C3%A9-mapreduce-introduction-to-bigdata-and-mapreduce-concept/</link>
+      <pubDate>Fri, 19 Aug 2016 00:56:00 +0400</pubDate>
+      <guid>http://localhost:1313/posts/cach%C3%A9-mapreduce-introduction-to-bigdata-and-mapreduce-concept/</guid>
+      <description>&lt;p&gt;Several years ago everyone got mad&amp;nbsp;about BigData – nobody knew when smallish data will become BIGDATA, but all knows&#xD;&#xA;&#x9;that it’s trendy and the way to go. Time passed, BigData is not a buzz anymore (most of us missed the moment when Gartner&#xD;&#xA;&#x9;has removed BigData term from their 2016 buzzword 2016 curve &lt;a href=&#34;http://www.kdnuggets.com/2015/08/gartner-2015-hype-cycle-big-data-is-out-machine-learning-is-in.html&#34;&gt;http://www.kdnuggets.com/2015/08/gartner-2015-hype-cycle-big-data-is-out-machine-learning-is-in.html&lt;/a&gt;),&#xD;&#xA;&#x9;so it’s probably a good time to look back and realize what it is (what it was)…&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Remote proxy objects via dynamic dispatch</title>
+      <link>http://localhost:1313/posts/remote-proxy-objects-via-dynamic-dispatch/</link>
+      <pubDate>Tue, 19 Jul 2016 00:00:00 +0300</pubDate>
+      <guid>http://localhost:1313/posts/remote-proxy-objects-via-dynamic-dispatch/</guid>
+      <description>&lt;h1 id=&#34;dynamic-dispatch-to-the-rescue&#34;&gt;(Dynamic dispatch to the rescue)&lt;/h1&gt;&#xA;&lt;p&gt;This article created as side effect of preparations to the longer set of articles about simple, but still handy MapReduce implementation in Caché. I was looking for relatively easy way to pass arguments to (potentially) multiple targets via remote calling facilities. And after several attempts I have realized that we do have very powerful mechanism in the Caché ObjectScript which might be of particular help here – dynamic dispatch for methods and properties.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

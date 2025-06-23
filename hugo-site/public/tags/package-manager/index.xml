@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Package Manager on Timur Safin - Making No Sense</title>
+    <link>http://localhost:1313/tags/package-manager/</link>
+    <description>Recent content in Package Manager on Timur Safin - Making No Sense</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 25 Nov 2014 17:24:00 +0300</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/package-manager/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Intersystems Caché - Approaching Community Package Manager - Part II</title>
+      <link>http://localhost:1313/posts/intersystems-cach%C3%A9-approaching-community-package-manager-part-ii/</link>
+      <pubDate>Tue, 25 Nov 2014 17:24:00 +0300</pubDate>
+      <guid>http://localhost:1313/posts/intersystems-cach%C3%A9-approaching-community-package-manager-part-ii/</guid>
+      <description>&lt;blockquote&gt;This is the second part of my long post &lt;a href=&#34;http://localhost:1313/2014/11/community-package-manager-part-i.html&#34;&gt;about package managers in various operating systems and language distributions&lt;/a&gt;. Now you probably &#34;buy the idea&#34; that convenient package manager and 3&lt;sup&gt;rd&lt;/sup&gt;    party code repository is the key factor in establishing of a live and popular ecosystem. In the second part we will discuss the action plan for creating of a package-manager for the Cach&amp;eacute;​ database environment.&lt;/blockquote&gt;&#xA;&lt;p&gt;​So let try to estimate how much we should implement if we would try to add some basic package management facilities to Cach&amp;eacute; ecosystem? Should we do anything in the kernel, or could it be done as external service? What is the &lt;em&gt;minimum functionality&lt;/em&gt;    necessary at the beginning to establish anything resembling package management repository? Which still be useful?&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Intersystems Caché - Approaching Community Package Manager - Part I</title>
+      <link>http://localhost:1313/posts/intersystems-cach%C3%A9-approaching-community-package-manager-part-i/</link>
+      <pubDate>Tue, 25 Nov 2014 17:06:00 +0300</pubDate>
+      <guid>http://localhost:1313/posts/intersystems-cach%C3%A9-approaching-community-package-manager-part-i/</guid>
+      <description>&lt;blockquote&gt;&#xA;&lt;p&gt;Here is the problem as I see in the Caché developers community - if you are newbie COS/Ensemble/DeepSee developer then it&amp;rsquo;s very hard to find any suitable 3rd party component, library or utility. They are spread over the Internet, some of them are in the GitHub, some of them in SourceForce, rare ones are on their own sites, etc. Yes, there are many useful components or tools (there are even standalone debugger or VCS) but it takes &lt;em&gt;some time&lt;/em&gt; to discover all the useful location, and get to used to this situation.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

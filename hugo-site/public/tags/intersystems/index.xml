@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Intersystems on Timur Safin - Making No Sense</title>
+    <link>http://localhost:1313/tags/intersystems/</link>
+    <description>Recent content in Intersystems on Timur Safin - Making No Sense</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 25 Nov 2014 17:24:00 +0300</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/intersystems/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Intersystems Caché - Approaching Community Package Manager - Part II</title>
+      <link>http://localhost:1313/posts/intersystems-cach%C3%A9-approaching-community-package-manager-part-ii/</link>
+      <pubDate>Tue, 25 Nov 2014 17:24:00 +0300</pubDate>
+      <guid>http://localhost:1313/posts/intersystems-cach%C3%A9-approaching-community-package-manager-part-ii/</guid>
+      <description>&lt;blockquote&gt;This is the second part of my long post &lt;a href=&#34;http://localhost:1313/2014/11/community-package-manager-part-i.html&#34;&gt;about package managers in various operating systems and language distributions&lt;/a&gt;. Now you probably &#34;buy the idea&#34; that convenient package manager and 3&lt;sup&gt;rd&lt;/sup&gt;    party code repository is the key factor in establishing of a live and popular ecosystem. In the second part we will discuss the action plan for creating of a package-manager for the Cach&amp;eacute;​ database environment.&lt;/blockquote&gt;&#xA;&lt;p&gt;​So let try to estimate how much we should implement if we would try to add some basic package management facilities to Cach&amp;eacute; ecosystem? Should we do anything in the kernel, or could it be done as external service? What is the &lt;em&gt;minimum functionality&lt;/em&gt;    necessary at the beginning to establish anything resembling package management repository? Which still be useful?&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Intersystems Caché - Approaching Community Package Manager - Part I</title>
+      <link>http://localhost:1313/posts/intersystems-cach%C3%A9-approaching-community-package-manager-part-i/</link>
+      <pubDate>Tue, 25 Nov 2014 17:06:00 +0300</pubDate>
+      <guid>http://localhost:1313/posts/intersystems-cach%C3%A9-approaching-community-package-manager-part-i/</guid>
+      <description>&lt;blockquote&gt;&#xA;&lt;p&gt;Here is the problem as I see in the Caché developers community - if you are newbie COS/Ensemble/DeepSee developer then it&amp;rsquo;s very hard to find any suitable 3rd party component, library or utility. They are spread over the Internet, some of them are in the GitHub, some of them in SourceForce, rare ones are on their own sites, etc. Yes, there are many useful components or tools (there are even standalone debugger or VCS) but it takes &lt;em&gt;some time&lt;/em&gt; to discover all the useful location, and get to used to this situation.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Intersystems Meetup в Питере</title>
+      <link>http://localhost:1313/posts/intersystems-meetup-%D0%B2-%D0%BF%D0%B8%D1%82%D0%B5%D1%80%D0%B5/</link>
+      <pubDate>Thu, 16 Oct 2014 00:56:00 +0400</pubDate>
+      <guid>http://localhost:1313/posts/intersystems-meetup-%D0%B2-%D0%BF%D0%B8%D1%82%D0%B5%D1%80%D0%B5/</guid>
+      <description>&lt;div id=&#34;fb-root&#34;&gt;&lt;/div&gt;&#xA;&lt;script&gt;&#xA;    (function(d, s, id) {&#xA;        var js, fjs = d.getElementsByTagName(s)[0];&#xA;        if (d.getElementById(id)) return;&#xA;        js = d.createElement(s);&#xA;        js.id = id;&#xA;        js.src = &#34;//connect.facebook.net/en_US/all.js#xfbml=1&#34;;&#xA;        fjs.parentNode.insertBefore(js, fjs);&#xA;    }(document, &#39;script&#39;, &#39;facebook-jssdk&#39;));&#xA;&lt;/script&gt;&#xA;&lt;div class=&#34;fb-post&#34; data-href=&#34;https://www.facebook.com/timur.safin/posts/10152580010423649:0&#34; data-width=&#34;466&#34;&gt;&#xA;    &lt;div class=&#34;fb-xfbml-parse-ignore&#34;&gt;&lt;a href=&#34;https://www.facebook.com/timur.safin/posts/10152580010423649:0&#34;&gt;Post&lt;/a&gt; by &lt;a href=&#34;https://www.facebook.com/timur.safin&#34;&gt;Timur Safin&lt;/a&gt;.&lt;/div&gt;&#xA;&lt;/div&gt;</description>
+    </item>
+  </channel>
+</rss>

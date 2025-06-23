@@ -1,0 +1,43 @@
+baseURL = 'http://tsafin.net/'
+languageCode = 'en'
+title = 'Timur Safin - Making No Sense'
+description = 'Try to be public. Again'
+timezone = 'UTC'
+
+[params]
+  logo = 'tsafin_twitter_small_logo.jpg'
+  teaser = '400x250.gif'
+  google_analytics_key = 'UA-84704404-1'
+  yandex_metrika_key = '40768979'
+  disqusShortname = 'tsafin-net'
+  owner_name = 'Timur Safin'
+  owner_email = 'timur.safin@gmail.com'
+  facebook = 'timur.safin'
+  instagram = 'tsafin'
+  twitter = 'tsafin'
+  github = 'tsafin'
+  docker = 'tsafin'
+  linkedin = 'timursafin'
+  intersystems = '33801'
+  photo = 'timur-safin-demo.png'
+  avatar = 'tsafin_twitter_small_logo.jpg'
+
+[permalinks]
+  posts = "/:sections/:title/"
+
+[markup]
+  [markup.tableOfContents]
+    startLevel = 1
+    endLevel = 2
+  [markup.highlight]
+    codeFences = true
+    guessSyntax = true
+    hl_Lines = ""
+    lineNoStart = 1
+    lineNos = true
+    lineNumbersInTable = true
+    noClasses = false
+    style = "monokai"
+    tabWidth = 4
+  [markup.goldmark.renderer]
+    unsafe = true

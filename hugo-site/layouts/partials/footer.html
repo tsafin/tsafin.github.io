@@ -1,0 +1,10 @@
+<footer role="contentinfo" id="site-footer">
+  <nav role="navigation" class="menu bottom-menu">
+    <ul class="menu-item">
+      {{ range .Site.Data.footer }}
+        <li><a href="{{ .url }}" {{ if (in .url "http") }}target="_blank"{{ end }}>{{ .title }}</a></li>
+      {{ end }}
+    </ul>
+  </nav>
+  <p class="copyright">&copy; {{ now.Format "2006" }} <a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a> powered by <a href="https://gohugo.io/" rel="nofollow">Hugo</a>.</p>
+</footer>

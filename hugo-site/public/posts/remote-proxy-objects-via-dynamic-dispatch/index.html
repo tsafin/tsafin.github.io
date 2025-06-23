@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Remote proxy objects via dynamic dispatch • Timur Safin - Making No Sense</title>
+    <style>
+      body { font-family: system-ui, sans-serif; margin: 0; padding: 0; background: #fafbfc; color: #222; }
+      header, footer { background: #222; color: #fff; padding: 1rem; text-align: center; }
+      main { max-width: 800px; margin: 2rem auto; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px #0001; padding: 2rem; }
+      h1, h2, h3 { color: #1a4b7a; }
+      a { color: #1a4b7a; text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      img { max-width: 100%; height: auto; border-radius: 4px; }
+      @media (max-width: 600px) {
+        main { padding: 1rem; margin: 0.5rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="/" style="color:#fff;text-decoration:none;"><strong>Timur Safin - Making No Sense</strong></a>
+    </header>
+    <main>
+      
+<h1>Remote proxy objects via dynamic dispatch</h1>
+<article>
+  <h1 id="dynamic-dispatch-to-the-rescue">(Dynamic dispatch to the rescue)</h1>
+<p>This article created as side effect of preparations to the longer set of articles about simple, but still handy MapReduce implementation in Caché. I was looking for relatively easy way to pass arguments to (potentially) multiple targets via remote calling facilities. And after several attempts I have realized that we do have very powerful mechanism in the Caché ObjectScript which might be of particular help here – dynamic dispatch for methods and properties.</p>
+<p>Since Caché 5.2 there are multiple predefined methods inherited by any object based on <a href="http://docs.intersystems.com/latest/csp/documatic/%25CSP.Documatic.cls?PAGE=CLASS&amp;LIBRARY=ENSLIB&amp;CLASSNAME=%25RegisteredObject">%RegisteredObject</a> (at the moment they are established in <a href="http://docs.intersystems.com/latest/csp/documatic/%25CSP.Documatic.cls?PAGE=CLASS&amp;LIBRARY=ENSLIB&amp;CLASSNAME=%25Library.SystemBase">%Library.SystemBase</a>) and which are called if there is unknown method or property call, for the name not defined in the class metadata.</p>
+<p>| <code>Method %DispatchMethod (Method As %String, Args...)</code> | Unknown method call or access to unknown multidimensional property (their syntax is identical) |
+| <code>ClassMethod %DispatchClassMethod (Class As %String, Method As %String, Args...)</code> | Unknown classmethod call for the given class |
+| <code>Method %DispatchGetProperty (Property As %String)</code> | Getter for access to an unknown property |
+| <code>Method %DispatchSetProperty (Property As %String, Val)</code> | Setter for an unknown property |
+| <code>Method %DispatchSetMultidimProperty (Property As %String, Val, Subs...)</code> | Setter for an unknown multidimensional property (<em>not used in this story</em>) |
+| <code>Method %DispatchGetModified (Property As %String)</code> | Get &ldquo;modified&rdquo; flag value for an unknown property (<em>not used in this story</em>) |
+| <code>Method %DispatchSetModified (Property As %String, Val)</code> | Set &ldquo;modified&rdquo; flag value for an unknown property(<em>not used in this story</em>) |</p>
+<p>For simplicity sake, we will use only unknown method calls and access to unknown properties, but for the product grade systems, you might eventually override all mentioned methods.</p>
+<h2 id="logging-proxy-sample">Logging proxy sample</h2>
+<p>There is good example of dynamic dispatch methods usage in the CACHELIB, and it is called <a href="http://docs.intersystems.com/cache20161/csp/documatic/%25CSP.Documatic.cls?PAGE=CLASS&amp;LIBRARY=%25SYS&amp;CLASSNAME=%25ZEN.proxyObject"><code>%ZEN.proxyObject</code></a>, historically it allowed to operate dynamic properties, even at the times when there was no DocumentDB API and there was no native JSON support in the kernel.</p>
+<p>While still approaching our long-term goal (remote proxy object implementation), let's experiment with something simpler, i.e. to create &quot;logging proxy&quot;, where we will wrap any access to the particular object API using dynamic dispatch methods, while logging each event. [Actually, this provides side effect similar to mocking techniques used in other language environments].</p>
+<p>Let assume we have rudimentary Person class known as <code>Sample.SimplePerson</code> (due to some rare incident, which is very similar to <code>Sample.Person</code> from the SAMPLES namespace :wink: )</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">DEVLATEST:15:23:32:MAPREDUCE&gt;set p = ##class(Sample.SimplePerson).%OpenId(2)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">DEVLATEST:15:23:34:MAPREDUCE&gt;zw p
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">p=&lt;OBJECT REFERENCE&gt;[1@Sample.SimplePerson]
+</span></span><span class="line"><span class="cl">+----------------- general information ---------------
+</span></span><span class="line"><span class="cl">|      oref value: 1
+</span></span><span class="line"><span class="cl">|      class name: Sample.SimplePerson
+</span></span><span class="line"><span class="cl">|           %%OID: $lb(&#34;2&#34;,&#34;Sample.SimplePerson&#34;)
+</span></span><span class="line"><span class="cl">| reference count: 2
+</span></span><span class="line"><span class="cl">+----------------- attribute values ------------------
+</span></span><span class="line"><span class="cl">|       %Concurrency = 1  &lt;Set&gt;
+</span></span><span class="line"><span class="cl">|                Age = 9
+</span></span><span class="line"><span class="cl">|           Contacts = 23
+</span></span><span class="line"><span class="cl">|               Name = &#34;Waal,Nataliya Q.&#34;
+</span></span><span class="line"><span class="cl">+-----------------------------------------------------
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Let's wrap access to this object properties to the logging class instance, and each access to property or method call will write to the logging global somewhere.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">/// simple sample of a logging proxy object:
+</span></span><span class="line"><span class="cl">/// each access (via call or property access) will 
+</span></span><span class="line"><span class="cl">/// be logged to the designated global
+</span></span><span class="line"><span class="cl">Class Sample.LoggingProxy Extends %RegisteredObject
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">/// log access log to this global
+</span></span><span class="line"><span class="cl">Parameter LoggingGlobal As %String = &#34;^Sample.LoggingProxy&#34;;
+</span></span><span class="line"><span class="cl">/// keep openedobject for the proxy access later
+</span></span><span class="line"><span class="cl">Property OpenedObject As %RegisteredObject;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">/// generic log utility, which save new string as a next global entry
+</span></span><span class="line"><span class="cl">ClassMethod Log(Value As %String)
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    #dim gloRef = ..#LoggingGlobal
+</span></span><span class="line"><span class="cl">    set @gloRef@($increment(@gloRef)) = Value
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">/// more convenient log method for writing prefix (i.e. method name)
+</span></span><span class="line"><span class="cl">/// and arguments we were called in
+</span></span><span class="line"><span class="cl">ClassMethod LogArgs(prefix As %String, args...)
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    #dim S as %String = $get(prefix) _ &#34;: &#34; _ $get(args(1))
+</span></span><span class="line"><span class="cl">    #dim i as %Integer
+</span></span><span class="line"><span class="cl">    for i=2:1:$get(args) {
+</span></span><span class="line"><span class="cl">        set S = S_&#34;,&#34;_args(i)
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">    do ..Log(S)
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">/// open instance of a different class using given %ID
+</span></span><span class="line"><span class="cl">ClassMethod %CreateInstance(className As %String, %ID As %String) As Sample.LoggingProxy
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    #dim wrapper = ..%New()
+</span></span><span class="line"><span class="cl">    set wrapper.OpenedObject = $classmethod(className, &#34;%OpenId&#34;, %ID)
+</span></span><span class="line"><span class="cl">    return wrapper
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">/// log arguments and then dispatch dynamically method to the proxy object
+</span></span><span class="line"><span class="cl">Method %DispatchMethod(methodName As %String, args...)
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    do ..LogArgs(methodName, args...)
+</span></span><span class="line"><span class="cl">    return $method(..OpenedObject, methodName, args...)
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">/// log arguments and then dispatch dynamically property access to the proxy object
+</span></span><span class="line"><span class="cl">Method %DispatchGetProperty(Property As %String)
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    #dim Value as %String = $property(..OpenedObject, Property)
+</span></span><span class="line"><span class="cl">    do ..LogArgs(Property, Value)
+</span></span><span class="line"><span class="cl">    return Value
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">/// log arguments and then dispatch dynamically property access to the proxy object
+</span></span><span class="line"><span class="cl">Method %DispatchSetProperty(Property, Value As %String)
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    do ..LogArgs(Property, Value)
+</span></span><span class="line"><span class="cl">    set $property(..OpenedObject, Property) = Value
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol>
+<li>There is class parameter <code>#LoggingGlobal</code> which defines where we store our log (<code>^Sample.LogginGlobal</code> in this case);</li>
+<li>There are simple <code>Log(Arg)</code> and <code>LogArgs(prefix, args...)</code> methods which allow conveniently write to this global passed argument or list of them;</li>
+<li><code>%DispatchMethod</code>, <code>%DispatchGetProperty</code> or <code>%DispatchSetProperty</code> handle their respective parts of unknown method call or unknown property access. They log each access event via <code>LogArgs</code> method, then directly call the wrapped object (<code>..%OpenedObject</code>) methods or access properties;</li>
+<li>And there is the &ldquo;factory method&rdquo; <code>%CreateInstance</code> which is opening instance of an asked classname given their instance <code>%ID</code>. The created object is &ldquo;wrapped&rdquo; to the Sample.LogginProxy object, reference to which is returned from this classmethod.</li>
+</ol>
+<h3 id="picture-of-wrapped-object">picture of wrapped object</h3>
+<p>There is nothing super fancy so far, only 70 lines of simple Caché ObjectScript code, which introduce an idiom of method/property calls with side-effect. Please see how it works in real life:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">DEVLATEST:15:25:11:MAPREDUCE&gt;set w = ##class(Sample.LoggingProxy).%CreateInstance(&#34;Sample.SimplePerson&#34;, 2)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">DEVLATEST:15:25:32:MAPREDUCE&gt;zw w
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">w=&lt;OBJECT REFERENCE&gt;[1@Sample.LoggingProxy]
+</span></span><span class="line"><span class="cl">+----------------- general information ---------------
+</span></span><span class="line"><span class="cl">|      oref value: 1
+</span></span><span class="line"><span class="cl">|      class name: Sample.LoggingProxy
+</span></span><span class="line"><span class="cl">| reference count: 2
+</span></span><span class="line"><span class="cl">+----------------- attribute values ------------------
+</span></span><span class="line"><span class="cl">|           (none)
+</span></span><span class="line"><span class="cl">+----------------- swizzled references ---------------
+</span></span><span class="line"><span class="cl">|     i%OpenedObject = &#34;&#34;
+</span></span><span class="line"><span class="cl">|     r%OpenedObject = [2@Sample.SimplePerson](mailto:2@MR.Sample.AgeAverage.Person)
+</span></span><span class="line"><span class="cl">+-----------------------------------------------------
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">DEVLATEST:15:25:34:MAPREDUCE&gt;w w.Age
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">9
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">DEVLATEST:15:25:41:MAPREDUCE&gt;w w.Contacts
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">23
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">DEVLATEST:15:25:49:MAPREDUCE&gt;w w.Name
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Waal,Nataliya Q.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">DEVLATEST:15:26:16:MAPREDUCE&gt;zw ^Sample.LoggingProxy
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">^Sample.LoggingProxy=4
+</span></span><span class="line"><span class="cl">^Sample.LoggingProxy(1)=&#34;Age: 9&#34;
+</span></span><span class="line"><span class="cl">^Sample.LoggingProxy(2)=&#34;Contacts: 23&#34;
+</span></span><span class="line"><span class="cl">^Sample.LoggingProxy(3)=&#34;Name: Waal,Nataliya Q.&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>If you compare results to the direct access of an instance of <code>Sample.SimplePerson</code> above then you'll see that results are quite consistent and as expected.</p>
+<h2 id="remote-proxy">Remote proxy</h2>
+<p>Careful reader should still remember, all this stuff we needed just to have easier way for remote proxy objects. But what was wrong with the normal way, using <a href="http://docs.intersystems.com/latest/csp/docbook/%25CSP.Documatic.cls?PAGE=CLASS&amp;LIBRARY=%25sys&amp;CLASSNAME=%25Net.RemoteConnection"><code>%Net.RemoteConnection</code></a>?</p>
+<p>Many things (though &ldquo;deprecated&rdquo; status of this class is not in this list ).</p>
+<p><a href="http://docs.intersystems.com/latest/csp/docbook/%25CSP.Documatic.cls?PAGE=CLASS&amp;LIBRARY=%25sys&amp;CLASSNAME=%25Net.RemoteConnection"><code>%Net.RemoteConnection</code></a> is using c-binding facilities (which are wrapper around cpp-binding service) for calling methods from remote Caché instances. If you know its address, target namespace, and you are able to login then you have pretty much all to establish remote procedure call to this Caché node. The problem with this API – it's not the easiest and, certainly, not the least verbose way to use:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Class MR.Sample.TestRemoteConnection Extends %RegisteredObject
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ClassMethod TestMethod(Arg As %String) As %String
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    quit $zu(5)_&#34;^&#34;_##class(%SYS.System).GetInstanceName()_&#34;^&#34;_
+</span></span><span class="line"><span class="cl">         $i(^MR.Sample.TestRemoteConnectionD)
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ClassMethod TestLocal()
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    #dim connection As %Net.RemoteConnection = ##class(%Net.RemoteConnection).%New()
+</span></span><span class="line"><span class="cl">    #dim status As %Status = connection.Connect(&#34;127.0.0.1&#34;,$zu(5),^%SYS(&#34;SSPort&#34;),&#34;_SYSTEM&#34;,&#34;SYS&#34;)
+</span></span><span class="line"><span class="cl">    set status = connection.ResetArguments()
+</span></span><span class="line"><span class="cl">    set status = connection.AddArgument(&#34;Hello&#34;, 0 /*by ref*/, $$$cbindStringId)
+</span></span><span class="line"><span class="cl">    #dim rVal As %String = &#34;&#34;
+</span></span><span class="line"><span class="cl">    set status = connection.InvokeClassMethod(..%ClassName(1), &#34;TestMethod&#34;, .rVal, 1 /*has return*/, $$$cbindStringId)
+</span></span><span class="line"><span class="cl">    zw rVal
+</span></span><span class="line"><span class="cl">    do connection.Disconnect()
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>i.e. after establishing connection, and before calling classmethod or object instance method, you supposed to prepare a list of arguments of this call (starting from ResetArguments, and then adding next argument via AddArgument, which in turn should take care about proper cpp-binding type information of an argument, its in/out direction, and many other things).</p>
+<p>Also, for me, it was quite annoying to not have simpler way to retrieve return value from other side, because all invocations will give me just execution status code instead, and passing returning value elsewhere in the argument list of the method.</p>
+<p><em>I am too old and am too lazy for that shit!</em></p>
+<p>I want to have less verbose, more convenient way to pass argument to the functions. Remember, we have <code>args...</code> facilities in the language syntax (for passing variable number of arguments to the function), why simply not to use it for wrapping all the dirty details?</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span><span class="lnt">89
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">/// sample of a remote proxy using %Net.RemoteConnection
+</span></span><span class="line"><span class="cl">Class Sample.RemoteProxy Extends %RegisteredObject
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">Property RemoteConnection As %Net.RemoteConnection [Internal ];
+</span></span><span class="line"><span class="cl">Property LastStatus As %Status [InitialExpression = {$$$OK}];
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Method %OnNew() As %Status
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    set ..RemoteConnection = ##class(%Net.RemoteConnection).%New()
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    return $$$OK
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">/// create new instance of a given class name
+</span></span><span class="line"><span class="cl">Method %CreateInstance(className As %String) As Sample.RemoteProxy.Object
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    #dim instanceProxy As Sample.RemoteProxy.Object = ##class(Sample.RemoteProxy.Object).%New($this)
+</span></span><span class="line"><span class="cl">    return instanceProxy.%CreateInstance(className)
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Method %OpenObjectId(className As %String, Id As %String) As Sample.RemoteProxy.Object
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    #dim instanceProxy As Sample.RemoteProxy.Object = ##class(Sample.RemoteProxy.Object).%New($this)
+</span></span><span class="line"><span class="cl">    return instanceProxy.%OpenObjectId(className, Id)
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">/// pass the configuration object { &amp;quot;IP&amp;quot;: IP, &amp;quot;Namespace&amp;quot; : Namespace, ... }
+</span></span><span class="line"><span class="cl">Method %Connect(Config As %Object) As Sample.RemoteProxy
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    #dim sIP As %String = Config.IP
+</span></span><span class="line"><span class="cl">    #dim sNamespace As %String = Config.Namespace
+</span></span><span class="line"><span class="cl">    #dim sPort As %String = Config.Port
+</span></span><span class="line"><span class="cl">    #dim sUsername As %String = Config.Username
+</span></span><span class="line"><span class="cl">    #dim sPassword As %String = Config.Password
+</span></span><span class="line"><span class="cl">    #dim sClientIP As %String = Config.ClientIP
+</span></span><span class="line"><span class="cl">    #dim sClientPort As %String = Config.ClientPort
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    if sIP = &#34;&#34; { set sIP = &#34;127.0.0.1&#34; }
+</span></span><span class="line"><span class="cl">    if sPort = &#34;&#34; { set sPort = ^%SYS(&#34;SSPort&#34;) }
+</span></span><span class="line"><span class="cl">    set ..LastStatus = ..RemoteConnection.Connect(sIP, sNamespace, sPort, 
+</span></span><span class="line"><span class="cl">                                                  sUsername, sPassword, 
+</span></span><span class="line"><span class="cl">                                                  sClientIP, sClientPort)
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    return $this
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ClassMethod ApparentlyClassName(CompoundName As %String, Output ClassName As %String, Output MethodName As %String) As %Boolean [Internal ]
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    #dim returnValue As %Boolean = 0
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    if $length(CompoundName, &#34;::&#34;) &gt; 1 {
+</span></span><span class="line"><span class="cl">        set ClassName = $piece(CompoundName, &#34;::&#34;, 1)
+</span></span><span class="line"><span class="cl">        set MethodName = $piece(CompoundName, &#34;::&#34;, 2, *)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        return 1
+</span></span><span class="line"><span class="cl">    } elseif $length(CompoundName, &#34;&#39;&#34;) &gt; 1 {
+</span></span><span class="line"><span class="cl">        set ClassName = $piece(CompoundName, &#34;&#39;&#34;, 1)
+</span></span><span class="line"><span class="cl">        set MethodName = $piece(CompoundName, &#34;&#39;&#34;, 2, *)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        return 1
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    return 0
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">/// log arguments and then dispatch dynamically method to the proxy object
+</span></span><span class="line"><span class="cl">Method %DispatchMethod(methodName As %String, args...)
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    #dim className as %String = &#34;&#34;
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    if ..ApparentlyClassName(methodName, .className, .methodName) {
+</span></span><span class="line"><span class="cl">        return ..InvokeClassMethod(className, methodName, args...)
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">    return 1
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Method InvokeClassMethod(ClassName As %String, MethodName As %String, args...)
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    #dim returnValue = &#34;&#34;
+</span></span><span class="line"><span class="cl">    #dim i as %Integer
+</span></span><span class="line"><span class="cl">    do ..RemoteConnection.ResetArguments()
+</span></span><span class="line"><span class="cl">    for i=1:1:$get(args) {
+</span></span><span class="line"><span class="cl">        set ..LastStatus = ..RemoteConnection.AddArgument(args(i), 0)
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">    set ..LastStatus = ..RemoteConnection.InvokeClassMethod(ClassName, MethodName, .returnValue, $quit)
+</span></span><span class="line"><span class="cl">    return returnValue
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="picture-of-wrapped-object-1">picture of wrapped object</h3>
+<p>1st simplification which I've introduced here – I do not use regular arguments in the <code>%Connect</code> method, but rather pass dynamic JSON object for configuration. Consider this as syntaxic sugar, and use as named argument idiom in other languages (where named-arguments are usually implemented the similar way, via on-the-fly construction of key-value pairs for the hash-object passed to the function):</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">DEVLATEST:16:27:18:MAPREDUCE&gt;set w = ##class(Sample.RemoteProxy).%New().%Connect({&#34;Namespace&#34;:&#34;SAMPLES&#34;, &#34;Username&#34;:&#34;_SYSTEM&#34;, &#34;Password&#34;:&#34;SYS&#34;})
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">DEVLATEST:16:27:39:MAPREDUCE&gt;zw w
+</span></span><span class="line"><span class="cl">w=&lt;OBJECT REFERENCE&gt;[1@Sample.RemoteProxy]
+</span></span><span class="line"><span class="cl">+----------------- general information ---------------
+</span></span><span class="line"><span class="cl">|      oref value: 1
+</span></span><span class="line"><span class="cl">|      class name: Sample.RemoteProxy
+</span></span><span class="line"><span class="cl">| reference count: 2
+</span></span><span class="line"><span class="cl">+----------------- attribute values ------------------
+</span></span><span class="line"><span class="cl">|         LastStatus = 1
+</span></span><span class="line"><span class="cl">+----------------- swizzled references ---------------
+</span></span><span class="line"><span class="cl">|           i%Config = &#34;&#34;
+</span></span><span class="line"><span class="cl">|           r%Config = &#34;&#34;
+</span></span><span class="line"><span class="cl">| i%RemoteConnection = &#34;&#34;
+</span></span><span class="line"><span class="cl">| r%RemoteConnection = 2@%Net.RemoteConnection
+</span></span><span class="line"><span class="cl">+-----------------------------------------------------
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>There is yet another idiom used – wherever possible, I return $this instance reference as returning value, thus it becomes possible to apply &quot;chaining&quot; for method calls. Which is also helping us to reduce a number of code we have to write. [Yes, I'm that lazy!]</p>
+<h3 id="class-method-call-problem">Class method call problem</h3>
+<p>This root %Net.RemoteConnection wrapper object could not do much, if there is no place in the context to store references to the created instances. [We will address this problem later, in the different class] The only thing we could do now – is somehow simplify class-method calls, which might be called without object context. We could redefine <code>%DispatchClassMethod</code> here, but it will not help us if we want to have <em>generic</em> remote proxy wrapper [and we do want], which will serve us for any remote class. [Though, it may help if you have 1:1 relationship and some specialized local class as wrapper for some particular remote class] Thus, for the generic case like here, we need something different, but, hopefully, still be as much convenient as possible. InvokeClassMethod implementation above is generally ok, but not as handy as it might be possible. We will try to introduce something more elegant soon.</p>
+<p>But, before then, let us look in what could be written as a method or property identifier. It's not well known fact (at least is not very spread inside of English-based community) that ObjectScript method names could be anything what is considered alphanumeric symbols for the given Caché locale (i.e. it could be not only A-Za-z0-9 for Latin-based locale, but also could be any other &ldquo;alphabetic&rdquo; symbol, like А-Яа-я for Russian locales). [<a href="http://stackoverflow.com/questions/35452352/what-characters-are-usable-in-a-variable-name-in-objectscript-on-a-unicode-ins/35492721#35492721">see this StackOverflow discussion</a>] We could even use emoji symbols as inner identifier separator, if we would manage to create such Caché locale. However, in general, any locale specific trick would not fly well, as a generic solution, so we not spend much time here.</p>
+<p>On the other hand, the idea of using special separator inside of method name looks fruitful. We may handle separator in the <code>%DispatchMethod</code> call, which then will extract class-name encoded and will dispatch to the corresponding class-method function elsewhere.</p>
+<p>So returning to the syntax of allowed method names, it is even less known fact that you could put pretty much <em>everything</em> to the method or property name if you properly quote them. For example, I want to call LogicalToDisplay classmethod in the class Cinema.Duration. The syntax would be:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">DEVLATEST:16:27:41:MAPREDUCE&gt;set w = ##class(Sample.RemoteProxy).%New().%Connect({&#34;Namespace&#34;:&#34;SAMPLES&#34;, &#34;Username&#34;:&#34;_SYSTEM&#34;, &#34;Password&#34;:&#34;SYS&#34;})
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">DEVLATEST:16:51:39:MAPREDUCE&gt;write w.&#34;Cinema.Duration::LogicalToDisplay&#34;(200)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">3h20m
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p><em>Simple and elegant, isn't it?</em></p></blockquote>
+<blockquote>
+<p>[This special processing of a method name is done in the <code>ApparentlyClassName</code> function, where we are looking for &ldquo;::&rdquo; (double colon, like in C++) or &ldquo;&rsquo;&rdquo; (single quote, like in Ada or original Perl) as a separator between classname and methodname.]</p></blockquote>
+<p>But please take into consideration, that if you want to call class-method which outputs something to the screen then you are out of luck: cpp-binding protocol will not transfer you back output to the screen, it's not redirected. It returns values, not side-effects.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">DEVLATEST:16:51:47:MAPREDUCE&gt;do w.&#34;Sample.Person::PrintPersons&#34;(1)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="remote-instances-proxies">Remote instances proxies</h3>
+<p>As you might recognize in the Sample.RemoteProxy above, we didn't do much there, only establish connection and call class methods. However, for creation of a remote instance wrapper (<code>%CreateInstance</code>) and for opening remote instance by %ID (<code>%OpenObjectId</code>) we use another class facilities – that is responsibility of a <code>%Sample.RemoteProxy.Object</code> wrapper class.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Class Sample.RemoteProxy.Object Extends %RegisteredObject
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">/// keep openedobject for the proxy access later
+</span></span><span class="line"><span class="cl">Property OpenedObject As %Binary;
+</span></span><span class="line"><span class="cl">Property Owner As Sample.RemoteProxy [ Internal ];
+</span></span><span class="line"><span class="cl">Property LastStatus As %Status [ InitialExpression = {$$$OK}, Internal ];
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Method RemoteConnection() As %Net.RemoteConnection [ CodeMode = expression ]
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">..Owner.RemoteConnection
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Method %OnNew(owner As Sample.RemoteProxy) As %Status
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    set ..Owner = owner
+</span></span><span class="line"><span class="cl">    return $$$OK
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">/// open instance of a different class using given %ID
+</span></span><span class="line"><span class="cl">Method %CreateInstance(className As %String) As Sample.RemoteProxy.Object
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    #dim pObject As %RegisteredObject = &#34;&#34;
+</span></span><span class="line"><span class="cl">    set ..LastStatus = ..RemoteConnection().CreateInstance(className, .pObject)
+</span></span><span class="line"><span class="cl">    set ..OpenedObject = &#34;&#34;
+</span></span><span class="line"><span class="cl">    if $$$ISOK(..LastStatus) {
+</span></span><span class="line"><span class="cl">        set ..OpenedObject = pObject
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">    return $this
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">/// open instance of a different class using given %ID
+</span></span><span class="line"><span class="cl">Method %OpenObjectId(className As %String, Id As %String) As Sample.RemoteProxy.Object
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    #dim pObject As %RegisteredObject = &#34;&#34;
+</span></span><span class="line"><span class="cl">    set ..LastStatus = ..RemoteConnection().OpenObjectId(className, Id, .pObject)
+</span></span><span class="line"><span class="cl">    set ..OpenedObject = &#34;&#34;
+</span></span><span class="line"><span class="cl">    if $$$ISOK(..LastStatus) {
+</span></span><span class="line"><span class="cl">        set ..OpenedObject = pObject
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">    return $this
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Method InvokeMethod(MethodName As %String, args...) [ Internal ]
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    #dim returnValue = &#34;&#34;
+</span></span><span class="line"><span class="cl">    #dim i as %Integer
+</span></span><span class="line"><span class="cl">    #dim remoteConnection = ..RemoteConnection()
+</span></span><span class="line"><span class="cl">    do remoteConnection.ResetArguments()
+</span></span><span class="line"><span class="cl">    for i=1:1:$get(args) {
+</span></span><span class="line"><span class="cl">        set ..LastStatus = remoteConnection.AddArgument(args(i), 0)
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">    set ..LastStatus = remoteConnection.InvokeInstanceMethod(..OpenedObject, MethodName, .returnValue, $quit)
+</span></span><span class="line"><span class="cl">    return returnValue
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">/// log arguments and then dispatch dynamically method to the proxy object
+</span></span><span class="line"><span class="cl">Method %DispatchMethod(methodName As %String, args...)
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    //do ..LogArgs(methodName, args...)
+</span></span><span class="line"><span class="cl">    return ..InvokeMethod(methodName, args...)
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">/// log arguments and then dispatch dynamically property access to the proxy object
+</span></span><span class="line"><span class="cl">Method %DispatchGetProperty(Property As %String)
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    #dim value = &#34;&#34;
+</span></span><span class="line"><span class="cl">    set ..LastStatus = ..RemoteConnection().GetProperty(..OpenedObject, Property, .value)
+</span></span><span class="line"><span class="cl">    return value
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">/// log arguments and then dispatch dynamically property access to the proxy object
+</span></span><span class="line"><span class="cl">Method %DispatchSetProperty(Property, Value As %String) As %Status
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">   set ..LastStatus = ..RemoteConnection().SetProperty(..OpenedObject, Property, Value)
+</span></span><span class="line"><span class="cl">    return ..LastStatus
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>There is common connection object, which <code>Sample.RemoteProxy</code> used, but many remote object instances <code>Sample.RemoteProxy.Object</code>, each of which should get access to the remote connection via their <code>..Owner</code> reference passed at the initialization time (see <code>%OnNew</code> argument passed).</p>
+<p>There is relatively convenient InvokeMethod created, which handles method calls with any number of arguments, and which marshalls  arguments to the corresponding <code>%Net.RemoteConnection</code> calls (i.e. call <code>ResetArguments</code> and many <code>AddArgument</code>), and which then calls to <code>%NetRemoteConnection::InvokeInstanceMethod</code> for actual method execution, processing their return value.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">DEVLATEST:19:23:54:MAPREDUCE&gt;set w = ##class(Sample.RemoteProxy).%New().%Connect({&#34;Namespace&#34;:&#34;SAMPLES&#34;, &#34;Username&#34;:&#34;\_SYSTEM&#34;, &#34;Password&#34;:&#34;SYS&#34;})
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">…
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">DEVLATEST:19:23:56:MAPREDUCE&gt;set p = w.%OpenObjectId(&#34;Sample.Person&#34;,1)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">DEVLATEST:19:24:05:MAPREDUCE&gt;write p.Name
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Quince,Maria B.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">DEVLATEST:19:24:11:MAPREDUCE&gt;write p.SSN
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">369-27-1697
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">DEVLATEST:19:24:17:MAPREDUCE&gt;write p.Addition(1,2)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">3
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>In this code above, we instantiate remote proxy to the <code>Sample.Person</code> instance from <code>SAMPLES</code> namespace. And then call its method(s) or access properties. Is it simple enough?</p>
+<h3 id="kind-of-conclusion">Kind of conclusion</h3>
+<p>This is not yet product quality code: there is no proper handling of errors (they should be raising exceptions if there is something wrong happen), there is no handling of disconnect or whole objects shutdown, but even today this set of classes show how remote proxy could be used in the readable and maintainable code. Which worth all efforts.</p>
+<p>All the code mentioned in the article is available via this <a href="https://gist.github.com/tsafin/02bb6b5967cbdd1176618cb645445770">gist</a>.</p>
+<p>{% gist tsafin/02bb6b5967cbdd1176618cb645445770 %}</p>
+<h1 id="questions">Questions</h1>
+<h2 id="_questions-1-why-do-you-use-json-object-instead-of-a-usual-signature">_Questions 1. Why do you use JSON object instead of a usual signature?</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Method %Connect(IP = &#34;127.0.0.1&#34;, Port = {^%SYS(&#34;SSPort&#34;)}, Namespace = &#34;%SYS&#34;, Username, Password, ClientIP, ClientPort ) As Sample.RemoteProxy
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">{ }
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Additionally, this code can be moved inside of the %OnNew method.</p>
+<h2 id="answer">Answer:</h2>
+<p>Because of several reasons:</p>
+<ol>
+<li>I hate long list of arguments passed to function, especially when most of them are optional;</li>
+<li>In similar cases I prefer to use named-arguments approach, whcih I saw otiginally in Perl (here  <a href="http://perldesignpatterns.com/?NamedArguments">is the quick link</a> <a href="http://perldesignpatterns.com/?NamedArguments"> </a>I've found which shows this idiom). Named arguments allow to pass arguments in any order, which allows to avoid many related errors if (optional) argument passed in the worng order.</li>
+<li>Named-arguments were actually creating hash object in Perl, with which we worked later, accessing it's key-value pairs.</li>
+<li>But at the end of a day the new, JSON dynamic objects we have in Cache' are semantically equivalent to hash-objects we were operating in Perl in the past;</li>
+</ol>
+<p>Thus similar idiom could be used in the ObjectScript.</p>
+<p>P.S.</p>
+<p>Though I agree, that was some stretching to use this idiom in this particular case, with not that much large number of arguments. But at least it didn't make code less readable. :smile:</p>
+<h2 id="answer-1">Answer:</h2>
+<p>Also about comment to move %Connect code inside of %New.</p>
+<p>This is not, generally a good idea to insert potentially long and slow code inside of object constructor. I prefer to have slim and fast %New, which might be nested elsewher to some wrapping onjects. While keeping slow, and expensive functions like %Connect in this case, outside of constructor, independently callable.</p>
+<p>For example, try to use incorrect login details here and then see how long it will take to fail such connection (i.e. timeout period).</p>
+<h2 id="question-2">Question 2:</h2>
+<p>You only partially correct:</p>
+<ul>
+<li>yes, as lazy developers we prefer to write only 1 method call, instead of 2 chained together;</li>
+<li>but, no, this is not %Connect (which may be expensive operation) which should move to the %OnNew, but rather other way around.</li>
+</ul>
+<p>I.e. for the cases when we need both (not actually in 100% of a cases, rather 90%) we could create combined classmethod, which will create instance of a class via call to %New() and then will proceed the necessary side-effect. i.e.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ClassMethod %ConnectNew(Config As %Object) As Sample.RemoteProxy { ... }
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>In general, you should rather avoid creating huge DOM tree of an objects, or proceeding network operations inside of %New constructor. Constructor needs to allocate just bare minimum of memory, necessary for beginning of operations, and initialize fields to their default values [that will be done automatically]. That's it.</p>
+
+</article>
+
+    </main>
+    <footer>
+      &copy; 2025 Timur Safin - Making No Sense
+    </footer>
+  </body>
+</html>

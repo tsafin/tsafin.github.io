@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Московская группа пользователей C&#43;&#43; - часть 5 • Timur Safin - Making No Sense</title>
+    <style>
+      body { font-family: system-ui, sans-serif; margin: 0; padding: 0; background: #fafbfc; color: #222; }
+      header, footer { background: #222; color: #fff; padding: 1rem; text-align: center; }
+      main { max-width: 800px; margin: 2rem auto; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px #0001; padding: 2rem; }
+      h1, h2, h3 { color: #1a4b7a; }
+      a { color: #1a4b7a; text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      img { max-width: 100%; height: auto; border-radius: 4px; }
+      @media (max-width: 600px) {
+        main { padding: 1rem; margin: 0.5rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="/" style="color:#fff;text-decoration:none;"><strong>Timur Safin - Making No Sense</strong></a>
+    </header>
+    <main>
+      
+<h1>Московская группа пользователей C&#43;&#43; - часть 5</h1>
+<article>
+  <h3 id="дмитрий-нестерук--высокопроизводительные-вычисления-на-сс">Дмитрий Нестерук — <a href="http://www.meetingcpp.ru/cpp/cpp-moscow-2014/4%20%D0%92%D1%8B%D1%81%D0%BE%D0%BA%D0%BE%D0%BF%D1%80%D0%BE%D0%B8%D0%B7%D0%B2%D0%BE%D0%B4%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5%20%D0%B2%D1%8B%D1%87%D0%B8%D1%81%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F%20%D0%BD%D0%B0%20%D0%A1++.pdf">Высокопроизводительные вычисления на С/С++</a></h3>
+<p>Многие из нас знают про питерский <a href="http://www.jetbrains.com/">JetBrains</a>, и если хоть раз сталкивались с программированием для Android или .NET, скорее всего любят за IntelliJ IDEA/Android Studio, ReSharper и многие другие средства разработки. И если на собрание Си++ разработчиков приходит &ldquo;технический евангелист&rdquo; из такой уважаемой фирмы, то он сразу получает большой кредит доверия.</p>
+<p><img src="http://4.bp.blogspot.com/-qGBLUShYrJI/UwZ0UhYzrtI/AAAAAAAAQck/dKtYYssBtIA/s1600/nesteruk_pluralsight.png" alt="nesteruk_pluralsight"></p>
+<p>Кроме всего прочего Дмитрий Нестерук является MVP (Most-valuable Professional) по Visual C# с 2009 года. Он разработчик курсов на PluralSight по Matlab и CUDA, любит заниматься финансовой математикой (чтобы это ни значило), закончил британский университет в Саутгемптоне, и живёт в Швеции. Всё говорило за то, что его длинная, полуторачасовая презентация должна быть очень интересна и полезна аудитории (&ldquo;она же про HPC/высокопроизводительные вычисления!&rdquo;), но&hellip;</p>
+<blockquote>
+<p>Dmitry Nesteruk on HPC - is the next #cpp #moscow — Timur Safin (40+) <a href="https://twitter.com/tsafin/statuses/434642468856791040">15 февраля 2014</a>
+Dmitry Nesteruk is the technical evangelist in JetBrains #cpp #moscow — Timur Safin (40+) <a href="https://twitter.com/tsafin/statuses/434646379122540544">15 февраля 2014</a></p></blockquote>
+<p>Начал Дмитрий с рассказа про управляемый (managed) и нативный код. И перешёл сразу же к управляемому коду. Что, конечно, слегка напрягало, т.к. аудитории это было в-общем-то чуждо.</p>
+<blockquote>
+<p>Смешно он переносимость на русском называет — &ldquo;портативность&rdquo; #cpp #moscow — Timur Safin (40+) <a href="https://twitter.com/tsafin/statuses/434647397285650433">15 февраля 2014</a></p></blockquote>
+<blockquote>
+<p>Не знаю почему, может в силу больших ожиданий от &ldquo;евангелиста&rdquo;, мне периодически казалось что Дмитрию непривычно и некомфортно выступать на русском. Например, иногда смешили переводы на русский некоторых терминов, так он применял &ldquo;портативный&rdquo; вместо &ldquo;переносимый&rdquo; для &ldquo;portable&rdquo;. Кажется, просто не хватило адекватного review данной презентации.</p></blockquote>
+<blockquote>
+<p>He has an impression that Microsoft JIT-compiler does not use SSE* at all (worth to check) #cpp #moscow — Timur Safin (40+) <a href="https://twitter.com/tsafin/statuses/434648151123697666">15 февраля 2014</a></p></blockquote>
+<p>Как и в каждой презентации про HPC было рассказано про disk-bound vs cpu-bound, параллелизм, SIMD/SSE* (и не сказано про AVX).</p>
+<blockquote>
+<p>Shows Incredibuild demo which uses cloud for remote concurrent compilation #cpp #moscow — Timur Safin (40+) <a href="https://twitter.com/tsafin/statuses/434650127009996801">15 февраля 2014</a></p></blockquote>
+<p>JetBrains пытается ускорить все стадии циклов разработки, начиная от редактирования и заканчивая параллельной сборкой. На этом месте Дмитрий показал Incredibuild как средство параллелизации построения большого проекта (привет <a href="http://ru.wikipedia.org/wiki/Distcc">DISTCC</a>).</p>
+<blockquote>
+<p>Dmitry is a big fan for hw solution for parallelism extensions: gpgpu, fpga, xeon phi, etc #cpp #moscow — Timur Safin (40+) <a href="https://twitter.com/tsafin/statuses/434654302049538048">15 февраля 2014</a>
+He thinks tha CUDA is wider and better used than OpenCL #cpp #moscow — Timur Safin (40+) <a href="https://twitter.com/tsafin/statuses/434655998741995521">15 февраля 2014</a>
+CUDA is really flavour of managed code #cpp #moscow — Timur Safin (40+) <a href="https://twitter.com/tsafin/statuses/434656305760841729">15 февраля 2014</a></p></blockquote>
+<p>Далее он перешёл к рассказу про высокоуровневые технологии параллелизации/векторизации вычислений: CUDA (сказал много) vs OpenCL (сказал почти ничего). Когда надо больше параллелизма (но нет ещё достаточно мотивации и денег на реальный кластер), то технологии FPGA и Xeon Phi могут помочь как ускорители вычислений, работающих на desktop компьютерах.</p>
+<blockquote>
+<p>А ещё он смешно AMD всегда ATI зовёт. Где он был последние несколько лет? #cpp #moscow — Timur Safin (40+) <a href="https://twitter.com/tsafin/statuses/434655285710295040">15 февраля 2014</a>
+Some attendees think we are getting far, far away from C++ here. CUDA is not very much ontopic here indeed. #cpp #moscow still hope — Timur Safin (40+) <a href="https://twitter.com/tsafin/statuses/434657454421323776">15 февраля 2014</a></p></blockquote>
+<p>В этом месте некоторая часть аудитории достигла точки кипения и всё же спросила: &ldquo;Когда же про Си++ то начнём?&rdquo;. Резонный вопрос.</p>
+<blockquote>
+<p>He is good proponent of easiness of porting to Xeon Phi/MIC because of software stack elegance #cpp #moscow — Timur Safin (40+) <a href="https://twitter.com/tsafin/statuses/434663766848856065">15 февраля 2014</a></p></blockquote>
+<p>Интеловские технологии Xeon Phi aka MIC, большим фанатом которых с недавних пор Дмитрий является, стали пожалуй спасителями презентации и впервые он говорил собственно о Си++ (Intel C++ compiler) и как его применять для компиляции MIC кода.</p>
+<blockquote>
+<p>and as the bonus he showed their C++ IDE. Still barebones enough. #cpp #moscow — Timur Safin (40+) <a href="https://twitter.com/tsafin/statuses/434664404542447616">15 февраля 2014</a></p></blockquote>
+<p>Ну и чтобы Си++ разработчики не чувствовали себя совсем обманутыми, нам под конец ещё раз показали текущее состояние дел их (JetBrains) кросс-платформенной среды разработки Си++ со всеми, свойственными JetBrains пирогами и плюшками (удобные средства рефакторинга и кодогенерации). Но вы скорее всего это уже видели <a href="http://habrahabr.ru/company/JetBrains/blog/212115/">на Хабре месяц назад</a>. И должен признаться, что визуально это пока не очень впечатляет, выглядит не сильно лучше чем KDE редактор Kate, к которому приделали меню рефакторинга. Впрочем, на таком раннем этапе развития продукта никто большего и не ожидал.</p>
+<p>В целом, выступление Дмитрия оставило двойственное впечатление: с одной стороны рассказ про технологии, скорее всего был многим полезен, но всё же его надо читать в другое место и другое время, это был очень сильный оффтопик для группы пользователей Си++. Персонально я не узнал ничего нового, и лучше бы ещё какой материал про Си++11/14 послушал. Слишком много интересного происходит последние пару лет собственно в языке Си++, чтобы тратить время на такие общеобразовательные лекции. Извините.</p>
+<p><em><em><a href="../../2014/03/moscow-c-users-group-final.html">Читайте заключение в следующей статье&hellip;</a></em></em></p>
+
+</article>
+
+    </main>
+    <footer>
+      &copy; 2025 Timur Safin - Making No Sense
+    </footer>
+  </body>
+</html>

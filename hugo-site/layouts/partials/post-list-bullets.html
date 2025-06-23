@@ -1,0 +1,13 @@
+<div class="bullets">
+  {{ range .Site.RegularPages }}
+  <div class="bullet three-col-bullet">
+    <div class="bullet-icon">
+      {{ with .Params.image.teaser }}<a href="{{ .RelPermalink }}"><img src="{{ $.Site.BaseURL }}images/{{ . }}" alt=""></a>{{ end }}
+    </div>
+    <div class="bullet-content">
+      <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+      {{ with .Params.excerpt }}<p>{{ . | plainify }}</p>{{ end }}
+    </div>
+  </div>
+  {{ end }}
+</div>

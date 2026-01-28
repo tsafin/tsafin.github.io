@@ -1,0 +1,30 @@
+name: Build Jekyll Site
+
+on:
+  push:
+    branches: [ source ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.4.7'
+        bundler-cache: true
+
+    - name: Build with Jekyll
+      run: bundle exec jekyll build --config _config.yml
+
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./_site
+        cname: tsafin.net

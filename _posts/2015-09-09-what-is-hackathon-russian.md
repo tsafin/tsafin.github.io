@@ -8,6 +8,7 @@ image:
   feature: landscapes/feature4.jpg
   credits:
 blogger_orig_url: http://writeimagejournal.com/?p=1902
+thumbnail: images/thumbnails/blogspot/success-sketch.png
 ---
 
 В этом году осенняя школа InterSystems слегка изменит формат. Да мы по-прежнему будем собираться в изолированном месте за пределами города, позволяющем максимально погрузиться в темы школы, да, мы по-прежнему будем чередовать теоретические лекции и практические упражнения, и по-прежнему это будет чисто техническое мероприятие. Но…

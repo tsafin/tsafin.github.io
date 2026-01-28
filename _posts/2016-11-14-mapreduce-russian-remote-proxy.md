@@ -7,7 +7,7 @@ comments: true
 image:
   feature: landscapes/feature1.jpg
   credits:
-thumbnail: https://habrastorage.org/files/64a/daf/a37/64adafa377a448dd935211953e4dc47c.jpg
+thumbnail: images/thumbnails/habra/2016-11-14-mapreduce-russian-remote-proxy_thumb_16377e9c.jpg
 blogger_orig_url: https://habrahabr.ru/company/intersystems/blog/314774/
 ---
 

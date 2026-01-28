@@ -8,6 +8,61 @@ image:
   feature: landscapes/feature3.jpg
   credits:
 blogger_orig_url: http://writeimagejournal.com/?p=1912
+thumbnail: images/thumbnails/blogspot/team-list-170x300.jpg
+---
+
+<blockquote><em>[Русская версия статьи изначально опубликована на <a href="http://habrahabr.ru/company/intersystems/blog/267459/" target="_blank">Хабре здесь</a>]</em></blockquote>
+
+We have never arranged hackathon before, and none of us has even participated in such events. But if we bring ~50 of experienced COS developers to the same location for multi days training then why not try to apply their expertise for our good? Divide to teams, ask for ideas, and make them code some crazy projects in 1 day of hacking. _[Well a little bit less than 1 day as we have found actually, but still idea is the same]_
+
+We are newbies in hackathon organization, so we asked for the external help – we have contacted Grigory Petrov (now technical evangelist of Voximplant, and former evangelist of Digital October center where he arranged several hackathon and similar events). He was willing to help, but we have discovered the harder way that he has to be in PyCon 2015 the same days we arrange Russian InterSystems School. Sigh. In any case, after long discussion with Grigory we have got clear understanding of all possible scenarios, of steps we need to proceed before hackathon, during, what to do, when and in which sequence. We were mentally ready for it.
+
+InterSystems Fall School is usually 2-3 days long event. This year we were planning to start with almost 2 days of technical training and exercises (where most of training were doing various operations over the same dataset – database of sql.ru/cache posts). And after those 2 days participant supposed to be well prepared to use modern practices (using Angular for the client development, DeepSee and iKnow for analytics, and such).
+
+At around of 17:00 of 2<sup>nd</sup> day we started hackathon: after brief introduction of rules and planned schedule, we started initial project teams assembly. The plan was  – get all possible ideas for projects from all relevant sources (i.e. our Russian University grants suggested projects, or suggested extension ideas to some already existing GitHub projects), start to discuss them and then choice project from the list, or any other relevant idea (which might be influenced by the list of suggested ideas).
+
+<!-- <a href="/assets/team-list.jpg"><img class="size-medium wp-image-1917 aligncenter" src="/assets/team-list-170x300.jpg" alt="team-list" width="170" height="300" /></a> -->
+
+<div class="card">
+    <div class="card-image">
+      <img src="/assets/team-list.jpg" alt="team-list" width="170" height="300" />
+    </div>
+</div>
+
+<!-- ![team-list](/assets/team-list.jpg) -->
+
+If we review now all projects, which started, and categorize them by their sources, then we see that only small fraction were using topics of the suggested list. Most winners were developing their own idea.
+
+Here is the list of projects at the start:
+<table>
+<tbody>
+<tr>
+<td width="414">1.       Atom plugin;</td>
+<td width="736">Suggested development of existing project</td>
+</tr>
+<tr>
+<td width="414">2.       CPM web site;</td>
+<td width="736">Suggested development of existing project</td>
+</tr>
+<tr>
+<td width="414">3.       Geo-spatial indices</td>
+<td width="736">Suggested but new</td>
+</tr>
+<tr>
+<td width="414">4.       Caché &lt;&gt; JS projection</td>
+<td width="736">Brand new</td>
+````markdown
+---
+layout: article
+title:  InterSystems hackathon 2015 results
+date:   2015-09-23 15:49:24 +0300
+categories: hackathon
+comments: true
+image:
+  feature: landscapes/feature3.jpg
+  credits:
+blogger_orig_url: http://writeimagejournal.com/?p=1912
+thumbnail: images/thumbnails/2015-09-23-intersystems-hackathon-2015-results-english_thumb.png
 ---
 
 <blockquote><em>[Русская версия статьи изначально опубликована на <a href="http://habrahabr.ru/company/intersystems/blog/267459/" target="_blank">Хабре здесь</a>]</em></blockquote>
@@ -67,18 +122,15 @@ Here is the list of projects at the start:
 </table>
 We have proceeded a couple of intermediate stops where we have reviewed project advancement (i.e. at around 22:00 the 1<sup>st</sup> day, and at 11:00 the next day). And we stopped development at the 13:00 the 2<sup>nd</sup> day (due to logistics constraints), and not as if it would be spanning whole day hacking – the 17:00 the 2<sup>nd</sup> day. i.e. teams have only 20 hours for development, but apparently it was not a big deal for those who prepared well enough.
 
-Each team had 5-10 minutes for presentation, and then ISC SEs decided which teams are winners. We have touch problem to choose – there were 4 brilliant works, each of them in other circumstances would be considered a winner. But we decided that Nikita Savchenko/Anton Gnibeda work this day was the best. Just because of astonishing development speed (only 1 day since the project inception) and the shown quality and achieved results.
-
-<!-- 
-<a href="/assets/hackathon-1.jpg"><img class="alignnone wp-image-1920" src="/assets/hackathon-1-300x265.jpg" alt="hackathon-1" width="159" height="142" /></a> <a href="/assets/hackathon-2.jpg"><img class="alignnone wp-image-1918" src="/assets/hackathon-2-300x214.jpg" alt="hackathon-2" width="195" height="142" /></a> <a href="/assets/hackathon-3.jpg"><img class="alignnone wp-image-1919" src="/assets/hackathon-3-300x254.jpg" alt="hackathon-3" width="166" height="142" /></a> -->
+Each team had 5-10 minutes for presentation, and then ISC SEs decided which team
+s are winners. We have touch problem to choose – there were 4 brilliant works, each of them in other circumstances would be considered a winner. But we decided that Nikita Savchenko/Anton Gnibeda work this day was the best. Just because of astonishing development speed (only 1 day since the project inception) and the shown quality and achieved results.                                              
 ![hackathon-1](/assets/hackathon-1.jpg)![hackathon-2](/assets/hackathon-2.jpg)![hackathon-3](/assets/hackathon-3.jpg)
-
 Here are more details about projects winners:
 <h1>1<sup>st</sup> place</h1>
 Nikita Svchenko and Anton Gnibeda are stars of our local community. They both participated in many outstanding projects, e.g
 <ul>
-	<li><a href="https://github.com/ZitRos">Nikita @ZitRos Savchenko</a>: LightPivotTable in <a href="https://github.com/ZitRos/LightPivotTable">DeepSee Mobile</a>, <a href="https://github.com/ZitRos/CacheUMLExplorer">CacheUMLExplorer</a>, <a href="https://github.com/intersystems-ru/webterminal">WebTerminal</a>, <a href="https://github.com/ZitRos/globalsDB-Admin-NodeJS">GlobalsDB Admin</a>, etc</li>
-	<li><a href="https://github.com/gnibeda">Anton @gnibeda Gnibeda</a>: <a href="https://github.com/intersystems-ru/DeepSeeWeb">DeepSee Web</a>, <a href="https://github.com/intersystems-ru/DeepSeeMobile">DeepSee Mobile</a></li>
+    <li><a href="https://github.com/ZitRos">Nikita @ZitRos Savchenko</a>: LightPivotTable in <a href="https://github.com/ZitRos/LightPivotTable">DeepSee Mobile</a>, <a href="https://github.com/ZitRos/CacheUMLExplorer">CacheUMLExplorer</a>, <a href="https://github.com/intersystems-ru/webterminal">WebTerminal</a>, <a href="https://github.com/ZitRos/globalsDB-Admin-NodeJS">GlobalsDB Admin</a>, etc</li>
+    <li><a href="https://github.com/gnibeda">Anton @gnibeda Gnibeda</a>: <a href="https://github.com/intersystems-ru/DeepSeeWeb">DeepSee Web</a>, <a href="https://github.com/intersystems-ru/DeepSeeMobile">DeepSee Mobile</a></li>
 </ul>
 Although Nikita, Anton and Irina are all living in Kiev nowadays, but they usually not working on the same project at the same time, and this school was a rare chance for them to work together. But when they decided to form the team we (organizers) were tending to break a team and rebalance to others because other teams will be lacking of frontend skills we need elsewhere. However, at the end we decided to just see where this star team could go given opportunity and chance. [That was correct decision as we see today]
 
@@ -156,22 +208,22 @@ Thanks to this project now we have custom indices which internally use quad-tree
 
 In essence adding of such geospatial indices could be done this way:
 <ol>
-	<li>Add index for the pair of properties (longitude, latitude):</li>
+    <li>Add index for the pair of properties (longitude, latitude):</li>
 </ol>
 <pre>Index x1f on (Latitude,Longitude) As SpatialIndex.Index;</pre>
 <ol start="2">
-	<li>Search for the given box of coordinates</li>
+    <li>Search for the given box of coordinates</li>
 </ol>
 <pre>SELECT *
  FROM SpatialIndex.Test
  WHERE %ID %FIND search_index(x1F,'window','minx=56,miny=56,maxx=57,maxy=57')</pre>
 <ol start="3">
-	<li>Search for the given ellipse</li>
+    <li>Search for the given ellipse</li>
 </ol>
 <pre>SELECT *
  FROM SpatialIndex.Test
  WHERE  %ID %FIND search_index(x1F,'radius','x=55,y=55,radiusX=2,radiusY=2')
- and name %StartsWith 'Z'</pre>
+and name %StartsWith 'Z'</pre>
 
 This is only beginning of an implementation, obviously, and not in any case is pretending to be ISO 19125 compliant in this early development state. But that was an important 1<sup>st</sup> step, and is already usable in the COS projects
 
@@ -260,4 +312,7 @@ Ain’t it cool?
 * [https://plus.google.com/+TimurSafin1/posts/AN2JcP9K2yx](https://plus.google.com/+TimurSafin1/posts/AN2JcP9K2yx)
 * [https://plus.google.com/+TimurSafin1/posts/9BMJjFAqmxn](https://plus.google.com/+TimurSafin1/posts/9BMJjFAqmxn)
 * [https://www.facebook.com/groups/mskiscmeetup/permalink/1056669757706535/](https://www.facebook.com/groups/mskiscmeetup/permalink/1056669757706535/)
+
+
+````
 

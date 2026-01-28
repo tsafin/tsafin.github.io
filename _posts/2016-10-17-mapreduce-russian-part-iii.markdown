@@ -7,7 +7,7 @@ comments: true
 image:
   feature: landscapes/feature5.jpg
   credits:
-thumbnail: https://habrastorage.org/files/6ff/2e3/a5d/6ff2e3a5d1404619883c068798441862.jpg
+thumbnail: images/thumbnails/habra/6ff2e3a5d1404619883c068798441862.jpg
 blogger_orig_url: https://habrahabr.ru/company/intersystems/blog/312338/
 ---
 

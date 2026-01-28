@@ -2,6 +2,7 @@ source "http://rubygems.org"
 ruby RUBY_VERSION
 
 gem 'tzinfo-data'
+gem 'csv'
 
 # Hello! This is where you manage which Jekyll version is used to run.
 # When you want to use a different version, change it below, save the
@@ -12,7 +13,7 @@ gem 'tzinfo-data'
 # This will help ensure the proper Jekyll version is running.
 # Happy Jekylling!
 
-gem "jekyll"
+gem "jekyll", "~> 4.3.0"
 
 # This is the default theme for new Jekyll sites. You may change this to anything you like.
 # gem "minima"
@@ -31,11 +32,7 @@ group :jekyll_plugins do
   gem "jekyll-sitemap"
   gem "jekyll-gist"
   gem "jekyll-feed"
-  gem 'jekyll-compass'
-  gem 'jekyll-assets'
   gem 'jekyll-sass-converter'
   gem 'jemoji'
 end
 gem "nokogiri", ">= 1.10.4"
-gem "sprockets", ">= 3.7.2"
-gem "rack", ">= 1.6.11"

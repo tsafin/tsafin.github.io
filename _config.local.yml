@@ -1,0 +1,2 @@
+# Local development configuration
+# Use with: bundle exec jekyll build && python3 -m http.server 4000 -d _siteurl: "https://ubiquitous-guide-q6qwj9rj7936wpj-4000.app.github.dev"

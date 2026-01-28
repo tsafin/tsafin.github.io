@@ -7,4 +7,5 @@ sitemap: false
  * Import this file using the following HTML or equivalent:
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
 
-@import "compass/reset";
+/* Compass reset removed - not compatible with modern Sass
+@import "compass/reset"; */

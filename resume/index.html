@@ -4,7 +4,7 @@ layout: timeline
 
 <container><div class="column">
 
-    <h1><span class="circle"><img src="{{ site.url }}/images/{{ site.owner.photo }}" alt="{{ site.owner.name }}"></span></br>
+    <h1><span class="circle"><img src="{{ site.owner.photo | prepend: '/images/' | relative_url }}" alt="{{ site.owner.name }}"></span></br>
         Timur Safin</h1>
     <h4>Systems Software Engineer</h4>
 

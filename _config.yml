@@ -62,7 +62,6 @@ exclude:
 - CHANGELOG
 - Capfile
 - Gemfile
-- Gruntfile.js
 - LICENSE
 - README
 - Rakefile
@@ -71,7 +70,6 @@ exclude:
 - lib
 - log
 - node_modules
-- package.json
 - spec
 - tmp
 - run.cmd

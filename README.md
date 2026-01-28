@@ -1,17 +1,81 @@
-# Skinny Bones Jekyll Starter
+# Timur Safin's Blog (tsafin.net)
 
-Just a little something I'm using to jump start a site refresh. I like to think of it as a starter for building your own Jekyll site. I purposely keep the styling minimal and bare to make it easier to add your own flare and markup.
+A personal blog and portfolio site built with Jekyll 4.3.4, Ruby 3.4.7, and deployed automatically via GitHub Actions to GitHub Pages.
 
-I'm currently using a variation of it on my personal website [Made Mistakes](http://mademistakes.com) with some modifications. To learn more about how to use the theme and install it check out the [Skinny Bones demo](http://mmistakes.github.io/skinny-bones-jekyll/) (*work in progress*).
+Based on the [Skinny Bones](http://mmistakes.github.io/skinny-bones-jekyll/) Jekyll theme with extensive customizations.
 
-![screenshot of Skinny Bones](http://mmistakes.github.io/skinny-bones-jekyll/images/skinny-bones-theme-feature.jpg)
+---
+
+## Requirements
+
+* Ruby 3.4.7
+* Bundler 2.6.9+
+* Python 3.x (for local testing with http.server)
+
+## Setup
+
+Install dependencies:
+
+```bash
+bundle install
+```
+
+## Building
+
+### Development Build
+
+Build with development configuration (uses local development domain):
+
+```bash
+bundle exec jekyll build --config _config.yml,_config.local.yml
+```
+
+### Production Build
+
+Build with production configuration for deployment:
+
+```bash
+bundle exec jekyll build
+```
+
+## Testing Locally
+
+After building, serve the generated site using Python's built-in server:
+
+```bash
+bundle exec jekyll build --config _config.yml,_config.local.yml && python3 -m http.server 4000 -d _site
+```
+
+Then access the site at `http://localhost:4000`
+
+### Single Command for Development
+
+For convenience, run both build and serve:
+
+```bash
+bundle exec jekyll build --config _config.yml,_config.local.yml && python3 -m http.server 4000 -d _site
+```
+
+## Deployment
+
+The site is automatically built and deployed to GitHub Pages on every push to the `source` branch via GitHub Actions.
+
+### Manual Deployment
+
+You can manually trigger a build by:
+
+1. Going to your repository's **Actions** tab
+2. Selecting the **Build Jekyll Site** workflow
+3. Clicking **Run workflow**
 
 ---
 
 ## Notable Features
 
-* Jekyll 3.x and GitHub Pages compatible.
-* Stylesheet built using Sass.
-* Data files for easier customization of the site navigation/footer and for supporting multiple authors.
-* Optional Disqus comments, table of contents, social sharing links, and Google AdSense ads.
-* And more.
+* Jekyll 4.3.4 with Ruby 3.4.7 support
+* Dart Sass for stylesheet compilation
+* Data files for site navigation, footer, and multiple author support
+* Giscus-powered comments (GitHub-based)
+* Table of contents and social sharing links
+* Automatic GitHub Pages deployment via Actions
+* Dual configuration for development and production builds

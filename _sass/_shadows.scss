@@ -1,5 +1,6 @@
 // Compass is deprecated - using standard CSS instead
-@import "shadow-types";
+@use "sass:string";
+@use "shadow-types" as *;
 
 /******************************************************************
 SHADOW MIXINS
@@ -51,6 +52,6 @@ $shadow_not_selector: '';
 @each $type in $shadow_types { 
 	$shadow_not_selector: $shadow_not_selector + ":not(.#{$type})";
 }
-.shadow#{unquote($shadow_not_selector)} {
+.shadow#{string.unquote($shadow_not_selector)} {
 	@include shadow(lifted);
 }

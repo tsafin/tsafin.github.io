@@ -1,3 +1,5 @@
+@use "sass:color";
+
 /* ==========================================================================
    SCSS Variables
    ========================================================================== */
@@ -27,10 +29,10 @@ $black                        : #000;
 $body-color                  	: #ebebeb;
 
 $text-color                  	: #313130;
-$caption-color                : mix($white, $text-color, 25%);
+$caption-color                : color.mix($white, $text-color, 25%);
 
 $base-color                  	: #343434;
-$comp-color                  	: complement($base-color);
+$comp-color                  	: color.complement($base-color);
 $border-color                	: #ddd;
 $link-color                  	: #222;
 
@@ -43,10 +45,10 @@ $info-color                  	: #3498db;
 $table-border-color          	: $border-color;
 $table-border                	: 1px solid $table-border-color;
 $table-background            	: $body-color;
-$table-header-color          	: lighten($table-background, 10);
-$table-hover-color           	: darken($table-background, 2);
-$table-stripe-color          	: darken($table-background, 4);
-$table-stripe-color-hover    	: darken($table-stripe-color, 5);
+$table-header-color          	: color.adjust($table-background, $lightness: 10%);
+$table-hover-color           	: color.adjust($table-background, $lightness: -2%);
+$table-stripe-color          	: color.adjust($table-background, $lightness: -4%);
+$table-stripe-color-hover    	: color.adjust($table-stripe-color, $lightness: -5%);
 
 $facebook-color			: #3b5998;
 $flickr-color			: #ff0084;
@@ -67,7 +69,7 @@ $youtube-color		        : #ff3333;
    ========================================================================== */
 
 $form-border-color           	: $border-color;
-$form-border-color-hover     	: darken($border-color, 10);
+$form-border-color-hover     	: color.adjust($border-color, $lightness: -10%);
 $form-border-color-focus     	: $primary-color;
 $form-border-radius          	: $border-radius;
 $form-box-shadow             	: inset 0 1px 3px hsla(0, 0%, 0%, 0.06);

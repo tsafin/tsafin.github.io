@@ -1,3 +1,5 @@
+@use "sass:color";
+
 /* ==========================================================================
    Base
    ========================================================================== */
@@ -58,7 +60,7 @@ ins {
 a {
 	color: $link-color;
 	&:hover {
-		color: darken($link-color, 20);
+		color: color.adjust($link-color, $lightness: -20%);
 	}
 	&:focus {
 		@extend %tab-focus;
@@ -102,7 +104,7 @@ li code {
 	margin: 0 2px;
 	padding: 0 5px;
 	border: 1px solid $border-color;
-	background-color: lighten($primary-color, 95);
+	background-color: color.adjust($primary-color, $lightness: 95%);
 	border-radius: $border-radius;
 }
 
@@ -228,7 +230,7 @@ th {
 	font-weight: bold;
 	text-align: left;
 	background-color: $table-header-color;
-	border-bottom: 1px solid darken($border-color, 15%);
+	border-bottom: 1px solid color.adjust($border-color, $lightness: -15%);
 }
 td {
 	border-bottom: 1px solid $border-color;
@@ -267,7 +269,7 @@ hr {
    ========================================================================== */
 
 fieldset {
-	background: lighten($border-color, 10);
+	background: color.adjust($border-color, $lightness: 10%);
 	border: 1px solid $border-color;
 	margin-bottom: 0px + $doc-line-height;
 	margin-bottom: 0rem + ($doc-line-height / $doc-font-size);

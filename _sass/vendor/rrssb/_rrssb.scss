@@ -18,6 +18,7 @@
 // Note: You can and should add or remove buttons from config settings and
 //       $social-list based on your specific needs.
 
+@use "sass:color";
 @import "variables";
 
 // config settings
@@ -88,7 +89,7 @@ $social-list: (rrssb-email $rrssb-email, rrssb-facebook $rrssb-facebook, rrssb-d
           background-color: nth($s-name, 2);
 
           &:hover {
-            background-color: darken(nth($s-name, 2), 10%);
+            background-color: color.adjust(nth($s-name, 2), $lightness: -10%);
           }
         }
       }
@@ -255,7 +256,7 @@ $social-list: (rrssb-email $rrssb-email, rrssb-facebook $rrssb-facebook, rrssb-d
                 .rrssb-icon {
                   svg {
                     path {
-                      fill: darken(nth($s-name, 2), 20%);
+                      fill: color.adjust(nth($s-name, 2), $lightness: -20%);
                     }
                   }
                 }

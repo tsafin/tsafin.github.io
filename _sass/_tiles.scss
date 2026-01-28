@@ -1,3 +1,5 @@
+@use "sass:color";
+
 /* ==========================================================================
    Tiles
    ========================================================================== */
@@ -14,7 +16,7 @@
   }
   .entry-date {
     @include font-size(16,no);
-    color: lighten($text-color,25);
+    color: color.adjust($text-color, $lightness: 25%);
   }
   .post-title {
     @include font-size(18,no);

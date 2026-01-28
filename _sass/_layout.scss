@@ -1,3 +1,5 @@
+@use "sass:color";
+
 /* ==========================================================================
    Page layout
    ========================================================================== */
@@ -117,7 +119,7 @@
 	@include clearfix;
 	font-weight: 700;
 	a {
-		color: lighten($black,60);
+		color: color.adjust($black, $lightness: 60%);
 	}
 }
 
@@ -164,7 +166,7 @@
 			a { text-decoration: none; }
 			p a,
 			li a {
-				border-bottom: 1px dotted lighten($link-color, 50);
+				border-bottom: 1px dotted color.adjust($link-color, $lightness: 50%);
 				&:hover {
 					border-bottom-style: solid;
 				}
@@ -183,7 +185,7 @@
 				p{
 					@include font-size(14,no);
 					font-family: $alt-font;
-					color: lighten($black,60);
+					color: color.adjust($black, $lightness: 60%);
 				}
 			}
 		}
@@ -205,7 +207,7 @@
 		margin-left: -$gutter;
 		margin-right: -$gutter;
 		padding: 10px 0 20px;
-		background: lighten($border-color,5);
+		background: color.adjust($border-color, $lightness: 5%);
 		@include media($medium) {
 			@include span-columns(3);
 			margin-left: 0;
@@ -342,9 +344,9 @@
   /* Copyright text */
 	.copyright {
 		@include font-size(12);
-		color: lighten($black,60);
+		color: color.adjust($black, $lightness: 60%);
 		a {
-			color: lighten($black,60);
+			color: color.adjust($black, $lightness: 60%);
 			text-decoration: none;
 		}
 	}

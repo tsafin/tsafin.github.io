@@ -120,16 +120,19 @@
     (facebook, $facebook-color),
 		(flickr, $flickr-color),
 		(foursquare, $foursquare-color),
-		(google-plus, $google-plus-color),
 		(instagram, $instagram-color),
 		(linkedin, $linkedin-color),
 		(pinterest, $pinterest-color),
+		(reddit, $reddit-color),
 		(rss, $rss-color),
+		(telegram, $telegram-color),
 		(tumblr, $tumblr-color),
 		(twitter, $twitter-color),
 		(vimeo, $vimeo-color),
 		(youtube, $youtube-color);
 	@extend .btn-inverse;
+	padding: 6px 14px;
+	@include font-size(12);
 	color: $text-color !important;
 	&:visited,
 	&:active {

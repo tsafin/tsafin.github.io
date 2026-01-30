@@ -5,8 +5,8 @@
     <description>Try to be public. Again</description>
     <link>/</link>
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 30 Jan 2026 18:56:38 +0000</pubDate>
-    <lastBuildDate>Fri, 30 Jan 2026 18:56:38 +0000</lastBuildDate>
+    <pubDate>Fri, 30 Jan 2026 19:06:07 +0000</pubDate>
+    <lastBuildDate>Fri, 30 Jan 2026 19:06:07 +0000</lastBuildDate>
     <generator>Jekyll v4.3.4</generator>
     
       <item>
@@ -602,23 +602,23 @@ DEVLATEST:19:24:17:MAPREDUCE&amp;gt;write p.Addition(1,2)
 
 &lt;p&gt;Итак, последовательная реализация WordCount (но с применением MapReduce интерфейсов, введенных ранее) будет содержать все те же самые части, что и параллельная. И, например, mapper будет выглядеть примерно так:&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Class MR.Sample.WordCount.Mapper Extends (%RegisteredObject, MR.Base.Mapper)
-{
-/// read strings from MR.Base.Iterator and count words
-Method Map(MapInput As MR.Base.Iterator, MapOutput As MR.Base.Emitter)
-{
-    while &apos;MapInput.IsAtEnd() {
-        #dim line As %String = MapInput.GetNext()
-        #dim pattern As %Regex.Matcher = ##class(%Regex.Matcher).%New(&quot;[^\s]+&quot;)
-        set pattern.Text = line
-        while pattern.Locate() {
-            #dim word As %String = pattern.Group
-            do MapOutput.Emit(word)
-        }
-    }
-}
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;language-objectscript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;Class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MR.Sample.WordCount.Mapper&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Extends&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;%RegisteredObject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MR.Base.Mapper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;/// read strings from MR.Base.Iterator and count words&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;Method&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MapInput&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;As &lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;MR.Base.Iterator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MapOutput&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;As &lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;MR.Base.Emitter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+{&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;MapInput&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;IsAtEnd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;#dim&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;line&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;MapInput&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;GetNext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;#dim&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;pattern&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Regex&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Matcher&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;##class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(%&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Regex&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Matcher&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).%&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;New&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;[^\s]+&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;pattern&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Text&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;pattern&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Locate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;            &lt;span class=&quot;k&quot;&gt;#dim&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;word&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;pattern&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Group&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;            &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;MapOutput&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Emit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;word&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Подпрограмма Map получает «входной поток» через параметр MapInput, и эмиттит данные в выходной MapOutput. Алгоритм тут очевиден – если во входном потоке еще остались данные (т.е. &lt;em&gt;НЕ&lt;/em&gt; &lt;em&gt;MapInput.IsAtEnd()&lt;/em&gt; ), то он прочтет следующую «строку» через MapInput.GetNext(), разобьет строку на слова при помощи %Regex.Matcher (смотри хорошую вводную статью про использование регулярных выражений в Caché на портале сообщества «&lt;a href=&quot;https://community.intersystems.com/post/using-regular-expressions-cach%C3%A9&quot;&gt;Using Regular Expressions in Caché&lt;/a&gt;») и каждое выделенное слово пересылается в выходной эмиттер.&lt;/p&gt;
 
@@ -628,21 +628,21 @@ Method Map(MapInput As MR.Base.Iterator, MapOutput As MR.Base.Emitter)
 
 &lt;p&gt;Процедура свертки (reducer) еще проще:&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Class MR.Sample.WordCount.Adder Extends (%RegisteredObject, MR.Base.Reducer)
-{
-Method Reduce(ReduceInput As MR.Base.Iterator, ReduceOutput As MR.Base.Emitter)
-{
-    #dim result As %Numeric = 0
-    while &apos;ReduceInput.IsAtEnd() {
-        #dim value As %String = ReduceInput.GetNext() ; get &amp;lt;key,value&amp;gt; in $listbuild format
-        #dim word As %String = $li(value,1)
-        #dim count As %Integer = +$li(value,2)
-        set result = result + count
-    }
-    do ReduceOutput.Emit(&quot;Count&quot;, result)
-}
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;language-objectscript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;Class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MR.Sample.WordCount.Adder&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Extends&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;%RegisteredObject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MR.Base.Reducer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;Method&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Reduce&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ReduceInput&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;As &lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;MR.Base.Iterator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ReduceOutput&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;As &lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;MR.Base.Emitter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+{&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;#dim&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Numeric&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;ReduceInput&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;IsAtEnd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;#dim&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;ReduceInput&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;GetNext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;; get &amp;lt;key,value&amp;gt; in $listbuild format&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;#dim&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;word&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;$li&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;#dim&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;count&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Integer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;$li&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;ReduceOutput&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Emit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Count&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Пока не встретили конца потока (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&apos;ReduceInput.IsAtEnd()&lt;/code&gt;) тот продолжает потреблять данные из потока ReduceInput, и на каждой итерации из потока вынимается пара «ключ-значение» в бинарном формате списка &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$listbuild&amp;lt;&amp;gt;&lt;/code&gt; (т.е. в виде &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$lb(word,count)&lt;/code&gt;).&lt;/p&gt;
 
@@ -650,43 +650,43 @@ Method Reduce(ReduceInput As MR.Base.Iterator, ReduceOutput As MR.Base.Emitter)
 
 &lt;p&gt;Итак, мы показали mapper и reducer, пришла очередь показать главную, управляющую часть программы. Не рискуя сразу упереться в сложность параллелизма, мы заходим с последовательной версии алгоритма, хотя и использующую MapReduce идиому и интерфейсы. Да, в последовательном режиме, все эти отжимания с конвейером, не имеют большого смысла, но … упрощение необходимо в педагогических целях.&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/// Упрощенная, одно-поточная версия примера &quot;map-reduce&quot;.
-/Class MR.Sample.WordCount.App Extends %RegisteredObject
-{
-ClassMethod MapReduce() [ ProcedureBlock = 0 ]
-{
-    new
-    //kill ^mtemp.Map,^mtemp.Reduce
+&lt;div class=&quot;language-objectscript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;/// Упрощенная, одно-поточная версия примера &quot;map-reduce&quot;.&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Class&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;MR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Sample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;WordCount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;App&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;Extends&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;RegisteredObject&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;ClassMethod&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;MapReduce&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;ProcedureBlock&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+{&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;//kill ^mtemp.Map,^mtemp.Reduce&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
 
-    #dim infraPipe As MR.Sample.GlobalPipe = ##class(MR.Sample.GlobalPipe).%New($name(^mtemp.Map($J)))
-    for i=1:1 {
-        #dim fileName As %String = $piece($Text(DATA+i),&quot;;&quot;,3)
-        quit:fileName=&quot;&quot;
-        // map
-        #dim inputFile As MR.Input.FileLines = ##class(MR.Input.FileLines).%New(FileName)
-        #dim mapper As MR.Sample.WordCount.Mapper = ##class(MR.Sample.WordCount.Mapper).%New()
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;#dim&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;infraPipe&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;MR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Sample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;GlobalPipe&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;##class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;MR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Sample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;GlobalPipe&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).%&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;New&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;$name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(^&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;mtemp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;$J&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)))&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;#dim&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;fileName&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;$piece&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;$Text&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;DATA&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;;&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;quit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;fileName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;c1&quot;&gt;// map&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;#dim&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;inputFile&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;MR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;FileLines&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;##class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;MR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;FileLines&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).%&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;New&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;FileName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;#dim&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;mapper&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;MR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Sample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;WordCount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Mapper&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;##class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;MR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Sample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;WordCount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Mapper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).%&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;New&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
 
-        do mapper.Map(inputFile, infraPipe)
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;mapper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;inputFile&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;infraPipe&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
 
-        // reduce
-        #dim outPipe As MR.Base.Emitter = ##class(MR.Emitter.Sorted).%New($name(^mtemp.Reduce($J)))
-        #dim reducer As MR.Sample.WordCount.Adder = ##class(MR.Sample.WordCount.Adder).%New()
-        while &apos;infraPipe.IsAtEnd() {
-            do reducer.Reduce(infraPipe, outPipe)
-        }
-        do outPipe.Dump()
-    }
-    quit
+&lt;/span&gt;        &lt;span class=&quot;c1&quot;&gt;// reduce&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;#dim&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;outPipe&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;MR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Base&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Emitter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;##class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;MR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Emitter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Sorted&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).%&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;New&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;$name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(^&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;mtemp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Reduce&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;$J&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)))&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;#dim&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;reducer&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;MR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Sample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;WordCount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Adder&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;##class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;MR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Sample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;WordCount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Adder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).%&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;New&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;infraPipe&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;IsAtEnd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;            &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;reducer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Reduce&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;infraPipe&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;outPipe&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;outPipe&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Dump&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;quit&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
 
-DATA
-    ;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol1.txt
-    ;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol2.txt
-    ;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol3.txt
-    ;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol4.txt
-    ;;
-}
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;DATA&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol1.txt&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol2.txt&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol3.txt&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol4.txt&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;;;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Попытаемся объяснить этот код строчка за строчкой:&lt;/p&gt;
 
@@ -702,8 +702,8 @@ DATA
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Class MR.Sample.GlobalPipe Extends (%RegisteredObject, MR.Emitter.Sorted) { }
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;language-objectscript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;Class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MR.Sample.GlobalPipe&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Extends&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;%RegisteredObject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MR.Emitter.Sorted&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;}
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
@@ -714,28 +714,28 @@ DATA
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Class MR.Input.FileLines Extends (%RegisteredObject, MR.Base.Iterator)
-{
-Property File As %Stream.FileCharacter;
-Method %OnNew(FileName As %String) As %Status
-{
-    set ..File = ##class(%Stream.FileCharacter).%New()
-    #dim sc As %Status = ..File.LinkToFile(FileName)
-    quit sc
-}
-Method GetNext() As %String
-{
-    if $isobject(..File) &amp;amp;&amp;amp; &apos;..File.AtEnd {
-        quit ..File.ReadLine()
-    }
-    quit &quot;&quot;
-}
-Method IsAtEnd() As %Boolean
-{
-    quit &apos;$isobject(..File) || ..File.AtEnd
-}
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;language-objectscript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;Class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MR.Input.FileLines&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Extends&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;%RegisteredObject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MR.Base.Iterator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;Property&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;File&lt;/span&gt;&lt;span class=&quot;k&quot;&gt; As &lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;%Stream.FileCharacter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;Method&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;OnNew&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;FileName&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Status&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;..&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;File&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;##class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(%&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Stream&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;FileCharacter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).%&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;New&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;#dim&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;sc&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Status&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;..&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;File&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;LinkToFile&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;FileName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;quit&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;sc&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;Method&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;GetNext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;k&quot;&gt; As &lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;%String&lt;/span&gt;
+{&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;$isobject&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(..&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;File&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&apos;..&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;File&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;AtEnd&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;quit&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;..&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;File&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;ReadLine&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;quit&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;Method&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;IsAtEnd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;k&quot;&gt; As &lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;%Boolean&lt;/span&gt;
+{&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;quit&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;$isobject&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(..&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;File&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;..&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;File&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;AtEnd&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Вернемся обратно к приложению &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MR.Sample.WordCount.App&lt;/code&gt;:&lt;/p&gt;
 
@@ -759,12 +759,12 @@ Method IsAtEnd() As %Boolean
 
 &lt;p&gt;Вроде бы все части в сборе – давайте посмотрим как это все работает.&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;DEVLATEST:MAPREDUCE:23:53:27:.000203&amp;gt;do ##class(MR.Sample.WordCount.App).MapReduce()
-^mtemp.Reduce(3276,&quot;Count&quot;)=114830
-^mtemp.Reduce(3276,&quot;Count&quot;)=123232
-^mtemp.Reduce(3276,&quot;Count&quot;)=130276
-^mtemp.Reduce(3276,&quot;Count&quot;)=109344
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;language-objectscript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nl&quot;&gt;DEVLATEST&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;MAPREDUCE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;23&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;53&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;27&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;000203&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;##class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;MR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Sample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;WordCount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;App&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;MapReduce&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;mtemp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Reduce&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;3276&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Count&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)=&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;114830&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;mtemp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Reduce&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;3276&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Count&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)=&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;123232&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;mtemp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Reduce&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;3276&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Count&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)=&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;130276&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;mtemp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Reduce&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;3276&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Count&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)=&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;109344&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Здесь мы видим вычисленное число слов в каждом томе книги, которое выводится в конце каждой итерации цикла. Это все хорошо, но остаются 2 вопроса, на которые мы не получили ответ:&lt;/p&gt;
 
@@ -775,8 +775,8 @@ Method IsAtEnd() As %Boolean
 
 &lt;p&gt;Начнем с ответа на второй вопрос, с верификации результата – проверить это просто, запустив Linux/Unix/Cygwin утилиту &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wc&lt;/code&gt; на тех же самих данных:&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Timur@TimurYoga2P /cygdrive/c/Users/Timur/Documents/mapreduce/data
-$ wc -w war*.txt
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Timur@TimurYoga2P /cygdrive/c/Users/Timur/Documents/mapreduce/data
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;wc&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-w&lt;/span&gt; war&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.txt
  114830 war_and_peace_vol1.txt
  123232 war_and_peace_vol2.txt
  130276 war_and_peace_vol3.txt
@@ -801,46 +801,46 @@ $ wc -w war*.txt
 
 &lt;p&gt;Во всех остальных случаях эти два приводимых примера ведут себя идентично – оба используют временные глобалы &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;^mtemp.Map($J)&lt;/code&gt; и &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;^mtemp.Reduce($J)&lt;/code&gt; в качестве промежуточного и финального хранилища на стадиях отображения и свертки.&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Class MR.Sample.WordCount.AppSum Extends %RegisteredObject
-{
-ClassMethod Map(FileName As %String, infraPipe As MR.Sample.GlobalPipe)
-{
-    #dim inputFile As MR.Input.FileLines      = ##class(MR.Input.FileLines).%New(FileName)
-    #dim mapper As MR.Sample.WordCount.Mapper = ##class(MR.Sample.WordCount.Mapper).%New()
+&lt;div class=&quot;language-objectscript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;Class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MR.Sample.WordCount.AppSum&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Extends&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;%RegisteredObject&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;ClassMethod&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;FileName&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;As &lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;%String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;infraPipe&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;As &lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;MR.Sample.GlobalPipe&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+{&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;#dim&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;inputFile&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;MR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;FileLines&lt;/span&gt;      &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;##class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;MR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;FileLines&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).%&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;New&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;FileName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;#dim&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;mapper&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;MR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Sample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;WordCount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Mapper&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;##class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;MR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Sample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;WordCount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Mapper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).%&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;New&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
 
-    do mapper.Map(inputFile, infraPipe)
-}
-ClassMethod MapReduce() [ ProcedureBlock = 0 ]
-{
-    new
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;mapper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;inputFile&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;infraPipe&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;ClassMethod&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;MapReduce&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;ProcedureBlock&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+{&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
 
-    #dim infraPipe As MR.Sample.GlobalPipe    = ##class(MR.Sample.GlobalPipe).%New($name(^mtemp.Map($J)))
-    #dim outPipe As MR.Base.Emitter           = ##class(MR.Emitter.Sorted).%New($name(^mtemp.Reduce($J)))
-    #dim reducer As MR.Sample.WordCount.Adder = ##class(MR.Sample.WordCount.Adder).%New()
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;#dim&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;infraPipe&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;MR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Sample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;GlobalPipe&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;##class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;MR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Sample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;GlobalPipe&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).%&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;New&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;$name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(^&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;mtemp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;$J&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)))&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;#dim&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;outPipe&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;MR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Base&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Emitter&lt;/span&gt;           &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;##class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;MR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Emitter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Sorted&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).%&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;New&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;$name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(^&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;mtemp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Reduce&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;$J&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)))&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;#dim&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;reducer&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;MR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Sample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;WordCount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Adder&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;##class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;MR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Sample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;WordCount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Adder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).%&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;New&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
 
-    for i=1:1 {
-        #dim fileName As %String = $piece($Text(DATA+i),&quot;;&quot;,3)
-        quit:fileName=&quot;&quot;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;#dim&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;fileName&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;$piece&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;$Text&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;DATA&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;;&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;quit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;fileName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
 
-        do ..Map(fileName, infraPipe)
-        //do infraPipe.Dump()
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;..&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;fileName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;infraPipe&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;c1&quot;&gt;//do infraPipe.Dump()&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
 
-    }
-    while &apos;infraPipe.IsAtEnd() {
-        do reducer.Reduce(infraPipe, outPipe)
-    }
-    do outPipe.Dump()
+&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;infraPipe&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;IsAtEnd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;reducer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Reduce&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;infraPipe&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;outPipe&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;outPipe&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Dump&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
 
-    quit
-DATA
-    ;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol1.txt
-    ;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol2.txt
-    ;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol3.txt
-    ;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol4.txt
-    ;;
-}
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;quit&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;DATA&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol1.txt&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol2.txt&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol3.txt&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol4.txt&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;;;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h3 id=&quot;параллельная-реализация&quot;&gt;Параллельная реализация&lt;/h3&gt;
 
@@ -850,55 +850,55 @@ DATA
 
 &lt;p&gt;Вернемся к коду – на предыдущем этапе мы, на стадии отображения, выделили функцию в отдельный метод класса, получающий два аргумента (имя входного файла и имя выходного глобала). Мы выделили данный код в отдельную функция с одной простой целью – облегчить создание параллельной версии. Такая параллельная версия будет использовать механизм worker в Caché ObjectScript &lt;a href=&quot;http://docs.intersystems.com/latest/csp/documatic/%25CSP.Documatic.cls?PAGE=CLASS&amp;amp;LIBRARY=%25SYS&amp;amp;CLASSNAME=%25SYSTEM.WorkMgr&quot;&gt;($system.WorkMgr)&lt;/a&gt; Ниже мы преобразуем последовательную версию, созданную на предыдущем шаге, в параллельную посредством вызова программ обработчиков (worker), запускаемых с выделенным методом класса.&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/// Версия #2 Более продвинутая, использующая несколько воркеров
-Class MR.Sample.WordCount.AppWorkers Extends %RegisteredObject
-{
-ClassMethod Map(FileName As %String, InfraPipeName As %String) As %Status
-{
-    #dim inputFile As MR.Input.FileLines        = ##class(MR.Input.FileLines).%New(FileName)
-    #dim mapper As MR.Sample.WordCount.Mapper   = ##class(MR.Sample.WordCount.Mapper).%New()
-    #dim infraPipe As MR.Sample.GlobalPipeClone = ##class(MR.Sample.GlobalPipeClone).%New(InfraPipeName)
+&lt;div class=&quot;language-objectscript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;/// Версия #2 Более продвинутая, использующая несколько воркеров&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;Class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MR.Sample.WordCount.AppWorkers&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Extends&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;%RegisteredObject&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;ClassMethod&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;FileName&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;As &lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;%String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;InfraPipeName&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;As &lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;%String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;k&quot;&gt; As &lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;%Status&lt;/span&gt;
+{&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;#dim&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;inputFile&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;MR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;FileLines&lt;/span&gt;        &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;##class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;MR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;FileLines&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).%&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;New&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;FileName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;#dim&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;mapper&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;MR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Sample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;WordCount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Mapper&lt;/span&gt;   &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;##class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;MR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Sample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;WordCount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Mapper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).%&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;New&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;#dim&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;infraPipe&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;MR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Sample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;GlobalPipeClone&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;##class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;MR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Sample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;GlobalPipeClone&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).%&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;New&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;InfraPipeName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
 
-    do mapper.Map(inputFile, infraPipe)
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;mapper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;inputFile&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;infraPipe&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
 
-    quit $$$OK
-}
-ClassMethod MapReduce() [ ProcedureBlock = 0 ]
-{
-    new
-    #dim infraPipe As MR.Sample.GlobalPipe = ##class(MR.Sample.GlobalPipe).%New($name(^mtemp.Map($J)))
-    #dim outPipe As MR.Base.Emitter = ##class(MR.Emitter.Sorted).%New($name(^mtemp.Reduce($J)))
-    #dim reducer As MR.Sample.WordCount.Adder = ##class(MR.Sample.WordCount.Adder).%New()
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;quit&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;$$$OK&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;ClassMethod&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;MapReduce&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;ProcedureBlock&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+{&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;#dim&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;infraPipe&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;MR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Sample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;GlobalPipe&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;##class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;MR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Sample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;GlobalPipe&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).%&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;New&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;$name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(^&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;mtemp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;$J&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)))&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;#dim&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;outPipe&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;MR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Base&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Emitter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;##class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;MR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Emitter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Sorted&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).%&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;New&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;$name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(^&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;mtemp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Reduce&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;$J&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)))&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;#dim&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;reducer&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;MR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Sample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;WordCount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Adder&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;##class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;MR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Sample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;WordCount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Adder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).%&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;New&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
 
-    #dim sc As %Status = $$$OK
-    // do $system.WorkMgr.StopWorkers()
-    #dim queue As %SYSTEM.WorkMgr = $system.WorkMgr.Initialize(&quot;/multicompile=1&quot;, .sc) 
-    quit:$$$ISERR(sc)
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;#dim&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;sc&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Status&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;$$$OK&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;// do $system.WorkMgr.StopWorkers()&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;#dim&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;queue&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;SYSTEM&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;WorkMgr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;$system&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;WorkMgr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Initialize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/multicompile=1&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;sc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;quit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;$$$ISERR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;sc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
 
-    for i=1:1 {
-        #dim fileName As %String = $piece($Text(DATA+i),&quot;;&quot;,3)
-        quit:fileName=&quot;&quot;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;#dim&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;fileName&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;$piece&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;$Text&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;DATA&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;;&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;quit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;fileName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
 
-        //do ..Map(fileName, infraPipe)
-        set sc = queue.Queue(&quot;##class(MR.Sample.WordCount.AppWorkers).Map&quot;, fileName, infraPipe.GlobalName)
-        quit:$$$ISERR(sc)
-    }
-    set sc = queue.WaitForComplete() quit:$$$ISERR(sc)
+&lt;/span&gt;        &lt;span class=&quot;c1&quot;&gt;//do ..Map(fileName, infraPipe)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;sc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;##class(MR.Sample.WordCount.AppWorkers).Map&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;fileName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;infraPipe&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;GlobalName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;quit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;$$$ISERR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;sc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;sc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;WaitForComplete&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;quit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;$$$ISERR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;sc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
 
-    while &apos;infraPipe.IsAtEnd() {
-        do reducer.Reduce(infraPipe, outPipe)
-    }
-    do outPipe.Dump()
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;infraPipe&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;IsAtEnd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;reducer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Reduce&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;infraPipe&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;outPipe&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;outPipe&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Dump&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
 
-    quit
-DATA
-    ;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol1.txt
-    ;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol2.txt
-    ;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol3.txt
-    ;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol4.txt
-    ;;
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;quit&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;DATA&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol1.txt&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol2.txt&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol3.txt&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol4.txt&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;;;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Ранее пример назывался AppSum, Новый пример нзывается AppWorkers, и разница между ними очень маленькая, но важная – мы вызываем процедуру отображения в отдельном треде (процессе) обработчике посредством &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$system.WorkMgr.Queue&lt;/code&gt; API. Это API может вызывать простую подпрограмму, или метод класса, но (по естественным причнима) не может вызывать методы объекта, т.к. не предусмотрен механизм передачи объекта во внешний процесс.&lt;/p&gt;
 
@@ -945,30 +945,30 @@ DATA
 
 &lt;p&gt;Начнем с реализации абстрактных интерфейсов Mapper и Reducer.&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-Class MR.Base.Mapper 
-{
-Method Map(MapInput As MR.Base.Iterator, MapOutput As MR.Base.Emitter) [ Abstract ] { }
-}
+&lt;div class=&quot;language-objectscript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;Class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MR.Base.Mapper&lt;/span&gt; 
+&lt;span class=&quot;err&quot;&gt;{
+&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;Method&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MapInput&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;As &lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;MR.Base.Iterator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MapOutput&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;As &lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;MR.Base.Emitter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;Abstract&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;}
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
 
-Class MR.Base.Reducer
-{
-Method Reduce(ReduceInput As MR.Base.Iterator, ReduceOutput As MR.Base.Emitter) [ Abstract ] { }
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;Class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MR.Base.Reducer&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;Method&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Reduce&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ReduceInput&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;As &lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;MR.Base.Iterator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ReduceOutput&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;As &lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;MR.Base.Emitter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;Abstract&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;}
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Изначально, как и в канонической реализации, мы сделали 2 отдельных интерфейса MapInput и ReduceInput. Но сразу стало очевидным, что они служат одной и той же цели, и предоставляют одни и те же методы – их цель пройтись по потоку данных до конца, т.ч. они оба являются итераторами. Потому, в итоге, редуцируем их в общий интерфейс MR.Base.Iterator:&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-Class MR.Base.Iterator
-{
+&lt;div class=&quot;language-objectscript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;Class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MR.Base.Iterator&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
 
-Method GetNext() As %String [Abstract ] { }
+&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;Method&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;GetNext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;k&quot;&gt; As &lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;%String&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;Abstract&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;}
 
-Method IsAtEnd() As %Boolean [Abstract ] { }
+&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;Method&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;IsAtEnd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;k&quot;&gt; As &lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;%Boolean&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;Abstract&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;}
 
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h2 id=&quot;использование-глобалов-в-качестве-каналов-связи&quot;&gt;Использование глобалов в качестве каналов связи&lt;/h2&gt;
 
@@ -988,15 +988,15 @@ Method IsAtEnd() As %Boolean [Abstract ] { }
 
 &lt;p&gt;Имея такие требования к дизайну, создадим базовый интерфейс эмиттера:&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-Class MR.Base.Emitter Extends MR.Base.Iterator
-{
+&lt;div class=&quot;language-objectscript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;Class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MR.Base.Emitter&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Extends&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MR.Base.Iterator&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
 
-/// emit $listbuild(key,value(s))
-Method Emit(EmitList... As %String) [Abstract ] { }
+&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;/// emit $listbuild(key,value(s))&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;Method&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Emit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;EmitList&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;...&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;Abstract&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;}
 
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Эмиттер должен быть похож на интерфейс входного итератора, показанного выше (потому мы и пронаследовались от MR.Base.Iterator), но в дополнение к интерфейсу прохода по данным, эмиттер должен уметь еще и посылать данные в своё промежуточное хранилище (т.е. добавляем функцию Emit).&lt;/p&gt;
 
@@ -1008,79 +1008,79 @@ Method Emit(EmitList... As %String) [Abstract ] { }
 
 &lt;p&gt;Если бы нам, при обработке, надо было сохранять порядок поступивших элементов, то мы бы использовали реализацию ниже:&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-/// Emitter which maintains the order of (key,value(s))
-Class MR.Emitter.Ordered Extends (%RegisteredObject, MR.Base.Emitter)
-{
-   /// global name serving as data channel
-Property GlobalName As %String;
-Method %OnNew(initval As %String) As %Status
-{
-    $$$ThrowOnError($length(initval)&amp;gt;0)
-    set ..GlobalName = initval 
-    quit $$$OK
-}
+&lt;div class=&quot;language-objectscript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;/// Emitter which maintains the order of (key,value(s))&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;Class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MR.Emitter.Ordered&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Extends&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;%RegisteredObject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MR.Base.Emitter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;/// global name serving as data channel&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;Property&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;GlobalName&lt;/span&gt;&lt;span class=&quot;k&quot;&gt; As &lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;%String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;Method&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;OnNew&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;initval&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Status&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;nf&quot;&gt;$$$ThrowOnError&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;$length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;initval&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&amp;gt;&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;..&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;GlobalName&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;initval&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;quit&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;$$$OK&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
 
-Parameter AUTOCLEANUP = 1;
-Method %OnClose() As %Status
-{
-    if ..#AUTOCLEANUP {
-        if $data(@i%GlobalName) {
-            kill @i%GlobalName
-        }
-    }
-    Quit $$$OK
-}
-...
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;Parameter&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;AUTOCLEANUP&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;Method&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;OnClose&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Status&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;..#&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;AUTOCLEANUP&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;$data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(@&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;GlobalName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;            &lt;span class=&quot;k&quot;&gt;kill&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;GlobalName&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;Quit&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;$$$OK&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Заметим на полях, что в Caché глобалы – в общем-то, глобальны :) , и не будут очищены автоматически по завершении процессов их создавших. В отличие, например, от &lt;a href=&quot;http://docs.intersystems.com/latest/csp/docbook/DocBook.UI.Page.cls?KEY=GCOS_variables#GCOS_variables_procprivglbls&quot;&gt;PPG (process-private globals)&lt;/a&gt;. Но иногда все же хочется, чтобы наши промежуточные каналы, созданные для взаимодействия между стадиями конвейера MapReduce удалялись по завершении подпрограммы их создавшей. Поэтому и был добавлен режим “автоочистки” (параметр класса #AUTOCLEANUP) при котором глобал, имя которого хранится в свойстве GlobalName, будет удален при закрытии объекта (в момент вызова %OnClose).&lt;/p&gt;
 
 &lt;p&gt;Обратите внимание, что мы форсируем один обязательный параметр в метода %New (в %OnNew генерируем $$$ThrowOnError если имя в Initval не определено). Конструктор класса ожидает получить название глобала с которым он будет работать в качестве транспорта данных.&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-Class MR.Emitter.Ordered Extends MR.Base.Emitter
-{
-/// ... 
-Method IsAtEnd() As %Boolean
-{
-    quit ($data(@i%GlobalName)\10)=0
-}
+&lt;div class=&quot;language-objectscript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;Class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MR.Emitter.Ordered&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Extends&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MR.Base.Emitter&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;/// ... &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;Method&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;IsAtEnd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;k&quot;&gt; As &lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;%Boolean&lt;/span&gt;
+{&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;quit&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;$data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(@&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;GlobalName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)=&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
 
-/// emit $listbuild(key,value)
-Method Emit(EmitList... As %String)
-{
-    #dim list As %String = &quot;&quot;
-    for i=1:1:$get(EmitList) {
-        set $li(list,i) = $get(EmitList(i))
-    }
-    #dim name As %String = ..GlobalName
-    set @name@($seq(@name)) = list
-}
+&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;/// emit $listbuild(key,value)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;Method&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Emit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;EmitList&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;...&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+{&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;#dim&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;list&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;$get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;EmitList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;$li&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;$get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;EmitList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;#dim&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;..&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;GlobalName&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;@(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;$seq&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(@&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
 
-/// returns emitted $lb(key,value)
-Method GetNext() As %String
-{
-    #dim value As %String
-    #dim index As %String = $order(@i%GlobalName@(&quot;&quot;), 1, value)
+&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;/// returns emitted $lb(key,value)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;Method&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;GetNext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;k&quot;&gt; As &lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;%String&lt;/span&gt;
+{&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;#dim&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;#dim&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;index&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;$order&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(@&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;GlobalName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;@(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
 
-    if index &apos;= &quot;&quot; {
-        kill @i%GlobalName@(index)
-        quit value
-    } else {
-        kill @i%GlobalName
-        quit &quot;&quot;
-    }
-}
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&apos;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;kill&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;GlobalName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;@(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;quit&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;kill&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;GlobalName&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;quit&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
 
-Method Dump()
-{
-    zwrite @i%GlobalName
-}
+&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;Method&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Dump&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+{&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;zwrite&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;GlobalName&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
 
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Надеемся, вы еще помните, что наш Emitter является наследником итератора Iterator? Посему ему нужно реализовать пару функций итератора – IsAtEnd и GetNext.&lt;/p&gt;
 
@@ -1126,45 +1126,45 @@ Method Dump()
 
 &lt;p&gt;Именно так и работает MR.Emitter.Sorted, который является наследником MR.Emitter.Ordered (показанного выше):&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-/// Emitter which sorts by keys all emitted pairs or tuples (key, value(s))
-Class MR.Emitter.Sorted Extends MR.Emitter.Ordered
-{
-Property AutoIncrement As %Boolean [ InitialExpression = 1 ];
-/// emit $listbuild(key,value)
-Method Emit(EmitList... As %String)
-{
-    #dim name As %String = ..GlobalName
-    #dim key As %String
-    #dim value As %String 
+&lt;div class=&quot;language-objectscript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;/// Emitter which sorts by keys all emitted pairs or tuples (key, value(s))&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;Class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MR.Emitter.Sorted&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Extends&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MR.Emitter.Ordered&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;Property&lt;/span&gt; &lt;span class=&quot;py&quot;&gt;AutoIncrement&lt;/span&gt;&lt;span class=&quot;k&quot;&gt; As &lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;%Boolean&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;InitialExpression&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;/// emit $listbuild(key,value)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;Method&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Emit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;EmitList&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;...&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+{&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;#dim&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;..&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;GlobalName&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;#dim&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;key&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;#dim&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;
 
-    if $get(EmitList)=1 {
-        // special case - only key name given, no value
-        set key = $get(EmitList(1))
-        quit:key=&quot;&quot;
-        if ..AutoIncrement {
-            #dim dummyX As %Integer = $increment(@name@(key)) ; $seq is non-deterministic
-        } else {
-            set @name@(key) = 1
-        }
-    } else {
-        set value = $get(EmitList(EmitList))
-        set EmitList = EmitList - 1
-        for i=1:1:$get(EmitList) {
-            #dim index As %String = $get(EmitList(i))
-            quit:index=&quot;&quot;
-            set name = $name(@name@(index))
-        }
-        if ..AutoIncrement {
-            #dim dummyY As %Integer = $increment(@name,value)
-        } else {
-            set @name = value
-        }
-    }
-}
-/// ...
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;$get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;EmitList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)=&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;c1&quot;&gt;// special case - only key name given, no value&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;key&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;$get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;EmitList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;quit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;..&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;AutoIncrement&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;            &lt;span class=&quot;k&quot;&gt;#dim&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;dummyX&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Integer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;$increment&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(@&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;@(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;; $seq is non-deterministic&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;            &lt;span class=&quot;k&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;@(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;$get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;EmitList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;EmitList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;EmitList&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;EmitList&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;$get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;EmitList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;            &lt;span class=&quot;k&quot;&gt;#dim&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;index&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;$get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;EmitList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;            &lt;span class=&quot;k&quot;&gt;quit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;            &lt;span class=&quot;k&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;$name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(@&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;@(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;..&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;AutoIncrement&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;            &lt;span class=&quot;k&quot;&gt;#dim&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;dummyY&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Integer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;$increment&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(@&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;            &lt;span class=&quot;k&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;/// ...&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Для самого простого случая, выдачи пары &amp;lt;key,1&amp;gt; или, когда значение опущено, и имеет один ключ &amp;lt;key&amp;gt; мы реализовали локальную оптимизацию, когда в режиме автоинкремента (AutoIncrement = 1) мы при вызове сразу инкрементируем соответствующий счетчик для ключа. Если же не включен автоинкремент, то мы просто (пере)определяем узел ключа в 1, фиксируя факт передачи ключа.&lt;/p&gt;
 
@@ -1189,37 +1189,37 @@ Method Emit(EmitList... As %String)
 
 &lt;p&gt;Но GetNext нам надо переопределить, т.к. мы больше не пытаемся запомнить порядок посланных данных и формат его внутреннего хранилища поменялся:&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-Class MR.Emitter.Sorted Extends MR.Emitter.Ordered 
-{
-/// ...
+&lt;div class=&quot;language-objectscript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;Class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MR.Emitter.Sorted&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Extends&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MR.Emitter.Ordered&lt;/span&gt; 
+&lt;span class=&quot;err&quot;&gt;{
+&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;/// ...&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
 
-/// returns emitted $lb(key,value)
-Method GetNext() As %String
-{
-    #dim name As %String = ..GlobalName
-    #dim value As %String
-    #dim ref As %String = $query(@name,1,value)
-    if ref&apos;=&quot;&quot; {
-        zkill @ref
-        #dim i As %Integer
-        #dim refLen As %Integer = $qlength(ref)
-        #dim baseLen As %Integer = $qlength(name)
-        #dim listbuild = &quot;&quot;
-        for i=baseLen+1:1:refLen {
-            set $li(listbuild,i-baseLen)=$qs(ref,i)
-        }
-        set $li(listbuild,*+1)=value
+&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;/// returns emitted $lb(key,value)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;Method&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;GetNext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;k&quot;&gt; As &lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;%String&lt;/span&gt;
+{&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;#dim&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;..&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;GlobalName&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;#dim&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;#dim&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;ref&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;$query&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(@&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;ref&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&apos;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;zkill&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;ref&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;#dim&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Integer&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;#dim&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;refLen&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Integer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;$qlength&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;ref&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;#dim&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;baseLen&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;Integer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;$qlength&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;#dim&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;listbuild&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;baseLen&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;refLen&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;            &lt;span class=&quot;k&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;$li&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;listbuild&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;baseLen&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)=&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;$qs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;ref&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;$li&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;listbuild&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,*+&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)=&lt;/span&gt;&lt;span class=&quot;l&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
 
-        quit listbuild
-    }
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;quit&lt;/span&gt; &lt;span class=&quot;l&quot;&gt;listbuild&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
 
-    quit &quot;&quot;
-}
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;quit&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
 
-}
+&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;На выходе из GetNext() мы ожидаем &lt;a href=&quot;http://docs.intersystems.com/latest/csp/docbook/DocBook.UI.Page.cls?KEY=RCOS_flistbuild&quot;&gt;$LISTBUILD&amp;lt;&amp;gt;&lt;/a&gt; список, но внутри хранилища данные пар/кортежей разбросаны по узлам иерархического хранилища. Функция &lt;a href=&quot;http://docs.intersystems.com/latest/csp/docbook/DocBook.UI.Page.cls?KEY=RCOS_fquery&quot;&gt;$QUERY&lt;/a&gt; позволяет обойти узлы с данными (значениями пар/кортежей) в массиве для последующей их перепаковки в $LISTBUILD формат, индексы из массива последовательно добавляются следующим элементом списка (посредством присваивания элементу через функцию &lt;a href=&quot;http://docs.intersystems.com/latest/csp/docbook/DocBook.UI.Page.cls?KEY=RCOS_flist&quot;&gt;$LIST&lt;/a&gt;. Само же значение узла хранилища (значение в паре «ключ-значение» или последний элемент кортежа) будет добавлено в конец сформированного списка через ту же функцию $LIST(listbuild,*+1). В данном случае *+1 как раз и обозначат номер элемента списка, следующий за текущим концом.&lt;/p&gt;
 

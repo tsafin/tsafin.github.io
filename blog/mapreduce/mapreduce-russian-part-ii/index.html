@@ -150,30 +150,30 @@
 
 <p>Начнем с реализации абстрактных интерфейсов Mapper и Reducer.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-Class MR.Base.Mapper 
-{
-Method Map(MapInput As MR.Base.Iterator, MapOutput As MR.Base.Emitter) [ Abstract ] { }
-}
+<div class="language-objectscript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">
+</span><span class="kd">Class</span> <span class="nc">MR.Base.Mapper</span> 
+<span class="err">{
+</span><span class="kd">Method</span> <span class="nf">Map</span><span class="o">(</span><span class="n">MapInput</span> <span class="k">As </span><span class="nc">MR.Base.Iterator</span><span class="p">,</span> <span class="n">MapOutput</span> <span class="k">As </span><span class="nc">MR.Base.Emitter</span><span class="o">)</span> <span class="o">[</span> <span class="k">Abstract</span> <span class="o">]</span> <span class="err">{</span> <span class="err">}
+</span><span class="o">}</span><span class="err">
 
-Class MR.Base.Reducer
-{
-Method Reduce(ReduceInput As MR.Base.Iterator, ReduceOutput As MR.Base.Emitter) [ Abstract ] { }
-}
-</code></pre></div></div>
+</span><span class="kd">Class</span> <span class="nc">MR.Base.Reducer</span><span class="err">
+</span><span class="o">{</span><span class="err">
+</span><span class="kd">Method</span> <span class="nf">Reduce</span><span class="o">(</span><span class="n">ReduceInput</span> <span class="k">As </span><span class="nc">MR.Base.Iterator</span><span class="p">,</span> <span class="n">ReduceOutput</span> <span class="k">As </span><span class="nc">MR.Base.Emitter</span><span class="o">)</span> <span class="o">[</span> <span class="k">Abstract</span> <span class="o">]</span> <span class="err">{</span> <span class="err">}
+</span><span class="o">}</span><span class="err">
+</span></code></pre></div></div>
 
 <p>Изначально, как и в канонической реализации, мы сделали 2 отдельных интерфейса MapInput и ReduceInput. Но сразу стало очевидным, что они служат одной и той же цели, и предоставляют одни и те же методы – их цель пройтись по потоку данных до конца, т.ч. они оба являются итераторами. Потому, в итоге, редуцируем их в общий интерфейс MR.Base.Iterator:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-Class MR.Base.Iterator
-{
+<div class="language-objectscript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">
+</span><span class="kd">Class</span> <span class="nc">MR.Base.Iterator</span><span class="err">
+</span><span class="o">{</span><span class="err">
 
-Method GetNext() As %String [Abstract ] { }
+</span><span class="kd">Method</span> <span class="nf">GetNext</span><span class="o">()</span><span class="k"> As </span><span class="nc">%String</span> <span class="o">[</span><span class="k">Abstract</span> <span class="o">]</span> <span class="err">{</span> <span class="err">}
 
-Method IsAtEnd() As %Boolean [Abstract ] { }
+</span><span class="kd">Method</span> <span class="nf">IsAtEnd</span><span class="o">()</span><span class="k"> As </span><span class="nc">%Boolean</span> <span class="o">[</span><span class="k">Abstract</span> <span class="o">]</span> <span class="err">{</span> <span class="err">}
 
-}
-</code></pre></div></div>
+</span><span class="o">}</span><span class="err">
+</span></code></pre></div></div>
 
 <h2 id="использование-глобалов-в-качестве-каналов-связи">Использование глобалов в качестве каналов связи</h2>
 
@@ -193,15 +193,15 @@ Method IsAtEnd() As %Boolean [Abstract ] { }
 
 <p>Имея такие требования к дизайну, создадим базовый интерфейс эмиттера:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-Class MR.Base.Emitter Extends MR.Base.Iterator
-{
+<div class="language-objectscript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">
+</span><span class="kd">Class</span> <span class="nc">MR.Base.Emitter</span> <span class="nc">Extends</span> <span class="nc">MR.Base.Iterator</span><span class="err">
+</span><span class="o">{</span><span class="err">
 
-/// emit $listbuild(key,value(s))
-Method Emit(EmitList... As %String) [Abstract ] { }
+</span><span class="c1">/// emit $listbuild(key,value(s))</span><span class="err">
+</span><span class="kd">Method</span> <span class="nf">Emit</span><span class="o">(</span><span class="n">EmitList</span><span class="err">...</span> <span class="n">As</span> <span class="err">%</span><span class="n">String</span><span class="o">)</span> <span class="o">[</span><span class="k">Abstract</span> <span class="o">]</span> <span class="err">{</span> <span class="err">}
 
-}
-</code></pre></div></div>
+</span><span class="o">}</span><span class="err">
+</span></code></pre></div></div>
 
 <p>Эмиттер должен быть похож на интерфейс входного итератора, показанного выше (потому мы и пронаследовались от MR.Base.Iterator), но в дополнение к интерфейсу прохода по данным, эмиттер должен уметь еще и посылать данные в своё промежуточное хранилище (т.е. добавляем функцию Emit).</p>
 
@@ -213,79 +213,79 @@ Method Emit(EmitList... As %String) [Abstract ] { }
 
 <p>Если бы нам, при обработке, надо было сохранять порядок поступивших элементов, то мы бы использовали реализацию ниже:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-/// Emitter which maintains the order of (key,value(s))
-Class MR.Emitter.Ordered Extends (%RegisteredObject, MR.Base.Emitter)
-{
-   /// global name serving as data channel
-Property GlobalName As %String;
-Method %OnNew(initval As %String) As %Status
-{
-    $$$ThrowOnError($length(initval)&gt;0)
-    set ..GlobalName = initval 
-    quit $$$OK
-}
+<div class="language-objectscript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">
+</span><span class="c1">/// Emitter which maintains the order of (key,value(s))</span><span class="err">
+</span><span class="kd">Class</span> <span class="nc">MR.Emitter.Ordered</span> <span class="nc">Extends</span> <span class="o">(</span><span class="nc">%RegisteredObject</span><span class="p">,</span> <span class="nc">MR.Base.Emitter</span><span class="o">)</span><span class="err">
+</span><span class="o">{</span><span class="err">
+</span>   <span class="c1">/// global name serving as data channel</span><span class="err">
+</span><span class="kd">Property</span> <span class="py">GlobalName</span><span class="k"> As </span><span class="nc">%String</span><span class="p">;</span><span class="err">
+</span><span class="nl">Method</span> <span class="o">%</span><span class="l">OnNew</span><span class="o">(</span><span class="l">initval</span> <span class="l">As</span> <span class="o">%</span><span class="l">String</span><span class="o">)</span> <span class="l">As</span> <span class="o">%</span><span class="l">Status</span><span class="err">
+</span><span class="o">{</span><span class="err">
+</span>    <span class="nf">$$$ThrowOnError</span><span class="o">(</span><span class="nf">$length</span><span class="o">(</span><span class="l">initval</span><span class="o">)&gt;</span><span class="l">0</span><span class="o">)</span><span class="err">
+</span>    <span class="k">set</span> <span class="o">..</span><span class="l">GlobalName</span> <span class="o">=</span> <span class="l">initval</span> <span class="err">
+</span>    <span class="k">quit</span> <span class="nf">$$$OK</span><span class="err">
+</span><span class="o">}</span><span class="err">
 
-Parameter AUTOCLEANUP = 1;
-Method %OnClose() As %Status
-{
-    if ..#AUTOCLEANUP {
-        if $data(@i%GlobalName) {
-            kill @i%GlobalName
-        }
-    }
-    Quit $$$OK
-}
-...
-}
-</code></pre></div></div>
+</span><span class="k">Parameter</span> <span class="n">AUTOCLEANUP</span> <span class="o">=</span> <span class="m">1</span><span class="o">;</span><span class="err">
+</span><span class="nl">Method</span> <span class="o">%</span><span class="l">OnClose</span><span class="o">()</span> <span class="l">As</span> <span class="o">%</span><span class="l">Status</span><span class="err">
+</span><span class="o">{</span><span class="err">
+</span>    <span class="k">if</span> <span class="o">..#</span><span class="l">AUTOCLEANUP</span> <span class="o">{</span><span class="err">
+</span>        <span class="k">if</span> <span class="nf">$data</span><span class="o">(@</span><span class="k">i</span><span class="o">%</span><span class="l">GlobalName</span><span class="o">)</span> <span class="o">{</span><span class="err">
+</span>            <span class="k">kill</span> <span class="o">@</span><span class="k">i</span><span class="o">%</span><span class="l">GlobalName</span><span class="err">
+</span>        <span class="o">}</span><span class="err">
+</span>    <span class="o">}</span><span class="err">
+</span>    <span class="k">Quit</span> <span class="nf">$$$OK</span><span class="err">
+</span><span class="o">}</span><span class="err">
+</span><span class="o">...</span><span class="err">
+</span><span class="o">}</span><span class="err">
+</span></code></pre></div></div>
 
 <p>Заметим на полях, что в Caché глобалы – в общем-то, глобальны :) , и не будут очищены автоматически по завершении процессов их создавших. В отличие, например, от <a href="http://docs.intersystems.com/latest/csp/docbook/DocBook.UI.Page.cls?KEY=GCOS_variables#GCOS_variables_procprivglbls">PPG (process-private globals)</a>. Но иногда все же хочется, чтобы наши промежуточные каналы, созданные для взаимодействия между стадиями конвейера MapReduce удалялись по завершении подпрограммы их создавшей. Поэтому и был добавлен режим “автоочистки” (параметр класса #AUTOCLEANUP) при котором глобал, имя которого хранится в свойстве GlobalName, будет удален при закрытии объекта (в момент вызова %OnClose).</p>
 
 <p>Обратите внимание, что мы форсируем один обязательный параметр в метода %New (в %OnNew генерируем $$$ThrowOnError если имя в Initval не определено). Конструктор класса ожидает получить название глобала с которым он будет работать в качестве транспорта данных.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-Class MR.Emitter.Ordered Extends MR.Base.Emitter
-{
-/// ... 
-Method IsAtEnd() As %Boolean
-{
-    quit ($data(@i%GlobalName)\10)=0
-}
+<div class="language-objectscript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">
+</span><span class="kd">Class</span> <span class="nc">MR.Emitter.Ordered</span> <span class="nc">Extends</span> <span class="nc">MR.Base.Emitter</span><span class="err">
+</span><span class="o">{</span><span class="err">
+</span><span class="c1">/// ... </span><span class="err">
+</span><span class="kd">Method</span> <span class="nf">IsAtEnd</span><span class="o">()</span><span class="k"> As </span><span class="nc">%Boolean</span>
+{<span class="err">
+</span>    <span class="k">quit</span> <span class="o">(</span><span class="nf">$data</span><span class="o">(@</span><span class="k">i</span><span class="o">%</span><span class="l">GlobalName</span><span class="o">)</span><span class="err">\</span><span class="l">10</span><span class="o">)=</span><span class="l">0</span><span class="err">
+</span><span class="o">}</span><span class="err">
 
-/// emit $listbuild(key,value)
-Method Emit(EmitList... As %String)
-{
-    #dim list As %String = ""
-    for i=1:1:$get(EmitList) {
-        set $li(list,i) = $get(EmitList(i))
-    }
-    #dim name As %String = ..GlobalName
-    set @name@($seq(@name)) = list
-}
+</span><span class="c1">/// emit $listbuild(key,value)</span><span class="err">
+</span><span class="kd">Method</span> <span class="nf">Emit</span><span class="o">(</span><span class="n">EmitList</span><span class="err">...</span> <span class="n">As</span> <span class="err">%</span><span class="n">String</span><span class="o">)</span>
+{<span class="err">
+</span>    <span class="k">#dim</span> <span class="l">list</span> <span class="l">As</span> <span class="o">%</span><span class="l">String</span> <span class="o">=</span> <span class="s">""</span><span class="err">
+</span>    <span class="k">for</span> <span class="k">i</span><span class="o">=</span><span class="l">1</span><span class="o">:</span><span class="l">1</span><span class="o">:</span><span class="nf">$get</span><span class="o">(</span><span class="l">EmitList</span><span class="o">)</span> <span class="o">{</span><span class="err">
+</span>        <span class="k">set</span> <span class="nf">$li</span><span class="o">(</span><span class="l">list</span><span class="o">,</span><span class="k">i</span><span class="o">)</span> <span class="o">=</span> <span class="nf">$get</span><span class="o">(</span><span class="l">EmitList</span><span class="o">(</span><span class="k">i</span><span class="o">))</span><span class="err">
+</span>    <span class="o">}</span><span class="err">
+</span>    <span class="k">#dim</span> <span class="l">name</span> <span class="l">As</span> <span class="o">%</span><span class="l">String</span> <span class="o">=</span> <span class="o">..</span><span class="l">GlobalName</span><span class="err">
+</span>    <span class="k">set</span> <span class="o">@</span><span class="l">name</span><span class="o">@(</span><span class="nf">$seq</span><span class="o">(@</span><span class="l">name</span><span class="o">))</span> <span class="o">=</span> <span class="l">list</span><span class="err">
+</span><span class="o">}</span><span class="err">
 
-/// returns emitted $lb(key,value)
-Method GetNext() As %String
-{
-    #dim value As %String
-    #dim index As %String = $order(@i%GlobalName@(""), 1, value)
+</span><span class="c1">/// returns emitted $lb(key,value)</span><span class="err">
+</span><span class="kd">Method</span> <span class="nf">GetNext</span><span class="o">()</span><span class="k"> As </span><span class="nc">%String</span>
+{<span class="err">
+</span>    <span class="k">#dim</span> <span class="l">value</span> <span class="l">As</span> <span class="o">%</span><span class="l">String</span><span class="err">
+</span>    <span class="k">#dim</span> <span class="l">index</span> <span class="l">As</span> <span class="o">%</span><span class="l">String</span> <span class="o">=</span> <span class="nf">$order</span><span class="o">(@</span><span class="k">i</span><span class="o">%</span><span class="l">GlobalName</span><span class="o">@(</span><span class="s">""</span><span class="o">),</span> <span class="l">1</span><span class="o">,</span> <span class="l">value</span><span class="o">)</span><span class="err">
 
-    if index '= "" {
-        kill @i%GlobalName@(index)
-        quit value
-    } else {
-        kill @i%GlobalName
-        quit ""
-    }
-}
+</span>    <span class="k">if</span> <span class="l">index</span> <span class="o">'=</span> <span class="s">""</span> <span class="o">{</span><span class="err">
+</span>        <span class="k">kill</span> <span class="o">@</span><span class="k">i</span><span class="o">%</span><span class="l">GlobalName</span><span class="o">@(</span><span class="l">index</span><span class="o">)</span><span class="err">
+</span>        <span class="k">quit</span> <span class="l">value</span><span class="err">
+</span>    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span><span class="err">
+</span>        <span class="k">kill</span> <span class="o">@</span><span class="k">i</span><span class="o">%</span><span class="l">GlobalName</span><span class="err">
+</span>        <span class="k">quit</span> <span class="s">""</span><span class="err">
+</span>    <span class="o">}</span><span class="err">
+</span><span class="o">}</span><span class="err">
 
-Method Dump()
-{
-    zwrite @i%GlobalName
-}
+</span><span class="kd">Method</span> <span class="nf">Dump</span><span class="o">()</span>
+{<span class="err">
+</span>    <span class="k">zwrite</span> <span class="o">@</span><span class="k">i</span><span class="o">%</span><span class="l">GlobalName</span><span class="err">
+</span><span class="o">}</span><span class="err">
 
-}
-</code></pre></div></div>
+</span><span class="o">}</span><span class="err">
+</span></code></pre></div></div>
 
 <p>Надеемся, вы еще помните, что наш Emitter является наследником итератора Iterator? Посему ему нужно реализовать пару функций итератора – IsAtEnd и GetNext.</p>
 
@@ -331,45 +331,45 @@ Method Dump()
 
 <p>Именно так и работает MR.Emitter.Sorted, который является наследником MR.Emitter.Ordered (показанного выше):</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-/// Emitter which sorts by keys all emitted pairs or tuples (key, value(s))
-Class MR.Emitter.Sorted Extends MR.Emitter.Ordered
-{
-Property AutoIncrement As %Boolean [ InitialExpression = 1 ];
-/// emit $listbuild(key,value)
-Method Emit(EmitList... As %String)
-{
-    #dim name As %String = ..GlobalName
-    #dim key As %String
-    #dim value As %String 
+<div class="language-objectscript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">
+</span><span class="c1">/// Emitter which sorts by keys all emitted pairs or tuples (key, value(s))</span><span class="err">
+</span><span class="kd">Class</span> <span class="nc">MR.Emitter.Sorted</span> <span class="nc">Extends</span> <span class="nc">MR.Emitter.Ordered</span><span class="err">
+</span><span class="o">{</span><span class="err">
+</span><span class="kd">Property</span> <span class="py">AutoIncrement</span><span class="k"> As </span><span class="nc">%Boolean</span> <span class="o">[</span> <span class="k">InitialExpression</span> <span class="o">=</span> <span class="s">1</span> <span class="o">]</span><span class="p">;</span><span class="err">
+</span><span class="c1">/// emit $listbuild(key,value)</span><span class="err">
+</span><span class="kd">Method</span> <span class="nf">Emit</span><span class="o">(</span><span class="n">EmitList</span><span class="err">...</span> <span class="n">As</span> <span class="err">%</span><span class="n">String</span><span class="o">)</span>
+{<span class="err">
+</span>    <span class="k">#dim</span> <span class="l">name</span> <span class="l">As</span> <span class="o">%</span><span class="l">String</span> <span class="o">=</span> <span class="o">..</span><span class="l">GlobalName</span><span class="err">
+</span>    <span class="k">#dim</span> <span class="l">key</span> <span class="l">As</span> <span class="o">%</span><span class="l">String</span><span class="err">
+</span>    <span class="k">#dim</span> <span class="l">value</span> <span class="l">As</span> <span class="o">%</span><span class="l">String</span> <span class="err">
 
-    if $get(EmitList)=1 {
-        // special case - only key name given, no value
-        set key = $get(EmitList(1))
-        quit:key=""
-        if ..AutoIncrement {
-            #dim dummyX As %Integer = $increment(@name@(key)) ; $seq is non-deterministic
-        } else {
-            set @name@(key) = 1
-        }
-    } else {
-        set value = $get(EmitList(EmitList))
-        set EmitList = EmitList - 1
-        for i=1:1:$get(EmitList) {
-            #dim index As %String = $get(EmitList(i))
-            quit:index=""
-            set name = $name(@name@(index))
-        }
-        if ..AutoIncrement {
-            #dim dummyY As %Integer = $increment(@name,value)
-        } else {
-            set @name = value
-        }
-    }
-}
-/// ...
-}
-</code></pre></div></div>
+</span>    <span class="k">if</span> <span class="nf">$get</span><span class="o">(</span><span class="l">EmitList</span><span class="o">)=</span><span class="l">1</span> <span class="o">{</span><span class="err">
+</span>        <span class="c1">// special case - only key name given, no value</span><span class="err">
+</span>        <span class="k">set</span> <span class="l">key</span> <span class="o">=</span> <span class="nf">$get</span><span class="o">(</span><span class="l">EmitList</span><span class="o">(</span><span class="l">1</span><span class="o">))</span><span class="err">
+</span>        <span class="k">quit</span><span class="o">:</span><span class="l">key</span><span class="o">=</span><span class="s">""</span><span class="err">
+</span>        <span class="k">if</span> <span class="o">..</span><span class="l">AutoIncrement</span> <span class="o">{</span><span class="err">
+</span>            <span class="k">#dim</span> <span class="l">dummyX</span> <span class="l">As</span> <span class="o">%</span><span class="l">Integer</span> <span class="o">=</span> <span class="nf">$increment</span><span class="o">(@</span><span class="l">name</span><span class="o">@(</span><span class="l">key</span><span class="o">))</span> <span class="c1">; $seq is non-deterministic</span><span class="err">
+</span>        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span><span class="err">
+</span>            <span class="k">set</span> <span class="o">@</span><span class="l">name</span><span class="o">@(</span><span class="l">key</span><span class="o">)</span> <span class="o">=</span> <span class="l">1</span><span class="err">
+</span>        <span class="o">}</span><span class="err">
+</span>    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span><span class="err">
+</span>        <span class="k">set</span> <span class="l">value</span> <span class="o">=</span> <span class="nf">$get</span><span class="o">(</span><span class="l">EmitList</span><span class="o">(</span><span class="l">EmitList</span><span class="o">))</span><span class="err">
+</span>        <span class="k">set</span> <span class="l">EmitList</span> <span class="o">=</span> <span class="l">EmitList</span> <span class="o">-</span> <span class="l">1</span><span class="err">
+</span>        <span class="k">for</span> <span class="k">i</span><span class="o">=</span><span class="l">1</span><span class="o">:</span><span class="l">1</span><span class="o">:</span><span class="nf">$get</span><span class="o">(</span><span class="l">EmitList</span><span class="o">)</span> <span class="o">{</span><span class="err">
+</span>            <span class="k">#dim</span> <span class="l">index</span> <span class="l">As</span> <span class="o">%</span><span class="l">String</span> <span class="o">=</span> <span class="nf">$get</span><span class="o">(</span><span class="l">EmitList</span><span class="o">(</span><span class="k">i</span><span class="o">))</span><span class="err">
+</span>            <span class="k">quit</span><span class="o">:</span><span class="l">index</span><span class="o">=</span><span class="s">""</span><span class="err">
+</span>            <span class="k">set</span> <span class="l">name</span> <span class="o">=</span> <span class="nf">$name</span><span class="o">(@</span><span class="l">name</span><span class="o">@(</span><span class="l">index</span><span class="o">))</span><span class="err">
+</span>        <span class="o">}</span><span class="err">
+</span>        <span class="k">if</span> <span class="o">..</span><span class="l">AutoIncrement</span> <span class="o">{</span><span class="err">
+</span>            <span class="k">#dim</span> <span class="l">dummyY</span> <span class="l">As</span> <span class="o">%</span><span class="l">Integer</span> <span class="o">=</span> <span class="nf">$increment</span><span class="o">(@</span><span class="l">name</span><span class="o">,</span><span class="l">value</span><span class="o">)</span><span class="err">
+</span>        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span><span class="err">
+</span>            <span class="k">set</span> <span class="o">@</span><span class="l">name</span> <span class="o">=</span> <span class="l">value</span><span class="err">
+</span>        <span class="o">}</span><span class="err">
+</span>    <span class="o">}</span><span class="err">
+</span><span class="o">}</span><span class="err">
+</span><span class="c1">/// ...</span><span class="err">
+</span><span class="o">}</span><span class="err">
+</span></code></pre></div></div>
 
 <p>Для самого простого случая, выдачи пары &lt;key,1&gt; или, когда значение опущено, и имеет один ключ &lt;key&gt; мы реализовали локальную оптимизацию, когда в режиме автоинкремента (AutoIncrement = 1) мы при вызове сразу инкрементируем соответствующий счетчик для ключа. Если же не включен автоинкремент, то мы просто (пере)определяем узел ключа в 1, фиксируя факт передачи ключа.</p>
 
@@ -394,37 +394,37 @@ Method Emit(EmitList... As %String)
 
 <p>Но GetNext нам надо переопределить, т.к. мы больше не пытаемся запомнить порядок посланных данных и формат его внутреннего хранилища поменялся:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-Class MR.Emitter.Sorted Extends MR.Emitter.Ordered 
-{
-/// ...
+<div class="language-objectscript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">
+</span><span class="kd">Class</span> <span class="nc">MR.Emitter.Sorted</span> <span class="nc">Extends</span> <span class="nc">MR.Emitter.Ordered</span> 
+<span class="err">{
+</span><span class="c1">/// ...</span><span class="err">
 
-/// returns emitted $lb(key,value)
-Method GetNext() As %String
-{
-    #dim name As %String = ..GlobalName
-    #dim value As %String
-    #dim ref As %String = $query(@name,1,value)
-    if ref'="" {
-        zkill @ref
-        #dim i As %Integer
-        #dim refLen As %Integer = $qlength(ref)
-        #dim baseLen As %Integer = $qlength(name)
-        #dim listbuild = ""
-        for i=baseLen+1:1:refLen {
-            set $li(listbuild,i-baseLen)=$qs(ref,i)
-        }
-        set $li(listbuild,*+1)=value
+</span><span class="c1">/// returns emitted $lb(key,value)</span><span class="err">
+</span><span class="kd">Method</span> <span class="nf">GetNext</span><span class="o">()</span><span class="k"> As </span><span class="nc">%String</span>
+{<span class="err">
+</span>    <span class="k">#dim</span> <span class="l">name</span> <span class="l">As</span> <span class="o">%</span><span class="l">String</span> <span class="o">=</span> <span class="o">..</span><span class="l">GlobalName</span><span class="err">
+</span>    <span class="k">#dim</span> <span class="l">value</span> <span class="l">As</span> <span class="o">%</span><span class="l">String</span><span class="err">
+</span>    <span class="k">#dim</span> <span class="l">ref</span> <span class="l">As</span> <span class="o">%</span><span class="l">String</span> <span class="o">=</span> <span class="nf">$query</span><span class="o">(@</span><span class="l">name</span><span class="o">,</span><span class="l">1</span><span class="o">,</span><span class="l">value</span><span class="o">)</span><span class="err">
+</span>    <span class="k">if</span> <span class="l">ref</span><span class="o">'=</span><span class="s">""</span> <span class="o">{</span><span class="err">
+</span>        <span class="k">zkill</span> <span class="o">@</span><span class="l">ref</span><span class="err">
+</span>        <span class="k">#dim</span> <span class="k">i</span> <span class="l">As</span> <span class="o">%</span><span class="l">Integer</span><span class="err">
+</span>        <span class="k">#dim</span> <span class="l">refLen</span> <span class="l">As</span> <span class="o">%</span><span class="l">Integer</span> <span class="o">=</span> <span class="nf">$qlength</span><span class="o">(</span><span class="l">ref</span><span class="o">)</span><span class="err">
+</span>        <span class="k">#dim</span> <span class="l">baseLen</span> <span class="l">As</span> <span class="o">%</span><span class="l">Integer</span> <span class="o">=</span> <span class="nf">$qlength</span><span class="o">(</span><span class="l">name</span><span class="o">)</span><span class="err">
+</span>        <span class="k">#dim</span> <span class="l">listbuild</span> <span class="o">=</span> <span class="s">""</span><span class="err">
+</span>        <span class="k">for</span> <span class="k">i</span><span class="o">=</span><span class="l">baseLen</span><span class="o">+</span><span class="l">1</span><span class="o">:</span><span class="l">1</span><span class="o">:</span><span class="l">refLen</span> <span class="o">{</span><span class="err">
+</span>            <span class="k">set</span> <span class="nf">$li</span><span class="o">(</span><span class="l">listbuild</span><span class="o">,</span><span class="k">i</span><span class="o">-</span><span class="l">baseLen</span><span class="o">)=</span><span class="nf">$qs</span><span class="o">(</span><span class="l">ref</span><span class="o">,</span><span class="k">i</span><span class="o">)</span><span class="err">
+</span>        <span class="o">}</span><span class="err">
+</span>        <span class="k">set</span> <span class="nf">$li</span><span class="o">(</span><span class="l">listbuild</span><span class="o">,*+</span><span class="l">1</span><span class="o">)=</span><span class="l">value</span><span class="err">
 
-        quit listbuild
-    }
+</span>        <span class="k">quit</span> <span class="l">listbuild</span><span class="err">
+</span>    <span class="o">}</span><span class="err">
 
-    quit ""
-}
+</span>    <span class="k">quit</span> <span class="s">""</span><span class="err">
+</span><span class="o">}</span><span class="err">
 
-}
+</span><span class="o">}</span><span class="err">
 
-</code></pre></div></div>
+</span></code></pre></div></div>
 
 <p>На выходе из GetNext() мы ожидаем <a href="http://docs.intersystems.com/latest/csp/docbook/DocBook.UI.Page.cls?KEY=RCOS_flistbuild">$LISTBUILD&lt;&gt;</a> список, но внутри хранилища данные пар/кортежей разбросаны по узлам иерархического хранилища. Функция <a href="http://docs.intersystems.com/latest/csp/docbook/DocBook.UI.Page.cls?KEY=RCOS_fquery">$QUERY</a> позволяет обойти узлы с данными (значениями пар/кортежей) в массиве для последующей их перепаковки в $LISTBUILD формат, индексы из массива последовательно добавляются следующим элементом списка (посредством присваивания элементу через функцию <a href="http://docs.intersystems.com/latest/csp/docbook/DocBook.UI.Page.cls?KEY=RCOS_flist">$LIST</a>. Само же значение узла хранилища (значение в паре «ключ-значение» или последний элемент кортежа) будет добавлено в конец сформированного списка через ту же функцию $LIST(listbuild,*+1). В данном случае *+1 как раз и обозначат номер элемента списка, следующий за текущим концом.</p>
 

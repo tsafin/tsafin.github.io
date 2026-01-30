@@ -166,23 +166,23 @@
 
 <p>Итак, последовательная реализация WordCount (но с применением MapReduce интерфейсов, введенных ранее) будет содержать все те же самые части, что и параллельная. И, например, mapper будет выглядеть примерно так:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Class MR.Sample.WordCount.Mapper Extends (%RegisteredObject, MR.Base.Mapper)
-{
-/// read strings from MR.Base.Iterator and count words
-Method Map(MapInput As MR.Base.Iterator, MapOutput As MR.Base.Emitter)
-{
-    while 'MapInput.IsAtEnd() {
-        #dim line As %String = MapInput.GetNext()
-        #dim pattern As %Regex.Matcher = ##class(%Regex.Matcher).%New("[^\s]+")
-        set pattern.Text = line
-        while pattern.Locate() {
-            #dim word As %String = pattern.Group
-            do MapOutput.Emit(word)
-        }
-    }
-}
-}
-</code></pre></div></div>
+<div class="language-objectscript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">Class</span> <span class="nc">MR.Sample.WordCount.Mapper</span> <span class="nc">Extends</span> <span class="o">(</span><span class="nc">%RegisteredObject</span><span class="p">,</span> <span class="nc">MR.Base.Mapper</span><span class="o">)</span><span class="err">
+</span><span class="o">{</span><span class="err">
+</span><span class="c1">/// read strings from MR.Base.Iterator and count words</span><span class="err">
+</span><span class="kd">Method</span> <span class="nf">Map</span><span class="o">(</span><span class="n">MapInput</span> <span class="k">As </span><span class="nc">MR.Base.Iterator</span><span class="p">,</span> <span class="n">MapOutput</span> <span class="k">As </span><span class="nc">MR.Base.Emitter</span><span class="o">)</span>
+{<span class="err">
+</span>    <span class="k">while</span> <span class="o">'</span><span class="l">MapInput</span><span class="o">.</span><span class="l">IsAtEnd</span><span class="o">()</span> <span class="o">{</span><span class="err">
+</span>        <span class="k">#dim</span> <span class="l">line</span> <span class="l">As</span> <span class="o">%</span><span class="l">String</span> <span class="o">=</span> <span class="l">MapInput</span><span class="o">.</span><span class="l">GetNext</span><span class="o">()</span><span class="err">
+</span>        <span class="k">#dim</span> <span class="l">pattern</span> <span class="l">As</span> <span class="o">%</span><span class="l">Regex</span><span class="o">.</span><span class="l">Matcher</span> <span class="o">=</span> <span class="k">##class</span><span class="o">(%</span><span class="l">Regex</span><span class="o">.</span><span class="l">Matcher</span><span class="o">).%</span><span class="k">New</span><span class="o">(</span><span class="s">"[^\s]+"</span><span class="o">)</span><span class="err">
+</span>        <span class="k">set</span> <span class="l">pattern</span><span class="o">.</span><span class="l">Text</span> <span class="o">=</span> <span class="l">line</span><span class="err">
+</span>        <span class="k">while</span> <span class="l">pattern</span><span class="o">.</span><span class="l">Locate</span><span class="o">()</span> <span class="o">{</span><span class="err">
+</span>            <span class="k">#dim</span> <span class="l">word</span> <span class="l">As</span> <span class="o">%</span><span class="l">String</span> <span class="o">=</span> <span class="l">pattern</span><span class="o">.</span><span class="l">Group</span><span class="err">
+</span>            <span class="k">do</span> <span class="l">MapOutput</span><span class="o">.</span><span class="l">Emit</span><span class="o">(</span><span class="l">word</span><span class="o">)</span><span class="err">
+</span>        <span class="o">}</span><span class="err">
+</span>    <span class="o">}</span><span class="err">
+</span><span class="o">}</span><span class="err">
+</span><span class="o">}</span><span class="err">
+</span></code></pre></div></div>
 
 <p>Подпрограмма Map получает «входной поток» через параметр MapInput, и эмиттит данные в выходной MapOutput. Алгоритм тут очевиден – если во входном потоке еще остались данные (т.е. <em>НЕ</em> <em>MapInput.IsAtEnd()</em> ), то он прочтет следующую «строку» через MapInput.GetNext(), разобьет строку на слова при помощи %Regex.Matcher (смотри хорошую вводную статью про использование регулярных выражений в Caché на портале сообщества «<a href="https://community.intersystems.com/post/using-regular-expressions-cach%C3%A9">Using Regular Expressions in Caché</a>») и каждое выделенное слово пересылается в выходной эмиттер.</p>
 
@@ -192,21 +192,21 @@ Method Map(MapInput As MR.Base.Iterator, MapOutput As MR.Base.Emitter)
 
 <p>Процедура свертки (reducer) еще проще:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Class MR.Sample.WordCount.Adder Extends (%RegisteredObject, MR.Base.Reducer)
-{
-Method Reduce(ReduceInput As MR.Base.Iterator, ReduceOutput As MR.Base.Emitter)
-{
-    #dim result As %Numeric = 0
-    while 'ReduceInput.IsAtEnd() {
-        #dim value As %String = ReduceInput.GetNext() ; get &lt;key,value&gt; in $listbuild format
-        #dim word As %String = $li(value,1)
-        #dim count As %Integer = +$li(value,2)
-        set result = result + count
-    }
-    do ReduceOutput.Emit("Count", result)
-}
-}
-</code></pre></div></div>
+<div class="language-objectscript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">Class</span> <span class="nc">MR.Sample.WordCount.Adder</span> <span class="nc">Extends</span> <span class="o">(</span><span class="nc">%RegisteredObject</span><span class="p">,</span> <span class="nc">MR.Base.Reducer</span><span class="o">)</span><span class="err">
+</span><span class="o">{</span><span class="err">
+</span><span class="kd">Method</span> <span class="nf">Reduce</span><span class="o">(</span><span class="n">ReduceInput</span> <span class="k">As </span><span class="nc">MR.Base.Iterator</span><span class="p">,</span> <span class="n">ReduceOutput</span> <span class="k">As </span><span class="nc">MR.Base.Emitter</span><span class="o">)</span>
+{<span class="err">
+</span>    <span class="k">#dim</span> <span class="l">result</span> <span class="l">As</span> <span class="o">%</span><span class="l">Numeric</span> <span class="o">=</span> <span class="l">0</span><span class="err">
+</span>    <span class="k">while</span> <span class="o">'</span><span class="l">ReduceInput</span><span class="o">.</span><span class="l">IsAtEnd</span><span class="o">()</span> <span class="o">{</span><span class="err">
+</span>        <span class="k">#dim</span> <span class="l">value</span> <span class="l">As</span> <span class="o">%</span><span class="l">String</span> <span class="o">=</span> <span class="l">ReduceInput</span><span class="o">.</span><span class="l">GetNext</span><span class="o">()</span> <span class="c1">; get &lt;key,value&gt; in $listbuild format</span><span class="err">
+</span>        <span class="k">#dim</span> <span class="l">word</span> <span class="l">As</span> <span class="o">%</span><span class="l">String</span> <span class="o">=</span> <span class="nf">$li</span><span class="o">(</span><span class="l">value</span><span class="o">,</span><span class="l">1</span><span class="o">)</span><span class="err">
+</span>        <span class="k">#dim</span> <span class="l">count</span> <span class="l">As</span> <span class="o">%</span><span class="l">Integer</span> <span class="o">=</span> <span class="o">+</span><span class="nf">$li</span><span class="o">(</span><span class="l">value</span><span class="o">,</span><span class="l">2</span><span class="o">)</span><span class="err">
+</span>        <span class="k">set</span> <span class="l">result</span> <span class="o">=</span> <span class="l">result</span> <span class="o">+</span> <span class="l">count</span><span class="err">
+</span>    <span class="o">}</span><span class="err">
+</span>    <span class="k">do</span> <span class="l">ReduceOutput</span><span class="o">.</span><span class="l">Emit</span><span class="o">(</span><span class="s">"Count"</span><span class="o">,</span> <span class="l">result</span><span class="o">)</span><span class="err">
+</span><span class="o">}</span><span class="err">
+</span><span class="o">}</span><span class="err">
+</span></code></pre></div></div>
 
 <p>Пока не встретили конца потока (<code class="language-plaintext highlighter-rouge">'ReduceInput.IsAtEnd()</code>) тот продолжает потреблять данные из потока ReduceInput, и на каждой итерации из потока вынимается пара «ключ-значение» в бинарном формате списка <code class="language-plaintext highlighter-rouge">$listbuild&lt;&gt;</code> (т.е. в виде <code class="language-plaintext highlighter-rouge">$lb(word,count)</code>).</p>
 
@@ -214,43 +214,43 @@ Method Reduce(ReduceInput As MR.Base.Iterator, ReduceOutput As MR.Base.Emitter)
 
 <p>Итак, мы показали mapper и reducer, пришла очередь показать главную, управляющую часть программы. Не рискуя сразу упереться в сложность параллелизма, мы заходим с последовательной версии алгоритма, хотя и использующую MapReduce идиому и интерфейсы. Да, в последовательном режиме, все эти отжимания с конвейером, не имеют большого смысла, но … упрощение необходимо в педагогических целях.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/// Упрощенная, одно-поточная версия примера "map-reduce".
-/Class MR.Sample.WordCount.App Extends %RegisteredObject
-{
-ClassMethod MapReduce() [ ProcedureBlock = 0 ]
-{
-    new
-    //kill ^mtemp.Map,^mtemp.Reduce
+<div class="language-objectscript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// Упрощенная, одно-поточная версия примера "map-reduce".</span><span class="err">
+</span><span class="o">/</span><span class="l">Class</span> <span class="l">MR</span><span class="o">.</span><span class="l">Sample</span><span class="o">.</span><span class="l">WordCount</span><span class="o">.</span><span class="l">App</span> <span class="l">Extends</span> <span class="o">%</span><span class="l">RegisteredObject</span><span class="err">
+</span><span class="o">{</span><span class="err">
+</span><span class="kd">ClassMethod</span> <span class="nf">MapReduce</span><span class="o">()</span> <span class="o">[</span> <span class="k">ProcedureBlock</span> <span class="o">=</span> <span class="s">0</span> <span class="o">]</span>
+{<span class="err">
+</span>    <span class="k">new</span><span class="err">
+</span>    <span class="c1">//kill ^mtemp.Map,^mtemp.Reduce</span><span class="err">
 
-    #dim infraPipe As MR.Sample.GlobalPipe = ##class(MR.Sample.GlobalPipe).%New($name(^mtemp.Map($J)))
-    for i=1:1 {
-        #dim fileName As %String = $piece($Text(DATA+i),";",3)
-        quit:fileName=""
-        // map
-        #dim inputFile As MR.Input.FileLines = ##class(MR.Input.FileLines).%New(FileName)
-        #dim mapper As MR.Sample.WordCount.Mapper = ##class(MR.Sample.WordCount.Mapper).%New()
+</span>    <span class="k">#dim</span> <span class="l">infraPipe</span> <span class="l">As</span> <span class="l">MR</span><span class="o">.</span><span class="l">Sample</span><span class="o">.</span><span class="l">GlobalPipe</span> <span class="o">=</span> <span class="k">##class</span><span class="o">(</span><span class="l">MR</span><span class="o">.</span><span class="l">Sample</span><span class="o">.</span><span class="l">GlobalPipe</span><span class="o">).%</span><span class="k">New</span><span class="o">(</span><span class="nf">$name</span><span class="o">(^</span><span class="l">mtemp</span><span class="o">.</span><span class="l">Map</span><span class="o">(</span><span class="nf">$J</span><span class="o">)))</span><span class="err">
+</span>    <span class="k">for</span> <span class="k">i</span><span class="o">=</span><span class="l">1</span><span class="o">:</span><span class="l">1</span> <span class="o">{</span><span class="err">
+</span>        <span class="k">#dim</span> <span class="l">fileName</span> <span class="l">As</span> <span class="o">%</span><span class="l">String</span> <span class="o">=</span> <span class="nf">$piece</span><span class="o">(</span><span class="nf">$Text</span><span class="o">(</span><span class="l">DATA</span><span class="o">+</span><span class="k">i</span><span class="o">),</span><span class="s">";"</span><span class="o">,</span><span class="l">3</span><span class="o">)</span><span class="err">
+</span>        <span class="k">quit</span><span class="o">:</span><span class="l">fileName</span><span class="o">=</span><span class="s">""</span><span class="err">
+</span>        <span class="c1">// map</span><span class="err">
+</span>        <span class="k">#dim</span> <span class="l">inputFile</span> <span class="l">As</span> <span class="l">MR</span><span class="o">.</span><span class="l">Input</span><span class="o">.</span><span class="l">FileLines</span> <span class="o">=</span> <span class="k">##class</span><span class="o">(</span><span class="l">MR</span><span class="o">.</span><span class="l">Input</span><span class="o">.</span><span class="l">FileLines</span><span class="o">).%</span><span class="k">New</span><span class="o">(</span><span class="l">FileName</span><span class="o">)</span><span class="err">
+</span>        <span class="k">#dim</span> <span class="l">mapper</span> <span class="l">As</span> <span class="l">MR</span><span class="o">.</span><span class="l">Sample</span><span class="o">.</span><span class="l">WordCount</span><span class="o">.</span><span class="l">Mapper</span> <span class="o">=</span> <span class="k">##class</span><span class="o">(</span><span class="l">MR</span><span class="o">.</span><span class="l">Sample</span><span class="o">.</span><span class="l">WordCount</span><span class="o">.</span><span class="l">Mapper</span><span class="o">).%</span><span class="k">New</span><span class="o">()</span><span class="err">
 
-        do mapper.Map(inputFile, infraPipe)
+</span>        <span class="k">do</span> <span class="l">mapper</span><span class="o">.</span><span class="l">Map</span><span class="o">(</span><span class="l">inputFile</span><span class="o">,</span> <span class="l">infraPipe</span><span class="o">)</span><span class="err">
 
-        // reduce
-        #dim outPipe As MR.Base.Emitter = ##class(MR.Emitter.Sorted).%New($name(^mtemp.Reduce($J)))
-        #dim reducer As MR.Sample.WordCount.Adder = ##class(MR.Sample.WordCount.Adder).%New()
-        while 'infraPipe.IsAtEnd() {
-            do reducer.Reduce(infraPipe, outPipe)
-        }
-        do outPipe.Dump()
-    }
-    quit
+</span>        <span class="c1">// reduce</span><span class="err">
+</span>        <span class="k">#dim</span> <span class="l">outPipe</span> <span class="l">As</span> <span class="l">MR</span><span class="o">.</span><span class="l">Base</span><span class="o">.</span><span class="l">Emitter</span> <span class="o">=</span> <span class="k">##class</span><span class="o">(</span><span class="l">MR</span><span class="o">.</span><span class="l">Emitter</span><span class="o">.</span><span class="l">Sorted</span><span class="o">).%</span><span class="k">New</span><span class="o">(</span><span class="nf">$name</span><span class="o">(^</span><span class="l">mtemp</span><span class="o">.</span><span class="l">Reduce</span><span class="o">(</span><span class="nf">$J</span><span class="o">)))</span><span class="err">
+</span>        <span class="k">#dim</span> <span class="l">reducer</span> <span class="l">As</span> <span class="l">MR</span><span class="o">.</span><span class="l">Sample</span><span class="o">.</span><span class="l">WordCount</span><span class="o">.</span><span class="l">Adder</span> <span class="o">=</span> <span class="k">##class</span><span class="o">(</span><span class="l">MR</span><span class="o">.</span><span class="l">Sample</span><span class="o">.</span><span class="l">WordCount</span><span class="o">.</span><span class="l">Adder</span><span class="o">).%</span><span class="k">New</span><span class="o">()</span><span class="err">
+</span>        <span class="k">while</span> <span class="o">'</span><span class="l">infraPipe</span><span class="o">.</span><span class="l">IsAtEnd</span><span class="o">()</span> <span class="o">{</span><span class="err">
+</span>            <span class="k">do</span> <span class="l">reducer</span><span class="o">.</span><span class="l">Reduce</span><span class="o">(</span><span class="l">infraPipe</span><span class="o">,</span> <span class="l">outPipe</span><span class="o">)</span><span class="err">
+</span>        <span class="o">}</span><span class="err">
+</span>        <span class="k">do</span> <span class="l">outPipe</span><span class="o">.</span><span class="l">Dump</span><span class="o">()</span><span class="err">
+</span>    <span class="o">}</span><span class="err">
+</span>    <span class="k">quit</span><span class="err">
 
-DATA
-    ;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol1.txt
-    ;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol2.txt
-    ;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol3.txt
-    ;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol4.txt
-    ;;
-}
-}
-</code></pre></div></div>
+</span><span class="nl">DATA</span><span class="err">
+</span>    <span class="c1">;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol1.txt</span><span class="err">
+</span>    <span class="c1">;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol2.txt</span><span class="err">
+</span>    <span class="c1">;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol3.txt</span><span class="err">
+</span>    <span class="c1">;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol4.txt</span><span class="err">
+</span>    <span class="c1">;;</span><span class="err">
+</span><span class="o">}</span><span class="err">
+</span><span class="o">}</span><span class="err">
+</span></code></pre></div></div>
 
 <p>Попытаемся объяснить этот код строчка за строчкой:</p>
 
@@ -266,8 +266,8 @@ DATA
   </li>
 </ul>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Class MR.Sample.GlobalPipe Extends (%RegisteredObject, MR.Emitter.Sorted) { }
-</code></pre></div></div>
+<div class="language-objectscript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">Class</span> <span class="nc">MR.Sample.GlobalPipe</span> <span class="nc">Extends</span> <span class="o">(</span><span class="nc">%RegisteredObject</span><span class="p">,</span> <span class="nc">MR.Emitter.Sorted</span><span class="o">)</span> <span class="err">{</span> <span class="err">}
+</span></code></pre></div></div>
 
 <ul>
   <li>
@@ -278,28 +278,28 @@ DATA
   </li>
 </ul>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Class MR.Input.FileLines Extends (%RegisteredObject, MR.Base.Iterator)
-{
-Property File As %Stream.FileCharacter;
-Method %OnNew(FileName As %String) As %Status
-{
-    set ..File = ##class(%Stream.FileCharacter).%New()
-    #dim sc As %Status = ..File.LinkToFile(FileName)
-    quit sc
-}
-Method GetNext() As %String
-{
-    if $isobject(..File) &amp;&amp; '..File.AtEnd {
-        quit ..File.ReadLine()
-    }
-    quit ""
-}
-Method IsAtEnd() As %Boolean
-{
-    quit '$isobject(..File) || ..File.AtEnd
-}
-}
-</code></pre></div></div>
+<div class="language-objectscript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">Class</span> <span class="nc">MR.Input.FileLines</span> <span class="nc">Extends</span> <span class="o">(</span><span class="nc">%RegisteredObject</span><span class="p">,</span> <span class="nc">MR.Base.Iterator</span><span class="o">)</span><span class="err">
+</span><span class="o">{</span><span class="err">
+</span><span class="kd">Property</span> <span class="py">File</span><span class="k"> As </span><span class="nc">%Stream.FileCharacter</span><span class="p">;</span><span class="err">
+</span><span class="nl">Method</span> <span class="o">%</span><span class="l">OnNew</span><span class="o">(</span><span class="l">FileName</span> <span class="l">As</span> <span class="o">%</span><span class="l">String</span><span class="o">)</span> <span class="l">As</span> <span class="o">%</span><span class="l">Status</span><span class="err">
+</span><span class="o">{</span><span class="err">
+</span>    <span class="k">set</span> <span class="o">..</span><span class="l">File</span> <span class="o">=</span> <span class="k">##class</span><span class="o">(%</span><span class="l">Stream</span><span class="o">.</span><span class="l">FileCharacter</span><span class="o">).%</span><span class="k">New</span><span class="o">()</span><span class="err">
+</span>    <span class="k">#dim</span> <span class="l">sc</span> <span class="l">As</span> <span class="o">%</span><span class="l">Status</span> <span class="o">=</span> <span class="o">..</span><span class="l">File</span><span class="o">.</span><span class="l">LinkToFile</span><span class="o">(</span><span class="l">FileName</span><span class="o">)</span><span class="err">
+</span>    <span class="k">quit</span> <span class="l">sc</span><span class="err">
+</span><span class="o">}</span><span class="err">
+</span><span class="kd">Method</span> <span class="nf">GetNext</span><span class="o">()</span><span class="k"> As </span><span class="nc">%String</span>
+{<span class="err">
+</span>    <span class="k">if</span> <span class="nf">$isobject</span><span class="o">(..</span><span class="l">File</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="o">'..</span><span class="l">File</span><span class="o">.</span><span class="l">AtEnd</span> <span class="o">{</span><span class="err">
+</span>        <span class="k">quit</span> <span class="o">..</span><span class="l">File</span><span class="o">.</span><span class="l">ReadLine</span><span class="o">()</span><span class="err">
+</span>    <span class="o">}</span><span class="err">
+</span>    <span class="k">quit</span> <span class="s">""</span><span class="err">
+</span><span class="o">}</span><span class="err">
+</span><span class="kd">Method</span> <span class="nf">IsAtEnd</span><span class="o">()</span><span class="k"> As </span><span class="nc">%Boolean</span>
+{<span class="err">
+</span>    <span class="k">quit</span> <span class="o">'</span><span class="nf">$isobject</span><span class="o">(..</span><span class="l">File</span><span class="o">)</span> <span class="o">||</span> <span class="o">..</span><span class="l">File</span><span class="o">.</span><span class="l">AtEnd</span><span class="err">
+</span><span class="o">}</span><span class="err">
+</span><span class="o">}</span><span class="err">
+</span></code></pre></div></div>
 
 <p>Вернемся обратно к приложению <code class="language-plaintext highlighter-rouge">MR.Sample.WordCount.App</code>:</p>
 
@@ -323,12 +323,12 @@ Method IsAtEnd() As %Boolean
 
 <p>Вроде бы все части в сборе – давайте посмотрим как это все работает.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DEVLATEST:MAPREDUCE:23:53:27:.000203&gt;do ##class(MR.Sample.WordCount.App).MapReduce()
-^mtemp.Reduce(3276,"Count")=114830
-^mtemp.Reduce(3276,"Count")=123232
-^mtemp.Reduce(3276,"Count")=130276
-^mtemp.Reduce(3276,"Count")=109344
-</code></pre></div></div>
+<div class="language-objectscript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">DEVLATEST</span><span class="o">:</span><span class="l">MAPREDUCE</span><span class="o">:</span><span class="l">23</span><span class="o">:</span><span class="l">53</span><span class="o">:</span><span class="l">27</span><span class="o">:.</span><span class="l">000203</span><span class="o">&gt;</span><span class="k">do</span> <span class="k">##class</span><span class="o">(</span><span class="l">MR</span><span class="o">.</span><span class="l">Sample</span><span class="o">.</span><span class="l">WordCount</span><span class="o">.</span><span class="l">App</span><span class="o">).</span><span class="l">MapReduce</span><span class="o">()</span><span class="err">
+</span><span class="o">^</span><span class="l">mtemp</span><span class="o">.</span><span class="l">Reduce</span><span class="o">(</span><span class="l">3276</span><span class="o">,</span><span class="s">"Count"</span><span class="o">)=</span><span class="l">114830</span><span class="err">
+</span><span class="o">^</span><span class="l">mtemp</span><span class="o">.</span><span class="l">Reduce</span><span class="o">(</span><span class="l">3276</span><span class="o">,</span><span class="s">"Count"</span><span class="o">)=</span><span class="l">123232</span><span class="err">
+</span><span class="o">^</span><span class="l">mtemp</span><span class="o">.</span><span class="l">Reduce</span><span class="o">(</span><span class="l">3276</span><span class="o">,</span><span class="s">"Count"</span><span class="o">)=</span><span class="l">130276</span><span class="err">
+</span><span class="o">^</span><span class="l">mtemp</span><span class="o">.</span><span class="l">Reduce</span><span class="o">(</span><span class="l">3276</span><span class="o">,</span><span class="s">"Count"</span><span class="o">)=</span><span class="l">109344</span><span class="err">
+</span></code></pre></div></div>
 
 <p>Здесь мы видим вычисленное число слов в каждом томе книги, которое выводится в конце каждой итерации цикла. Это все хорошо, но остаются 2 вопроса, на которые мы не получили ответ:</p>
 
@@ -339,8 +339,8 @@ Method IsAtEnd() As %Boolean
 
 <p>Начнем с ответа на второй вопрос, с верификации результата – проверить это просто, запустив Linux/Unix/Cygwin утилиту <code class="language-plaintext highlighter-rouge">wc</code> на тех же самих данных:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Timur@TimurYoga2P /cygdrive/c/Users/Timur/Documents/mapreduce/data
-$ wc -w war*.txt
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Timur@TimurYoga2P /cygdrive/c/Users/Timur/Documents/mapreduce/data
+<span class="nv">$ </span><span class="nb">wc</span> <span class="nt">-w</span> war<span class="k">*</span>.txt
  114830 war_and_peace_vol1.txt
  123232 war_and_peace_vol2.txt
  130276 war_and_peace_vol3.txt
@@ -365,46 +365,46 @@ $ wc -w war*.txt
 
 <p>Во всех остальных случаях эти два приводимых примера ведут себя идентично – оба используют временные глобалы <code class="language-plaintext highlighter-rouge">^mtemp.Map($J)</code> и <code class="language-plaintext highlighter-rouge">^mtemp.Reduce($J)</code> в качестве промежуточного и финального хранилища на стадиях отображения и свертки.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Class MR.Sample.WordCount.AppSum Extends %RegisteredObject
-{
-ClassMethod Map(FileName As %String, infraPipe As MR.Sample.GlobalPipe)
-{
-    #dim inputFile As MR.Input.FileLines      = ##class(MR.Input.FileLines).%New(FileName)
-    #dim mapper As MR.Sample.WordCount.Mapper = ##class(MR.Sample.WordCount.Mapper).%New()
+<div class="language-objectscript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">Class</span> <span class="nc">MR.Sample.WordCount.AppSum</span> <span class="nc">Extends</span> <span class="nc">%RegisteredObject</span><span class="err">
+</span><span class="o">{</span><span class="err">
+</span><span class="kd">ClassMethod</span> <span class="nf">Map</span><span class="o">(</span><span class="n">FileName</span> <span class="k">As </span><span class="nc">%String</span><span class="p">,</span> <span class="n">infraPipe</span> <span class="k">As </span><span class="nc">MR.Sample.GlobalPipe</span><span class="o">)</span>
+{<span class="err">
+</span>    <span class="k">#dim</span> <span class="l">inputFile</span> <span class="l">As</span> <span class="l">MR</span><span class="o">.</span><span class="l">Input</span><span class="o">.</span><span class="l">FileLines</span>      <span class="o">=</span> <span class="k">##class</span><span class="o">(</span><span class="l">MR</span><span class="o">.</span><span class="l">Input</span><span class="o">.</span><span class="l">FileLines</span><span class="o">).%</span><span class="k">New</span><span class="o">(</span><span class="l">FileName</span><span class="o">)</span><span class="err">
+</span>    <span class="k">#dim</span> <span class="l">mapper</span> <span class="l">As</span> <span class="l">MR</span><span class="o">.</span><span class="l">Sample</span><span class="o">.</span><span class="l">WordCount</span><span class="o">.</span><span class="l">Mapper</span> <span class="o">=</span> <span class="k">##class</span><span class="o">(</span><span class="l">MR</span><span class="o">.</span><span class="l">Sample</span><span class="o">.</span><span class="l">WordCount</span><span class="o">.</span><span class="l">Mapper</span><span class="o">).%</span><span class="k">New</span><span class="o">()</span><span class="err">
 
-    do mapper.Map(inputFile, infraPipe)
-}
-ClassMethod MapReduce() [ ProcedureBlock = 0 ]
-{
-    new
+</span>    <span class="k">do</span> <span class="l">mapper</span><span class="o">.</span><span class="l">Map</span><span class="o">(</span><span class="l">inputFile</span><span class="o">,</span> <span class="l">infraPipe</span><span class="o">)</span><span class="err">
+</span><span class="o">}</span><span class="err">
+</span><span class="kd">ClassMethod</span> <span class="nf">MapReduce</span><span class="o">()</span> <span class="o">[</span> <span class="k">ProcedureBlock</span> <span class="o">=</span> <span class="s">0</span> <span class="o">]</span>
+{<span class="err">
+</span>    <span class="k">new</span><span class="err">
 
-    #dim infraPipe As MR.Sample.GlobalPipe    = ##class(MR.Sample.GlobalPipe).%New($name(^mtemp.Map($J)))
-    #dim outPipe As MR.Base.Emitter           = ##class(MR.Emitter.Sorted).%New($name(^mtemp.Reduce($J)))
-    #dim reducer As MR.Sample.WordCount.Adder = ##class(MR.Sample.WordCount.Adder).%New()
+</span>    <span class="k">#dim</span> <span class="l">infraPipe</span> <span class="l">As</span> <span class="l">MR</span><span class="o">.</span><span class="l">Sample</span><span class="o">.</span><span class="l">GlobalPipe</span>    <span class="o">=</span> <span class="k">##class</span><span class="o">(</span><span class="l">MR</span><span class="o">.</span><span class="l">Sample</span><span class="o">.</span><span class="l">GlobalPipe</span><span class="o">).%</span><span class="k">New</span><span class="o">(</span><span class="nf">$name</span><span class="o">(^</span><span class="l">mtemp</span><span class="o">.</span><span class="l">Map</span><span class="o">(</span><span class="nf">$J</span><span class="o">)))</span><span class="err">
+</span>    <span class="k">#dim</span> <span class="l">outPipe</span> <span class="l">As</span> <span class="l">MR</span><span class="o">.</span><span class="l">Base</span><span class="o">.</span><span class="l">Emitter</span>           <span class="o">=</span> <span class="k">##class</span><span class="o">(</span><span class="l">MR</span><span class="o">.</span><span class="l">Emitter</span><span class="o">.</span><span class="l">Sorted</span><span class="o">).%</span><span class="k">New</span><span class="o">(</span><span class="nf">$name</span><span class="o">(^</span><span class="l">mtemp</span><span class="o">.</span><span class="l">Reduce</span><span class="o">(</span><span class="nf">$J</span><span class="o">)))</span><span class="err">
+</span>    <span class="k">#dim</span> <span class="l">reducer</span> <span class="l">As</span> <span class="l">MR</span><span class="o">.</span><span class="l">Sample</span><span class="o">.</span><span class="l">WordCount</span><span class="o">.</span><span class="l">Adder</span> <span class="o">=</span> <span class="k">##class</span><span class="o">(</span><span class="l">MR</span><span class="o">.</span><span class="l">Sample</span><span class="o">.</span><span class="l">WordCount</span><span class="o">.</span><span class="l">Adder</span><span class="o">).%</span><span class="k">New</span><span class="o">()</span><span class="err">
 
-    for i=1:1 {
-        #dim fileName As %String = $piece($Text(DATA+i),";",3)
-        quit:fileName=""
+</span>    <span class="k">for</span> <span class="k">i</span><span class="o">=</span><span class="l">1</span><span class="o">:</span><span class="l">1</span> <span class="o">{</span><span class="err">
+</span>        <span class="k">#dim</span> <span class="l">fileName</span> <span class="l">As</span> <span class="o">%</span><span class="l">String</span> <span class="o">=</span> <span class="nf">$piece</span><span class="o">(</span><span class="nf">$Text</span><span class="o">(</span><span class="l">DATA</span><span class="o">+</span><span class="k">i</span><span class="o">),</span><span class="s">";"</span><span class="o">,</span><span class="l">3</span><span class="o">)</span><span class="err">
+</span>        <span class="k">quit</span><span class="o">:</span><span class="l">fileName</span><span class="o">=</span><span class="s">""</span><span class="err">
 
-        do ..Map(fileName, infraPipe)
-        //do infraPipe.Dump()
+</span>        <span class="k">do</span> <span class="o">..</span><span class="l">Map</span><span class="o">(</span><span class="l">fileName</span><span class="o">,</span> <span class="l">infraPipe</span><span class="o">)</span><span class="err">
+</span>        <span class="c1">//do infraPipe.Dump()</span><span class="err">
 
-    }
-    while 'infraPipe.IsAtEnd() {
-        do reducer.Reduce(infraPipe, outPipe)
-    }
-    do outPipe.Dump()
+</span>    <span class="o">}</span><span class="err">
+</span>    <span class="k">while</span> <span class="o">'</span><span class="l">infraPipe</span><span class="o">.</span><span class="l">IsAtEnd</span><span class="o">()</span> <span class="o">{</span><span class="err">
+</span>        <span class="k">do</span> <span class="l">reducer</span><span class="o">.</span><span class="l">Reduce</span><span class="o">(</span><span class="l">infraPipe</span><span class="o">,</span> <span class="l">outPipe</span><span class="o">)</span><span class="err">
+</span>    <span class="o">}</span><span class="err">
+</span>    <span class="k">do</span> <span class="l">outPipe</span><span class="o">.</span><span class="l">Dump</span><span class="o">()</span><span class="err">
 
-    quit
-DATA
-    ;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol1.txt
-    ;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol2.txt
-    ;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol3.txt
-    ;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol4.txt
-    ;;
-}
-}
-</code></pre></div></div>
+</span>    <span class="k">quit</span><span class="err">
+</span><span class="nl">DATA</span><span class="err">
+</span>    <span class="c1">;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol1.txt</span><span class="err">
+</span>    <span class="c1">;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol2.txt</span><span class="err">
+</span>    <span class="c1">;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol3.txt</span><span class="err">
+</span>    <span class="c1">;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol4.txt</span><span class="err">
+</span>    <span class="c1">;;</span><span class="err">
+</span><span class="o">}</span><span class="err">
+</span><span class="o">}</span><span class="err">
+</span></code></pre></div></div>
 
 <h3 id="параллельная-реализация">Параллельная реализация</h3>
 
@@ -414,55 +414,55 @@ DATA
 
 <p>Вернемся к коду – на предыдущем этапе мы, на стадии отображения, выделили функцию в отдельный метод класса, получающий два аргумента (имя входного файла и имя выходного глобала). Мы выделили данный код в отдельную функция с одной простой целью – облегчить создание параллельной версии. Такая параллельная версия будет использовать механизм worker в Caché ObjectScript <a href="http://docs.intersystems.com/latest/csp/documatic/%25CSP.Documatic.cls?PAGE=CLASS&amp;LIBRARY=%25SYS&amp;CLASSNAME=%25SYSTEM.WorkMgr">($system.WorkMgr)</a> Ниже мы преобразуем последовательную версию, созданную на предыдущем шаге, в параллельную посредством вызова программ обработчиков (worker), запускаемых с выделенным методом класса.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/// Версия #2 Более продвинутая, использующая несколько воркеров
-Class MR.Sample.WordCount.AppWorkers Extends %RegisteredObject
-{
-ClassMethod Map(FileName As %String, InfraPipeName As %String) As %Status
-{
-    #dim inputFile As MR.Input.FileLines        = ##class(MR.Input.FileLines).%New(FileName)
-    #dim mapper As MR.Sample.WordCount.Mapper   = ##class(MR.Sample.WordCount.Mapper).%New()
-    #dim infraPipe As MR.Sample.GlobalPipeClone = ##class(MR.Sample.GlobalPipeClone).%New(InfraPipeName)
+<div class="language-objectscript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">/// Версия #2 Более продвинутая, использующая несколько воркеров</span><span class="err">
+</span><span class="kd">Class</span> <span class="nc">MR.Sample.WordCount.AppWorkers</span> <span class="nc">Extends</span> <span class="nc">%RegisteredObject</span><span class="err">
+</span><span class="o">{</span><span class="err">
+</span><span class="kd">ClassMethod</span> <span class="nf">Map</span><span class="o">(</span><span class="n">FileName</span> <span class="k">As </span><span class="nc">%String</span><span class="p">,</span> <span class="n">InfraPipeName</span> <span class="k">As </span><span class="nc">%String</span><span class="o">)</span><span class="k"> As </span><span class="nc">%Status</span>
+{<span class="err">
+</span>    <span class="k">#dim</span> <span class="l">inputFile</span> <span class="l">As</span> <span class="l">MR</span><span class="o">.</span><span class="l">Input</span><span class="o">.</span><span class="l">FileLines</span>        <span class="o">=</span> <span class="k">##class</span><span class="o">(</span><span class="l">MR</span><span class="o">.</span><span class="l">Input</span><span class="o">.</span><span class="l">FileLines</span><span class="o">).%</span><span class="k">New</span><span class="o">(</span><span class="l">FileName</span><span class="o">)</span><span class="err">
+</span>    <span class="k">#dim</span> <span class="l">mapper</span> <span class="l">As</span> <span class="l">MR</span><span class="o">.</span><span class="l">Sample</span><span class="o">.</span><span class="l">WordCount</span><span class="o">.</span><span class="l">Mapper</span>   <span class="o">=</span> <span class="k">##class</span><span class="o">(</span><span class="l">MR</span><span class="o">.</span><span class="l">Sample</span><span class="o">.</span><span class="l">WordCount</span><span class="o">.</span><span class="l">Mapper</span><span class="o">).%</span><span class="k">New</span><span class="o">()</span><span class="err">
+</span>    <span class="k">#dim</span> <span class="l">infraPipe</span> <span class="l">As</span> <span class="l">MR</span><span class="o">.</span><span class="l">Sample</span><span class="o">.</span><span class="l">GlobalPipeClone</span> <span class="o">=</span> <span class="k">##class</span><span class="o">(</span><span class="l">MR</span><span class="o">.</span><span class="l">Sample</span><span class="o">.</span><span class="l">GlobalPipeClone</span><span class="o">).%</span><span class="k">New</span><span class="o">(</span><span class="l">InfraPipeName</span><span class="o">)</span><span class="err">
 
-    do mapper.Map(inputFile, infraPipe)
+</span>    <span class="k">do</span> <span class="l">mapper</span><span class="o">.</span><span class="l">Map</span><span class="o">(</span><span class="l">inputFile</span><span class="o">,</span> <span class="l">infraPipe</span><span class="o">)</span><span class="err">
 
-    quit $$$OK
-}
-ClassMethod MapReduce() [ ProcedureBlock = 0 ]
-{
-    new
-    #dim infraPipe As MR.Sample.GlobalPipe = ##class(MR.Sample.GlobalPipe).%New($name(^mtemp.Map($J)))
-    #dim outPipe As MR.Base.Emitter = ##class(MR.Emitter.Sorted).%New($name(^mtemp.Reduce($J)))
-    #dim reducer As MR.Sample.WordCount.Adder = ##class(MR.Sample.WordCount.Adder).%New()
+</span>    <span class="k">quit</span> <span class="nf">$$$OK</span><span class="err">
+</span><span class="o">}</span><span class="err">
+</span><span class="kd">ClassMethod</span> <span class="nf">MapReduce</span><span class="o">()</span> <span class="o">[</span> <span class="k">ProcedureBlock</span> <span class="o">=</span> <span class="s">0</span> <span class="o">]</span>
+{<span class="err">
+</span>    <span class="k">new</span><span class="err">
+</span>    <span class="k">#dim</span> <span class="l">infraPipe</span> <span class="l">As</span> <span class="l">MR</span><span class="o">.</span><span class="l">Sample</span><span class="o">.</span><span class="l">GlobalPipe</span> <span class="o">=</span> <span class="k">##class</span><span class="o">(</span><span class="l">MR</span><span class="o">.</span><span class="l">Sample</span><span class="o">.</span><span class="l">GlobalPipe</span><span class="o">).%</span><span class="k">New</span><span class="o">(</span><span class="nf">$name</span><span class="o">(^</span><span class="l">mtemp</span><span class="o">.</span><span class="l">Map</span><span class="o">(</span><span class="nf">$J</span><span class="o">)))</span><span class="err">
+</span>    <span class="k">#dim</span> <span class="l">outPipe</span> <span class="l">As</span> <span class="l">MR</span><span class="o">.</span><span class="l">Base</span><span class="o">.</span><span class="l">Emitter</span> <span class="o">=</span> <span class="k">##class</span><span class="o">(</span><span class="l">MR</span><span class="o">.</span><span class="l">Emitter</span><span class="o">.</span><span class="l">Sorted</span><span class="o">).%</span><span class="k">New</span><span class="o">(</span><span class="nf">$name</span><span class="o">(^</span><span class="l">mtemp</span><span class="o">.</span><span class="l">Reduce</span><span class="o">(</span><span class="nf">$J</span><span class="o">)))</span><span class="err">
+</span>    <span class="k">#dim</span> <span class="l">reducer</span> <span class="l">As</span> <span class="l">MR</span><span class="o">.</span><span class="l">Sample</span><span class="o">.</span><span class="l">WordCount</span><span class="o">.</span><span class="l">Adder</span> <span class="o">=</span> <span class="k">##class</span><span class="o">(</span><span class="l">MR</span><span class="o">.</span><span class="l">Sample</span><span class="o">.</span><span class="l">WordCount</span><span class="o">.</span><span class="l">Adder</span><span class="o">).%</span><span class="k">New</span><span class="o">()</span><span class="err">
 
-    #dim sc As %Status = $$$OK
-    // do $system.WorkMgr.StopWorkers()
-    #dim queue As %SYSTEM.WorkMgr = $system.WorkMgr.Initialize("/multicompile=1", .sc) 
-    quit:$$$ISERR(sc)
+</span>    <span class="k">#dim</span> <span class="l">sc</span> <span class="l">As</span> <span class="o">%</span><span class="l">Status</span> <span class="o">=</span> <span class="nf">$$$OK</span><span class="err">
+</span>    <span class="c1">// do $system.WorkMgr.StopWorkers()</span><span class="err">
+</span>    <span class="k">#dim</span> <span class="l">queue</span> <span class="l">As</span> <span class="o">%</span><span class="l">SYSTEM</span><span class="o">.</span><span class="l">WorkMgr</span> <span class="o">=</span> <span class="nb">$system</span><span class="o">.</span><span class="l">WorkMgr</span><span class="o">.</span><span class="l">Initialize</span><span class="o">(</span><span class="s">"/multicompile=1"</span><span class="o">,</span> <span class="o">.</span><span class="l">sc</span><span class="o">)</span> <span class="err">
+</span>    <span class="k">quit</span><span class="o">:</span><span class="nf">$$$ISERR</span><span class="o">(</span><span class="l">sc</span><span class="o">)</span><span class="err">
 
-    for i=1:1 {
-        #dim fileName As %String = $piece($Text(DATA+i),";",3)
-        quit:fileName=""
+</span>    <span class="k">for</span> <span class="k">i</span><span class="o">=</span><span class="l">1</span><span class="o">:</span><span class="l">1</span> <span class="o">{</span><span class="err">
+</span>        <span class="k">#dim</span> <span class="l">fileName</span> <span class="l">As</span> <span class="o">%</span><span class="l">String</span> <span class="o">=</span> <span class="nf">$piece</span><span class="o">(</span><span class="nf">$Text</span><span class="o">(</span><span class="l">DATA</span><span class="o">+</span><span class="k">i</span><span class="o">),</span><span class="s">";"</span><span class="o">,</span><span class="l">3</span><span class="o">)</span><span class="err">
+</span>        <span class="k">quit</span><span class="o">:</span><span class="l">fileName</span><span class="o">=</span><span class="s">""</span><span class="err">
 
-        //do ..Map(fileName, infraPipe)
-        set sc = queue.Queue("##class(MR.Sample.WordCount.AppWorkers).Map", fileName, infraPipe.GlobalName)
-        quit:$$$ISERR(sc)
-    }
-    set sc = queue.WaitForComplete() quit:$$$ISERR(sc)
+</span>        <span class="c1">//do ..Map(fileName, infraPipe)</span><span class="err">
+</span>        <span class="k">set</span> <span class="l">sc</span> <span class="o">=</span> <span class="l">queue</span><span class="o">.</span><span class="l">Queue</span><span class="o">(</span><span class="s">"##class(MR.Sample.WordCount.AppWorkers).Map"</span><span class="o">,</span> <span class="l">fileName</span><span class="o">,</span> <span class="l">infraPipe</span><span class="o">.</span><span class="l">GlobalName</span><span class="o">)</span><span class="err">
+</span>        <span class="k">quit</span><span class="o">:</span><span class="nf">$$$ISERR</span><span class="o">(</span><span class="l">sc</span><span class="o">)</span><span class="err">
+</span>    <span class="o">}</span><span class="err">
+</span>    <span class="k">set</span> <span class="l">sc</span> <span class="o">=</span> <span class="l">queue</span><span class="o">.</span><span class="l">WaitForComplete</span><span class="o">()</span> <span class="k">quit</span><span class="o">:</span><span class="nf">$$$ISERR</span><span class="o">(</span><span class="l">sc</span><span class="o">)</span><span class="err">
 
-    while 'infraPipe.IsAtEnd() {
-        do reducer.Reduce(infraPipe, outPipe)
-    }
-    do outPipe.Dump()
+</span>    <span class="k">while</span> <span class="o">'</span><span class="l">infraPipe</span><span class="o">.</span><span class="l">IsAtEnd</span><span class="o">()</span> <span class="o">{</span><span class="err">
+</span>        <span class="k">do</span> <span class="l">reducer</span><span class="o">.</span><span class="l">Reduce</span><span class="o">(</span><span class="l">infraPipe</span><span class="o">,</span> <span class="l">outPipe</span><span class="o">)</span><span class="err">
+</span>    <span class="o">}</span><span class="err">
+</span>    <span class="k">do</span> <span class="l">outPipe</span><span class="o">.</span><span class="l">Dump</span><span class="o">()</span><span class="err">
 
-    quit
-DATA
-    ;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol1.txt
-    ;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol2.txt
-    ;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol3.txt
-    ;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol4.txt
-    ;;
-}
-</code></pre></div></div>
+</span>    <span class="k">quit</span><span class="err">
+</span><span class="nl">DATA</span><span class="err">
+</span>    <span class="c1">;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol1.txt</span><span class="err">
+</span>    <span class="c1">;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol2.txt</span><span class="err">
+</span>    <span class="c1">;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol3.txt</span><span class="err">
+</span>    <span class="c1">;;C:\Users\Timur\Documents\mapreduce\data\war_and_peace_vol4.txt</span><span class="err">
+</span>    <span class="c1">;;</span><span class="err">
+</span><span class="o">}</span><span class="err">
+</span></code></pre></div></div>
 
 <p>Ранее пример назывался AppSum, Новый пример нзывается AppWorkers, и разница между ними очень маленькая, но важная – мы вызываем процедуру отображения в отдельном треде (процессе) обработчике посредством <code class="language-plaintext highlighter-rouge">$system.WorkMgr.Queue</code> API. Это API может вызывать простую подпрограмму, или метод класса, но (по естественным причнима) не может вызывать методы объекта, т.к. не предусмотрен механизм передачи объекта во внешний процесс.</p>
 

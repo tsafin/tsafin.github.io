@@ -7,6 +7,7 @@ comments: true
 image:
   feature: landscapes/feature10.jpg
   credits:
+thumbnail: images/thumbnails/one_more_story_about_jit.jpg
 blogger_orig_url: https://telegra.ph/Eshche-odna-istoriya-pro-binarnuyu-translyaciyu-04-07
 ---
 

@@ -1,0 +1,3 @@
+[submodule "vendor/rouge"]
+	path = vendor/rouge
+	url = https://github.com/lscalese/rouge.git

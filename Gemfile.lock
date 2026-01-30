@@ -1,3 +1,8 @@
+PATH
+  remote: vendor/rouge
+  specs:
+    rouge (3.28.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -145,7 +150,6 @@ GEM
     rb-inotify (0.11.1)
       ffi (~> 1.0)
     rexml (3.4.4)
-    rouge (4.7.0)
     safe_yaml (1.0.5)
     sass-embedded (1.97.3-aarch64-linux-gnu)
       google-protobuf (~> 4.31)
@@ -198,6 +202,7 @@ DEPENDENCIES
   jekyll-sitemap
   jemoji
   nokogiri (>= 1.10.4)
+  rouge!
   tzinfo-data
 
 RUBY VERSION

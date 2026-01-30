@@ -8,12 +8,13 @@ comments: true
 image:
   feature: landscapes/feature8.jpg
   credits:
+thumbnail: images/thumbnails/map_reduce_3.jpg
 blogger_orig_url: https://community.intersystems.com/post/cach%C3%A9-mapreduce-putting-it-all-together-%E2%80%93-wordcount-example-part-iii
 ---
 
 <p><em>In <a href="https://community.intersystems.com/post/cach%C3%A9-mapreduce-introduction-bigdata-and-mapreduce-concept">part I</a> of this series we have introduced MapReduce as a generic concept, and in <a href="https://community.intersystems.com/post/cach%C3%A9-mapreduce-basic-interfaces-mapreduce-implementation-part-ii">part II</a> we started to approach Caché ObjectScript implementation via introducing abstract interfaces. Now we will try to provide more concrete examples of applications using MapReduce.</em></p><p><!--break--></p><h2>WordCount – Simple sequential implementation</h2><p>MapReduce is all about parallelization and scalability. But let admit– it is very hard to understand and debug applications if they are parallel from the beginning. For simplicity sake we rather start from sequential version of wordcount algorithm, and then will add some parallelism.</p><p>Sequential mapper is quite simple and as expected:</p>
 
-{% highlight text %}
+{% highlight objectscript %}
 Class MR.Sample.WordCount.Mapper Extends (%RegisteredObject, MR.Base.Mapper)
 {
 
@@ -36,7 +37,7 @@ Method Map(MapInput As MR.Base.Iterator, MapOutput As MR.Base.Emitter)
 <p>It receives input stream via MapInput, and emits data to the MapOutput. The algorithm is obvious –if there is some input data in the stream (i.e. <em>Not Map.Input.IsAtEnd()</em>) – it will read a next line using MapInput.GetNext(), will split it to words via %Regex.Matcher (see <a href="https://community.intersystems.com/post/using-regular-expressions-cach%C3%A9">Using Regular Expression in Caché</a> ), and each found word will be sent to output emitter.</p>
 <p>Reducer is even simpler:</p>
 
-{% highlight text %}
+{% highlight objectscript %}
 Class MR.Sample.WordCount.Adder Extends (%RegisteredObject, MR.Base.Reducer)
 {
 
@@ -59,7 +60,7 @@ Method Reduce(ReduceInput As MR.Base.Iterator, ReduceOutput As MR.Base.Emitter)
 
 <p>So, now we have shown mapper and reducer, but how main part of applications connects them together? It might get complex soon, but for the beginning we will start from <em>sequential</em> implementation of a wordcount algorithm which still will be using MapReduce idiom (yes, I know this makes no much sense if work sequentially, but this simplification step is necessary before making it work in parallel or even on remote nodes).</p>
 
-{% highlight text %}
+{% highlight objectscript %}
 /// Very simple, single-threaded "map-reduce" example.
 /Class MR.Sample.WordCount.App Extends %RegisteredObject
 {
@@ -107,13 +108,13 @@ DATA
 
 <ul><li>We need to disable procedure block symbol allocation semantics [ProcedureBlock = 0] because we will use array of literal constants embedded to the code under DATA tag and used via $TEXT function. There we store the text (filenames) we plan to work with. For this particular example we use texts of 4 volumes of “War and Peace” by Leo Tolstoy;</li><li>As an intermediate global storage we will use ^mtemp.Map($J) and ^mtemp.Reduce($J) globals. They are <a href="http://docs.intersystems.com/latest/csp/docbook/DocBook.UI.Page.cls?KEY=RCPF_Namespace_n">automatically mapped to CACHETEMP</a>, thus will not be journaled inside of transactions, and will be not evicted to persistent store as long as it’s possible. Consider them as “kind of in-memory” global;</li><li>Intermediate pipe infraPipe will be instance of MR.Sample.GlobalPipe class, which is alias to MR.EmitterSorted class (and, if you remember from <a href="https://community.intersystems.com/post/cach%C3%A9-mapreduce-basic-interfaces-mapreduce-implementation-part-ii">Part II</a>, which is automatically cleaned up at the end of this program);</li></ul>
 
-{% highlight text %}
+{% highlight objectscript %}
 Class MR.Sample.GlobalPipe Extends (%RegisteredObject, MR.Emitter.Sorted) { }
 {% endhighlight %}
 
 <ul><li>We loop over $text(DATA+i) lines, and retrieve the 3<sup>rd</sup> argument of string, delimited by “;” character. If result is not empty – we use the retrieved value as a file name to input text.</li><li>Input iterator for the mapper will be instance of MR.Input.FileLines, which we did not show yet. The class is rather simple:</li></ul>
 
-{% highlight text %}
+{% highlight objectscript %}
 Class MR.Input.FileLines Extends (%RegisteredObject, MR.Base.Iterator)
 {
 
@@ -150,7 +151,7 @@ Method IsAtEnd() As %Boolean
         <li>Reducer object is an instance of MR.Sample.WordCount.Adder described &lt;&lt;above&gt;&gt;.</li><li>For each opened file (at the same iteration of a larger loop) we call reducer.Reduce function, passing there as arguments the intermediate pipe created (infraPipe object modified at the Map step), and output pipe as 2<sup>nd</sup> argument;</li>
 </ul>
 <p>Enough said, let see how it works?</p>
-{% highlight shell %}
+{% highlight bash %}
 DEVLATEST:MAPREDUCE:23:53:27:.000203>do ##class(MR.Sample.WordCount.App).MapReduce()
 ^mtemp.Reduce(3276,"Count")=114830
 ^mtemp.Reduce(3276,"Count")=123232
@@ -166,7 +167,7 @@ DEVLATEST:MAPREDUCE:23:53:27:.000203>do ##class(MR.Sample.WordCount.App).MapRedu
 </ul>
 
 <p>We will start from the 2<sup>nd</sup> question – verification is easy, given standard Linux/Unix/Cygwin GNU <em>wc</em> utility.</p>
-{% highlight shell %}
+{% highlight bash %}
 Timur@TimurYoga2P /cygdrive/c/Users/Timur/Documents/mapreduce/data
 
 $ wc -w war*.txt
@@ -185,7 +186,7 @@ $ wc -w war*.txt
 <ul><li>We will use “extract to function” refactoring for part of Mapper code, because at a later steps we need to have it as <em>classmethod</em>, and not have it embedded to the main code. This will significantly simplify future parallelization efforts and will even make possible to invoke it via remote execution (hopefully);</li><li>And secondly, we will move out instantiation of a reducer and Reduce function invocation from the loop. The idea is to not kill resultant pipe at end of each iteration, but rather accumulate whole data (automatically counting aggregated data for all 4 volumes to be processed);</li></ul>
 <p>In all other aspects these 2 samples are equal – they both open ^mtemp.Map($J) and ^mptemp.Reduce($J) as map and reduce step intermediate and final data storage.</p>
 
-{% highlight text %}
+{% highlight objectscript %}
 Class MR.Sample.WordCount.AppSum Extends %RegisteredObject
 {
 
@@ -238,7 +239,7 @@ DATA
 
 <p>Quite recently we have extracted Map stage into the separate class-method, providing it 2 arguments, input file name and output global name. We have done it on purpose - this separate function now is easy to parallelize, if we use standard Caché ObjectScript worker services (<a href="http://docs.intersystems.com/latest/csp/documatic/%25CSP.Documatic.cls?PAGE=CLASS&amp;LIBRARY=%25SYS&amp;CLASSNAME=%25SYSTEM.WorkMgr">$system.WorkMgr</a>). This version below is further modification of a sequential version we have created recently, but with few more workers added to the formula.</p>
 
-{% highlight text %}
+{% highlight objectscript %}
 /// Version #2 More advanced, multiple-workers "map-reduce" example.
 Class MR.Sample.WordCount.AppWorkers Extends %RegisteredObject
 {

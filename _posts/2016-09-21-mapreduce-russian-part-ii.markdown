@@ -17,7 +17,7 @@ blogger_orig_url: https://habrahabr.ru/company/intersystems/blog/310196/
 <habracut/>
 Начнем с реализации абстрактных интерфейсов Mapper и Reducer.
 
-```
+```objectscript
 
 Class MR.Base.Mapper 
 {
@@ -32,7 +32,7 @@ Method Reduce(ReduceInput As MR.Base.Iterator, ReduceOutput As MR.Base.Emitter) 
 
 Изначально, как и в канонической реализации, мы сделали 2 отдельных интерфейса MapInput и ReduceInput. Но сразу стало очевидным, что они служат одной и той же цели, и предоставляют одни и те же методы – их цель пройтись по потоку данных до конца, т.ч. они оба являются итераторами. Потому, в итоге, редуцируем их в общий интерфейс MR.Base.Iterator:
 
-```
+```objectscript
 
 Class MR.Base.Iterator
 {
@@ -60,7 +60,7 @@ Method IsAtEnd() As %Boolean [Abstract ] { }
 
 Имея такие требования к дизайну, создадим базовый интерфейс эмиттера:
 
-```
+```objectscript
 
 Class MR.Base.Emitter Extends MR.Base.Iterator
 {
@@ -81,7 +81,7 @@ _Это всё ещё абстрактный интерфейс, больше м
 
 Если бы нам, при обработке, надо было сохранять порядок поступивших элементов, то мы бы использовали реализацию ниже:
 
-```
+```objectscript
 
 /// Emitter which maintains the order of (key,value(s))
 Class MR.Emitter.Ordered Extends (%RegisteredObject, MR.Base.Emitter)
@@ -113,7 +113,7 @@ Method %OnClose() As %Status
 
 Обратите внимание, что мы форсируем один обязательный параметр в метода %New (в %OnNew генерируем $$$ThrowOnError если имя в Initval не определено). Конструктор класса ожидает получить название глобала с которым он будет работать в качестве транспорта данных.
 
-```
+```objectscript
 
 Class MR.Emitter.Ordered Extends MR.Base.Emitter
 {
@@ -183,7 +183,7 @@ Method Dump()
 
 Именно так и работает MR.Emitter.Sorted, который является наследником MR.Emitter.Ordered (показанного выше):
 
-```
+```objectscript
 
 /// Emitter which sorts by keys all emitted pairs or tuples (key, value(s))
 Class MR.Emitter.Sorted Extends MR.Emitter.Ordered
@@ -240,7 +240,7 @@ Method Emit(EmitList... As %String)
 
 Но GetNext нам надо переопределить, т.к. мы больше не пытаемся запомнить порядок посланных данных и формат его внутреннего хранилища поменялся:
 
-```
+```objectscript
 
 Class MR.Emitter.Sorted Extends MR.Emitter.Ordered 
 {

@@ -26,7 +26,7 @@ blogger_orig_url: https://habrahabr.ru/company/intersystems/blog/312338/
 
 Итак, последовательная реализация WordCount (но с применением MapReduce интерфейсов, введенных ранее) будет содержать все те же самые части, что и параллельная. И, например, mapper будет выглядеть примерно так:
 
-```
+```objectscript
 Class MR.Sample.WordCount.Mapper Extends (%RegisteredObject, MR.Base.Mapper)
 {
 /// read strings from MR.Base.Iterator and count words
@@ -51,7 +51,7 @@ Method Map(MapInput As MR.Base.Iterator, MapOutput As MR.Base.Emitter)
 
 Процедура свертки (reducer) еще проще:
 
-```
+```objectscript
 Class MR.Sample.WordCount.Adder Extends (%RegisteredObject, MR.Base.Reducer)
 {
 Method Reduce(ReduceInput As MR.Base.Iterator, ReduceOutput As MR.Base.Emitter)
@@ -74,7 +74,7 @@ Method Reduce(ReduceInput As MR.Base.Iterator, ReduceOutput As MR.Base.Emitter)
 
 Итак, мы показали mapper и reducer, пришла очередь показать главную, управляющую часть программы. Не рискуя сразу упереться в сложность параллелизма, мы заходим с последовательной версии алгоритма, хотя и использующую MapReduce идиому и интерфейсы. Да, в последовательном режиме, все эти отжимания с конвейером, не имеют большого смысла, но … упрощение необходимо в педагогических целях.
 
-```
+```objectscript
 /// Упрощенная, одно-поточная версия примера "map-reduce".
 /Class MR.Sample.WordCount.App Extends %RegisteredObject
 {
@@ -121,7 +121,7 @@ DATA
 
 - Промежуточный канал intraPipe является экземпляром `MR.Sample.GlobalPipe`, который в нашем случае – просто синоним класса `MR.EmitterSorted`, и как мы описали в [предыдущей части](https://habrahabr.ru/company/intersystems/blog/310196/) автоматически очищается в конце работы программы.
 
-```
+```objectscript
 Class MR.Sample.GlobalPipe Extends (%RegisteredObject, MR.Emitter.Sorted) { }
 ```
 
@@ -129,7 +129,7 @@ Class MR.Sample.GlobalPipe Extends (%RegisteredObject, MR.Emitter.Sorted) { }
 
 - Входной итератор «маппера» (объекта отображения) будем экземпляром MR.Input.FileLines, который мы еще не показывали...
 
-```
+```objectscript
 Class MR.Input.FileLines Extends (%RegisteredObject, MR.Base.Iterator)
 {
 Property File As %Stream.FileCharacter;
@@ -167,7 +167,7 @@ Method IsAtEnd() As %Boolean
 
 Вроде бы все части в сборе – давайте посмотрим как это все работает.
 
-```
+```objectscript
 DEVLATEST:MAPREDUCE:23:53:27:.000203>do ##class(MR.Sample.WordCount.App).MapReduce()
 ^mtemp.Reduce(3276,"Count")=114830
 ^mtemp.Reduce(3276,"Count")=123232
@@ -182,7 +182,7 @@ DEVLATEST:MAPREDUCE:23:53:27:.000203>do ##class(MR.Sample.WordCount.App).MapRedu
 
 Начнем с ответа на второй вопрос, с верификации результата – проверить это просто, запустив Linux/Unix/Cygwin утилиту `wc` на тех же самих данных:
 
-```
+```bash
 Timur@TimurYoga2P /cygdrive/c/Users/Timur/Documents/mapreduce/data
 $ wc -w war*.txt
  114830 war_and_peace_vol1.txt
@@ -204,7 +204,7 @@ $ wc -w war*.txt
 
 Во всех остальных случаях эти два приводимых примера ведут себя идентично – оба используют временные глобалы `^mtemp.Map($J)` и `^mtemp.Reduce($J)` в качестве промежуточного и финального хранилища на стадиях отображения и свертки.
 
-```
+```objectscript
 Class MR.Sample.WordCount.AppSum Extends %RegisteredObject
 {
 ClassMethod Map(FileName As %String, infraPipe As MR.Sample.GlobalPipe)
@@ -254,7 +254,7 @@ DATA
 
 Вернемся к коду – на предыдущем этапе мы, на стадии отображения, выделили функцию в отдельный метод класса, получающий два аргумента (имя входного файла и имя выходного глобала). Мы выделили данный код в отдельную функция с одной простой целью – облегчить создание параллельной версии. Такая параллельная версия будет использовать механизм worker в Caché ObjectScript [($system.WorkMgr)](http://docs.intersystems.com/latest/csp/documatic/%25CSP.Documatic.cls?PAGE=CLASS&amp;LIBRARY=%25SYS&amp;CLASSNAME=%25SYSTEM.WorkMgr) Ниже мы преобразуем последовательную версию, созданную на предыдущем шаге, в параллельную посредством вызова программ обработчиков (worker), запускаемых с выделенным методом класса.
 
-```
+```objectscript
 /// Версия #2 Более продвинутая, использующая несколько воркеров
 Class MR.Sample.WordCount.AppWorkers Extends %RegisteredObject
 {

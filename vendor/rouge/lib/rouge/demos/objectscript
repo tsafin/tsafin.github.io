@@ -1,0 +1,29 @@
+/*
+    This is a 
+    MultiLine comment.
+*/
+/// This a line comment
+/*
+class User.ClassName
+{
+ClassMethod doSomeThing(arg As %String) As %Status
+{
+    // a comment
+    ; a comment
+    Set sc = $$$OK
+    Quit sc
+}
+}
+*/
+; this is also a comment
+class Clsname
+SET a=1
+{
+ClassMethod doSomeThing(arg As %String) As %Status
+{
+    // a comment
+    ; a comment
+    SET sc = $$$OK
+    QUIT sc
+}
+}

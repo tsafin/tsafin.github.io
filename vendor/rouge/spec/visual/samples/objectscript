@@ -1,0 +1,191 @@
+Import (MyPackage.SubPackage, MyPackage2.SubPackage)
+
+Include (myCustomMacro, myCustomMacro2)
+
+/// This class is used to test the Highlight with rouge project
+/// The code does not make any sense, it's just for testing the objectscript parser.
+Class User.HighLightObjectScript Extends (%Persistent, User.NewClass) [ Abstract, SqlTableName = MySqlTableName ]
+{
+
+/// Description
+Projection ProjectionName As %Projection.AbstractProjection;
+
+/// This a sample of string class parameter
+Parameter STRINGCONSTANT = "This is a constant";
+
+/// This is a sample of numeric class parameter
+Parameter NUMERICCONSTANT = 42;
+
+/// Parameter value evaluated at compile time
+Parameter COMPILETIME = {$ZDATETIME($HOROLOG, 3, 1)};
+
+Parameter COSEXPR As COSEXPRESSION = "$zdt($h,3,1)";
+
+Property classCompileTime As %TimeStamp [ InitialExpression = {..#COMPILETIME}, Private ];
+
+Property aStringProperty As %String(CAPTION = "A (String) Value", MAXLEN = 128, MINLEN = 64) [ InitialExpression = "A default string value" ];
+
+Property computedP As %String [ Calculated, SqlComputeCode = { Set {computedP}=##class(pkg.cls).cmethod({p}) } ];
+
+Property computedP2 As %String [ Calculated, SqlComputeCode = { Set {computedP2}=$select("a"]"b":1,1:0) } ];
+
+Property clsRef As User.NewClass;
+
+/// Description
+ForeignKey ForeignKeyName(clsRef) References User.NewClass() [ OnDelete = cascade ];
+
+Index clsRefIDX On clsRef [ Unique ];
+
+Index combinedIDX On (clsRef, aStringProperty) [ Data = (classCompileTime, clsRef) ];
+
+ClassMethod SampleClassMethod(intArgument As %Integer = 2, strArgument As %String = "string argument", dt As %TimeStamp = {$ZDATETIME($HOROLOG, 3, 1)}, json As %DynamicObject = { {"key":"value", "int" : 2, "arr" : [1,2,3]}}) As %Status [ Language = objectscript, Private ]
+{
+    Write !, "A special variable ", $Namespace
+    Set sc = $$$OK      ; Line comment
+    Set sc = $$$OK      // this another comment
+    #dim i As %Integer = 1
+    
+    /*
+        This 
+        is a
+        multi-line comment
+    */
+
+    Set var = $Select($Random(100)#2: "Is Odd" , 1:"Is Even")
+    Do {
+        Set i = i +1
+        Write "something"
+
+    } while (i<10)
+
+    Set str = "String value"
+    Set str = str _ " concat a value "
+
+    Set macro = $$$LOWER(str)
+    Set n = 25.5 * 2 **2 / 100 + 5 -1 # 5
+    
+    Set a = $$ALabel42InAMethod
+
+    /// Embeded is supported.  SQL Query code is delegated to SQL parser
+    &sql(
+        SELECT *
+        FROM SQLUser.MySqlTableName
+        WHERE id BETWEEN 1 AND 10
+        ORDER BY ID desc
+    ) 
+
+    &js<
+        function sample() {
+            // comment in javascript code
+            alert("hello handson");
+            /* another comment */
+            for (let i = 0; i = cars.length; i++) { 
+                text += cars[i] + "<br>";
+            }
+        }
+    >
+
+    &html<
+        <span class="class1 class2">some text</span>
+        <span class="class1 class2">#(..EscapeHTML("some text"))#</span>
+        
+    >
+
+
+    Return sc
+ALabel42InAMethod
+    ; code
+    Set obj = { "key":"value" }
+    Quit obj
+}
+
+ClientMethod JavaScriptClientMethod(value) As %Boolean [ Language = javascript ]
+{
+    if (value < 10) {
+        alert("less than ten");
+    }
+    return true
+}
+
+/// Query description
+Query QueryName() As %SQLQuery [ SqlProc ]
+{
+    SELECT *
+    FROM SQLUser.MySqlTableName
+    WHERE id BETWEEN 1 AND 10
+    ORDER BY ID desc
+}
+
+Query FilterGlobalSize(database As %String, global As %String, recordType As %String, startDate As %Date, endDate As %Date) As %Query(ROWSPEC = "database:%String,global:%String,allocatedInMB:%Float,tsUpdate:%TimeStamp,tsCreate:%TimeStamp,Year:%Integer,Month:%Integer,Week:%Integer,sizeDate:%Date,uHlp:%Integer,tsDate:%TimeStamp") [ SqlProc ]
+{
+}
+
+/// A XData With JSON data, parsing is delegated to JSON Lexer
+XData JSONXData [ MimeType = application/json ]
+{
+{
+    "document" : {
+        "key1" : "value1",
+        "array" : [ 1, "2", { "key":"value"} ]
+    }
+}
+}
+
+XData XMLData [ MimeType = application/xml ]
+{
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <item attribute="attribute value">item value</item>
+</root>
+}
+
+
+ClassMethod PythonMethod() [ Language = python ]
+{
+    import winrm
+    from winrm.protocol import Protocol
+
+    fruits = ["apple", "banana", "cherry"]
+    for x in fruits:
+        print(x)
+
+    p = Protocol(
+        endpoint='https://windows-host:5986/wsman',
+        transport='ntlm',
+        username=r'somedomain\someuser',
+        password='secret',
+        server_cert_validation='ignore')
+    shell_id = p.open_shell()
+    command_id = p.run_command(shell_id, 'ipconfig', ['/all'])
+    std_out, std_err, status_code = p.get_command_output(shell_id, command_id)
+    p.cleanup_command(shell_id, command_id)
+    p.close_shell(shell_id)
+}
+/// Storage parsing is delegated to XML Lexer
+Storage Default
+{
+<Data name="HighLightObjectScriptDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>classCompileTime</Value>
+</Value>
+<Value name="3">
+<Value>aStringProperty</Value>
+</Value>
+<Value name="4">
+<Value>clsRef</Value>
+</Value>
+</Data>
+<DataLocation>^User.HighLightObjectScriptD</DataLocation>
+<DefaultData>HighLightObjectScriptDefaultData</DefaultData>
+<Description>
+<![CDATA[Storage parsing is delegated to XML Lexer]]></Description>
+<IdLocation>^User.HighLightObjectScriptD</IdLocation>
+<IndexLocation>^User.HighLightObjectScriptI</IndexLocation>
+<StreamLocation>^User.HighLightObjectScriptS</StreamLocation>
+<Type>%Storage.Persistent</Type>
+}
+
+}

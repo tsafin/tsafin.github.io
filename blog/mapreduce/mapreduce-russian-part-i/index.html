@@ -340,19 +340,19 @@
 
 <p>Если, после такого подробного описания Си++ реализации, вам по-прежнему непонятно что такое MapReduce, то давайте попробуем изобразить этот алгоритм на нескольких строках одного известного скриптового языка:</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">map</span><span class="p">(</span><span class="n">String</span> <span class="n">key</span><span class="p">,</span> <span class="n">String</span> <span class="n">value</span><span class="p">):</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">map</span><span class="p">(</span><span class="n">String</span> <span class="n">key</span><span class="p">,</span> <span class="n">String</span> <span class="n">value</span><span class="p">):</span>
    <span class="o">//</span> <span class="n">key</span><span class="p">:</span> <span class="n">document</span> <span class="n">name</span>
    <span class="o">//</span> <span class="n">value</span><span class="p">:</span> <span class="n">document</span> <span class="n">contents</span>
    <span class="k">for</span> <span class="n">each</span> <span class="n">word</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
-      <span class="nc">EmitIntermediate</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="sh">"</span><span class="s">1</span><span class="sh">"</span><span class="p">);</span>
+      <span class="n">EmitIntermediate</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="s">"1"</span><span class="p">);</span>
 
-<span class="nf">reduce</span><span class="p">(</span><span class="n">String</span> <span class="n">key</span><span class="p">,</span> <span class="n">Iterator</span> <span class="n">values</span><span class="p">):</span>
+<span class="nb">reduce</span><span class="p">(</span><span class="n">String</span> <span class="n">key</span><span class="p">,</span> <span class="n">Iterator</span> <span class="n">values</span><span class="p">):</span>
    <span class="o">//</span> <span class="n">key</span><span class="p">:</span> <span class="n">a</span> <span class="n">word</span>
    <span class="o">//</span> <span class="n">values</span><span class="p">:</span> <span class="n">a</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">counts</span>
    <span class="nb">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
    <span class="k">for</span> <span class="n">each</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
-      <span class="n">result</span> <span class="o">+=</span> <span class="nc">ParseInt</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
-   <span class="nc">Emit</span><span class="p">(</span><span class="nc">AsString</span><span class="p">(</span><span class="n">result</span><span class="p">));</span>
+      <span class="n">result</span> <span class="o">+=</span> <span class="n">ParseInt</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
+   <span class="n">Emit</span><span class="p">(</span><span class="n">AsString</span><span class="p">(</span><span class="n">result</span><span class="p">));</span>
 </code></pre></div></div>
 
 <p>Как в этом упрощенном примере видим, ответственностью функции map будет выдать последовательность пар &lt;ключ, значение&gt;. Эти пары перемешиваются и сортируются в мастере, и результирующие коллекции значений, для заданного ключа, отсылаются на вход функций reduce (свертка), которые, в свою очередь, ответственны за генерацию выходной пары &lt;ключ,значение&gt;. В нашем случае это будет &lt;слово,счетчик&gt;</p>

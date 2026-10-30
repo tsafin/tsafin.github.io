@@ -10,8 +10,8 @@ image:
   credits:
 ---
 
-<div class="tiles">
+<div class="archive-list">
 {% for post in site.posts %}
   {% include post-list.html %}
 {% endfor %}
-</div><!-- /.tiles -->
+</div>

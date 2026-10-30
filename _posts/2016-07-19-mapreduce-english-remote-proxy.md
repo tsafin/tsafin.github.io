@@ -8,6 +8,8 @@ image:
   feature: landscapes/feature2.jpg
   credits:
 blogger_orig_url: https://community.intersystems.com/post/remote-proxy-objects-dynamic-dispatch
+thumbnail: images/covers/mapreduce-english-remote-proxy.webp
+social_image: images/covers/mapreduce-english-remote-proxy-social.png
 ---
 
 # (Dynamic dispatch to the rescue)

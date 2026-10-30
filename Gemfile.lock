@@ -4,7 +4,7 @@ PATH
     rouge (3.28.0)
 
 GEM
-  remote: http://rubygems.org/
+  remote: https://rubygems.org/
   specs:
     activesupport (8.1.2)
       base64
@@ -38,6 +38,7 @@ GEM
       logger
     faraday-net_http (3.4.2)
       net-http (~> 0.5)
+    ffi (1.17.3)
     ffi (1.17.3-aarch64-linux-gnu)
     ffi (1.17.3-aarch64-linux-musl)
     ffi (1.17.3-arm-linux-gnu)
@@ -117,10 +118,14 @@ GEM
       rb-inotify (~> 0.9, >= 0.9.10)
     logger (1.7.0)
     mercenary (0.4.0)
+    mini_portile2 (2.8.9)
     minitest (6.0.1)
       prism (~> 1.5)
     net-http (0.9.1)
       uri (>= 0.11.1)
+    nokogiri (1.19.0)
+      mini_portile2 (~> 2.8.2)
+      racc (~> 1.4)
     nokogiri (1.19.0-aarch64-linux-gnu)
       racc (~> 1.4)
     nokogiri (1.19.0-aarch64-linux-musl)
@@ -151,6 +156,9 @@ GEM
       ffi (~> 1.0)
     rexml (3.4.4)
     safe_yaml (1.0.5)
+    sass-embedded (1.97.3)
+      google-protobuf (~> 4.31)
+      rake (>= 13)
     sass-embedded (1.97.3-aarch64-linux-gnu)
       google-protobuf (~> 4.31)
     sass-embedded (1.97.3-aarch64-linux-musl)
@@ -189,6 +197,7 @@ PLATFORMS
   arm-linux-musl
   arm-linux-musleabihf
   arm64-darwin
+  ruby
   x86_64-darwin
   x86_64-linux-gnu
   x86_64-linux-musl

@@ -1,10 +1,16 @@
-<article class="tile" itemscope itemtype="http://schema.org/Article">
-    <a href="{{ post.url | relative_url }}" title="{{ post.title }}" class="post-teaser">
-    {% if post.image.teaser %}<img src="{{ post.image.teaser | prepend: '/images/' | relative_url }}" alt="teaser" itemprop="image">
-    {% elsif post.thumbnail %}<img src="{{ post.thumbnail | relative_url }}" alt="thumbnail" itemprop="image">
-    {% else %}<img src="{{ site.teaser | prepend: '/images/' | relative_url }}" alt="teaser" itemprop="image">{% endif %}</a> {% if post.date %}
-    <p class="entry-date date published"><time datetime="{{ post.date | date: " %Y-%m-%d " }}" itemprop="datePublished">{{ post.date | date: "%B %d, %Y" }}</time></p>{% endif %}
+<article class="tile" itemscope itemtype="https://schema.org/Article">
+  <a href="{{ post.url | relative_url }}" title="{{ post.title }}" class="post-teaser" tabindex="-1" aria-hidden="true">
+    {% if post.image.teaser %}<img src="{{ post.image.teaser | prepend: '/images/' | relative_url }}" alt="" loading="lazy" itemprop="image">
+    {% elsif post.thumbnail %}<img src="{{ post.thumbnail | relative_url }}" alt="" loading="lazy" itemprop="image">
+    {% else %}<img src="{{ site.teaser | prepend: '/images/' | relative_url }}" alt="" loading="lazy" itemprop="image">{% endif %}
+  </a>
+  <div class="tile-content">
+    <div class="entry-meta">
+      {% if post.date %}<time class="entry-date date published" datetime="{{ post.date | date: '%Y-%m-%d' }}" itemprop="datePublished">{{ post.date | date: "%b %d, %Y" }}</time>{% endif %}
+      {% if post.categories[1] %}<span class="entry-category">{{ post.categories[1] | replace: '-', ' ' }}</span>{% endif %}
+    </div>
     <h2 class="post-title" itemprop="name"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
-    <p class="post-excerpt" itemprop="description">{{ post.excerpt | strip_html | truncate: 160 }}</p>
+    <p class="post-excerpt" itemprop="description">{{ post.excerpt | strip_html | truncate: 150 }}</p>
+    <a class="post-link" href="{{ post.url | relative_url }}" aria-label="Read {{ post.title }}">Read note <span aria-hidden="true">↗</span></a>
+  </div>
 </article>
-<!-- /.tile -->

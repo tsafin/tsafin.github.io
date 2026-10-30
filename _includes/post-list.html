@@ -1,1 +1,16 @@
-<li>{% if post.date %}<span>{{ post.date | date: "%B %d, %Y" }}</span> &raquo; {% endif %}<a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>
+<article class="archive-list-item" itemscope itemtype="https://schema.org/Article">
+  <a class="archive-list-image" href="{{ post.url | relative_url }}" tabindex="-1" aria-hidden="true">
+    {% if post.image.teaser %}<img src="{{ post.image.teaser | prepend: '/images/' | relative_url }}" alt="" loading="lazy" itemprop="image">
+    {% elsif post.thumbnail %}<img src="{{ post.thumbnail | relative_url }}" alt="" loading="lazy" itemprop="image">
+    {% else %}<img src="{{ site.teaser | prepend: '/images/' | relative_url }}" alt="" loading="lazy" itemprop="image">{% endif %}
+  </a>
+  <div class="archive-list-copy">
+    <div class="entry-meta">
+      {% if post.date %}<time datetime="{{ post.date | date: '%Y-%m-%d' }}" itemprop="datePublished">{{ post.date | date: "%b %d, %Y" }}</time>{% endif %}
+      {% if post.categories[1] %}<span class="entry-category">{{ post.categories[1] | replace: '-', ' ' }}</span>{% endif %}
+    </div>
+    <h2 itemprop="name"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+    <p itemprop="description">{{ post.excerpt | strip_html | truncate: 180 }}</p>
+  </div>
+  <a class="archive-list-arrow" href="{{ post.url | relative_url }}" aria-label="Read {{ post.title }}">↗</a>
+</article>

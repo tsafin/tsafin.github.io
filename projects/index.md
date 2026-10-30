@@ -9,7 +9,7 @@ image:
   teaser:
 ---
 
-<img src="http://ghchart.rshah.org/{{ site.owner.github }}" alt="{{ site.owner.github }} Github chart" />
+<img class="projects-chart" src="https://ghchart.rshah.org/{{ site.owner.github }}" alt="{{ site.owner.github }} GitHub contribution chart" loading="lazy" />
 
 <div id="feed"></div>
 
@@ -21,8 +21,8 @@ image:
   });
 </script>
 
-<div class="tiles">
+<div class="archive-list">
 {% for post in site.categories.project %}
   {% include post-list.html %}
 {% endfor %}
-</div><!-- /.tiles -->
+</div>

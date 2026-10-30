@@ -1,15 +1,18 @@
 <footer role="contentinfo" id="site-footer">
-	<nav role="navigation" class="menu bottom-menu">
-		<ul class="menu-item">
-		{% for link in site.data.footer %}
-      {% if link.url contains 'http' %}
-        {% assign domain = '' %}
-        {% else %}
-        {% assign domain = site.url %}
-      {% endif %}
-			<li><a href="{{ domain }}{{ link.url }}" {% if link.url contains 'http' %}target="_blank"{% endif %}>{{ link.title }}</a></li>
-		{% endfor %}
-		</ul>
-	</nav><!-- /.bottom-menu -->
-	<p class="copyright">&#169; {{ site.time | date: '%Y' }} <a href="{{ "/" | relative_url }}">{{ site.title }}</a> powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> + <a href="http://mmistakes.github.io/skinny-bones-jekyll/" rel="nofollow">Skinny Bones</a>.</p>
+  <div class="footer-inner">
+    <a class="footer-brand" href="{{ '/' | relative_url }}">Timur Safin <span>Making no sense</span></a>
+    <nav role="navigation" class="menu bottom-menu" aria-label="Footer navigation">
+      <ul class="menu-item">
+      {% for link in site.data.footer %}
+        <li><a href="{{ link.url | relative_url }}"{% if link.url contains 'http' %} target="_blank" rel="noopener"{% endif %}>{{ link.title }}</a></li>
+      {% endfor %}
+      </ul>
+    </nav>
+    <nav class="footer-social" aria-label="Social links">
+      <a href="https://github.com/{{ site.owner.github }}" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/{{ site.owner.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="{{ '/atom.xml' | relative_url }}">RSS</a>
+    </nav>
+  </div>
+  <p class="copyright">&#169; {{ site.time | date: '%Y' }} Timur Safin. Built with <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a>.</p>
 </footer>

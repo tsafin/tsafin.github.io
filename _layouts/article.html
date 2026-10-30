@@ -3,31 +3,38 @@ layout: default
 ---
 
 <div id="main" role="main">
-	<article class="wrap" itemscope itemtype="http://schema.org/Article">
-		{% if page.image.feature %}
-		<div class="page-feature">
-			<div class="page-image">
-				<img src="{{ page.image.feature | prepend: '/images/' | relative_url }}" class="page-feature-image" alt="{{ page.title }}" itemprop="image">
-				{% if page.image.credit %}{% include image-credit.html %}{% endif %}
-			</div><!-- /.page-image -->
-		</div><!-- /.page-feature -->
-		{% endif %}
-		{% include breadcrumbs.html %}
-		<div class="page-title">
-			<h1>{{ page.title }}</h1>
-		</div>
-		<div class="inner-wrap">
-			<div id="content" class="page-content" itemprop="articleBody">
-				{{ content }}
-				<hr />
-				<footer class="page-footer">
-					{% if page.categories %}{% include page-author.html %}{% endif %}
-					{% if page.share != false %}{% include share-this.html %}{% endif %}
-					{% include page-meta.html %}
-				</footer><!-- /.footer -->
-				{% include comments.html %}
-			</div><!-- /.content -->
-		</div><!-- /.inner-wrap -->
-		{% if page.ads == true %}<div class="ads">{% include advertising.html %}</div><!-- /.ads -->{% endif %}
-	</article><!-- ./wrap -->
-</div><!-- /#main -->
+  <article class="wrap" itemscope itemtype="https://schema.org/Article">
+    {% include breadcrumbs.html %}
+    <div class="page-title">
+      {% if page.date %}
+      <div class="entry-meta">
+        <time datetime="{{ page.date | date: '%Y-%m-%d' }}" itemprop="datePublished">{{ page.date | date: "%B %d, %Y" }}</time>
+        {% if page.categories[1] %}<span class="entry-category">{{ page.categories[1] | replace: '-', ' ' }}</span>{% endif %}
+      </div>
+      {% endif %}
+      <h1>{{ page.title }}</h1>
+      {% if page.excerpt %}<p class="page-summary">{{ page.excerpt | strip_html }}</p>{% endif %}
+    </div>
+    {% if page.image.feature %}
+    <div class="page-feature">
+      <div class="page-image">
+        <img src="{{ page.image.feature | prepend: '/images/' | relative_url }}" class="page-feature-image" alt="{{ page.title }}" itemprop="image">
+        {% if page.image.credit %}{% include image-credit.html %}{% endif %}
+      </div>
+    </div>
+    {% endif %}
+    <div class="inner-wrap">
+      <div id="content" class="page-content" itemprop="articleBody">
+        {{ content }}
+        <hr>
+        <footer class="page-footer">
+          {% if page.categories %}{% include page-author.html %}{% endif %}
+          {% if page.share != false %}{% include share-this.html %}{% endif %}
+          {% include page-meta.html %}
+        </footer>
+        {% include comments.html %}
+      </div>
+    </div>
+    {% if page.ads == true %}<div class="ads">{% include advertising.html %}</div>{% endif %}
+  </article>
+</div>

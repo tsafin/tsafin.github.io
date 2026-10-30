@@ -1,17 +1,23 @@
-<nav role="navigation" id="js-menu" class="sliding-menu-content">
-  <h5>{{ site.title }} <span>{{ site.data.messages.locales[site.locale].toc }}</span></h5>
+<nav role="navigation" id="js-menu" class="sliding-menu-content" aria-label="Mobile navigation" aria-hidden="true">
+  <h5>{{ site.title }} <span>Navigation</span></h5>
   <ul class="menu-item">
+    <li>
+      <a href="{{ '/' | relative_url }}">
+        <div class="title">Home</div>
+        <p class="excerpt">Start here</p>
+      </a>
+    </li>
     {% for link in site.data.navigation %}<li>
       <a href="{{ link.url | relative_url }}">
-        {% if link.image %}<img src="{{ link.image | prepend: '/images/' | relative_url }}" alt="teaser" class="teaser">{% endif %}
+        {% if link.image %}<img src="{{ link.image | prepend: '/images/' | relative_url }}" alt="" class="teaser">{% endif %}
         <div class="title">{{ link.title }}</div>
         {% if link.excerpt %}<p class="excerpt">{{ link.excerpt }}</p>{% endif %}
       </a>
     </li>{% endfor %}
   </ul>
 </nav>
-<button type="button" id="js-menu-trigger" class="sliding-menu-button lines-button x2" role="button" aria-label="Toggle Navigation">
-  <span class="nav-lines"></span>
+<button type="button" id="js-menu-trigger" class="sliding-menu-button lines-button x2" aria-label="Open navigation" aria-controls="js-menu" aria-expanded="false">
+  <span class="nav-lines" aria-hidden="true"></span>
 </button>
 
-<div id="js-menu-screen" class="menu-screen"></div>
+<button type="button" id="js-menu-screen" class="menu-screen" aria-label="Close navigation" tabindex="-1"></button>

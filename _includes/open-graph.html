@@ -1,15 +1,23 @@
+	{% if page.social_image %}
+	{% assign social_image = page.social_image | relative_url %}
+	{% elsif page.image.feature %}
+	{% assign social_image = page.image.feature | prepend: '/images/' | relative_url %}
+	{% elsif page.image.thumb %}
+	{% assign social_image = page.image.thumb | prepend: '/images/' | relative_url %}
+	{% else %}
+	{% assign social_image = site.logo | prepend: '/images/' | relative_url %}
+	{% endif %}
 	<!-- Twitter Cards -->
 	<meta name="twitter:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
 	{% if page.excerpt %}<meta name="twitter:description" content="{{ page.excerpt | strip_html }}">{% endif %}
 	{% if site.owner.twitter %}<meta name="twitter:site" content="@{{ site.owner.twitter }}">{% endif %}
 	{% if author.twitter %}<meta name="twitter:creator" content="@{{ author.twitter }}">{% endif %}
-	{% if page.image.feature %}
+	{% if page.social_image or page.image.feature %}
 	<meta name="twitter:card" content="summary_large_image">
-	<meta name="twitter:image" content="{{ page.image.feature | prepend: '/images/' | relative_url }}">
 	{% else %}
 	<meta name="twitter:card" content="summary">
-	<meta name="twitter:image" content="{% if page.image.thumb %}{{ page.image.thumb | prepend: '/images/' | relative_url }}{% else %}{{ site.logo | prepend: '/images/' | relative_url }}{% endif %}">
 	{% endif %}
+	<meta name="twitter:image" content="{{ social_image }}">
 	<!-- Open Graph -->
 	<meta property="og:locale" content="{{ site.locale }}">
 	<meta property="og:type" content="article">
@@ -17,3 +25,4 @@
 	{% if page.excerpt %}<meta property="og:description" content="{{ page.excerpt | strip_html }}">{% endif %}
 	<meta property="og:url" content="{{ page.url | replace:'index.html','' | relative_url }}">
 	<meta property="og:site_name" content="{{ site.title }}">
+	<meta property="og:image" content="{{ social_image }}">

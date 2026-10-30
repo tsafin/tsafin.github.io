@@ -1,8 +1,14 @@
 <header id="masthead">
   <div class="inner-wrap">
-    <a href="{{ "/" | relative_url }}" class="site-title">{{ site.title }}</a>
-    <nav role="navigation" class="menu top-menu">
-        {% include navigation.html %}
+    <a href="{{ "/" | relative_url }}" class="site-title" aria-label="Timur Safin — home">
+      <span class="site-mark" aria-hidden="true">TS</span>
+      <span class="site-title-text">
+        <strong>Timur Safin</strong>
+        <small>Making no sense</small>
+      </span>
+    </a>
+    <nav role="navigation" class="menu top-menu" aria-label="Main navigation">
+      {% include navigation.html %}
     </nav>
-  </div><!-- /.inner-wrap -->
-</header><!-- /.masthead -->
+  </div>
+</header>

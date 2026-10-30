@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="750" viewBox="0 0 1200 750">
+  <defs>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.3" fill="#302824" opacity="0.12"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="750" fill="#e9ddd3"/>
+  <rect width="1200" height="750" fill="url(#grid)"/>
+  <path d="M72 104 H1128" stroke="#302824" stroke-width="1" opacity="0.22"/>
+  <g font-family="'DejaVu Sans', Arial, sans-serif" fill="#302824">
+    <text x="72" y="72" font-size="17" font-weight="700" letter-spacing="3">TIMUR SAFIN / NOTES</text>
+    <text x="1128" y="72" text-anchor="end" font-size="15" font-weight="700" letter-spacing="2" fill="#ad593c">PERSONAL / NOTES</text>
+    <text x="72" y="566" font-size="72" font-weight="750" letter-spacing="-1.8">Восстанавливая навык</text>
+    <text x="72" y="690" font-size="16" font-weight="700" letter-spacing="2">TSAFIN.NET</text>
+    <text x="1128" y="690" text-anchor="end" font-size="16" font-weight="700" letter-spacing="2">2013</text>
+  </g>
+  <g transform="translate(790 144)">
+  <rect x="0" y="0" width="300" height="330" rx="22" fill="none" stroke="#ad593c" stroke-width="3" opacity="0.55"/>
+  <rect x="28" y="28" width="300" height="330" rx="22" fill="#cfa48f" opacity="0.32"/>
+  <path d="M50 92 H250 M50 132 H250 M50 172 H180" stroke="#302824" stroke-width="3" opacity="0.32"/>
+  <text x="50" y="292" fill="#ad593c" font-size="104" font-weight="800" letter-spacing="-8">01</text>
+</g>
+
+  <rect x="0" y="0" width="12" height="750" fill="#ad593c"/>
+</svg>

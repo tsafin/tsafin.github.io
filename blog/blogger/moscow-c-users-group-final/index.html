@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <title>Московская группа пользователей C++ - заключение • Timur Safin - Making No Sense</title>
@@ -43,7 +43,8 @@
         с организационной точки зрения и насколько возможно это было бы расширить для generic C++ аудитории, не связанной со спецификой Яндекса, но посетить это событие я все же планирую. Да и вам советую. ">
     <meta name="keywords" content="с++, Moscow C++ Users Group">
     
-    	<!-- Twitter Cards -->
+    	
+	<!-- Twitter Cards -->
 	<meta name="twitter:title" content="Московская группа пользователей C++ - заключение">
 	<meta name="twitter:description" content="
     Если Вы не читали предыдущие посты про Московскую встречу пользователей Си++ то их можно почитать здесь:
@@ -87,8 +88,8 @@
 	
 	
 	<meta name="twitter:card" content="summary_large_image">
-	<meta name="twitter:image" content="/images/landscapes/feature14.jpg">
 	
+	<meta name="twitter:image" content="/images/landscapes/feature14.jpg">
 	<!-- Open Graph -->
 	<meta property="og:locale" content="en">
 	<meta property="og:type" content="article">
@@ -133,6 +134,7 @@
         с организационной точки зрения и насколько возможно это было бы расширить для generic C++ аудитории, не связанной со спецификой Яндекса, но посетить это событие я все же планирую. Да и вам советую. ">
 	<meta property="og:url" content="/blog/blogger/moscow-c-users-group-final/">
 	<meta property="og:site_name" content="Timur Safin - Making No Sense">
+	<meta property="og:image" content="/images/landscapes/feature14.jpg">
 
     <link rel="canonical" href="/blog/blogger/moscow-c-users-group-final/">
 
@@ -142,6 +144,7 @@
     <meta name="HandheldFriendly" content="True">
     <meta name="MobileOptimized" content="320">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f5f4ef">
     <meta http-equiv="cleartype" content="on">
 
     <link rel="stylesheet" href="/css/main.css">
@@ -153,31 +156,47 @@
   </head>
 
   <body id="js-body">
+    <a class="skip-link" href="#main">Skip to content</a>
     <!--[if lt IE 9]><div class="upgrade notice-warning"><strong>Your browser is quite old!</strong> Why not <a href="http://whatbrowser.org/">upgrade to a newer one</a> to better enjoy this site?</div><![endif]-->
 
     <header id="masthead">
   <div class="inner-wrap">
-    <a href="/" class="site-title">Timur Safin - Making No Sense</a>
-    <nav role="navigation" class="menu top-menu">
-        <ul class="menu-item">
-	<li class="home"><a href="/">Timur Safin - Making No Sense</a></li>
-	 
-      
-      <li><a href="/blog/" >Articles</a></li>
-    
-      
-      <li><a href="/projects/" >Projects</a></li>
-    
-      
-      <li><a href="/resume/" >About</a></li>
-    
+    <a href="/" class="site-title" aria-label="Timur Safin — home">
+      <span class="site-mark" aria-hidden="true">TS</span>
+      <span class="site-title-text">
+        <strong>Timur Safin</strong>
+        <small>Making no sense</small>
+      </span>
+    </a>
+    <nav role="navigation" class="menu top-menu" aria-label="Main navigation">
+      <ul class="menu-item">
+  <li class="home"><a href="/">Timur Safin - Making No Sense</a></li>
+  
+    <li>
+      <a href="/blog/">Articles</a>
+    </li>
+  
+    <li>
+      <a href="/projects/">Projects</a>
+    </li>
+  
+    <li>
+      <a href="/resume/">About</a>
+    </li>
+  
 </ul>
     </nav>
-  </div><!-- /.inner-wrap -->
-</header><!-- /.masthead -->
-    <nav role="navigation" id="js-menu" class="sliding-menu-content">
-  <h5>Timur Safin - Making No Sense <span>Table of Contents</span></h5>
+  </div>
+</header>
+    <nav role="navigation" id="js-menu" class="sliding-menu-content" aria-label="Mobile navigation" aria-hidden="true">
+  <h5>Timur Safin - Making No Sense <span>Navigation</span></h5>
   <ul class="menu-item">
+    <li>
+      <a href="/">
+        <div class="title">Home</div>
+        <p class="excerpt">Start here</p>
+      </a>
+    </li>
     <li>
       <a href="/blog/">
         
@@ -199,25 +218,17 @@
     </li>
   </ul>
 </nav>
-<button type="button" id="js-menu-trigger" class="sliding-menu-button lines-button x2" role="button" aria-label="Toggle Navigation">
-  <span class="nav-lines"></span>
+<button type="button" id="js-menu-trigger" class="sliding-menu-button lines-button x2" aria-label="Open navigation" aria-controls="js-menu" aria-expanded="false">
+  <span class="nav-lines" aria-hidden="true"></span>
 </button>
 
-<div id="js-menu-screen" class="menu-screen"></div>
+<button type="button" id="js-menu-screen" class="menu-screen" aria-label="Close navigation" tabindex="-1"></button>
 
 
     <div id="page-wrapper">
       <div id="main" role="main">
-	<article class="wrap" itemscope itemtype="http://schema.org/Article">
-		
-		<div class="page-feature">
-			<div class="page-image">
-				<img src="/images/landscapes/feature14.jpg" class="page-feature-image" alt="Московская группа пользователей C++ - заключение" itemprop="image">
-				
-			</div><!-- /.page-image -->
-		</div><!-- /.page-feature -->
-		
-		
+  <article class="wrap" itemscope itemtype="https://schema.org/Article">
+    
 <nav class="breadcrumbs">
     <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
       <a href="/" itemprop="url">
@@ -238,12 +249,64 @@
     </a>
 </div>
 
-		<div class="page-title">
-			<h1>Московская группа пользователей C++ - заключение</h1>
-		</div>
-		<div class="inner-wrap">
-			<div id="content" class="page-content" itemprop="articleBody">
-				<blockquote>
+    <div class="page-title">
+      
+      <div class="entry-meta">
+        <time datetime="2014-03-22" itemprop="datePublished">March 22, 2014</time>
+        <span class="entry-category">blogger</span>
+      </div>
+      
+      <h1>Московская группа пользователей C++ - заключение</h1>
+      <p class="page-summary">
+    Если Вы не читали предыдущие посты про Московскую встречу пользователей Си++ то их можно почитать здесь:
+    
+        Часть №1
+        Часть №2
+        Часть №3
+        Часть №4
+        Часть №5
+     Но прежде чем перейти к части с выводами, надо вернуть долг и рассказать про последний доклад дня... 
+Александр Путилин - C++ и mapreduce﻿
+
+    Sasha Putilin from Yandex on mapreduce model #cpp #MOSCOW &mdash; Timur Safin (40+) (@tsafin) 15 февраля 2014
+
+    
+        Skewed keys. Problem of over popular keys, could split reduce 2 stage #cpp #moscow&mdash; Timur Safin (40+) (@tsafin)
+        15 февраля 2014
+    
+        Ysndex MapReduce implemented in C++ dislike Hadoop which is in Java #cpp #moscow&mdash; Timur Safin (40+) (@tsafin)
+        15 февраля 2014
+    Александр Путилин из Яндекса, будучи вовлеченным в bigdata c относительно недавных времен, легко и непринужденно ввел в курс дела, и объяснил концепции map-reduce для аудитории Си++ программистов, в массе своей незнакомой с bigdata. Тут, конечно,
+        облегчило процесс то, что он занимается этим недавно, и сам изучал это еще вчера.
+    Сначала Александр рассказал про базовые принципы Map-Reduce а потом перешел к специфике Yandex реализации (о котором впервые было рассказано на Yac'2010        более 3 лет назад). Несмотря на то, что большинство слушателей никогда не работало с кластерами и тем более с big-data (все-же, не в каждой конторе есть такой технический парк машин, как в Яндексе, да, прямо скажем, ни у кого) но в целом данная
+        презентация была принята с интересом, и не вызвала отторжения как предыдущая про HPC. Потому что Yandex MapReduce это все же C++, со своими заморочками (посмотрите, например, в слайдах как они именуют типы, как называется их тип строк,
+        и какие коллекции они применяют), но все же C++.
+    
+        We done #cpp #moscow&mdash; Timur Safin (40+) (@tsafin) 15 февраля 2014
+    Что дальше?
+    А теперь общее впечатление про данную встречу и мои мысли как это можно/нужно сделать в будущем.
+    Было ли это интересно? Да, большей частью. Было ли это легко? Нет, такие встречи отнимают почти целый день. С учетом того, что условиями аренды зала не было предусмотрено никакого обеда, а только перерыв на чай, то это было сложно вдвойне.
+        Более того, насколько я могу судить аренда зала обошлась в 50-70 тысяч, и случилась только благодаря упомянутому ранее спонсорству "неизвестной" конторы. Нужно ли повторять
+        такой формат (много докладов и целый день?) Думаю, нет.
+    Такие полнодневные события не могут происходить часто. Это скорее подходит для формата ежегодных конференций (типа YAC), но никак не для встречи пользователей какого-то языка программирования, которую хотелось бы проводить чаще чем раз в год (например,
+        раз в квартал, или даже раз в месяц, как делают Берлинские Си++ программисты). Конечно же, в таком случае такие встречи должны быть достаточно короткими (1-2 доклада) и, самое главное,
+        эффективными с точки зрения финансов, например, за счет проведения в помещении какой-нибудь релевантной конторы спонсора, со своей армией Си/Си++ программистов (в Москве такими могут быть Яндекс, Гугл, Майкрософт, Интел, и многие другие). С учетом
+        того, что это не будет встреча на весь день, то и проводить её можно в любой день недели, по завершении рабочего дня (например, с 7 вечера). Заодно и пиво можно попить после такой встречи...
+    Какой формат встречи я считаю оптимальным? Например, такой как был у Яндекса в недавнем "MongoDB meetup" 
+    Если осмотреться вокруг, то может оказаться что Яндекс проводит встречи не только про BigData как в случае с MongoDB, но и с C++ как в случае C++ party". Пока не знаю как это будет проходить
+        с организационной точки зрения и насколько возможно это было бы расширить для generic C++ аудитории, не связанной со спецификой Яндекса, но посетить это событие я все же планирую. Да и вам советую. </p>
+    </div>
+    
+    <div class="page-feature">
+      <div class="page-image">
+        <img src="/images/landscapes/feature14.jpg" class="page-feature-image" alt="Московская группа пользователей C++ - заключение" itemprop="image">
+        
+      </div>
+    </div>
+    
+    <div class="inner-wrap">
+      <div id="content" class="page-content" itemprop="articleBody">
+        <blockquote>
     Если Вы не читали предыдущие посты про Московскую встречу пользователей Си++ то их можно почитать здесь:
     <unordered>
         <li><a href="/blog/blogger/moscowcppusersgroup/">Часть №1</a></li>
@@ -282,9 +345,9 @@
     <p>Какой формат встречи я считаю оптимальным? Например, такой как был у Яндекса в недавнем "MongoDB meetup"</p> <img src="http://3.bp.blogspot.com/-sADjg5oNUC8/Uy4ItIpjmYI/AAAAAAAAQik/dp_zyNomTTI/s1600/yandex-mongodb-meetup.png" width="100%" />
     <p>Если осмотреться вокруг, то может оказаться что Яндекс проводит встречи не только про BigData как в случае с MongoDB, но и с C++ как в случае <a href="http://tech.yandex.ru/events/meetings/cpp-party/">C++ party"</a>. Пока не знаю как это будет проходить
         с организационной точки зрения и насколько возможно это было бы расширить для generic C++ аудитории, не связанной со спецификой Яндекса, но посетить это событие я все же планирую. Да и вам советую. </p>
-				<hr />
-				<footer class="page-footer">
-					
+        <hr>
+        <footer class="page-footer">
+          
 
 <div class="author-image">
     <img src="/images/tsafin_twitter_small_logo.jpg" alt="Timur Safin">
@@ -295,7 +358,7 @@
     <p class="author-bio"></p>
 </div>
 <!-- ./author-content -->
-					<div class="inline-btn">
+          <div class="inline-btn">
 	<a class="btn-social twitter" href="https://twitter.com/intent/tweet?text=%D0%9C%D0%BE%D1%81%D0%BA%D0%BE%D0%B2%D1%81%D0%BA%D0%B0%D1%8F+%D0%B3%D1%80%D1%83%D0%BF%D0%BF%D0%B0+%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D0%B5%D0%B9+C%2B%2B+-+%D0%B7%D0%B0%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D0%B5&amp;url=%2Fblog%2Fblogger%2Fmoscow-c-users-group-final%2F&amp;via=tsafin" target="_blank" rel="noopener"><i class="fa fa-twitter" aria-hidden="true"></i> Share on Twitter</a>
 	<a class="btn-social facebook" href="https://www.facebook.com/sharer/sharer.php?u=%2Fblog%2Fblogger%2Fmoscow-c-users-group-final%2F" target="_blank" rel="noopener"><i class="fa fa-facebook" aria-hidden="true"></i> Share on Facebook</a>
 	<a class="btn-social linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=%2Fblog%2Fblogger%2Fmoscow-c-users-group-final%2F" target="_blank" rel="noopener"><i class="fa fa-linkedin" aria-hidden="true"></i> Share on LinkedIn</a>
@@ -303,11 +366,11 @@
 	<a class="btn-social reddit" href="https://reddit.com/submit?url=%2Fblog%2Fblogger%2Fmoscow-c-users-group-final%2F&amp;title=%D0%9C%D0%BE%D1%81%D0%BA%D0%BE%D0%B2%D1%81%D0%BA%D0%B0%D1%8F+%D0%B3%D1%80%D1%83%D0%BF%D0%BF%D0%B0+%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D0%B5%D0%B9+C%2B%2B+-+%D0%B7%D0%B0%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D0%B5" target="_blank" rel="noopener"><i class="fa fa-reddit" aria-hidden="true"></i> Share on Reddit</a>
 </div><!-- /.share-this -->
 
-					<div class="page-meta">
+          <div class="page-meta">
 	<p>Updated <time datetime="2014-03-22T22:17:00Z" itemprop="datePublished">March 22, 2014</time></p>
 </div><!-- /.page-meta -->
-				</footer><!-- /.footer -->
-				<hr />
+        </footer>
+        <hr />
 <script src="https://giscus.app/client.js"
         data-repo="tsafin/tsafin.github.io"
         data-repo-id="MDEwOlJlcG9zaXRvcnk2NjQ2NjM5OQ=="
@@ -324,31 +387,35 @@
         crossorigin="anonymous"
         async>
 </script>
-			</div><!-- /.content -->
-		</div><!-- /.inner-wrap -->
-		
-	</article><!-- ./wrap -->
-</div><!-- /#main -->
+      </div>
+    </div>
+    
+  </article>
+</div>
 
       <footer role="contentinfo" id="site-footer">
-	<nav role="navigation" class="menu bottom-menu">
-		<ul class="menu-item">
-		
+  <div class="footer-inner">
+    <a class="footer-brand" href="/">Timur Safin <span>Making no sense</span></a>
+    <nav role="navigation" class="menu bottom-menu" aria-label="Footer navigation">
+      <ul class="menu-item">
       
-			<li><a href="/" >Home</a></li>
-		
+        <li><a href="/">Home</a></li>
       
-			<li><a href="/blog/" >Articles</a></li>
-		
+        <li><a href="/blog/">Articles</a></li>
       
-			<li><a href="/projects/" >Projects</a></li>
-		
+        <li><a href="/projects/">Projects</a></li>
       
-			<li><a href="/about/" >About</a></li>
-		
-		</ul>
-	</nav><!-- /.bottom-menu -->
-	<p class="copyright">&#169; 2026 <a href="/">Timur Safin - Making No Sense</a> powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> + <a href="http://mmistakes.github.io/skinny-bones-jekyll/" rel="nofollow">Skinny Bones</a>.</p>
+        <li><a href="/resume/">About</a></li>
+      
+      </ul>
+    </nav>
+    <nav class="footer-social" aria-label="Social links">
+      <a href="https://github.com/tsafin" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/timursafin" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="/atom.xml">RSS</a>
+    </nav>
+  </div>
+  <p class="copyright">&#169; 2026 Timur Safin. Built with <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a>.</p>
 </footer>
 
     </div>
@@ -400,8 +467,5 @@
 <noscript><div><img src="https://mc.yandex.ru/watch/40768979" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
 
-
-
   </body>
-
 </html>

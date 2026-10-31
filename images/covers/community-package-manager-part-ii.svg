@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="750" viewBox="0 0 1200 750">
+  <defs>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.3" fill="#3b3124" opacity="0.12"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="750" fill="#ece2ce"/>
+  <rect width="1200" height="750" fill="url(#grid)"/>
+  <path d="M72 104 H1128" stroke="#3b3124" stroke-width="1" opacity="0.22"/>
+  <g font-family="'DejaVu Sans', Arial, sans-serif" fill="#3b3124">
+    <text x="72" y="72" font-size="17" font-weight="700" letter-spacing="3">TIMUR SAFIN / NOTES</text>
+    <text x="1128" y="72" text-anchor="end" font-size="15" font-weight="700" letter-spacing="2" fill="#9b6a2f">INTERSYSTEMS / TOOLS</text>
+    <text x="72" y="490" font-size="64" font-weight="750" letter-spacing="-1.8">Community Package</text>
+    <text x="72" y="566" font-size="64" font-weight="750" letter-spacing="-1.8">Manager — Part II</text>
+    <text x="72" y="690" font-size="16" font-weight="700" letter-spacing="2">TSAFIN.NET</text>
+    <text x="1128" y="690" text-anchor="end" font-size="16" font-weight="700" letter-spacing="2">2014</text>
+  </g>
+  <g transform="translate(760 152) rotate(-4 170 180)">
+  <rect x="38" y="0" width="280" height="112" rx="14" fill="#cbb486" opacity="0.65"/>
+  <rect x="0" y="132" width="320" height="126" rx="14" fill="none" stroke="#9b6a2f" stroke-width="3"/>
+  <rect x="44" y="280" width="280" height="126" rx="14" fill="#9b6a2f" opacity="0.16" stroke="#9b6a2f" stroke-width="2"/>
+  <g fill="#3b3124" font-family="monospace" font-size="26" font-weight="700">
+    <text x="72" y="68">PACKAGE</text><text x="40" y="204">INSTALL</text><text x="82" y="354">SHIP →</text>
+  </g>
+</g>
+
+  <rect x="0" y="0" width="12" height="750" fill="#9b6a2f"/>
+</svg>

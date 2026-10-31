@@ -1,27 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Latest Posts • Timur Safin - Making No Sense</title>
+    <title>Making no sense. • Timur Safin - Making No Sense</title>
+    <meta name="description" content="Notes on software, open source, and the ideas in between.">
     
     
-    
-    	<!-- Twitter Cards -->
-	<meta name="twitter:title" content="Latest Posts">
-	
+    	
+	<!-- Twitter Cards -->
+	<meta name="twitter:title" content="Making no sense.">
+	<meta name="twitter:description" content="Notes on software, open source, and the ideas in between.">
 	<meta name="twitter:site" content="@tsafin">
 	<meta name="twitter:creator" content="@tsafin">
 	
 	<meta name="twitter:card" content="summary">
-	<meta name="twitter:image" content="/images/tsafin_twitter_small_logo.jpg">
 	
+	<meta name="twitter:image" content="/images/tsafin_twitter_small_logo.jpg">
 	<!-- Open Graph -->
 	<meta property="og:locale" content="en">
 	<meta property="og:type" content="article">
-	<meta property="og:title" content="Latest Posts">
-	
+	<meta property="og:title" content="Making no sense.">
+	<meta property="og:description" content="Notes on software, open source, and the ideas in between.">
 	<meta property="og:url" content="/">
 	<meta property="og:site_name" content="Timur Safin - Making No Sense">
+	<meta property="og:image" content="/images/tsafin_twitter_small_logo.jpg">
 
     <link rel="canonical" href="/">
 
@@ -31,6 +33,7 @@
     <meta name="HandheldFriendly" content="True">
     <meta name="MobileOptimized" content="320">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f5f4ef">
     <meta http-equiv="cleartype" content="on">
 
     <link rel="stylesheet" href="/css/main.css">
@@ -42,31 +45,47 @@
   </head>
 
   <body id="js-body">
+    <a class="skip-link" href="#main">Skip to content</a>
     <!--[if lt IE 9]><div class="upgrade notice-warning"><strong>Your browser is quite old!</strong> Why not <a href="http://whatbrowser.org/">upgrade to a newer one</a> to better enjoy this site?</div><![endif]-->
 
     <header id="masthead">
   <div class="inner-wrap">
-    <a href="/" class="site-title">Timur Safin - Making No Sense</a>
-    <nav role="navigation" class="menu top-menu">
-        <ul class="menu-item">
-	<li class="home"><a href="/">Timur Safin - Making No Sense</a></li>
-	 
-      
-      <li><a href="/blog/" >Articles</a></li>
-    
-      
-      <li><a href="/projects/" >Projects</a></li>
-    
-      
-      <li><a href="/resume/" >About</a></li>
-    
+    <a href="/" class="site-title" aria-label="Timur Safin — home">
+      <span class="site-mark" aria-hidden="true">TS</span>
+      <span class="site-title-text">
+        <strong>Timur Safin</strong>
+        <small>Making no sense</small>
+      </span>
+    </a>
+    <nav role="navigation" class="menu top-menu" aria-label="Main navigation">
+      <ul class="menu-item">
+  <li class="home"><a href="/">Timur Safin - Making No Sense</a></li>
+  
+    <li>
+      <a href="/blog/">Articles</a>
+    </li>
+  
+    <li>
+      <a href="/projects/">Projects</a>
+    </li>
+  
+    <li>
+      <a href="/resume/">About</a>
+    </li>
+  
 </ul>
     </nav>
-  </div><!-- /.inner-wrap -->
-</header><!-- /.masthead -->
-    <nav role="navigation" id="js-menu" class="sliding-menu-content">
-  <h5>Timur Safin - Making No Sense <span>Table of Contents</span></h5>
+  </div>
+</header>
+    <nav role="navigation" id="js-menu" class="sliding-menu-content" aria-label="Mobile navigation" aria-hidden="true">
+  <h5>Timur Safin - Making No Sense <span>Navigation</span></h5>
   <ul class="menu-item">
+    <li>
+      <a href="/">
+        <div class="title">Home</div>
+        <p class="excerpt">Start here</p>
+      </a>
+    </li>
     <li>
       <a href="/blog/">
         
@@ -88,297 +107,184 @@
     </li>
   </ul>
 </nav>
-<button type="button" id="js-menu-trigger" class="sliding-menu-button lines-button x2" role="button" aria-label="Toggle Navigation">
-  <span class="nav-lines"></span>
+<button type="button" id="js-menu-trigger" class="sliding-menu-button lines-button x2" aria-label="Open navigation" aria-controls="js-menu" aria-expanded="false">
+  <span class="nav-lines" aria-hidden="true"></span>
 </button>
 
-<div id="js-menu-screen" class="menu-screen"></div>
+<button type="button" id="js-menu-screen" class="menu-screen" aria-label="Close navigation" tabindex="-1"></button>
 
 
     <div id="page-wrapper">
-      <div id="main" role="main">			
-	<div class="wrap">
-		
-		<div class="page-title">
-			<h1>Latest Posts</h1>
-			
-		</div>
-		<div class="archive-wrap">
-			<div class="page-content">
-				<div class="tiles">
+      <div id="main" role="main">
+  <div class="wrap">
+    <div class="page-content">
+      
+<section class="home-hero" aria-labelledby="home-title">
+  <div class="home-intro">
+    <p class="eyebrow">Timur Safin · Personal blog</p>
+    <h1 id="home-title">Making <em>no sense.</em></h1>
+    <p class="home-lead">Notes on software, open source, and the ideas in between.</p>
+    <div class="home-actions">
+      <a class="btn" href="/blog/">Read the articles <span aria-hidden="true">→</span></a>
+      <a class="home-secondary" href="/resume/">About Timur</a>
+    </div>
+  </div>
+  <a class="home-latest" href="/blog/jit/aot/bt/Eshche-odna-istoriya-pro-binarnuyu-translyaciyu-04-07/">
+    <div class="home-latest-image">
+      <img src="/images/thumbnails/one_more_story_about_jit.jpg" alt="" itemprop="image" />
+      
+    </div>
+    <div class="home-latest-content">
+      <div class="home-latest-meta">
+        <span>Latest note</span>
+        <time datetime="2019-04-07">Apr 07, 2019</time>
+      </div>
+      <h2>Еще одна история про бинарную трансляцию</h2>
+      <span class="home-read-more">Read the story <span aria-hidden="true">↗</span></span>
+    </div>
+  </a>
+</section>
 
-	<article class="tile" itemscope="" itemtype="http://schema.org/Article">
-    <a href="/blog/jit/aot/bt/Eshche-odna-istoriya-pro-binarnuyu-translyaciyu-04-07/" title="Еще одна история про бинарную трансляцию" class="post-teaser">
-    <img src="/images/thumbnails/one_more_story_about_jit.jpg" alt="thumbnail" itemprop="image" />
-    </a> 
-    <p class="entry-date date published"><time datetime=" 2019-04-07 " itemprop="datePublished">April 07, 2019</time></p>
-    <h2 class="post-title" itemprop="name"><a href="/blog/jit/aot/bt/Eshche-odna-istoriya-pro-binarnuyu-translyaciyu-04-07/">Еще одна история про бинарную трансляцию</a></h2>
-    <p class="post-excerpt" itemprop="description">Так получилось, что воскресным вечером 7 апреля дискуссия в @procxx плавно перешла от HPC# компилятора к JIT, и от него к бинарной трансляции, где я не преми...</p>
-</article>
-<!-- /.tile -->
-
-	<article class="tile" itemscope="" itemtype="http://schema.org/Article">
-    <a href="/blog/mapreduce/mapreduce-russian-remote-proxy/" title="Удаленное прокси может быть не (очень) больно" class="post-teaser">
-    <img src="/images/thumbnails/habra/2016-11-14-mapreduce-russian-remote-proxy_thumb_16377e9c.jpg" alt="thumbnail" itemprop="image" />
-    </a> 
-    <p class="entry-date date published"><time datetime=" 2016-11-14 " itemprop="datePublished">November 14, 2016</time></p>
+<section class="posts-section" aria-labelledby="latest-posts-title">
+  <header class="section-heading">
+    <div>
+      <p class="eyebrow">From the archive</p>
+      <h2 id="latest-posts-title">Latest notes</h2>
+    </div>
+    <a class="archive-link" href="/blog/">View all articles <span aria-hidden="true">↗</span></a>
+  </header>
+  <div class="tiles">
+  
+    <article class="tile" itemscope="" itemtype="https://schema.org/Article">
+  <a href="/blog/mapreduce/mapreduce-russian-remote-proxy/" title="Удаленное прокси может быть не (очень) больно" class="post-teaser" tabindex="-1" aria-hidden="true">
+    <img src="/images/thumbnails/habra/2016-11-14-mapreduce-russian-remote-proxy_thumb_16377e9c.jpg" alt="" loading="lazy" itemprop="image" />
+    
+  </a>
+  <div class="tile-content">
+    <div class="entry-meta">
+      <time class="entry-date date published" datetime="2016-11-14" itemprop="datePublished">Nov 14, 2016</time>
+      <span class="entry-category">mapreduce</span>
+    </div>
     <h2 class="post-title" itemprop="name"><a href="/blog/mapreduce/mapreduce-russian-remote-proxy/">Удаленное прокси может быть не (очень) больно</a></h2>
     <p class="post-excerpt" itemprop="description">(Динамическая диспетчеризация спешит на помощь)
 </p>
+    <a class="post-link" href="/blog/mapreduce/mapreduce-russian-remote-proxy/" aria-label="Read Удаленное прокси может быть не (очень) больно">Read note <span aria-hidden="true">↗</span></a>
+  </div>
 </article>
-<!-- /.tile -->
-
-	<article class="tile" itemscope="" itemtype="http://schema.org/Article">
-    <a href="/blog/mapreduce/mapreduce-russian-part-iii/" title="MapReduce из подручных материалов. Часть III – собираем все вместе" class="post-teaser">
-    <img src="/images/thumbnails/habra/6ff2e3a5d1404619883c068798441862.jpg" alt="thumbnail" itemprop="image" />
-    </a> 
-    <p class="entry-date date published"><time datetime=" 2016-10-16 " itemprop="datePublished">October 16, 2016</time></p>
+  
+    <article class="tile" itemscope="" itemtype="https://schema.org/Article">
+  <a href="/blog/mapreduce/mapreduce-russian-part-iii/" title="MapReduce из подручных материалов. Часть III – собираем все вместе" class="post-teaser" tabindex="-1" aria-hidden="true">
+    <img src="/images/thumbnails/habra/6ff2e3a5d1404619883c068798441862.jpg" alt="" loading="lazy" itemprop="image" />
+    
+  </a>
+  <div class="tile-content">
+    <div class="entry-meta">
+      <time class="entry-date date published" datetime="2016-10-16" itemprop="datePublished">Oct 16, 2016</time>
+      <span class="entry-category">mapreduce</span>
+    </div>
     <h2 class="post-title" itemprop="name"><a href="/blog/mapreduce/mapreduce-russian-part-iii/">MapReduce из подручных материалов. Часть III – собираем все вместе</a></h2>
     <p class="post-excerpt" itemprop="description">
-  В первой (достаточно капитанской) части этой серии мы рассказали про базовые концепции MapReduce почему это плохо, почему это неизбежно, и как с этим жить...</p>
+  В первой (достаточно капитанской) части этой серии мы рассказали про базовые концепции MapReduce почему это плохо, почему это неизбежно, и как с...</p>
+    <a class="post-link" href="/blog/mapreduce/mapreduce-russian-part-iii/" aria-label="Read MapReduce из подручных материалов. Часть III – собираем все вместе">Read note <span aria-hidden="true">↗</span></a>
+  </div>
 </article>
-<!-- /.tile -->
-
-	<article class="tile" itemscope="" itemtype="http://schema.org/Article">
-    <a href="/blog/mapreduce/mapreduce-russian-part-ii/" title="Еще раз про MapReduce. Часть 2 – базовые интерфейсы реализации" class="post-teaser">
-    <img src="/images/thumbnails/habra/e4ccacf0316840bca92ee668bfdb1f95.jpg" alt="thumbnail" itemprop="image" />
-    </a> 
-    <p class="entry-date date published"><time datetime=" 2016-10-04 " itemprop="datePublished">October 04, 2016</time></p>
+  
+    <article class="tile" itemscope="" itemtype="https://schema.org/Article">
+  <a href="/blog/mapreduce/mapreduce-russian-part-ii/" title="Еще раз про MapReduce. Часть 2 – базовые интерфейсы реализации" class="post-teaser" tabindex="-1" aria-hidden="true">
+    <img src="/images/thumbnails/habra/e4ccacf0316840bca92ee668bfdb1f95.jpg" alt="" loading="lazy" itemprop="image" />
+    
+  </a>
+  <div class="tile-content">
+    <div class="entry-meta">
+      <time class="entry-date date published" datetime="2016-10-04" itemprop="datePublished">Oct 04, 2016</time>
+      <span class="entry-category">mapreduce</span>
+    </div>
     <h2 class="post-title" itemprop="name"><a href="/blog/mapreduce/mapreduce-russian-part-ii/">Еще раз про MapReduce. Часть 2 – базовые интерфейсы реализации</a></h2>
     <p class="post-excerpt" itemprop="description">
-  В предыдущей части серии мы (в 100500й раз) попытались рассказать про основные приемы и стадии подхода Google MapReduce, должен признаться, что первая час...</p>
+  В предыдущей части серии мы (в 100500й раз) попытались рассказать про основные приемы и стадии подхода Google MapReduce, должен признаться, что ...</p>
+    <a class="post-link" href="/blog/mapreduce/mapreduce-russian-part-ii/" aria-label="Read Еще раз про MapReduce. Часть 2 – базовые интерфейсы реализации">Read note <span aria-hidden="true">↗</span></a>
+  </div>
 </article>
-<!-- /.tile -->
-
-	<article class="tile" itemscope="" itemtype="http://schema.org/Article">
-    <a href="/blog/mapreduce/mapreduce-russian-part-i/" title="Какая-такая Data? или Еще раз про MapReduce" class="post-teaser">
-    <img src="/images/thumbnails/habra/fa77e627c184bec95f61df62ccca0b54.jpg" alt="thumbnail" itemprop="image" />
-    </a> 
-    <p class="entry-date date published"><time datetime=" 2016-09-26 " itemprop="datePublished">September 26, 2016</time></p>
+  
+    <article class="tile" itemscope="" itemtype="https://schema.org/Article">
+  <a href="/blog/mapreduce/mapreduce-russian-part-i/" title="Какая-такая Data? или Еще раз про MapReduce" class="post-teaser" tabindex="-1" aria-hidden="true">
+    <img src="/images/thumbnails/habra/fa77e627c184bec95f61df62ccca0b54.jpg" alt="" loading="lazy" itemprop="image" />
+    
+  </a>
+  <div class="tile-content">
+    <div class="entry-meta">
+      <time class="entry-date date published" datetime="2016-09-26" itemprop="datePublished">Sep 26, 2016</time>
+      <span class="entry-category">mapreduce</span>
+    </div>
     <h2 class="post-title" itemprop="name"><a href="/blog/mapreduce/mapreduce-russian-part-i/">Какая-такая Data? или Еще раз про MapReduce</a></h2>
     <p class="post-excerpt" itemprop="description">
-   Если Вы последние 10 лет провели на удаленном острове, без интернета и в отрыве от цивилизации, то специально для Вас мы попытаемся еще раз рассказать пр...</p>
+   Если Вы последние 10 лет провели на удаленном острове, без интернета и в отрыве от цивилизации, то специально для Вас мы попытаемся еще раз рас...</p>
+    <a class="post-link" href="/blog/mapreduce/mapreduce-russian-part-i/" aria-label="Read Какая-такая Data? или Еще раз про MapReduce">Read note <span aria-hidden="true">↗</span></a>
+  </div>
 </article>
-<!-- /.tile -->
-
-	<article class="tile" itemscope="" itemtype="http://schema.org/Article">
-    <a href="/blog/mapreduce/mapreduce-english-part-iii/" title="Caché MapReduce - putting it all together – WordCount example (part III)" class="post-teaser">
-    <img src="/images/thumbnails/map_reduce_3.jpg" alt="thumbnail" itemprop="image" />
-    </a> 
-    <p class="entry-date date published"><time datetime=" 2016-09-06 " itemprop="datePublished">September 06, 2016</time></p>
+  
+    <article class="tile" itemscope="" itemtype="https://schema.org/Article">
+  <a href="/blog/mapreduce/mapreduce-english-part-iii/" title="Caché MapReduce - putting it all together – WordCount example (part III)" class="post-teaser" tabindex="-1" aria-hidden="true">
+    <img src="/images/thumbnails/map_reduce_3.jpg" alt="" loading="lazy" itemprop="image" />
+    
+  </a>
+  <div class="tile-content">
+    <div class="entry-meta">
+      <time class="entry-date date published" datetime="2016-09-06" itemprop="datePublished">Sep 06, 2016</time>
+      <span class="entry-category">mapreduce</span>
+    </div>
     <h2 class="post-title" itemprop="name"><a href="/blog/mapreduce/mapreduce-english-part-iii/">Caché MapReduce - putting it all together – WordCount example (part III)</a></h2>
-    <p class="post-excerpt" itemprop="description">In part I of this series we have introduced MapReduce as a generic concept, and in part II we started to approach Caché ObjectScript implementation via intro...</p>
+    <p class="post-excerpt" itemprop="description">In part I of this series we have introduced MapReduce as a generic concept, and in part II we started to approach Caché ObjectScript implementation...</p>
+    <a class="post-link" href="/blog/mapreduce/mapreduce-english-part-iii/" aria-label="Read Caché MapReduce - putting it all together – WordCount example (part III)">Read note <span aria-hidden="true">↗</span></a>
+  </div>
 </article>
-<!-- /.tile -->
-
-	<article class="tile" itemscope="" itemtype="http://schema.org/Article">
-    <a href="/blog/mapreduce/mapreduce-english-part-ii/" title="Caché MapReduce - Basic interfaces for MapReduce implementation (part II)" class="post-teaser">
-    <img src="/images/thumbnails/map_reduce_2.jpg" alt="thumbnail" itemprop="image" />
-    </a> 
-    <p class="entry-date date published"><time datetime=" 2016-09-01 " itemprop="datePublished">September 01, 2016</time></p>
+  
+    <article class="tile" itemscope="" itemtype="https://schema.org/Article">
+  <a href="/blog/mapreduce/mapreduce-english-part-ii/" title="Caché MapReduce - Basic interfaces for MapReduce implementation (part II)" class="post-teaser" tabindex="-1" aria-hidden="true">
+    <img src="/images/thumbnails/map_reduce_2.jpg" alt="" loading="lazy" itemprop="image" />
+    
+  </a>
+  <div class="tile-content">
+    <div class="entry-meta">
+      <time class="entry-date date published" datetime="2016-09-01" itemprop="datePublished">Sep 01, 2016</time>
+      <span class="entry-category">mapreduce</span>
+    </div>
     <h2 class="post-title" itemprop="name"><a href="/blog/mapreduce/mapreduce-english-part-ii/">Caché MapReduce - Basic interfaces for MapReduce implementation (part II)</a></h2>
-    <p class="post-excerpt" itemprop="description">In the prior part of this series we have provided introduction to Google MapReduce approach, but still not covered their possible ObjectScript implementation...</p>
+    <p class="post-excerpt" itemprop="description">In the prior part of this series we have provided introduction to Google MapReduce approach, but still not covered their possible ObjectScript impl...</p>
+    <a class="post-link" href="/blog/mapreduce/mapreduce-english-part-ii/" aria-label="Read Caché MapReduce - Basic interfaces for MapReduce implementation (part II)">Read note <span aria-hidden="true">↗</span></a>
+  </div>
 </article>
-<!-- /.tile -->
+  
+  </div>
+</section>
 
-	<article class="tile" itemscope="" itemtype="http://schema.org/Article">
-    <a href="/blog/mapreduce/mapreduce-english-part-i/" title="Caché MapReduce - introduction to BigData and MapReduce concept" class="post-teaser">
-    <img src="/images/thumbnails/blogspot/google-apreduce-illustration_0.jpg" alt="thumbnail" itemprop="image" />
-    </a> 
-    <p class="entry-date date published"><time datetime=" 2016-08-18 " itemprop="datePublished">August 18, 2016</time></p>
-    <h2 class="post-title" itemprop="name"><a href="/blog/mapreduce/mapreduce-english-part-i/">Caché MapReduce - introduction to BigData and MapReduce concept</a></h2>
-    <p class="post-excerpt" itemprop="description">Several years ago everyone got mad&nbsp;about BigData – nobody knew when smallish data will become BIGDATA, but all knows
-	that it’s trendy and the way to go...</p>
-</article>
-<!-- /.tile -->
-
-	<article class="tile" itemscope="" itemtype="http://schema.org/Article">
-    <a href="/blog/mapreduce/mapreduce-english-remote-proxy/" title="Remote proxy objects via dynamic dispatch" class="post-teaser">
-    <img src="/images/400x250.gif" alt="teaser" itemprop="image" /></a> 
-    <p class="entry-date date published"><time datetime=" 2016-07-18 " itemprop="datePublished">July 18, 2016</time></p>
-    <h2 class="post-title" itemprop="name"><a href="/blog/mapreduce/mapreduce-english-remote-proxy/">Remote proxy objects via dynamic dispatch</a></h2>
-    <p class="post-excerpt" itemprop="description">(Dynamic dispatch to the rescue)
-</p>
-</article>
-<!-- /.tile -->
-
-	<article class="tile" itemscope="" itemtype="http://schema.org/Article">
-    <a href="/hackathon/intersystems-hackathon-2015-results-english/" title="InterSystems hackathon 2015 results" class="post-teaser">
-    <img src="/images/thumbnails/blogspot/team-list-170x300.jpg" alt="thumbnail" itemprop="image" />
-    </a> 
-    <p class="entry-date date published"><time datetime=" 2015-09-23 " itemprop="datePublished">September 23, 2015</time></p>
-    <h2 class="post-title" itemprop="name"><a href="/hackathon/intersystems-hackathon-2015-results-english/">InterSystems hackathon 2015 results</a></h2>
-    <p class="post-excerpt" itemprop="description">[Русская версия статьи изначально опубликована на Хабре здесь]
-</p>
-</article>
-<!-- /.tile -->
-
-	<article class="tile" itemscope="" itemtype="http://schema.org/Article">
-    <a href="/hackathon/what-is-hackathon-russian/" title="Школа Инноваций 2015 - что такое хакатон?" class="post-teaser">
-    <img src="/images/thumbnails/blogspot/success-sketch.jpg" alt="thumbnail" itemprop="image" />
-    </a> 
-    <p class="entry-date date published"><time datetime=" 2015-09-09 " itemprop="datePublished">September 09, 2015</time></p>
-    <h2 class="post-title" itemprop="name"><a href="/hackathon/what-is-hackathon-russian/">Школа Инноваций 2015 - что такое хакатон?</a></h2>
-    <p class="post-excerpt" itemprop="description">В этом году осенняя школа InterSystems слегка изменит формат. Да мы по-прежнему будем собираться в изолированном месте за пределами города, позволяющем макси...</p>
-</article>
-<!-- /.tile -->
-
-	<article class="tile" itemscope="" itemtype="http://schema.org/Article">
-    <a href="/blog/blogger/community-package-manager-part-ii/" title="Intersystems Caché - Approaching Community Package Manager - Part II" class="post-teaser">
-    <img src="/images/400x250.gif" alt="teaser" itemprop="image" /></a> 
-    <p class="entry-date date published"><time datetime=" 2014-11-25 " itemprop="datePublished">November 25, 2014</time></p>
-    <h2 class="post-title" itemprop="name"><a href="/blog/blogger/community-package-manager-part-ii/">Intersystems Caché - Approaching Community Package Manager - Part II</a></h2>
-    <p class="post-excerpt" itemprop="description">This is the second part of my long post about package managers in various operating systems and language distributions. Now you probably "buy the idea" that ...</p>
-</article>
-<!-- /.tile -->
-
-	<article class="tile" itemscope="" itemtype="http://schema.org/Article">
-    <a href="/blog/blogger/community-package-manager-part-i/" title="Intersystems Caché - Approaching Community Package Manager - Part I" class="post-teaser">
-    <img src="/images/thumbnails/blogspot/timeline.jpg" alt="thumbnail" itemprop="image" />
-    </a> 
-    <p class="entry-date date published"><time datetime=" 2014-11-25 " itemprop="datePublished">November 25, 2014</time></p>
-    <h2 class="post-title" itemprop="name"><a href="/blog/blogger/community-package-manager-part-i/">Intersystems Caché - Approaching Community Package Manager - Part I</a></h2>
-    <p class="post-excerpt" itemprop="description">​ Here is the problem as I see in the Cach&eacute; developers community - if you are newbie COS/Ensemble/DeepSee developer then it's very hard to find any su...</p>
-</article>
-<!-- /.tile -->
-
-	<article class="tile" itemscope="" itemtype="http://schema.org/Article">
-    <a href="/blog/blogger/intersystems-meetup/" title="Intersystems Meetup в Питере" class="post-teaser">
-    <img src="/images/400x250.gif" alt="teaser" itemprop="image" /></a> 
-    <p class="entry-date date published"><time datetime=" 2014-10-15 " itemprop="datePublished">October 15, 2014</time></p>
-    <h2 class="post-title" itemprop="name"><a href="/blog/blogger/intersystems-meetup/">Intersystems Meetup в Питере</a></h2>
-    <p class="post-excerpt" itemprop="description">
-
-
-    Post by Timur Safin.
-</p>
-</article>
-<!-- /.tile -->
-
-	<article class="tile" itemscope="" itemtype="http://schema.org/Article">
-    <a href="/blog/blogger/droidcon-moscow-2014/" title="DroidCon Moscow, 11 апреля 2014" class="post-teaser">
-    <img src="/images/thumbnails/blogspot/schedule_1.jpg" alt="thumbnail" itemprop="image" />
-    </a> 
-    <p class="entry-date date published"><time datetime=" 2014-04-20 " itemprop="datePublished">April 20, 2014</time></p>
-    <h2 class="post-title" itemprop="name"><a href="/blog/blogger/droidcon-moscow-2014/">DroidCon Moscow, 11 апреля 2014</a></h2>
-    <p class="post-excerpt" itemprop="description">
-
-
-Я вообще не знал и ранее не слышал про DroidCon конференцию, случайно встретил ссылку на неё в твитере Ya.Events. Ну и так как Яндекс предоставлял "хак" п...</p>
-</article>
-<!-- /.tile -->
-
-	<article class="tile" itemscope="" itemtype="http://schema.org/Article">
-    <a href="/blog/blogger/moscow-c-users-group-final/" title="Московская группа пользователей C++ - заключение" class="post-teaser">
-    <img src="/images/thumbnails/blogspot/yandex-mongodb-meetup.jpg" alt="thumbnail" itemprop="image" />
-    </a> 
-    <p class="entry-date date published"><time datetime=" 2014-03-22 " itemprop="datePublished">March 22, 2014</time></p>
-    <h2 class="post-title" itemprop="name"><a href="/blog/blogger/moscow-c-users-group-final/">Московская группа пользователей C++ - заключение</a></h2>
-    <p class="post-excerpt" itemprop="description">
-    Если Вы не читали предыдущие посты про Московскую встречу пользователей Си++ то их можно почитать здесь:
-    
-        Часть №1
-        Часть №2
-        ...</p>
-</article>
-<!-- /.tile -->
-
-	<article class="tile" itemscope="" itemtype="http://schema.org/Article">
-    <a href="/blog/blogger/moscow-c-users-group-5/" title="Московская группа пользователей C++ - часть 5" class="post-teaser">
-    <img src="/images/thumbnails/blogspot/nesteruk_pluralsight.jpg" alt="thumbnail" itemprop="image" />
-    </a> 
-    <p class="entry-date date published"><time datetime=" 2014-02-20 " itemprop="datePublished">February 20, 2014</time></p>
-    <h2 class="post-title" itemprop="name"><a href="/blog/blogger/moscow-c-users-group-5/">Московская группа пользователей C++ - часть 5</a></h2>
-    <p class="post-excerpt" itemprop="description">Дмитpий Hecтepук - Высокопроизводительные вычисления на С/С++﻿
-
-Многие из нас знают про питерский JetBrains, и если хоть раз сталкивалось с программированием...</p>
-</article>
-<!-- /.tile -->
-
-	<article class="tile" itemscope="" itemtype="http://schema.org/Article">
-    <a href="/blog/blogger/moscow-c-users-group-3/" title="Московская встреча пользователей Си++ - часть 3" class="post-teaser">
-    <img src="/images/thumbnails/blogspot/andrew_ivanitsky_linkedin.jpg" alt="thumbnail" itemprop="image" />
-    </a> 
-    <p class="entry-date date published"><time datetime=" 2014-02-19 " itemprop="datePublished">February 19, 2014</time></p>
-    <h2 class="post-title" itemprop="name"><a href="/blog/blogger/moscow-c-users-group-3/">Московская встреча пользователей Си++ - часть 3</a></h2>
-    <p class="post-excerpt" itemprop="description">Андрей Иванитский - C++ Memory model
-
-    Перед тем как говорить про собственно презентацию, немного о фирме Андрея Иванитского. Как мы потом узнали эта таин...</p>
-</article>
-<!-- /.tile -->
-
-	<article class="tile" itemscope="" itemtype="http://schema.org/Article">
-    <a href="/blog/blogger/moscow-c-users-group-4/" title="Московская встреча пользователей Си++ - часть 4" class="post-teaser">
-    <img src="/images/thumbnails/blogspot/boost_cookbook.jpg" alt="thumbnail" itemprop="image" />
-    </a> 
-    <p class="entry-date date published"><time datetime=" 2014-02-18 " itemprop="datePublished">February 18, 2014</time></p>
-    <h2 class="post-title" itemprop="name"><a href="/blog/blogger/moscow-c-users-group-4/">Московская встреча пользователей Си++ - часть 4</a></h2>
-    <p class="post-excerpt" itemprop="description">Антоний Полухин - Boost и C++11/C++14: Новости с фронта, или обо всём понемногу
-Доклад Антона Полухина, одного из контрибьюторов Boost-а ("В свободное от раб...</p>
-</article>
-<!-- /.tile -->
-
-	<article class="tile" itemscope="" itemtype="http://schema.org/Article">
-    <a href="/blog/blogger/moscow-c-users-group-2/" title="Московская встреча пользователей Си++ - часть 2" class="post-teaser">
-    <img src="/images/thumbnails/blogspot/moscow_cpp_meetup_event.jpg" alt="thumbnail" itemprop="image" />
-    </a> 
-    <p class="entry-date date published"><time datetime=" 2014-02-16 " itemprop="datePublished">February 16, 2014</time></p>
-    <h2 class="post-title" itemprop="name"><a href="/blog/blogger/moscow-c-users-group-2/">Московская встреча пользователей Си++ - часть 2</a></h2>
-    <p class="post-excerpt" itemprop="description">
-Место встречи
-
-    
-
-Сергей Платонов организовал московскую встречу Си++ разработчиков в конференц зале московской гостиницы Бородино, в районе Красносельск...</p>
-</article>
-<!-- /.tile -->
-
-	<article class="tile" itemscope="" itemtype="http://schema.org/Article">
-    <a href="/blog/blogger/moscowcppusersgroup/" title="Московская встреча пользователей Си++" class="post-teaser">
-    <img src="/images/thumbnails/blogspot/moscow_cpp_meetup_event.jpg" alt="thumbnail" itemprop="image" />
-    </a> 
-    <p class="entry-date date published"><time datetime=" 2014-02-16 " itemprop="datePublished">February 16, 2014</time></p>
-    <h2 class="post-title" itemprop="name"><a href="/blog/blogger/moscowcppusersgroup/">Московская встреча пользователей Си++</a></h2>
-    <p class="post-excerpt" itemprop="description">Небольшое отступление
-Прошлый год был показательным для Си++, многое можно считать началось заново, или получило второе дыхание. Удивительно, но до прошлого ...</p>
-</article>
-<!-- /.tile -->
-
-	<article class="tile" itemscope="" itemtype="http://schema.org/Article">
-    <a href="/blog/blogger/blog-post/" title="Восстанавливая навык" class="post-teaser">
-    <img src="/images/400x250.gif" alt="teaser" itemprop="image" /></a> 
-    <p class="entry-date date published"><time datetime=" 2013-11-01 " itemprop="datePublished">November 01, 2013</time></p>
-    <h2 class="post-title" itemprop="name"><a href="/blog/blogger/blog-post/">Восстанавливая навык</a></h2>
-    <p class="post-excerpt" itemprop="description">С прошлого века не писал ничего в блог. Да и блог потерялся. Навык исчез. Все забылось. Не хотелось. Иногда даже было о чем, но "не моглось".И да, не шучу, р...</p>
-</article>
-<!-- /.tile -->
-
+    </div>
+  </div>
 </div>
-<!-- /.tiles -->
 
-			</div><!-- /.page-content -->
-		</div class="archive-wrap"><!-- /.archive-wrap -->
-	</div><!-- /.wrap -->
-</div><!-- /#main -->
       <footer role="contentinfo" id="site-footer">
-	<nav role="navigation" class="menu bottom-menu">
-		<ul class="menu-item">
-		
+  <div class="footer-inner">
+    <a class="footer-brand" href="/">Timur Safin <span>Making no sense</span></a>
+    <nav role="navigation" class="menu bottom-menu" aria-label="Footer navigation">
+      <ul class="menu-item">
       
-			<li><a href="/" >Home</a></li>
-		
+        <li><a href="/">Home</a></li>
       
-			<li><a href="/blog/" >Articles</a></li>
-		
+        <li><a href="/blog/">Articles</a></li>
       
-			<li><a href="/projects/" >Projects</a></li>
-		
+        <li><a href="/projects/">Projects</a></li>
       
-			<li><a href="/about/" >About</a></li>
-		
-		</ul>
-	</nav><!-- /.bottom-menu -->
-	<p class="copyright">&#169; 2026 <a href="/">Timur Safin - Making No Sense</a> powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> + <a href="http://mmistakes.github.io/skinny-bones-jekyll/" rel="nofollow">Skinny Bones</a>.</p>
+        <li><a href="/resume/">About</a></li>
+      
+      </ul>
+    </nav>
+    <nav class="footer-social" aria-label="Social links">
+      <a href="https://github.com/tsafin" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/timursafin" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="/atom.xml">RSS</a>
+    </nav>
+  </div>
+  <p class="copyright">&#169; 2026 Timur Safin. Built with <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a>.</p>
 </footer>
 
     </div>
@@ -430,8 +336,5 @@
 <noscript><div><img src="https://mc.yandex.ru/watch/40768979" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
 
-
-
   </body>
-
 </html>

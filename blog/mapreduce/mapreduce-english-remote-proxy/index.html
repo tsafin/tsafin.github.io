@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <title>Remote proxy objects via dynamic dispatch • Timur Safin - Making No Sense</title>
@@ -7,7 +7,8 @@
 ">
     <meta name="keywords" content="">
     
-    	<!-- Twitter Cards -->
+    	
+	<!-- Twitter Cards -->
 	<meta name="twitter:title" content="Remote proxy objects via dynamic dispatch">
 	<meta name="twitter:description" content="(Dynamic dispatch to the rescue)
 ">
@@ -15,8 +16,8 @@
 	<meta name="twitter:creator" content="@tsafin">
 	
 	<meta name="twitter:card" content="summary_large_image">
-	<meta name="twitter:image" content="/images/landscapes/feature2.jpg">
 	
+	<meta name="twitter:image" content="/images/covers/mapreduce-english-remote-proxy-social.png">
 	<!-- Open Graph -->
 	<meta property="og:locale" content="en">
 	<meta property="og:type" content="article">
@@ -25,6 +26,7 @@
 ">
 	<meta property="og:url" content="/blog/mapreduce/mapreduce-english-remote-proxy/">
 	<meta property="og:site_name" content="Timur Safin - Making No Sense">
+	<meta property="og:image" content="/images/covers/mapreduce-english-remote-proxy-social.png">
 
     <link rel="canonical" href="/blog/mapreduce/mapreduce-english-remote-proxy/">
 
@@ -34,6 +36,7 @@
     <meta name="HandheldFriendly" content="True">
     <meta name="MobileOptimized" content="320">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f5f4ef">
     <meta http-equiv="cleartype" content="on">
 
     <link rel="stylesheet" href="/css/main.css">
@@ -45,33 +48,48 @@
   </head>
 
   <body id="js-body">
+    <a class="skip-link" href="#main">Skip to content</a>
     <!--[if lt IE 9]><div class="upgrade notice-warning"><strong>Your browser is quite old!</strong> Why not <a href="http://whatbrowser.org/">upgrade to a newer one</a> to better enjoy this site?</div><![endif]-->
 
     <header id="masthead">
   <div class="inner-wrap">
-    <a href="/" class="site-title">Timur Safin - Making No Sense</a>
-    <nav role="navigation" class="menu top-menu">
-        <ul class="menu-item">
-	<li class="home"><a href="/">Timur Safin - Making No Sense</a></li>
-	 
-      
-      <li><a href="/blog/">Articles</a></li>
-    
-      
-      <li><a href="/projects/">Projects</a></li>
-    
-      
-      <li><a href="/resume/">About</a></li>
-    
+    <a href="/" class="site-title" aria-label="Timur Safin — home">
+      <span class="site-mark" aria-hidden="true">TS</span>
+      <span class="site-title-text">
+        <strong>Timur Safin</strong>
+        <small>Making no sense</small>
+      </span>
+    </a>
+    <nav role="navigation" class="menu top-menu" aria-label="Main navigation">
+      <ul class="menu-item">
+  <li class="home"><a href="/">Timur Safin - Making No Sense</a></li>
+  
+    <li>
+      <a href="/blog/">Articles</a>
+    </li>
+  
+    <li>
+      <a href="/projects/">Projects</a>
+    </li>
+  
+    <li>
+      <a href="/resume/">About</a>
+    </li>
+  
 </ul>
     </nav>
   </div>
-<!-- /.inner-wrap -->
-</header><!-- /.masthead -->
-    <nav role="navigation" id="js-menu" class="sliding-menu-content">
-  <h5>Timur Safin - Making No Sense <span>Table of Contents</span>
+</header>
+    <nav role="navigation" id="js-menu" class="sliding-menu-content" aria-label="Mobile navigation" aria-hidden="true">
+  <h5>Timur Safin - Making No Sense <span>Navigation</span>
 </h5>
   <ul class="menu-item">
+    <li>
+      <a href="/">
+        <div class="title">Home</div>
+        <p class="excerpt">Start here</p>
+      </a>
+    </li>
     <li>
       <a href="/blog/">
         
@@ -95,27 +113,17 @@
     </li>
   </ul>
 </nav>
-<button type="button" id="js-menu-trigger" class="sliding-menu-button lines-button x2" role="button" aria-label="Toggle Navigation">
-  <span class="nav-lines"></span>
+<button type="button" id="js-menu-trigger" class="sliding-menu-button lines-button x2" aria-label="Open navigation" aria-controls="js-menu" aria-expanded="false">
+  <span class="nav-lines" aria-hidden="true"></span>
 </button>
 
-<div id="js-menu-screen" class="menu-screen"></div>
+<button type="button" id="js-menu-screen" class="menu-screen" aria-label="Close navigation" tabindex="-1"></button>
 
 
     <div id="page-wrapper">
       <div id="main" role="main">
-	<article class="wrap" itemscope itemtype="http://schema.org/Article">
-		
-		<div class="page-feature">
-			<div class="page-image">
-				<img src="/images/landscapes/feature2.jpg" class="page-feature-image" alt="Remote proxy objects via dynamic dispatch" itemprop="image">
-				
-			</div>
-<!-- /.page-image -->
-		</div>
-<!-- /.page-feature -->
-		
-		
+  <article class="wrap" itemscope itemtype="https://schema.org/Article">
+    
 <nav class="breadcrumbs">
     <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
       <a href="/" itemprop="url">
@@ -136,12 +144,28 @@
     </a>
 </div>
 
-		<div class="page-title">
-			<h1>Remote proxy objects via dynamic dispatch</h1>
-		</div>
-		<div class="inner-wrap">
-			<div id="content" class="page-content" itemprop="articleBody">
-				<h1 id="dynamic-dispatch-to-the-rescue">(Dynamic dispatch to the rescue)</h1>
+    <div class="page-title">
+      
+      <div class="entry-meta">
+        <time datetime="2016-07-18" itemprop="datePublished">July 18, 2016</time>
+        <span class="entry-category">mapreduce</span>
+      </div>
+      
+      <h1>Remote proxy objects via dynamic dispatch</h1>
+      <p class="page-summary">(Dynamic dispatch to the rescue)
+</p>
+    </div>
+    
+    <div class="page-feature">
+      <div class="page-image">
+        <img src="/images/landscapes/feature2.jpg" class="page-feature-image" alt="Remote proxy objects via dynamic dispatch" itemprop="image">
+        
+      </div>
+    </div>
+    
+    <div class="inner-wrap">
+      <div id="content" class="page-content" itemprop="articleBody">
+        <h1 id="dynamic-dispatch-to-the-rescue">(Dynamic dispatch to the rescue)</h1>
 
 <p>This article created as side effect of preparations to the longer set of articles about simple, but still handy MapReduce implementation in Caché. I was looking for relatively easy way to pass arguments to (potentially) multiple targets via remote calling facilities. And after several attempts I have realized that we do have very powerful mechanism in the Caché ObjectScript which might be of particular help here – dynamic dispatch for methods and properties.</p>
 
@@ -1148,9 +1172,9 @@ log arguments and then dispatch dynamically method to the proxy object&lt;/Descr
 
 <p>In general, you should rather avoid creating huge DOM tree of an objects, or proceeding network operations inside of %New constructor. Constructor needs to allocate just bare minimum of memory, necessary for beginning of operations, and initialize fields to their default values [that will be done automatically]. That's it.</p>
 
-				<hr>
-				<footer class="page-footer">
-					
+        <hr>
+        <footer class="page-footer">
+          
 
 <div class="author-image">
     <img src="/images/tsafin_twitter_small_logo.jpg" alt="Timur Safin">
@@ -1162,7 +1186,7 @@ log arguments and then dispatch dynamically method to the proxy object&lt;/Descr
     <p class="author-bio"></p>
 </div>
 <!-- ./author-content -->
-					<div class="inline-btn">
+          <div class="inline-btn">
 	<a class="btn-social twitter" href="https://twitter.com/intent/tweet?text=Remote+proxy+objects+via+dynamic+dispatch&amp;url=%2Fblog%2Fmapreduce%2Fmapreduce-english-remote-proxy%2F&amp;via=tsafin" target="_blank" rel="noopener"><i class="fa fa-twitter" aria-hidden="true"></i> Share on Twitter</a>
 	<a class="btn-social facebook" href="https://www.facebook.com/sharer/sharer.php?u=%2Fblog%2Fmapreduce%2Fmapreduce-english-remote-proxy%2F" target="_blank" rel="noopener"><i class="fa fa-facebook" aria-hidden="true"></i> Share on Facebook</a>
 	<a class="btn-social linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=%2Fblog%2Fmapreduce%2Fmapreduce-english-remote-proxy%2F" target="_blank" rel="noopener"><i class="fa fa-linkedin" aria-hidden="true"></i> Share on LinkedIn</a>
@@ -1171,42 +1195,43 @@ log arguments and then dispatch dynamically method to the proxy object&lt;/Descr
 </div>
 <!-- /.share-this -->
 
-					<div class="page-meta">
+          <div class="page-meta">
 	<p>Updated <time datetime="2016-07-18T21:00:00Z" itemprop="datePublished">July 18, 2016</time></p>
 </div>
 <!-- /.page-meta -->
-				</footer><!-- /.footer -->
-				<hr>
+        </footer>
+        <hr>
 <script src="https://giscus.app/client.js" data-repo="tsafin/tsafin.github.io" data-repo-id="MDEwOlJlcG9zaXRvcnk2NjQ2NjM5OQ==" data-category="Announcements" data-category-id="DIC_kwDOA_YyX84C03hl" data-mapping="title" data-strict="1" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="fro" data-lang="ru" data-loading="lazy" crossorigin="anonymous" async>
 </script>
-			</div>
-<!-- /.content -->
-		</div>
-<!-- /.inner-wrap -->
-		
-	</article><!-- ./wrap -->
+      </div>
+    </div>
+    
+  </article>
 </div>
-<!-- /#main -->
 
       <footer role="contentinfo" id="site-footer">
-	<nav role="navigation" class="menu bottom-menu">
-		<ul class="menu-item">
-		
+  <div class="footer-inner">
+    <a class="footer-brand" href="/">Timur Safin <span>Making no sense</span></a>
+    <nav role="navigation" class="menu bottom-menu" aria-label="Footer navigation">
+      <ul class="menu-item">
       
-			<li><a href="/">Home</a></li>
-		
+        <li><a href="/">Home</a></li>
       
-			<li><a href="/blog/">Articles</a></li>
-		
+        <li><a href="/blog/">Articles</a></li>
       
-			<li><a href="/projects/">Projects</a></li>
-		
+        <li><a href="/projects/">Projects</a></li>
       
-			<li><a href="/about/">About</a></li>
-		
-		</ul>
-	</nav><!-- /.bottom-menu -->
-	<p class="copyright">© 2026 <a href="/">Timur Safin - Making No Sense</a> powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> + <a href="http://mmistakes.github.io/skinny-bones-jekyll/" rel="nofollow">Skinny Bones</a>.</p>
+        <li><a href="/resume/">About</a></li>
+      
+      </ul>
+    </nav>
+    <nav class="footer-social" aria-label="Social links">
+      <a href="https://github.com/tsafin" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/timursafin" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="/atom.xml">RSS</a>
+    </nav>
+  </div>
+  <p class="copyright">© 2026 Timur Safin. Built with <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a>.</p>
 </footer>
 
     </div>
@@ -1258,8 +1283,5 @@ log arguments and then dispatch dynamically method to the proxy object&lt;/Descr
 <noscript><div><img src="https://mc.yandex.ru/watch/40768979" style="position:absolute; left:-9999px;" alt=""></div></noscript>
 <!-- /Yandex.Metrika counter -->
 
-
-
   </body>
-
 </html>

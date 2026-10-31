@@ -1,20 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <title>Caché MapReduce - putting it all together – WordCount example (part III) • Timur Safin - Making No Sense</title>
     <meta name="description" content="In part I of this series we have introduced MapReduce as a generic concept, and in part II we started to approach Caché ObjectScript implementation via introducing abstract interfaces. Now we will try to provide more concrete examples of applications using MapReduce.WordCount – Simple sequential implementationMapReduce is all about parallelization and scalability. But let admit– it is very hard to understand and debug applications if they are parallel from the beginning. For simplicity sake we rather start from sequential version of wordcount algorithm, and then will add some parallelism.Sequential mapper is quite simple and as expected:">
     <meta name="keywords" content="">
     
-    	<!-- Twitter Cards -->
+    	
+	<!-- Twitter Cards -->
 	<meta name="twitter:title" content="Caché MapReduce - putting it all together – WordCount example (part III)">
 	<meta name="twitter:description" content="In part I of this series we have introduced MapReduce as a generic concept, and in part II we started to approach Caché ObjectScript implementation via introducing abstract interfaces. Now we will try to provide more concrete examples of applications using MapReduce.WordCount – Simple sequential implementationMapReduce is all about parallelization and scalability. But let admit– it is very hard to understand and debug applications if they are parallel from the beginning. For simplicity sake we rather start from sequential version of wordcount algorithm, and then will add some parallelism.Sequential mapper is quite simple and as expected:">
 	<meta name="twitter:site" content="@tsafin">
 	
 	
 	<meta name="twitter:card" content="summary_large_image">
-	<meta name="twitter:image" content="/images/landscapes/feature8.jpg">
 	
+	<meta name="twitter:image" content="/images/landscapes/feature8.jpg">
 	<!-- Open Graph -->
 	<meta property="og:locale" content="en">
 	<meta property="og:type" content="article">
@@ -22,6 +23,7 @@
 	<meta property="og:description" content="In part I of this series we have introduced MapReduce as a generic concept, and in part II we started to approach Caché ObjectScript implementation via introducing abstract interfaces. Now we will try to provide more concrete examples of applications using MapReduce.WordCount – Simple sequential implementationMapReduce is all about parallelization and scalability. But let admit– it is very hard to understand and debug applications if they are parallel from the beginning. For simplicity sake we rather start from sequential version of wordcount algorithm, and then will add some parallelism.Sequential mapper is quite simple and as expected:">
 	<meta property="og:url" content="/blog/mapreduce/mapreduce-english-part-iii/">
 	<meta property="og:site_name" content="Timur Safin - Making No Sense">
+	<meta property="og:image" content="/images/landscapes/feature8.jpg">
 
     <link rel="canonical" href="/blog/mapreduce/mapreduce-english-part-iii/">
 
@@ -31,6 +33,7 @@
     <meta name="HandheldFriendly" content="True">
     <meta name="MobileOptimized" content="320">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f5f4ef">
     <meta http-equiv="cleartype" content="on">
 
     <link rel="stylesheet" href="/css/main.css">
@@ -42,31 +45,47 @@
   </head>
 
   <body id="js-body">
+    <a class="skip-link" href="#main">Skip to content</a>
     <!--[if lt IE 9]><div class="upgrade notice-warning"><strong>Your browser is quite old!</strong> Why not <a href="http://whatbrowser.org/">upgrade to a newer one</a> to better enjoy this site?</div><![endif]-->
 
     <header id="masthead">
   <div class="inner-wrap">
-    <a href="/" class="site-title">Timur Safin - Making No Sense</a>
-    <nav role="navigation" class="menu top-menu">
-        <ul class="menu-item">
-	<li class="home"><a href="/">Timur Safin - Making No Sense</a></li>
-	 
-      
-      <li><a href="/blog/" >Articles</a></li>
-    
-      
-      <li><a href="/projects/" >Projects</a></li>
-    
-      
-      <li><a href="/resume/" >About</a></li>
-    
+    <a href="/" class="site-title" aria-label="Timur Safin — home">
+      <span class="site-mark" aria-hidden="true">TS</span>
+      <span class="site-title-text">
+        <strong>Timur Safin</strong>
+        <small>Making no sense</small>
+      </span>
+    </a>
+    <nav role="navigation" class="menu top-menu" aria-label="Main navigation">
+      <ul class="menu-item">
+  <li class="home"><a href="/">Timur Safin - Making No Sense</a></li>
+  
+    <li>
+      <a href="/blog/">Articles</a>
+    </li>
+  
+    <li>
+      <a href="/projects/">Projects</a>
+    </li>
+  
+    <li>
+      <a href="/resume/">About</a>
+    </li>
+  
 </ul>
     </nav>
-  </div><!-- /.inner-wrap -->
-</header><!-- /.masthead -->
-    <nav role="navigation" id="js-menu" class="sliding-menu-content">
-  <h5>Timur Safin - Making No Sense <span>Table of Contents</span></h5>
+  </div>
+</header>
+    <nav role="navigation" id="js-menu" class="sliding-menu-content" aria-label="Mobile navigation" aria-hidden="true">
+  <h5>Timur Safin - Making No Sense <span>Navigation</span></h5>
   <ul class="menu-item">
+    <li>
+      <a href="/">
+        <div class="title">Home</div>
+        <p class="excerpt">Start here</p>
+      </a>
+    </li>
     <li>
       <a href="/blog/">
         
@@ -88,25 +107,17 @@
     </li>
   </ul>
 </nav>
-<button type="button" id="js-menu-trigger" class="sliding-menu-button lines-button x2" role="button" aria-label="Toggle Navigation">
-  <span class="nav-lines"></span>
+<button type="button" id="js-menu-trigger" class="sliding-menu-button lines-button x2" aria-label="Open navigation" aria-controls="js-menu" aria-expanded="false">
+  <span class="nav-lines" aria-hidden="true"></span>
 </button>
 
-<div id="js-menu-screen" class="menu-screen"></div>
+<button type="button" id="js-menu-screen" class="menu-screen" aria-label="Close navigation" tabindex="-1"></button>
 
 
     <div id="page-wrapper">
       <div id="main" role="main">
-	<article class="wrap" itemscope itemtype="http://schema.org/Article">
-		
-		<div class="page-feature">
-			<div class="page-image">
-				<img src="/images/landscapes/feature8.jpg" class="page-feature-image" alt="Caché MapReduce - putting it all together – WordCount example (part III)" itemprop="image">
-				
-			</div><!-- /.page-image -->
-		</div><!-- /.page-feature -->
-		
-		
+  <article class="wrap" itemscope itemtype="https://schema.org/Article">
+    
 <nav class="breadcrumbs">
     <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
       <a href="/" itemprop="url">
@@ -127,12 +138,27 @@
     </a>
 </div>
 
-		<div class="page-title">
-			<h1>Caché MapReduce - putting it all together – WordCount example (part III)</h1>
-		</div>
-		<div class="inner-wrap">
-			<div id="content" class="page-content" itemprop="articleBody">
-				<p><em>In <a href="https://community.intersystems.com/post/cach%C3%A9-mapreduce-introduction-bigdata-and-mapreduce-concept">part I</a> of this series we have introduced MapReduce as a generic concept, and in <a href="https://community.intersystems.com/post/cach%C3%A9-mapreduce-basic-interfaces-mapreduce-implementation-part-ii">part II</a> we started to approach Caché ObjectScript implementation via introducing abstract interfaces. Now we will try to provide more concrete examples of applications using MapReduce.</em></p><p><!--break--></p><h2>WordCount – Simple sequential implementation</h2><p>MapReduce is all about parallelization and scalability. But let admit– it is very hard to understand and debug applications if they are parallel from the beginning. For simplicity sake we rather start from sequential version of wordcount algorithm, and then will add some parallelism.</p><p>Sequential mapper is quite simple and as expected:</p>
+    <div class="page-title">
+      
+      <div class="entry-meta">
+        <time datetime="2016-09-06" itemprop="datePublished">September 06, 2016</time>
+        <span class="entry-category">mapreduce</span>
+      </div>
+      
+      <h1>Caché MapReduce - putting it all together – WordCount example (part III)</h1>
+      <p class="page-summary">In part I of this series we have introduced MapReduce as a generic concept, and in part II we started to approach Caché ObjectScript implementation via introducing abstract interfaces. Now we will try to provide more concrete examples of applications using MapReduce.WordCount – Simple sequential implementationMapReduce is all about parallelization and scalability. But let admit– it is very hard to understand and debug applications if they are parallel from the beginning. For simplicity sake we rather start from sequential version of wordcount algorithm, and then will add some parallelism.Sequential mapper is quite simple and as expected:</p>
+    </div>
+    
+    <div class="page-feature">
+      <div class="page-image">
+        <img src="/images/landscapes/feature8.jpg" class="page-feature-image" alt="Caché MapReduce - putting it all together – WordCount example (part III)" itemprop="image">
+        
+      </div>
+    </div>
+    
+    <div class="inner-wrap">
+      <div id="content" class="page-content" itemprop="articleBody">
+        <p><em>In <a href="https://community.intersystems.com/post/cach%C3%A9-mapreduce-introduction-bigdata-and-mapreduce-concept">part I</a> of this series we have introduced MapReduce as a generic concept, and in <a href="https://community.intersystems.com/post/cach%C3%A9-mapreduce-basic-interfaces-mapreduce-implementation-part-ii">part II</a> we started to approach Caché ObjectScript implementation via introducing abstract interfaces. Now we will try to provide more concrete examples of applications using MapReduce.</em></p><p><!--break--></p><h2>WordCount – Simple sequential implementation</h2><p>MapReduce is all about parallelization and scalability. But let admit– it is very hard to understand and debug applications if they are parallel from the beginning. For simplicity sake we rather start from sequential version of wordcount algorithm, and then will add some parallelism.</p><p>Sequential mapper is quite simple and as expected:</p>
 
 <figure class="highlight"><pre><code class="language-objectscript" data-lang="objectscript"><span class="kd">Class</span> <span class="nc">MR.Sample.WordCount.Mapper</span> <span class="nc">Extends</span> <span class="o">(</span><span class="nc">%RegisteredObject</span><span class="p">,</span> <span class="nc">MR.Base.Mapper</span><span class="o">)</span><span class="err">
 </span><span class="o">{</span><span class="err">
@@ -405,9 +431,9 @@
 <p>On the other hand, reducer here will be invoked from the single thread (from parent, master process, in our case), because we need to calculate the aggregated sum for all intermediate data. That is why reducer is invoked outside of worker loop.</p>
 
 <p><em>In this series <a href="../mapreduce-english-part-i/">we have introduced MapReduce algorithm in general</a>, <a href="../mapreduce-english-part-ii/">covered basic infrastructure necessary for MapReduce in Caché ObjectScript</a> and have created 1st rather simple MapReduce example counting words in the input stream(s). The next step we will continue cover MapReduce idioms using&nbsp;classic example – now it will AgeAverage example from WikiPedia. Stay tuned.</em></p>
-				<hr />
-				<footer class="page-footer">
-					
+        <hr>
+        <footer class="page-footer">
+          
 
 <div class="author-image">
     <img src="/images/tsafin_twitter_small_logo.jpg" alt="Timur Safin">
@@ -418,7 +444,7 @@
     <p class="author-bio"></p>
 </div>
 <!-- ./author-content -->
-					<div class="inline-btn">
+          <div class="inline-btn">
 	<a class="btn-social twitter" href="https://twitter.com/intent/tweet?text=Cach%C3%A9+MapReduce+-+putting+it+all+together+%E2%80%93+WordCount+example+%28part+III%29&amp;url=%2Fblog%2Fmapreduce%2Fmapreduce-english-part-iii%2F&amp;via=tsafin" target="_blank" rel="noopener"><i class="fa fa-twitter" aria-hidden="true"></i> Share on Twitter</a>
 	<a class="btn-social facebook" href="https://www.facebook.com/sharer/sharer.php?u=%2Fblog%2Fmapreduce%2Fmapreduce-english-part-iii%2F" target="_blank" rel="noopener"><i class="fa fa-facebook" aria-hidden="true"></i> Share on Facebook</a>
 	<a class="btn-social linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=%2Fblog%2Fmapreduce%2Fmapreduce-english-part-iii%2F" target="_blank" rel="noopener"><i class="fa fa-linkedin" aria-hidden="true"></i> Share on LinkedIn</a>
@@ -426,11 +452,11 @@
 	<a class="btn-social reddit" href="https://reddit.com/submit?url=%2Fblog%2Fmapreduce%2Fmapreduce-english-part-iii%2F&amp;title=Cach%C3%A9+MapReduce+-+putting+it+all+together+%E2%80%93+WordCount+example+%28part+III%29" target="_blank" rel="noopener"><i class="fa fa-reddit" aria-hidden="true"></i> Share on Reddit</a>
 </div><!-- /.share-this -->
 
-					<div class="page-meta">
+          <div class="page-meta">
 	<p>Updated <time datetime="2016-09-06T20:56:00Z" itemprop="datePublished">September 06, 2016</time></p>
 </div><!-- /.page-meta -->
-				</footer><!-- /.footer -->
-				<hr />
+        </footer>
+        <hr />
 <script src="https://giscus.app/client.js"
         data-repo="tsafin/tsafin.github.io"
         data-repo-id="MDEwOlJlcG9zaXRvcnk2NjQ2NjM5OQ=="
@@ -447,31 +473,35 @@
         crossorigin="anonymous"
         async>
 </script>
-			</div><!-- /.content -->
-		</div><!-- /.inner-wrap -->
-		
-	</article><!-- ./wrap -->
-</div><!-- /#main -->
+      </div>
+    </div>
+    
+  </article>
+</div>
 
       <footer role="contentinfo" id="site-footer">
-	<nav role="navigation" class="menu bottom-menu">
-		<ul class="menu-item">
-		
+  <div class="footer-inner">
+    <a class="footer-brand" href="/">Timur Safin <span>Making no sense</span></a>
+    <nav role="navigation" class="menu bottom-menu" aria-label="Footer navigation">
+      <ul class="menu-item">
       
-			<li><a href="/" >Home</a></li>
-		
+        <li><a href="/">Home</a></li>
       
-			<li><a href="/blog/" >Articles</a></li>
-		
+        <li><a href="/blog/">Articles</a></li>
       
-			<li><a href="/projects/" >Projects</a></li>
-		
+        <li><a href="/projects/">Projects</a></li>
       
-			<li><a href="/about/" >About</a></li>
-		
-		</ul>
-	</nav><!-- /.bottom-menu -->
-	<p class="copyright">&#169; 2026 <a href="/">Timur Safin - Making No Sense</a> powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> + <a href="http://mmistakes.github.io/skinny-bones-jekyll/" rel="nofollow">Skinny Bones</a>.</p>
+        <li><a href="/resume/">About</a></li>
+      
+      </ul>
+    </nav>
+    <nav class="footer-social" aria-label="Social links">
+      <a href="https://github.com/tsafin" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/timursafin" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="/atom.xml">RSS</a>
+    </nav>
+  </div>
+  <p class="copyright">&#169; 2026 Timur Safin. Built with <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a>.</p>
 </footer>
 
     </div>
@@ -523,8 +553,5 @@
 <noscript><div><img src="https://mc.yandex.ru/watch/40768979" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
 
-
-
   </body>
-
 </html>

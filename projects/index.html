@@ -6,15 +6,16 @@
     
     <meta name="keywords" content="github, open-source">
     
-    	<!-- Twitter Cards -->
+    	
+	<!-- Twitter Cards -->
 	<meta name="twitter:title" content="Open-source activity">
 	
 	<meta name="twitter:site" content="@tsafin">
 	<meta name="twitter:creator" content="@tsafin">
 	
 	<meta name="twitter:card" content="summary">
-	<meta name="twitter:image" content="/images/tsafin_twitter_small_logo.jpg">
 	
+	<meta name="twitter:image" content="/images/tsafin_twitter_small_logo.jpg">
 	<!-- Open Graph -->
 	<meta property="og:locale" content="en">
 	<meta property="og:type" content="article">
@@ -22,6 +23,7 @@
 	
 	<meta property="og:url" content="/projects/">
 	<meta property="og:site_name" content="Timur Safin - Making No Sense">
+	<meta property="og:image" content="/images/tsafin_twitter_small_logo.jpg">
 
     <link rel="canonical" href="/projects/">
 
@@ -99,27 +101,42 @@
 
     <header id="masthead">
   <div class="inner-wrap">
-    <a href="/" class="site-title">Timur Safin - Making No Sense</a>
-    <nav role="navigation" class="menu top-menu">
-        <ul class="menu-item">
-	<li class="home"><a href="/">Timur Safin - Making No Sense</a></li>
-	 
-      
-      <li><a href="/blog/" >Articles</a></li>
-    
-      
-      <li><a href="/projects/" >Projects</a></li>
-    
-      
-      <li><a href="/resume/" >About</a></li>
-    
+    <a href="/" class="site-title" aria-label="Timur Safin — home">
+      <span class="site-mark" aria-hidden="true">TS</span>
+      <span class="site-title-text">
+        <strong>Timur Safin</strong>
+        <small>Making no sense</small>
+      </span>
+    </a>
+    <nav role="navigation" class="menu top-menu" aria-label="Main navigation">
+      <ul class="menu-item">
+  <li class="home"><a href="/">Timur Safin - Making No Sense</a></li>
+  
+    <li>
+      <a href="/blog/">Articles</a>
+    </li>
+  
+    <li class="is-active">
+      <a href="/projects/">Projects</a>
+    </li>
+  
+    <li>
+      <a href="/resume/">About</a>
+    </li>
+  
 </ul>
     </nav>
-  </div><!-- /.inner-wrap -->
-</header><!-- /.masthead -->
-    <nav role="navigation" id="js-menu" class="sliding-menu-content">
-  <h5>Timur Safin - Making No Sense <span>Table of Contents</span></h5>
+  </div>
+</header>
+    <nav role="navigation" id="js-menu" class="sliding-menu-content" aria-label="Mobile navigation" aria-hidden="true">
+  <h5>Timur Safin - Making No Sense <span>Navigation</span></h5>
   <ul class="menu-item">
+    <li>
+      <a href="/">
+        <div class="title">Home</div>
+        <p class="excerpt">Start here</p>
+      </a>
+    </li>
     <li>
       <a href="/blog/">
         
@@ -141,11 +158,11 @@
     </li>
   </ul>
 </nav>
-<button type="button" id="js-menu-trigger" class="sliding-menu-button lines-button x2" role="button" aria-label="Toggle Navigation">
-  <span class="nav-lines"></span>
+<button type="button" id="js-menu-trigger" class="sliding-menu-button lines-button x2" aria-label="Open navigation" aria-controls="js-menu" aria-expanded="false">
+  <span class="nav-lines" aria-hidden="true"></span>
 </button>
 
-<div id="js-menu-screen" class="menu-screen"></div>
+<button type="button" id="js-menu-screen" class="menu-screen" aria-label="Close navigation" tabindex="-1"></button>
 
 
     <div id="page-wrapper">
@@ -159,7 +176,7 @@
 
           <div class="archive-wrap">
             <div class="page-content">
-              <p><img src="http://ghchart.rshah.org/tsafin" alt="tsafin Github chart" /></p>
+              <p><img class="projects-chart" src="https://ghchart.rshah.org/tsafin" alt="tsafin GitHub contribution chart" loading="lazy" /></p>
 
 <div id="feed"></div>
 
@@ -171,36 +188,39 @@
   });
 </script>
 
-<div class="tiles">
+<div class="archive-list">
 
 </div>
-<!-- /.tiles -->
 
             </div><!-- /.page-content -->
-          </div class="archive-wrap"><!-- /.archive-wrap -->
+          </div><!-- /.archive-wrap -->
 
         </div><!-- /.wrap -->
       </div><!-- /#main -->
 
       <footer role="contentinfo" id="site-footer">
-	<nav role="navigation" class="menu bottom-menu">
-		<ul class="menu-item">
-		
+  <div class="footer-inner">
+    <a class="footer-brand" href="/">Timur Safin <span>Making no sense</span></a>
+    <nav role="navigation" class="menu bottom-menu" aria-label="Footer navigation">
+      <ul class="menu-item">
       
-			<li><a href="/" >Home</a></li>
-		
+        <li><a href="/">Home</a></li>
       
-			<li><a href="/blog/" >Articles</a></li>
-		
+        <li><a href="/blog/">Articles</a></li>
       
-			<li><a href="/projects/" >Projects</a></li>
-		
+        <li><a href="/projects/">Projects</a></li>
       
-			<li><a href="/about/" >About</a></li>
-		
-		</ul>
-	</nav><!-- /.bottom-menu -->
-	<p class="copyright">&#169; 2026 <a href="/">Timur Safin - Making No Sense</a> powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> + <a href="http://mmistakes.github.io/skinny-bones-jekyll/" rel="nofollow">Skinny Bones</a>.</p>
+        <li><a href="/resume/">About</a></li>
+      
+      </ul>
+    </nav>
+    <nav class="footer-social" aria-label="Social links">
+      <a href="https://github.com/tsafin" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/timursafin" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="/atom.xml">RSS</a>
+    </nav>
+  </div>
+  <p class="copyright">&#169; 2026 Timur Safin. Built with <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a>.</p>
 </footer>
 
     </div>

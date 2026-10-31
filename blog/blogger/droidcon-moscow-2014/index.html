@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <title>DroidCon Moscow, 11 апреля 2014 • Timur Safin - Making No Sense</title>
@@ -140,7 +140,8 @@
         (to be continued...)">
     <meta name="keywords" content="DriodCon 2014, Moscow, Android">
     
-    	<!-- Twitter Cards -->
+    	
+	<!-- Twitter Cards -->
 	<meta name="twitter:title" content="DroidCon Moscow, 11 апреля 2014">
 	<meta name="twitter:description" content="
 
@@ -281,8 +282,8 @@
 	
 	
 	<meta name="twitter:card" content="summary_large_image">
-	<meta name="twitter:image" content="/images/landscapes/feature13.jpg">
 	
+	<meta name="twitter:image" content="/images/landscapes/feature13.jpg">
 	<!-- Open Graph -->
 	<meta property="og:locale" content="en">
 	<meta property="og:type" content="article">
@@ -424,6 +425,7 @@
         (to be continued...)">
 	<meta property="og:url" content="/blog/blogger/droidcon-moscow-2014/">
 	<meta property="og:site_name" content="Timur Safin - Making No Sense">
+	<meta property="og:image" content="/images/landscapes/feature13.jpg">
 
     <link rel="canonical" href="/blog/blogger/droidcon-moscow-2014/">
 
@@ -433,6 +435,7 @@
     <meta name="HandheldFriendly" content="True">
     <meta name="MobileOptimized" content="320">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f5f4ef">
     <meta http-equiv="cleartype" content="on">
 
     <link rel="stylesheet" href="/css/main.css">
@@ -444,31 +447,47 @@
   </head>
 
   <body id="js-body">
+    <a class="skip-link" href="#main">Skip to content</a>
     <!--[if lt IE 9]><div class="upgrade notice-warning"><strong>Your browser is quite old!</strong> Why not <a href="http://whatbrowser.org/">upgrade to a newer one</a> to better enjoy this site?</div><![endif]-->
 
     <header id="masthead">
   <div class="inner-wrap">
-    <a href="/" class="site-title">Timur Safin - Making No Sense</a>
-    <nav role="navigation" class="menu top-menu">
-        <ul class="menu-item">
-	<li class="home"><a href="/">Timur Safin - Making No Sense</a></li>
-	 
-      
-      <li><a href="/blog/" >Articles</a></li>
-    
-      
-      <li><a href="/projects/" >Projects</a></li>
-    
-      
-      <li><a href="/resume/" >About</a></li>
-    
+    <a href="/" class="site-title" aria-label="Timur Safin — home">
+      <span class="site-mark" aria-hidden="true">TS</span>
+      <span class="site-title-text">
+        <strong>Timur Safin</strong>
+        <small>Making no sense</small>
+      </span>
+    </a>
+    <nav role="navigation" class="menu top-menu" aria-label="Main navigation">
+      <ul class="menu-item">
+  <li class="home"><a href="/">Timur Safin - Making No Sense</a></li>
+  
+    <li>
+      <a href="/blog/">Articles</a>
+    </li>
+  
+    <li>
+      <a href="/projects/">Projects</a>
+    </li>
+  
+    <li>
+      <a href="/resume/">About</a>
+    </li>
+  
 </ul>
     </nav>
-  </div><!-- /.inner-wrap -->
-</header><!-- /.masthead -->
-    <nav role="navigation" id="js-menu" class="sliding-menu-content">
-  <h5>Timur Safin - Making No Sense <span>Table of Contents</span></h5>
+  </div>
+</header>
+    <nav role="navigation" id="js-menu" class="sliding-menu-content" aria-label="Mobile navigation" aria-hidden="true">
+  <h5>Timur Safin - Making No Sense <span>Navigation</span></h5>
   <ul class="menu-item">
+    <li>
+      <a href="/">
+        <div class="title">Home</div>
+        <p class="excerpt">Start here</p>
+      </a>
+    </li>
     <li>
       <a href="/blog/">
         
@@ -490,25 +509,17 @@
     </li>
   </ul>
 </nav>
-<button type="button" id="js-menu-trigger" class="sliding-menu-button lines-button x2" role="button" aria-label="Toggle Navigation">
-  <span class="nav-lines"></span>
+<button type="button" id="js-menu-trigger" class="sliding-menu-button lines-button x2" aria-label="Open navigation" aria-controls="js-menu" aria-expanded="false">
+  <span class="nav-lines" aria-hidden="true"></span>
 </button>
 
-<div id="js-menu-screen" class="menu-screen"></div>
+<button type="button" id="js-menu-screen" class="menu-screen" aria-label="Close navigation" tabindex="-1"></button>
 
 
     <div id="page-wrapper">
       <div id="main" role="main">
-	<article class="wrap" itemscope itemtype="http://schema.org/Article">
-		
-		<div class="page-feature">
-			<div class="page-image">
-				<img src="/images/landscapes/feature13.jpg" class="page-feature-image" alt="DroidCon Moscow, 11 апреля 2014" itemprop="image">
-				
-			</div><!-- /.page-image -->
-		</div><!-- /.page-feature -->
-		
-		
+  <article class="wrap" itemscope itemtype="https://schema.org/Article">
+    
 <nav class="breadcrumbs">
     <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
       <a href="/" itemprop="url">
@@ -529,12 +540,161 @@
     </a>
 </div>
 
-		<div class="page-title">
-			<h1>DroidCon Moscow, 11 апреля 2014</h1>
-		</div>
-		<div class="inner-wrap">
-			<div id="content" class="page-content" itemprop="articleBody">
-				<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <div class="page-title">
+      
+      <div class="entry-meta">
+        <time datetime="2014-04-20" itemprop="datePublished">April 20, 2014</time>
+        <span class="entry-category">blogger</span>
+      </div>
+      
+      <h1>DroidCon Moscow, 11 апреля 2014</h1>
+      <p class="page-summary">
+
+
+Я вообще не знал и ранее не слышал про DroidCon конференцию, случайно встретил ссылку на неё в твитере Ya.Events. Ну и так как Яндекс предоставлял "хак" позволяющий бесплатно сходить на эту конференцию, я и пошел. Почему бы нет? Андроид я люблю. Хакатонов
+    отродясь не видел. Посмотрим на молодое поколение, может чего нового узнаем.
+    
+        Не знаю как вы, а я на #DroidCon #moscow &mdash; Timur Safin (40+) (@tsafin) 11 апреля 2014
+    
+        Какие-то идиоты раздают шарики перед конференцией #DroidCon #moscow &mdash; Timur Safin (40+) (@tsafin)
+        11 апреля 2014
+     
+    Расписание было дурацким, и мало информативным. Более того, в случае когда в одном слоте было несколько докладчиков, оно было еще и неверным (не тот порядок имен). Проблему усугубляло еще и неудачное ведение (вернее его отсутствие) сессий. Так, например,
+        я только к концу рассказа первого иностранного докладчика понял как его зовут, и только благодаря тому что он указал название твитера на последнем слайде. Когда треки разделились на 4 трека (где 2 было про "технологии" и 2 про "бизнес") я обычно
+        посещал 1 из технологических треков. Посему, совершенно не представляю что было на бизнесовых, надеюсь, что-то интересное....
+    Dan Romescu - "augmented citizen" Твиты пользователя @dromescu
+    
+    
+        Wearable ttechnology in Android ecosystem #DroidconMoscow&mdash; Timur Safin (40+) (@tsafin) 11 апреля 2014
+    
+        &quot;(substitute you buzzword) is very cool! #DroidconMoscow&mdash; Timur Safin (40+) (@tsafin) 11 апреля 2014
+    
+        Apparently that was @dromescu who showed wearable stuff intro #DroidconMoscow&mdash; Timur Safin (40+) (@tsafin) 11 апреля 2014
+    Dan Romescu, называя себя "Augmented Citizen Advocate", любит всякие носимые штучки. Поэтому весь его рассказ был посвящен новым фиговинкам, которые он недавно приобрел (например, те же Google Glass, которые на нем были надеты, и наверное работали
+        первую часть дня): "Blah-blah-blah is very cool!", "Blah-blah-blah - billions of devices!"
+    Признаемся сразу, вступление Дена было достаточно эмоционально, но бессмысленно. Слава богу, что коротко и не отняло у нас много времени. Также для участников хакатона Ден привез несколько гаджетов, которые они могли попрограммировать (например,
+        iBeacon для навигации внутри помещений)
+    После завершения своего выступления Ден, к моему удивлению, приступил к "модерации" выступлений. Казалось, что Droidcon это изобретенный им формат, и он выступал таким посланником от английского Droidcon UK.
+        (Хотя при ближайшем рассмотрении все права на формат Droidcon принадлежат немецкой MobileSeasons и какова роль Дена Ромеску здесь остается неясным) 
+    В комменты призываются организаторы московской встречи, которые могли бы человеческим языком рассказать кто был изначальным и кем являлся Ден?
+    С другой стороны, модерация выступлений Деном была немного условной. Т.к. он не понимал ни одного слова по-русски, и т.к. российские организаторы конференции не предоставили ему наушников для перевода. Думаю, что переводчика в зале вообще не планировалось.
+        Что, конечно, странно, т.к. Красный Октябрь обладает нужной инфраструктурой, и предоставляет её при желании организаторов. Например, на ALM Summit, случившийся там же в Октябре месяцем ранее все желавшие того слушатели могли взять радионабор и
+        слушать перевод (воспользовались этим, вроде как, меньшинство, но все же, все же).
+    
+        Потом выступили какой-то чувак из Гугл (blah-blah-blah что делать с Android устройствами, blah-blah-blah Россия - один из лидеров в использовании и разработке для Android);
+        Александр *, менеджер из APPS4ALL;
+        Вадим Исаченко из RU Google Developer Group, который, кстати, так же как и Дэн носивший Google Glass, и так же рассказавший ниочем;
+            
+                Alexey Isachenko from Google Developer Group Russia is also wearing Google Glass #DroidconMoscow&mdash; Timur Safin (40+) (@tsafin) 11 апреля 2014
+            
+                rugdg - http://t.co/I8yKeYVk8Z #DroidconMoscow&mdash; Timur Safin (40+) (@tsafin) 11 апреля 2014
+        
+        Кто-то из Nokia попытался завлечь нас в платформу NokiaX ("developer.nokia.com с анализатором совместимости" и другими пирогами), но надеюсь никто не дал слабину
+            
+                Nokia X guy is delivering keynote on #DroidconMoscow&mdash; Timur Safin (40+) (@tsafin) 11 апреля 2014
+        
+    
+    
+        I must admit these introductory keynotes on #DroidconMoscow was worthless. Blah-blah-blah is very cool. Blah-blah billions of devices&mdash; Timur Safin (40+) (@tsafin)
+        11 апреля 2014
+    Далее треки разделились, я остался в главном зале...
+    David Ostrowski - program manager из Google
+    
+    
+    
+        David Ostrowski from Google - application in Google ecosystem #DroidconMoscow&mdash; Timur Safin (40+) (@tsafin) 11 апреля 2014
+    
+        I wondering how he managed to create Google+ profile without this annooyin number suffix simple +DavidOstrowski #DroidconMoscow&mdash; Timur Safin (40+) (@tsafin)
+        11 апреля 2014
+    
+    Представляясь Дэвид упомянул про свой профиль в Google+ +DavidOstrowski. Заметим, что у него нет никакого суффикса в виде цифры, которая появляется если создавать такой профиль "простому
+        смертному" (так, например, мой профиль называется так https://plus.google.com/u/0/+TimurSafin1/ и я не нашел способа избавиться от этой 1 в качестве суффикса). Может это был блат для своих?
+    
+        Snapchat apparently is using Google AppEngine cloud services #droidconmoscow&mdash; Timur Safin (40+) (@tsafin) 11 апреля 2014
+    
+        App Engine, Compute Engine, Cloud Storage, Cloud Data Storage, Cloud SQL are cloud services from Google we could use #droidconmoscow&mdash; Timur Safin (40+) (@tsafin)
+        11 апреля 2014
+    
+        More on http://t.co/k2BD91Okte #droidconmoscow&mdash; Timur Safin (40+) (@tsafin) 11 апреля 2014
+    Дэвид рассказал много (воозлможно и довольно базовых, но для меня новых) вещей про платформу Google Cloud. До поры до времени слова App Enginne, Compute Engine, Cloud Storage, Cloud Databse, Cloud SQL звучат как
+        набор buzzwords. Теперь же я понимаю в чем отличие App Engine и Compute Engine, или же Cloud Storage        и Cloud Datastore.
+    Dmitry Ryzhkov - Intel INDE (Android development kits) и Android Media Pack
+    Твиты пользователя @Intelloware
+    
+    
+        Now Dmitry Ryzhkov from Intel on Media SDK #droidconmoscow&mdash; Timur Safin (40+) (@tsafin) 11 апреля 2014
+    
+        Inel INDE integrates ICC compiler (woo-hoo) for free! #droidconmoscow&mdash; Timur Safin (40+) (@tsafin) 11 апреля 2014
+    
+        Intel for Android - Media SDK, ICC, TBB, GPA, all as we now and love #droidconmoscow&mdash; Timur Safin (40+) (@tsafin) 11 апреля 2014
+    Если вы разрабатываете для x86 Android (да даже если и не разрабатываете) то советую сразу заглянуть на страницу беты Intel INDE (Integrated Native Developer Experience, ух). Там вы найдете
+        компиляторы, инструменты и библиотеки для оптимизации вашего x86 Android кода. Там (впервые!) доступен оптимизирующий Intel C Compiler бесплатно (как часть всего набора).
+    Кроме компилятора ICC там так же есть набор интеловских библиотек, например, Intel Threading Building Blocks (TBB). Compute Code Builder для отладки OpenCL. И очень важный компонент, позволяющий отлаживать любой OpenGL код (будь то native X86 или
+        даже чистый Java) - Intel GPA System Analyzer.
+    Читайте больше в статье Дмитрия на Хабре - "Intel INDE"
+    Philip Kandal - location based services Твиты пользователя @apphil
+    
+    Одним из наиболее интересных рассказов в этот день (если не самым лучшим) был рассказ Филипа Кэндела и геолокационных сервисах в Андроид и носимых устройствах, и связанных с этим возможностями для разработчиков.
+    
+        Looks like (dis)syncronization of schedule in various room is the issue here in #droidconmoskow&mdash; Timur Safin (40+) (@tsafin) 11 апреля 2014
+    
+        People joined Grate Hall at 12:00 sharp, but apparently presentation is already 10 minutes as started #droidconmoskow&mdash; Timur Safin (40+) (@tsafin) 11 апреля 2014
+    Но тут стал виден еще один косяк организаторов - они не следили за синхронизацией расписаний между треками. Людям, которые слушали предыдущий доклад в одном зале, и желавшим перебежать в перерыве (вроде бы как общем) в другой зал не оставляли ни малейшего
+        шанса. Дима Рыжков закончил на 10минут раньше времени и Фил Кэндел начал свой рассказ без промедления, не ожидая времени своего слота. И рассказ довольно-таки интересный. Было намного обидно за людей пришедших через 10 минут с других треков, увидевших
+        что некоторые ключевые слайды уже прошли.Всегда, всегда на конференциях с несколькими треками надо четко следить за временем, не позволяя затягивать, и, тем более, не позволяя начинать раньше общего времени.
+    
+        In Germany OpenStreetMaps highlights even where animals reside in zoo #droidconmoskow&mdash; Timur Safin (40+) (@tsafin) 11 апреля 2014
+        Фил работает в Scobbler и потому не из чужих рук знает текущие возможности геосервисов, и их текущие ограничения. Но, что более важно он хорошо формулирует те 12 областей, где в сейчас уже, а может и в ближайшее
+            время можем получить интересные, чувствительные к гео-контексту, сценарии применения. Перечислю его формулировки как есть, если есть возможность найдите его слайды.
+        
+            #1 google glass - augmented reality, navigation example
+            #2 smart watches like pebble
+            #3 car integration (mirrorlink, carplay, windows in the car, android in the car)
+            #4 rise of indoor location (NFC &amp; iBeacon);
+            #5 styling - custom maps on app UI;
+            #6 the rise of open data and open maps;
+            #7 - alwayson location; - lowerpower GPS in 2014/15;
+            #8 glonas &amp; more accurate location;
+            #9 geofencing (preserves battery)
+            #10 html5 geolocation and ip fallback;
+            #11 discovery over searching;
+            #12 - from distance to time based
+        
+        
+            Well the location based services speach by @apphil was very, very good and thought provoking. Best fo far for #droidconmoskow&mdash;
+            Timur Safin (40+) (@tsafin) 11 апреля 2014
+        Jose Uglia из разработчиков Wunderlist
+        
+            Jose Ugia on cross-platform #DroidconMoscow &mdash; Timur Safin (40+) (@tsafin) 11 апреля 2014
+        
+            Jose is working on Wunderlist #DroidconMoscow &mdash; Timur Safin (40+) (@tsafin) 11 апреля 2014
+        
+            Apparently we may need to write code in Google Go language if we would work with Google Cloud platforms #DroidconMoscow &mdash; Timur Safin (40+) (@tsafin) 11 апреля 2014
+        Хосе пытался нас убедить, что за неделю можно написать Android приложение, вернее его бекэнд. Ну ок. (Заметим что в детали никто не вдавался, слава богу, ссылчоку на примеры дал)
+        Перерыв - обед
+        В отличие от очень негативного опыта обеда там же в Красном Октябре на конференции ALM Summit (проводимой Microsoft), где раздачи не справлялись, работали медленно, и некоторым в очереди
+            не хватало в итоге продуктов, и они фактически остались без обеда, то в этот раз поставщики справились относительно безболезненно. Конечно же, дело упрощало отсутствие всяких вторых блюд, и использование уже заранее подготовленных бутербродов
+            и сендвичей. В итоге кроме стояния в очередях у народа оставалось время и на поговорить. Что хорошо.
+        Я, например, хорошо пообщался с представителем YotaPhone, спросив про читалки и совместимость с YP наших любимых fbreader и coolreader, обнаружил что FBReader уже портирован на YotaPhone SDK. В чем мы и убедились быстро поставив стандартный FBReader
+            из Google Play, и помацав в нем стандартные доки из поставки. Все как надо показывается на обратной eInk стороне. Остался, конечно, вопрос - для чего ему YotaPhone если у него даже не было читалки на тот момент? Какой смысл в таком eInk-е?
+        
+            Talked with YotaPhone guys. Of 2 ebook readers (FBReader and CoolReader) FBReader has already adapted for YotaPhone SDK! #droidconmoskow&mdash; Timur Safin (40+)
+            (@tsafin) 11 апреля 2014
+        
+            So looks like even today YotaPhone is usable - we could continue effeciently use FBReader there #droidconmoskow&mdash; Timur Safin (40+) (@tsafin) 11 апреля 2014
+        (to be continued...)</p>
+    </div>
+    
+    <div class="page-feature">
+      <div class="page-image">
+        <img src="/images/landscapes/feature13.jpg" class="page-feature-image" alt="DroidCon Moscow, 11 апреля 2014" itemprop="image">
+        
+      </div>
+    </div>
+    
+    <div class="inner-wrap">
+      <div id="content" class="page-content" itemprop="articleBody">
+        <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 <div id="fb-root"></div>
 <script>
     (function(d, s, id) {
@@ -729,9 +889,9 @@
         <blockquote class="twitter-tweet" lang="ru">
             <p>So looks like even today YotaPhone is usable - we could continue effeciently use FBReader there <a href="https://twitter.com/search?q=%23droidconmoskow&amp;src=hash">#droidconmoskow</a></p>&mdash; Timur Safin (40+) (@tsafin) <a href="https://twitter.com/tsafin/statuses/454552771594051584">11 апреля 2014</a></blockquote>
         <i>(to be continued...)</i>
-				<hr />
-				<footer class="page-footer">
-					
+        <hr>
+        <footer class="page-footer">
+          
 
 <div class="author-image">
     <img src="/images/tsafin_twitter_small_logo.jpg" alt="Timur Safin">
@@ -742,7 +902,7 @@
     <p class="author-bio"></p>
 </div>
 <!-- ./author-content -->
-					<div class="inline-btn">
+          <div class="inline-btn">
 	<a class="btn-social twitter" href="https://twitter.com/intent/tweet?text=DroidCon+Moscow%2C+11+%D0%B0%D0%BF%D1%80%D0%B5%D0%BB%D1%8F+2014&amp;url=%2Fblog%2Fblogger%2Fdroidcon-moscow-2014%2F&amp;via=tsafin" target="_blank" rel="noopener"><i class="fa fa-twitter" aria-hidden="true"></i> Share on Twitter</a>
 	<a class="btn-social facebook" href="https://www.facebook.com/sharer/sharer.php?u=%2Fblog%2Fblogger%2Fdroidcon-moscow-2014%2F" target="_blank" rel="noopener"><i class="fa fa-facebook" aria-hidden="true"></i> Share on Facebook</a>
 	<a class="btn-social linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=%2Fblog%2Fblogger%2Fdroidcon-moscow-2014%2F" target="_blank" rel="noopener"><i class="fa fa-linkedin" aria-hidden="true"></i> Share on LinkedIn</a>
@@ -750,11 +910,11 @@
 	<a class="btn-social reddit" href="https://reddit.com/submit?url=%2Fblog%2Fblogger%2Fdroidcon-moscow-2014%2F&amp;title=DroidCon+Moscow%2C+11+%D0%B0%D0%BF%D1%80%D0%B5%D0%BB%D1%8F+2014" target="_blank" rel="noopener"><i class="fa fa-reddit" aria-hidden="true"></i> Share on Reddit</a>
 </div><!-- /.share-this -->
 
-					<div class="page-meta">
+          <div class="page-meta">
 	<p>Updated <time datetime="2014-04-20T21:54:00Z" itemprop="datePublished">April 20, 2014</time></p>
 </div><!-- /.page-meta -->
-				</footer><!-- /.footer -->
-				<hr />
+        </footer>
+        <hr />
 <script src="https://giscus.app/client.js"
         data-repo="tsafin/tsafin.github.io"
         data-repo-id="MDEwOlJlcG9zaXRvcnk2NjQ2NjM5OQ=="
@@ -771,31 +931,35 @@
         crossorigin="anonymous"
         async>
 </script>
-			</div><!-- /.content -->
-		</div><!-- /.inner-wrap -->
-		
-	</article><!-- ./wrap -->
-</div><!-- /#main -->
+      </div>
+    </div>
+    
+  </article>
+</div>
 
       <footer role="contentinfo" id="site-footer">
-	<nav role="navigation" class="menu bottom-menu">
-		<ul class="menu-item">
-		
+  <div class="footer-inner">
+    <a class="footer-brand" href="/">Timur Safin <span>Making no sense</span></a>
+    <nav role="navigation" class="menu bottom-menu" aria-label="Footer navigation">
+      <ul class="menu-item">
       
-			<li><a href="/" >Home</a></li>
-		
+        <li><a href="/">Home</a></li>
       
-			<li><a href="/blog/" >Articles</a></li>
-		
+        <li><a href="/blog/">Articles</a></li>
       
-			<li><a href="/projects/" >Projects</a></li>
-		
+        <li><a href="/projects/">Projects</a></li>
       
-			<li><a href="/about/" >About</a></li>
-		
-		</ul>
-	</nav><!-- /.bottom-menu -->
-	<p class="copyright">&#169; 2026 <a href="/">Timur Safin - Making No Sense</a> powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> + <a href="http://mmistakes.github.io/skinny-bones-jekyll/" rel="nofollow">Skinny Bones</a>.</p>
+        <li><a href="/resume/">About</a></li>
+      
+      </ul>
+    </nav>
+    <nav class="footer-social" aria-label="Social links">
+      <a href="https://github.com/tsafin" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/timursafin" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="/atom.xml">RSS</a>
+    </nav>
+  </div>
+  <p class="copyright">&#169; 2026 Timur Safin. Built with <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a>.</p>
 </footer>
 
     </div>
@@ -847,8 +1011,5 @@
 <noscript><div><img src="https://mc.yandex.ru/watch/40768979" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
 
-
-
   </body>
-
 </html>

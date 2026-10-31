@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <title>MapReduce из подручных материалов. Часть III – собираем все вместе • Timur Safin - Making No Sense</title>
@@ -12,7 +12,8 @@
 ">
     <meta name="keywords" content="">
     
-    	<!-- Twitter Cards -->
+    	
+	<!-- Twitter Cards -->
 	<meta name="twitter:title" content="MapReduce из подручных материалов. Часть III – собираем все вместе">
 	<meta name="twitter:description" content="
   В первой (достаточно капитанской) части этой серии мы рассказали про базовые концепции MapReduce почему это плохо, почему это неизбежно, и как с этим жить в других средах разработки (если вы не про Си++ или Java). Во второй части мы-таки начали рассказывать про базовые классы реализации MapReduce на Caché ObjectScript, введя абстрактные интерфейсы и их первичные реализации.
@@ -25,8 +26,8 @@
 	<meta name="twitter:creator" content="@tsafin">
 	
 	<meta name="twitter:card" content="summary_large_image">
-	<meta name="twitter:image" content="/images/landscapes/feature5.jpg">
 	
+	<meta name="twitter:image" content="/images/landscapes/feature5.jpg">
 	<!-- Open Graph -->
 	<meta property="og:locale" content="en">
 	<meta property="og:type" content="article">
@@ -40,6 +41,7 @@
 ">
 	<meta property="og:url" content="/blog/mapreduce/mapreduce-russian-part-iii/">
 	<meta property="og:site_name" content="Timur Safin - Making No Sense">
+	<meta property="og:image" content="/images/landscapes/feature5.jpg">
 
     <link rel="canonical" href="/blog/mapreduce/mapreduce-russian-part-iii/">
 
@@ -49,6 +51,7 @@
     <meta name="HandheldFriendly" content="True">
     <meta name="MobileOptimized" content="320">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f5f4ef">
     <meta http-equiv="cleartype" content="on">
 
     <link rel="stylesheet" href="/css/main.css">
@@ -60,31 +63,47 @@
   </head>
 
   <body id="js-body">
+    <a class="skip-link" href="#main">Skip to content</a>
     <!--[if lt IE 9]><div class="upgrade notice-warning"><strong>Your browser is quite old!</strong> Why not <a href="http://whatbrowser.org/">upgrade to a newer one</a> to better enjoy this site?</div><![endif]-->
 
     <header id="masthead">
   <div class="inner-wrap">
-    <a href="/" class="site-title">Timur Safin - Making No Sense</a>
-    <nav role="navigation" class="menu top-menu">
-        <ul class="menu-item">
-	<li class="home"><a href="/">Timur Safin - Making No Sense</a></li>
-	 
-      
-      <li><a href="/blog/" >Articles</a></li>
-    
-      
-      <li><a href="/projects/" >Projects</a></li>
-    
-      
-      <li><a href="/resume/" >About</a></li>
-    
+    <a href="/" class="site-title" aria-label="Timur Safin — home">
+      <span class="site-mark" aria-hidden="true">TS</span>
+      <span class="site-title-text">
+        <strong>Timur Safin</strong>
+        <small>Making no sense</small>
+      </span>
+    </a>
+    <nav role="navigation" class="menu top-menu" aria-label="Main navigation">
+      <ul class="menu-item">
+  <li class="home"><a href="/">Timur Safin - Making No Sense</a></li>
+  
+    <li>
+      <a href="/blog/">Articles</a>
+    </li>
+  
+    <li>
+      <a href="/projects/">Projects</a>
+    </li>
+  
+    <li>
+      <a href="/resume/">About</a>
+    </li>
+  
 </ul>
     </nav>
-  </div><!-- /.inner-wrap -->
-</header><!-- /.masthead -->
-    <nav role="navigation" id="js-menu" class="sliding-menu-content">
-  <h5>Timur Safin - Making No Sense <span>Table of Contents</span></h5>
+  </div>
+</header>
+    <nav role="navigation" id="js-menu" class="sliding-menu-content" aria-label="Mobile navigation" aria-hidden="true">
+  <h5>Timur Safin - Making No Sense <span>Navigation</span></h5>
   <ul class="menu-item">
+    <li>
+      <a href="/">
+        <div class="title">Home</div>
+        <p class="excerpt">Start here</p>
+      </a>
+    </li>
     <li>
       <a href="/blog/">
         
@@ -106,25 +125,17 @@
     </li>
   </ul>
 </nav>
-<button type="button" id="js-menu-trigger" class="sliding-menu-button lines-button x2" role="button" aria-label="Toggle Navigation">
-  <span class="nav-lines"></span>
+<button type="button" id="js-menu-trigger" class="sliding-menu-button lines-button x2" aria-label="Open navigation" aria-controls="js-menu" aria-expanded="false">
+  <span class="nav-lines" aria-hidden="true"></span>
 </button>
 
-<div id="js-menu-screen" class="menu-screen"></div>
+<button type="button" id="js-menu-screen" class="menu-screen" aria-label="Close navigation" tabindex="-1"></button>
 
 
     <div id="page-wrapper">
       <div id="main" role="main">
-	<article class="wrap" itemscope itemtype="http://schema.org/Article">
-		
-		<div class="page-feature">
-			<div class="page-image">
-				<img src="/images/landscapes/feature5.jpg" class="page-feature-image" alt="MapReduce из подручных материалов. Часть III – собираем все вместе" itemprop="image">
-				
-			</div><!-- /.page-image -->
-		</div><!-- /.page-feature -->
-		
-		
+  <article class="wrap" itemscope itemtype="https://schema.org/Article">
+    
 <nav class="breadcrumbs">
     <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
       <a href="/" itemprop="url">
@@ -145,12 +156,33 @@
     </a>
 </div>
 
-		<div class="page-title">
-			<h1>MapReduce из подручных материалов. Часть III – собираем все вместе</h1>
-		</div>
-		<div class="inner-wrap">
-			<div id="content" class="page-content" itemprop="articleBody">
-				<blockquote>
+    <div class="page-title">
+      
+      <div class="entry-meta">
+        <time datetime="2016-10-16" itemprop="datePublished">October 16, 2016</time>
+        <span class="entry-category">mapreduce</span>
+      </div>
+      
+      <h1>MapReduce из подручных материалов. Часть III – собираем все вместе</h1>
+      <p class="page-summary">
+  В первой (достаточно капитанской) части этой серии мы рассказали про базовые концепции MapReduce почему это плохо, почему это неизбежно, и как с этим жить в других средах разработки (если вы не про Си++ или Java). Во второй части мы-таки начали рассказывать про базовые классы реализации MapReduce на Caché ObjectScript, введя абстрактные интерфейсы и их первичные реализации.
+Сегодня пришел наш день! – мы покажем первый пример собранный в парадигме MapReduce, да, он будет странный и не самый эффективный, и совсем не распределенный, но вполне MapReduce.
+
+
+
+</p>
+    </div>
+    
+    <div class="page-feature">
+      <div class="page-image">
+        <img src="/images/landscapes/feature5.jpg" class="page-feature-image" alt="MapReduce из подручных материалов. Часть III – собираем все вместе" itemprop="image">
+        
+      </div>
+    </div>
+    
+    <div class="inner-wrap">
+      <div id="content" class="page-content" itemprop="articleBody">
+        <blockquote>
   <p><em><a href="http://fineartamerica.com/featured/mosaic-joan-pollak.html"><img src="https://habrastorage.org/files/6ff/2e3/a5d/6ff2e3a5d1404619883c068798441862.jpg" alt="Mosaic by Joan Pollak" align="left" width="288" height="240" /></a><a href="../mapreduce-russian-part-i/">В первой (достаточно капитанской) части этой серии</a> мы рассказали про базовые концепции MapReduce почему это плохо, почему это неизбежно, и как с этим жить в других средах разработки (если вы не про Си++ или Java). Во <a href="../mapreduce-russian-part-ii/">второй части</a> мы-таки начали рассказывать про базовые классы реализации MapReduce на Caché ObjectScript, введя абстрактные интерфейсы и их первичные реализации.
 Сегодня пришел наш день! – мы покажем первый пример собранный в парадигме MapReduce, да, он будет странный и не самый эффективный, и совсем не распределенный, но вполне MapReduce.</em></p>
 </blockquote>
@@ -487,9 +519,9 @@
   <p><em>Таким образом, на текущий момент мы успели рассказать об общих терминах алгоритмов MapReduce, создали базовые интерфейсы MapReduce при реализации их в контексте среды Caché ObjectScript, и создали в этой же среде простой пример с подсчетом слов. В следующей статье мы покажем другие используемые в нашей реализации идиомы, используя второй классический пример из WikiPedia – AgeAverage. Всё только начинается!</em></p>
 </blockquote>
 
-				<hr />
-				<footer class="page-footer">
-					
+        <hr>
+        <footer class="page-footer">
+          
 
 <div class="author-image">
     <img src="/images/tsafin_twitter_small_logo.jpg" alt="Timur Safin">
@@ -500,7 +532,7 @@
     <p class="author-bio"></p>
 </div>
 <!-- ./author-content -->
-					<div class="inline-btn">
+          <div class="inline-btn">
 	<a class="btn-social twitter" href="https://twitter.com/intent/tweet?text=MapReduce+%D0%B8%D0%B7+%D0%BF%D0%BE%D0%B4%D1%80%D1%83%D1%87%D0%BD%D1%8B%D1%85+%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D0%BE%D0%B2.+%D0%A7%D0%B0%D1%81%D1%82%D1%8C+III+%E2%80%93+%D1%81%D0%BE%D0%B1%D0%B8%D1%80%D0%B0%D0%B5%D0%BC+%D0%B2%D1%81%D0%B5+%D0%B2%D0%BC%D0%B5%D1%81%D1%82%D0%B5&amp;url=%2Fblog%2Fmapreduce%2Fmapreduce-russian-part-iii%2F&amp;via=tsafin" target="_blank" rel="noopener"><i class="fa fa-twitter" aria-hidden="true"></i> Share on Twitter</a>
 	<a class="btn-social facebook" href="https://www.facebook.com/sharer/sharer.php?u=%2Fblog%2Fmapreduce%2Fmapreduce-russian-part-iii%2F" target="_blank" rel="noopener"><i class="fa fa-facebook" aria-hidden="true"></i> Share on Facebook</a>
 	<a class="btn-social linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=%2Fblog%2Fmapreduce%2Fmapreduce-russian-part-iii%2F" target="_blank" rel="noopener"><i class="fa fa-linkedin" aria-hidden="true"></i> Share on LinkedIn</a>
@@ -508,11 +540,11 @@
 	<a class="btn-social reddit" href="https://reddit.com/submit?url=%2Fblog%2Fmapreduce%2Fmapreduce-russian-part-iii%2F&amp;title=MapReduce+%D0%B8%D0%B7+%D0%BF%D0%BE%D0%B4%D1%80%D1%83%D1%87%D0%BD%D1%8B%D1%85+%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D0%BE%D0%B2.+%D0%A7%D0%B0%D1%81%D1%82%D1%8C+III+%E2%80%93+%D1%81%D0%BE%D0%B1%D0%B8%D1%80%D0%B0%D0%B5%D0%BC+%D0%B2%D1%81%D0%B5+%D0%B2%D0%BC%D0%B5%D1%81%D1%82%D0%B5" target="_blank" rel="noopener"><i class="fa fa-reddit" aria-hidden="true"></i> Share on Reddit</a>
 </div><!-- /.share-this -->
 
-					<div class="page-meta">
+          <div class="page-meta">
 	<p>Updated <time datetime="2016-10-16T21:00:00Z" itemprop="datePublished">October 16, 2016</time></p>
 </div><!-- /.page-meta -->
-				</footer><!-- /.footer -->
-				<hr />
+        </footer>
+        <hr />
 <script src="https://giscus.app/client.js"
         data-repo="tsafin/tsafin.github.io"
         data-repo-id="MDEwOlJlcG9zaXRvcnk2NjQ2NjM5OQ=="
@@ -529,31 +561,35 @@
         crossorigin="anonymous"
         async>
 </script>
-			</div><!-- /.content -->
-		</div><!-- /.inner-wrap -->
-		
-	</article><!-- ./wrap -->
-</div><!-- /#main -->
+      </div>
+    </div>
+    
+  </article>
+</div>
 
       <footer role="contentinfo" id="site-footer">
-	<nav role="navigation" class="menu bottom-menu">
-		<ul class="menu-item">
-		
+  <div class="footer-inner">
+    <a class="footer-brand" href="/">Timur Safin <span>Making no sense</span></a>
+    <nav role="navigation" class="menu bottom-menu" aria-label="Footer navigation">
+      <ul class="menu-item">
       
-			<li><a href="/" >Home</a></li>
-		
+        <li><a href="/">Home</a></li>
       
-			<li><a href="/blog/" >Articles</a></li>
-		
+        <li><a href="/blog/">Articles</a></li>
       
-			<li><a href="/projects/" >Projects</a></li>
-		
+        <li><a href="/projects/">Projects</a></li>
       
-			<li><a href="/about/" >About</a></li>
-		
-		</ul>
-	</nav><!-- /.bottom-menu -->
-	<p class="copyright">&#169; 2026 <a href="/">Timur Safin - Making No Sense</a> powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> + <a href="http://mmistakes.github.io/skinny-bones-jekyll/" rel="nofollow">Skinny Bones</a>.</p>
+        <li><a href="/resume/">About</a></li>
+      
+      </ul>
+    </nav>
+    <nav class="footer-social" aria-label="Social links">
+      <a href="https://github.com/tsafin" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/timursafin" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="/atom.xml">RSS</a>
+    </nav>
+  </div>
+  <p class="copyright">&#169; 2026 Timur Safin. Built with <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a>.</p>
 </footer>
 
     </div>
@@ -605,8 +641,5 @@
 <noscript><div><img src="https://mc.yandex.ru/watch/40768979" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
 
-
-
   </body>
-
 </html>

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="750" viewBox="0 0 1200 750">
+  <defs>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.3" fill="#3a2925" opacity="0.12"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="750" fill="#e9dcd5"/>
+  <rect width="1200" height="750" fill="url(#grid)"/>
+  <path d="M72 104 H1128" stroke="#3a2925" stroke-width="1" opacity="0.22"/>
+  <g font-family="'DejaVu Sans', Arial, sans-serif" fill="#3a2925">
+    <text x="72" y="72" font-size="17" font-weight="700" letter-spacing="3">TIMUR SAFIN / NOTES</text>
+    <text x="1128" y="72" text-anchor="end" font-size="15" font-weight="700" letter-spacing="2" fill="#a25945">MEETUP / COMMUNITY</text>
+    <text x="72" y="490" font-size="64" font-weight="750" letter-spacing="-1.8">Intersystems Meetup в</text>
+    <text x="72" y="566" font-size="64" font-weight="750" letter-spacing="-1.8">Питере</text>
+    <text x="72" y="690" font-size="16" font-weight="700" letter-spacing="2">TSAFIN.NET</text>
+    <text x="1128" y="690" text-anchor="end" font-size="16" font-weight="700" letter-spacing="2">2014</text>
+  </g>
+  <g fill="none" stroke="#a25945" opacity="0.48">
+  <circle cx="932" cy="328" r="190" stroke-width="2"/>
+  <circle cx="932" cy="328" r="128" stroke-width="3" stroke-dasharray="8 12"/>
+  <circle cx="932" cy="328" r="64" stroke-width="2"/>
+  <path d="M742 328 H1122 M932 138 V518" stroke-width="1"/>
+</g>
+<circle cx="1068" cy="206" r="24" fill="#a25945"/>
+<circle cx="804" cy="438" r="13" fill="#c89c8d"/>
+<text x="932" y="344" text-anchor="middle" fill="#3a2925" font-size="48" font-weight="700">SPB</text>
+
+  <rect x="0" y="0" width="12" height="750" fill="#a25945"/>
+</svg>

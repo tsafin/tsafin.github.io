@@ -38,6 +38,24 @@ excerpt: Systems software engineer, database enthusiast, and occasional writer.
     </ul>
   </section>
 
+  <section class="resume-section" aria-labelledby="resume-community">
+    <h2 id="resume-community">Community &amp; conferences</h2>
+    <ul class="timeline">
+      {% for record in site.data.resume-community %}
+      <li>
+        <div class="direction-{% cycle 'l', 'r' %}">
+          <div class="flag-wrapper">
+            <span class="hexa" aria-hidden="true"></span>
+            <span class="flag">{{ record.flag }}</span>
+            <span class="time-wrapper"><span class="time">{{ record.time }}</span></span>
+          </div>
+          <div class="desc">{{ record.desc }}</div>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+
   <section class="resume-section" aria-labelledby="resume-education">
     <h2 id="resume-education">Education and academia</h2>
     <ul class="timeline">

@@ -3,6 +3,8 @@ name: Build Jekyll Site
 on:
   push:
     branches: [ source ]
+  pull_request:
+    branches: [ source ]
   workflow_dispatch:
 
 jobs:
@@ -25,6 +27,7 @@ jobs:
       run: bundle exec jekyll build --config _config.yml
 
     - name: Deploy to GitHub Pages
+      if: github.event_name != 'pull_request'
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}

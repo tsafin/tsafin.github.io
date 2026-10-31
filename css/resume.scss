@@ -190,6 +190,16 @@ sitemap: false
   line-height: 1.35;
 }
 
+.flag a {
+  color: inherit;
+  text-decoration-color: var(--accent);
+  text-underline-offset: 4px;
+}
+
+.flag a:hover {
+  color: var(--accent-dark);
+}
+
 .time-wrapper {
   display: inline-flex;
 }

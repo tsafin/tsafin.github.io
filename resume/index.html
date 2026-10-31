@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Timur Safin - Making No Sense</title>
-    
+    <title>About • Timur Safin - Making No Sense</title>
+    <meta name="description" content="Systems software engineer, database enthusiast, and occasional writer.">
     
     
     	
 	<!-- Twitter Cards -->
-	<meta name="twitter:title" content="Timur Safin - Making No Sense">
-	
+	<meta name="twitter:title" content="About">
+	<meta name="twitter:description" content="Systems software engineer, database enthusiast, and occasional writer.">
 	<meta name="twitter:site" content="@tsafin">
 	<meta name="twitter:creator" content="@tsafin">
 	
@@ -19,8 +19,8 @@
 	<!-- Open Graph -->
 	<meta property="og:locale" content="en">
 	<meta property="og:type" content="article">
-	<meta property="og:title" content="Timur Safin - Making No Sense">
-	
+	<meta property="og:title" content="About">
+	<meta property="og:description" content="Systems software engineer, database enthusiast, and occasional writer.">
 	<meta property="og:url" content="/resume/">
 	<meta property="og:site_name" content="Timur Safin - Making No Sense">
 	<meta property="og:image" content="/images/tsafin_twitter_small_logo.jpg">
@@ -33,14 +33,20 @@
     <meta name="HandheldFriendly" content="True">
     <meta name="MobileOptimized" content="320">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f5f4ef">
     <meta http-equiv="cleartype" content="on">
 
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/resume.css">
-
+    <!-- HTML5 Shiv and Media Query Support for IE -->
+    <!--[if lt IE 9]>
+      <script src="/js/vendor/html5shiv.min.js"></script>
+      <script src="/js/vendor/respond.min.js"></script>
+    <![endif]-->
   </head>
 
   <body id="js-body">
+    <a class="skip-link" href="#main">Skip to content</a>
     <!--[if lt IE 9]><div class="upgrade notice-warning"><strong>Your browser is quite old!</strong> Why not <a href="http://whatbrowser.org/">upgrade to a newer one</a> to better enjoy this site?</div><![endif]-->
 
     <header id="masthead">
@@ -72,22 +78,59 @@
     </nav>
   </div>
 </header>
+    <nav role="navigation" id="js-menu" class="sliding-menu-content" aria-label="Mobile navigation" aria-hidden="true">
+  <h5>Timur Safin - Making No Sense <span>Navigation</span></h5>
+  <ul class="menu-item">
+    <li>
+      <a href="/">
+        <div class="title">Home</div>
+        <p class="excerpt">Start here</p>
+      </a>
+    </li>
+    <li>
+      <a href="/blog/">
+        
+        <div class="title">Articles</div>
+        <p class="excerpt">Blog posts and random rumblings...</p>
+      </a>
+    </li><li>
+      <a href="/projects/">
+        
+        <div class="title">Projects</div>
+        <p class="excerpt">Open-source projects</p>
+      </a>
+    </li><li>
+      <a href="/resume/">
+        
+        <div class="title">About</div>
+        <p class="excerpt">Resume and such...</p>
+      </a>
+    </li>
+  </ul>
+</nav>
+<button type="button" id="js-menu-trigger" class="sliding-menu-button lines-button x2" aria-label="Open navigation" aria-controls="js-menu" aria-expanded="false">
+  <span class="nav-lines" aria-hidden="true"></span>
+</button>
+
+<button type="button" id="js-menu-screen" class="menu-screen" aria-label="Close navigation" tabindex="-1"></button>
+
 
     <div id="page-wrapper">
-      <container><div class="column">
-
-    <h1><span class="circle"><img src="/images/timur-safin-demo.png" alt="Timur Safin"></span></br>
-        Timur Safin</h1>
-    <h4>Systems Software Engineer</h4>
-
-    <blockquote>Born in the Soviet Moscow the snowy December 1970. Fast forward 40 years - programmed performance 
-        simulator for some experimental "next-generation" processor. Few years further and, boom, found himself
-        evangelizing Intersystems Caché database. Yet another twist - we were making backups great again.
-        One more turn and we are developing Yandex.Taxi backend software. Looked around - and we are programming
-        database engines again.
+      <main id="main" class="resume-page">
+  <div class="resume-column">
+  <header class="resume-hero">
+    <h1>
+      <span class="circle"><img src="/images/timur-safin-demo.png" alt="Timur Safin"></span>
+      <span>Timur Safin</span>
+    </h1>
+    <p class="resume-role">Systems Software Engineer</p>
+    <blockquote>Born in the Soviet Moscow the snowy December 1970. Fast forward 40 years - programmed performance
+      simulator for some experimental "next-generation" processor. Few years further and, boom, found himself
+      evangelizing Intersystems Caché database. Yet another twist - we were making backups great again.
+      One more turn and we are developing Yandex.Taxi backend software. Looked around - and we are programming
+      database engines again.
     </blockquote>
-
-<ul class="rrssb-buttons">
+    <div class="resume-social"><ul class="rrssb-buttons">
     <li class="rrssb-email">
         <!-- Replace subject with your message using URL Endocding: http://meyerweb.com/eric/tools/dencoder/--><a href="mailto:timur.safin@gmail.com"><span class="rrssb-icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24">
@@ -131,209 +174,271 @@
                 <path d="M24.253 8.756C24.69 17.08 18.297 24.182 9.97 24.62c-3.122.162-6.22-.646-8.86-2.32 2.702.18 5.375-.648 7.507-2.32-2.072-.248-3.818-1.662-4.49-3.64.802.13 1.62.077 2.4-.154-2.482-.466-4.312-2.586-4.412-5.11.688.276 1.426.408 2.168.387-2.135-1.65-2.73-4.62-1.394-6.965C5.574 7.816 9.54 9.84 13.802 10.07c-.842-2.738.694-5.64 3.434-6.48 2.018-.624 4.212.043 5.546 1.682 1.186-.213 2.318-.662 3.33-1.317-.386 1.256-1.248 2.312-2.4 2.942 1.048-.106 2.07-.394 3.02-.85-.458 1.182-1.343 2.15-2.48 2.71z"></path>
               </svg></span><span class="rrssb-text">twitter</span></a>
     </li>
-    <li class="rrssb-googleplus">
-        <!-- Replace href with your meta and URL information.--><a href="https://plus.google.com/u/0/+TimurSafin1"><span class="rrssb-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24">
-                <path d="M21 8.29h-1.95v2.6h-2.6v1.82h2.6v2.6H21v-2.6h2.6v-1.885H21V8.29zM7.614 10.306v2.925h3.9c-.26 1.69-1.755 2.925-3.9 2.925-2.34 0-4.29-2.016-4.29-4.354s1.885-4.353 4.29-4.353c1.104 0 2.014.326 2.794 1.105l2.08-2.08c-1.3-1.17-2.924-1.883-4.874-1.883C3.65 4.586.4 7.835.4 11.8s3.25 7.212 7.214 7.212c4.224 0 6.953-2.988 6.953-7.082 0-.52-.065-1.104-.13-1.624H7.614z"></path>
-              </svg></span><span class="rrssb-text">google+</span></a>
-    </li>
-</ul>
+</ul></div>
+  </header>
 
-<h3>Experience</h3>
+  <section class="resume-section" aria-labelledby="resume-experience">
+    <h2 id="resume-experience">Experience</h2>
+    <ul class="timeline">
+      
+      <li>
+        <div class="direction-l">
+          <div class="flag-wrapper">
+            <span class="hexa" aria-hidden="true"></span>
+            <span class="flag">Huawei GaussDB(DWS)</span>
+            <span class="time-wrapper"><span class="time">April 2023 .. Today</span></span>
+          </div>
+          <div class="desc">What could you do if you have big cloud player behind your DBMS engine, a very talented and capable team, and intention to get to the top of TPC-H rating?</div>
+        </div>
+      </li>
+      
+      <li>
+        <div class="direction-r">
+          <div class="flag-wrapper">
+            <span class="hexa" aria-hidden="true"></span>
+            <span class="flag">Tarantool Team</span>
+            <span class="time-wrapper"><span class="time">February 2020 .. February 2023</span></span>
+          </div>
+          <div class="desc">What could be more fun than playing with database engines? Like playing with SQL and LuaJit al together...</div>
+        </div>
+      </li>
+      
+      <li>
+        <div class="direction-l">
+          <div class="flag-wrapper">
+            <span class="hexa" aria-hidden="true"></span>
+            <span class="flag">Yandex.Taxi</span>
+            <span class="time-wrapper"><span class="time">May 2018 .. February 2020</span></span>
+          </div>
+          <div class="desc">Was making Taxi backend software using more effecient algorithms. Played with transport simulators, but discovered that they are complex.</div>
+        </div>
+      </li>
+      
+      <li>
+        <div class="direction-r">
+          <div class="flag-wrapper">
+            <span class="hexa" aria-hidden="true"></span>
+            <span class="flag">Acronis</span>
+            <span class="time-wrapper"><span class="time">December 2016 .. April 2018</span></span>
+          </div>
+          <div class="desc">Was making enterprise backups great again...</div>
+        </div>
+      </li>
+      
+      <li>
+        <div class="direction-l">
+          <div class="flag-wrapper">
+            <span class="hexa" aria-hidden="true"></span>
+            <span class="flag">InterSystems Corporation</span>
+            <span class="time-wrapper"><span class="time">March 2014 .. July 2016</span></span>
+          </div>
+          <div class="desc">Developed proof-of-concept code for several customer enabling projects. Taught on schools, seminars, conferences and meetups. Wrote articles and blog posts. Proposed and organized 1st InterSystems hackathon. Started practice of local meetups which then spread over regions.</div>
+        </div>
+      </li>
+      
+      <li>
+        <div class="direction-r">
+          <div class="flag-wrapper">
+            <span class="hexa" aria-hidden="true"></span>
+            <span class="flag">Intel Corporation <br/>Vippy</span>
+            <span class="time-wrapper"><span class="time">July 2010 .. November 2013</span></span>
+          </div>
+          <div class="desc">As part of memory subsystem team participated in the development of clock-precise simulator for the experimental, next-generation processor. Introduced agile and XP techniques to the team.</div>
+        </div>
+      </li>
+      
+      <li>
+        <div class="direction-l">
+          <div class="flag-wrapper">
+            <span class="hexa" aria-hidden="true"></span>
+            <span class="flag">Intel Corporation <br/>ZSIM</span>
+            <span class="time-wrapper"><span class="time">December 2009 .. June 2010</span></span>
+          </div>
+          <div class="desc">Fast, fucntional mode x86 simulator has been created from scratch. Developed new pagewalkers. Maintained VCPUAPI interface for working with external virtual platforms (e.g. Synopsis Innovator).</div>
+        </div>
+      </li>
+      
+      <li>
+        <div class="direction-r">
+          <div class="flag-wrapper">
+            <span class="hexa" aria-hidden="true"></span>
+            <span class="flag">Intel Corporation <br/>SoftSDV</span>
+            <span class="time-wrapper"><span class="time">March 2006 .. December 2009</span></span>
+          </div>
+          <div class="desc">Served as a virtualization technical leader in the CPU team of full-system virtual platform (SoftSDV). Worked with Intel architects in enabling of new virtualization technologies in the next core architectures. One of designers of "Virtual CPU API" interface – virtual platform and core simulator agnostic interface used in the Intel by several teams.</div>
+        </div>
+      </li>
+      
+      <li>
+        <div class="direction-l">
+          <div class="flag-wrapper">
+            <span class="hexa" aria-hidden="true"></span>
+            <span class="flag">Intersystems Corporation</span>
+            <span class="time-wrapper"><span class="time">March 2000 .. February 2006</span></span>
+          </div>
+          <div class="desc">Support and bug fixes of many areas of a Caché product, including kernel of a Caché engine, and surrounding object framework. Кeimplemented and maintained 64-bit Windows version of a Caché kernel packet driver (NDIS protocol driver). Moderated Russian Caché community, and participated in a worldwide Caché developers community.</div>
+        </div>
+      </li>
+      
+      <li>
+        <div class="direction-r">
+          <div class="flag-wrapper">
+            <span class="hexa" aria-hidden="true"></span>
+            <span class="flag">StatProgress</span>
+            <span class="time-wrapper"><span class="time">November 1996 .. February 2000</span></span>
+          </div>
+          <div class="desc">Development of the original patented technology for constructing of 16-and 32-bit multimedia MediaView-based courses running on Windows. Led development of several multimedia courses, and web sites. Part-time UI design, web-design and web-programming.</div>
+        </div>
+      </li>
+      
+      <li>
+        <div class="direction-l">
+          <div class="flag-wrapper">
+            <span class="hexa" aria-hidden="true"></span>
+            <span class="flag">Inzer</span>
+            <span class="time-wrapper"><span class="time">May 1994 .. February 1996</span></span>
+          </div>
+          <div class="desc">Participated in the development of Windows Application Constructor, scripting subsystem in the Windows terminal and dialer program (DataLine 2.0). Documentation, setups in various projects. Custom development.</div>
+        </div>
+      </li>
+      
+      <li>
+        <div class="direction-r">
+          <div class="flag-wrapper">
+            <span class="hexa" aria-hidden="true"></span>
+            <span class="flag">MP Karat</span>
+            <span class="time-wrapper"><span class="time">September 1990 .. April 1994</span></span>
+          </div>
+          <div class="desc">Support of Borland C/C++ and Borland Pascal products.</div>
+        </div>
+      </li>
+      
+      <li>
+        <div class="direction-l">
+          <div class="flag-wrapper">
+            <span class="hexa" aria-hidden="true"></span>
+            <span class="flag">Heliomed</span>
+            <span class="time-wrapper"><span class="time">March 1990 .. March 1994</span></span>
+          </div>
+          <div class="desc">Development of an optimizing C compiler for 8-bit Z80-based embedded software (firmware of x-ray devices).</div>
+        </div>
+      </li>
+      
+    </ul>
+  </section>
 
-<ul class="timeline">
-    
-    <li>
-        <div class="direction-l">
-            <div class="flag-wrapper">
-                <span class="hexa"></span>
-                <span class="flag">Huawei GaussDB(DWS) </span>
-                <span class="time-wrapper"><span class="time">April 2023 .. Today</span></span>
-            </div>
-            <div class="shadow raised desc">What could you do if you have big cloud player behind your DBMS engine, a very talented and capable team, and intention to get to the top of TPC-H rating? </div>
-        </div>
-    </li>
-    
-    <li>
+  <section class="resume-section" aria-labelledby="resume-community">
+    <h2 id="resume-community">Community &amp; conferences</h2>
+    <ul class="timeline">
+      
+      <li>
         <div class="direction-r">
-            <div class="flag-wrapper">
-                <span class="hexa"></span>
-                <span class="flag">Tarantool Team </span>
-                <span class="time-wrapper"><span class="time">February 2020 .. February 2023</span></span>
-            </div>
-            <div class="shadow raised desc">What could be more fun than playing with database engines? Like playing with SQL and LuaJit al together... </div>
+          <div class="flag-wrapper">
+            <span class="hexa" aria-hidden="true"></span>
+            <span class="flag"><a href="https://cppconf.ru/persons/476e40fdc39a4167b7c7ba4dac8470be/">C++ Russia</a></span>
+            <span class="time-wrapper"><span class="time">2020 – 2026</span></span>
+          </div>
+          <div class="desc">Program committee member and invited expert for the conference on modern C++ and systems programming. Reviewing talk proposals and helping speakers prepare their presentations.</div>
         </div>
-    </li>
-    
-    <li>
+      </li>
+      
+      <li>
         <div class="direction-l">
-            <div class="flag-wrapper">
-                <span class="hexa"></span>
-                <span class="flag">Yandex.Taxi </span>
-                <span class="time-wrapper"><span class="time">May 2018 .. February 2020</span></span>
-            </div>
-            <div class="shadow raised desc">Was making Taxi backend software using more effecient algorithms. Played with transport simulators, but discovered that they are complex. </div>
+          <div class="flag-wrapper">
+            <span class="hexa" aria-hidden="true"></span>
+            <span class="flag"><a href="https://datainternals.ru/2025/committee">Data Internals X 2025</a></span>
+            <span class="time-wrapper"><span class="time">2025</span></span>
+          </div>
+          <div class="desc">Program committee member for the conference on database internals, data engineering, and data storage and processing systems.</div>
         </div>
-    </li>
-    
-    <li>
+      </li>
+      
+      <li>
         <div class="direction-r">
-            <div class="flag-wrapper">
-                <span class="hexa"></span>
-                <span class="flag">Acronis </span>
-                <span class="time-wrapper"><span class="time">December 2016 .. April 2018</span></span>
-            </div>
-            <div class="shadow raised desc">Was making enterprise backups great again... </div>
+          <div class="flag-wrapper">
+            <span class="hexa" aria-hidden="true"></span>
+            <span class="flag"><a href="https://databaseinternals.timepad.ru/">Database Internals Meetup</a></span>
+            <span class="time-wrapper"><span class="time">2024 – Present</span></span>
+          </div>
+          <div class="desc">Helping organize a Russian-speaking community meetup series for developers of database management systems and distributed systems.</div>
         </div>
-    </li>
-    
-    <li>
-        <div class="direction-l">
-            <div class="flag-wrapper">
-                <span class="hexa"></span>
-                <span class="flag">InterSystems Corporation </span>
-                <span class="time-wrapper"><span class="time">March 2014 .. July 2016</span></span>
-            </div>
-            <div class="shadow raised desc">Developed proof-of-concept code for several customer enabling projects. Taught on schools, seminars, conferences and meetups. Wrote articles and blog posts. Proposed and organized 1st InterSystems hackathon. Started practice of local meetups which then spread over regions. </div>
-        </div>
-    </li>
-    
-    <li>
-        <div class="direction-r">
-            <div class="flag-wrapper">
-                <span class="hexa"></span>
-                <span class="flag">Intel Corporation <br/>Vippy </span>
-                <span class="time-wrapper"><span class="time">July 2010 .. November 2013</span></span>
-            </div>
-            <div class="shadow raised desc">As part of memory subsystem team participated in the development of clock-precise simulator for the experimental, next-generation processor. Introduced agile and XP techniques to the team. </div>
-        </div>
-    </li>
-    
-    <li>
-        <div class="direction-l">
-            <div class="flag-wrapper">
-                <span class="hexa"></span>
-                <span class="flag">Intel Corporation <br/>ZSIM </span>
-                <span class="time-wrapper"><span class="time">December 2009 .. June 2010</span></span>
-            </div>
-            <div class="shadow raised desc">Fast, fucntional mode x86 simulator has been created from scratch. Developed new pagewalkers. Maintained VCPUAPI interface for working with external virtual platforms (e.g. Synopsis Innovator). </div>
-        </div>
-    </li>
-    
-    <li>
-        <div class="direction-r">
-            <div class="flag-wrapper">
-                <span class="hexa"></span>
-                <span class="flag">Intel Corporation <br/>SoftSDV </span>
-                <span class="time-wrapper"><span class="time">March 2006 .. December 2009</span></span>
-            </div>
-            <div class="shadow raised desc">Served as a virtualization technical leader in the CPU team of full-system virtual platform (SoftSDV). Worked with Intel architects in enabling of new virtualization technologies in the next core architectures. One of designers of "Virtual CPU API" interface – virtual platform and core simulator agnostic interface used in the Intel by several teams. </div>
-        </div>
-    </li>
-    
-    <li>
-        <div class="direction-l">
-            <div class="flag-wrapper">
-                <span class="hexa"></span>
-                <span class="flag">Intersystems Corporation </span>
-                <span class="time-wrapper"><span class="time">March 2000 .. February 2006</span></span>
-            </div>
-            <div class="shadow raised desc">Support and bug fixes of many areas of a Caché product, including kernel of a Caché engine, and surrounding object framework. Кeimplemented and maintained 64-bit Windows version of a Caché kernel packet driver (NDIS protocol driver). Moderated Russian Caché community, and participated in a worldwide Caché developers community. </div>
-        </div>
-    </li>
-    
-    <li>
-        <div class="direction-r">
-            <div class="flag-wrapper">
-                <span class="hexa"></span>
-                <span class="flag">StatProgress </span>
-                <span class="time-wrapper"><span class="time">November 1996 .. February 2000</span></span>
-            </div>
-            <div class="shadow raised desc">Development of the original patented technology for constructing of 16-and 32-bit multimedia MediaView-based courses running on Windows. Led development of several multimedia courses, and web sites. Part-time UI design, web-design and web-programming. </div>
-        </div>
-    </li>
-    
-    <li>
-        <div class="direction-l">
-            <div class="flag-wrapper">
-                <span class="hexa"></span>
-                <span class="flag">Inzer </span>
-                <span class="time-wrapper"><span class="time">May 1994 .. February 1996</span></span>
-            </div>
-            <div class="shadow raised desc">Participated in the development of Windows Application Constructor, scripting subsystem in the Windows terminal and dialer program (DataLine 2.0). Documentation, setups in various projects. Custom development. </div>
-        </div>
-    </li>
-    
-    <li>
-        <div class="direction-r">
-            <div class="flag-wrapper">
-                <span class="hexa"></span>
-                <span class="flag">MP Karat </span>
-                <span class="time-wrapper"><span class="time">September 1990 .. April 1994</span></span>
-            </div>
-            <div class="shadow raised desc">Support of Borland C/C++ and Borland Pascal products. </div>
-        </div>
-    </li>
-    
-    <li>
-        <div class="direction-l">
-            <div class="flag-wrapper">
-                <span class="hexa"></span>
-                <span class="flag">Heliomed </span>
-                <span class="time-wrapper"><span class="time">March 1990 .. March 1994</span></span>
-            </div>
-            <div class="shadow raised desc">Development of an optimizing C compiler for 8-bit Z80-based embedded software (firmware of x-ray devices). </div>
-        </div>
-    </li>
-    
-</ul>
+      </li>
+      
+    </ul>
+  </section>
 
-<h3>Education and academia</h3>
-
-<ul class="timeline">
-    
-    <li>
-        <div class="direction-r">
-            <div class="flag-wrapper">
-                <span class="hexa"></span>
-                <span class="flag">Moscow State Institute of Electronics and Mathematics (MSIEM) </span>
-                <span class="time-wrapper"><span class="time">September 1988 .. February 1994</span></span>
-            </div>
-            <div class="shadow raised desc">Graduation thesis title - “Development of a parser for the general purpose language Z” </div>
-        </div>
-    </li>
-    
-    <li>
+  <section class="resume-section" aria-labelledby="resume-education">
+    <h2 id="resume-education">Education and academia</h2>
+    <ul class="timeline">
+      
+      <li>
         <div class="direction-l">
-            <div class="flag-wrapper">
-                <span class="hexa"></span>
-                <span class="flag">Moscow State Institute of Electronics and Mathematics (MSIEM) </span>
-                <span class="time-wrapper"><span class="time">March 1994 .. June 2002</span></span>
-            </div>
-            <div class="shadow raised desc">Delivered lectures and practical workshops on several courses, including “Compiler Design and Implementation”, “Object-Oriented Design”, “CAD Instrumental Tools”, etc. Written several scientific publications. </div>
+          <div class="flag-wrapper">
+            <span class="hexa" aria-hidden="true"></span>
+            <span class="flag">Moscow State Institute of Electronics and Mathematics (MSIEM)</span>
+            <span class="time-wrapper"><span class="time">September 1988 .. February 1994</span></span>
+          </div>
+          <div class="desc">Graduation thesis title - “Development of a parser for the general purpose language Z”</div>
         </div>
-    </li>
-    
-    <li>
+      </li>
+      
+      <li>
         <div class="direction-r">
-            <div class="flag-wrapper">
-                <span class="hexa"></span>
-                <span class="flag">Nesterova University </span>
-                <span class="time-wrapper"><span class="time">2010, 2011, 2013</span></span>
-            </div>
-            <div class="shadow raised desc">Delivered a course of “Computer Systems Architecture” </div>
+          <div class="flag-wrapper">
+            <span class="hexa" aria-hidden="true"></span>
+            <span class="flag">Moscow State Institute of Electronics and Mathematics (MSIEM)</span>
+            <span class="time-wrapper"><span class="time">March 1994 .. June 2002</span></span>
+          </div>
+          <div class="desc">Delivered lectures and practical workshops on several courses, including “Compiler Design and Implementation”, “Object-Oriented Design”, “CAD Instrumental Tools”, etc. Written several scientific publications.</div>
         </div>
-    </li>
-    
-</ul>
+      </li>
+      
+      <li>
+        <div class="direction-l">
+          <div class="flag-wrapper">
+            <span class="hexa" aria-hidden="true"></span>
+            <span class="flag">Nesterova University</span>
+            <span class="time-wrapper"><span class="time">2010, 2011, 2013</span></span>
+          </div>
+          <div class="desc">Delivered a course of “Computer Systems Architecture”</div>
+        </div>
+      </li>
+      
+    </ul>
+  </section>
+</div>
 
-</div></container>
+</main>
+
+      <footer role="contentinfo" id="site-footer">
+  <div class="footer-inner">
+    <a class="footer-brand" href="/">Timur Safin <span>Making no sense</span></a>
+    <nav role="navigation" class="menu bottom-menu" aria-label="Footer navigation">
+      <ul class="menu-item">
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/blog/">Articles</a></li>
+      
+        <li><a href="/projects/">Projects</a></li>
+      
+        <li><a href="/resume/">About</a></li>
+      
+      </ul>
+    </nav>
+    <nav class="footer-social" aria-label="Social links">
+      <a href="https://github.com/tsafin" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/timursafin" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="/atom.xml">RSS</a>
+    </nav>
+  </div>
+  <p class="copyright">&#169; 2026 Timur Safin. Built with <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a>.</p>
+</footer>
 
     </div>
 
-    <script src="/js/vendor/jquery-1.10.2.min.js"></script>
+    <script src="/js/vendor/jquery-1.9.1.min.js"></script>
     <script src="/js/main.js"></script>
-    <script src="rrssb.min.js"></script>
 
     
 
@@ -379,8 +484,5 @@
 <noscript><div><img src="https://mc.yandex.ru/watch/40768979" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
 
-
-
   </body>
-
 </html>

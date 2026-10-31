@@ -1,54 +1,58 @@
 ---
-layout: timeline 
+layout: timeline
+title: About
+excerpt: Systems software engineer, database enthusiast, and occasional writer.
 ---
 
-<container><div class="column">
-
-    <h1><span class="circle"><img src="{{ site.owner.photo | prepend: '/images/' | relative_url }}" alt="{{ site.owner.name }}"></span></br>
-        Timur Safin</h1>
-    <h4>Systems Software Engineer</h4>
-
-    <blockquote>Born in the Soviet Moscow the snowy December 1970. Fast forward 40 years - programmed performance 
-        simulator for some experimental "next-generation" processor. Few years further and, boom, found himself
-        evangelizing Intersystems Caché database. Yet another twist - we were making backups great again.
-        One more turn and we are developing Yandex.Taxi backend software. Looked around - and we are programming
-        database engines again.
+<div class="resume-column">
+  <header class="resume-hero">
+    <h1>
+      <span class="circle"><img src="{{ site.owner.photo | prepend: '/images/' | relative_url }}" alt="{{ site.owner.name }}"></span>
+      <span>Timur Safin</span>
+    </h1>
+    <p class="resume-role">Systems Software Engineer</p>
+    <blockquote>Born in the Soviet Moscow the snowy December 1970. Fast forward 40 years - programmed performance
+      simulator for some experimental "next-generation" processor. Few years further and, boom, found himself
+      evangelizing Intersystems Caché database. Yet another twist - we were making backups great again.
+      One more turn and we are developing Yandex.Taxi backend software. Looked around - and we are programming
+      database engines again.
     </blockquote>
+    <div class="resume-social">{% include rrssb.html %}</div>
+  </header>
 
-{% include rrssb.html %}
-
-<h3>Experience</h3>
-
-<ul class="timeline">
-    {% for record in site.data.resume-content %}
-    <li>
+  <section class="resume-section" aria-labelledby="resume-experience">
+    <h2 id="resume-experience">Experience</h2>
+    <ul class="timeline">
+      {% for record in site.data.resume-content %}
+      <li>
         <div class="direction-{% cycle 'l', 'r' %}">
-            <div class="flag-wrapper">
-                <span class="hexa"></span>
-                <span class="flag">{{ record.flag }} </span>
-                <span class="time-wrapper"><span class="time">{{ record.time }}</span></span>
-            </div>
-            <div class="shadow raised desc">{{ record.desc }} </div>
+          <div class="flag-wrapper">
+            <span class="hexa" aria-hidden="true"></span>
+            <span class="flag">{{ record.flag }}</span>
+            <span class="time-wrapper"><span class="time">{{ record.time }}</span></span>
+          </div>
+          <div class="desc">{{ record.desc }}</div>
         </div>
-    </li>
-    {% endfor %}
-</ul>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
 
-<h3>Education and academia</h3>
-
-<ul class="timeline">
-    {% for record in site.data.resume-education %}
-    <li>
+  <section class="resume-section" aria-labelledby="resume-education">
+    <h2 id="resume-education">Education and academia</h2>
+    <ul class="timeline">
+      {% for record in site.data.resume-education %}
+      <li>
         <div class="direction-{% cycle 'l', 'r' %}">
-            <div class="flag-wrapper">
-                <span class="hexa"></span>
-                <span class="flag">{{ record.flag }} </span>
-                <span class="time-wrapper"><span class="time">{{ record.time }}</span></span>
-            </div>
-            <div class="shadow raised desc">{{ record.desc }} </div>
+          <div class="flag-wrapper">
+            <span class="hexa" aria-hidden="true"></span>
+            <span class="flag">{{ record.flag }}</span>
+            <span class="time-wrapper"><span class="time">{{ record.time }}</span></span>
+          </div>
+          <div class="desc">{{ record.desc }}</div>
         </div>
-    </li>
-    {% endfor %}
-</ul>
-
-</div></container>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+</div>

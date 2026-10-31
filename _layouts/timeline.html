@@ -1,45 +1,7 @@
-﻿<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>{% if page.title %}{{ page.title }} • {% endif %}{{ site.title }}</title>
-    {% if page.excerpt %}<meta name="description" content="{{ page.excerpt | strip_html }}">{% endif %}
-    {% if page.tags %}<meta name="keywords" content="{{ page.tags | join: ', ' }}">{% endif %}
-    {% if page.author %}
-      {% assign author = site.data.authors[page.author] %}{% else %}{% assign author = site.owner %}
-    {% endif %}
-    {% include open-graph.html %}
+---
+layout: default
+---
 
-    <link rel="canonical" href="{{ page.url | replace:'index.html','' | relative_url }}">
-
-    <link href="{{ "/atom.xml" | relative_url }}" type="application/atom+xml" rel="alternate" title="{{ site.title }} Atom Feed">
-    <link href="{{ "/sitemap.xml" | relative_url }}" type="application/xml" rel="sitemap" title="Sitemap">
-
-    <meta name="HandheldFriendly" content="True">
-    <meta name="MobileOptimized" content="320">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="cleartype" content="on">
-
-    <link rel="stylesheet" href="{{ '/css/main.css' | relative_url }}">
-    <link rel="stylesheet" href="{{ '/css/resume.css' | relative_url }}">
-
-  </head>
-
-  <body id="js-body">
-    {% include browser-upgrade.html %}
-    {% include header.html %}
-
-    <div id="page-wrapper">
-      {{ content }}
-    </div>
-
-    <script src="{{ '/js/vendor/jquery-1.10.2.min.js' | relative_url }}"></script>
-    <script src="{{ '/js/main.js' | relative_url }}"></script>
-    <script src="rrssb.min.js"></script>
-
-    {% include analytics.html %}
-
-
-  </body>
-
-</html>
+<main id="main" class="resume-page">
+  {{ content }}
+</main>
